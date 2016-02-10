@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>AdsMaterial.qml</file>
+        <file>gameScreen.qml</file>
+        <file>GroundPlane.qml</file>
+        <file>World.qml</file>
+    </qresource>
+</RCC>
