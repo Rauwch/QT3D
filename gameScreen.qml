@@ -16,9 +16,7 @@ Item {
 
         World { id: world }
     }
-    Rectangle{
-        id: test
-    }
+
 
     Rectangle{
         id: textBox
