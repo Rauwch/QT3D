@@ -16,6 +16,9 @@ Item {
 
         World { id: world }
     }
+    Rectangle{
+        id: test
+    }
 
     Rectangle{
         id: textBox
@@ -26,7 +29,7 @@ Item {
         Button{
             id: increaseHeight
             text: "CLICK ME!"
-            onClicked: test test;
+            onClicked: test
         }
     }
 
