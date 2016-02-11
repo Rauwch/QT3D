@@ -5,7 +5,7 @@ import Link 1.0
 
 Entity {
     id: myWorld
-    property int numberOfNodes: 100
+    property int numberOfNodes: 4
     Camera {
         id: camera
         projectionType: CameraLens.PerspectiveProjection
@@ -89,66 +89,38 @@ Entity {
         }
     }
 
+    NodeInstantiator {
+          id: collection
+          property int maxCount: parent.numberOfNodes
+          model: maxCount
+
+          delegate: NodeEntity {
+              id: cubicEntity
+              entityMesh: cylMesh
+              entityIndex: index
+              entityCount: myWorld.numberOfNodes
+              magnitude: 0
+          }
+      }
+
 
     //cylinder
-//    CylinderMesh {
-//        id: cylMesh
-//        length: 10
-//        radius: 2
-//        rings: 100
-//        slices: 20
-//    }
+    CylinderMesh {
+        id: cylMesh
+        length: 10
+        radius: 2
+        rings: 100
+        slices: 20
+    }
 
     QQ2.ListModel{
         id: entityModel
         QQ2.ListElement{emptyRole: 0}
     }
 
-    NodeInstantiator {
-        id: collection
-        property int _count: 0
-        property real spacing: 5
-        property int cols: 8
-        property int _rows: count/cols
-
-        model: entityModel
-        delegate: NodeEntity {
-            id: myEntity
-            position: Qt.vector3d(collection.spacing * (index % collection.cols - 0.5 * (collection.cols - 1)),
-                                  0.0,collection.spacing * (Math.floor(index / collection.cols) - 0.5 * collection._rows));
-//
-//            entityMesh: cylMesh
-//            property Material material
-
-//            entityIndex: index
-//            entityCount: myWorld.numberOfNodes
-//            magnitude: 0
-//            property Transform transform : Transform {
-//                id: nodetransform
-//                translation: Qt.vector3d(10,-2.5,0)
-//            }
-//            appendAll()
-
-//            QQ2.Timer {
-//                interval: 10
-//                repeat: false
-//                running: true
-//                onTriggered: {
-//                    entityModel.append({});
-//                }
 
 
-//            }
 
-        }
-
-    }
-
-//    Visualizer {
-//        id: visualizer
-//        animationState: mainview.state
-//        numberOfBars: 120
-//    }
 }
 
 //function appendAll(){
