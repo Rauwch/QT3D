@@ -9,7 +9,6 @@ Item {
     width:800
     height:600
 
-
     Scene3D{
         anchors.fill: parent
         aspects: ["render", "logic"]
@@ -18,13 +17,14 @@ Item {
         World { id: world }
     }
 
-
+    //2d box where setting can be edited
     Rectangle{
         id: textBox
         width: 50
         height: 50
         visible: showBox
 
+        //button that allows for height to be edited
         Button{
             id: increaseHeight
             text: "CLICK ME!"

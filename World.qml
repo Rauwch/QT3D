@@ -1,10 +1,11 @@
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
-import QtQuick 2.0
+import QtQuick 2.0 as QQ2
 import Link 1.0
 
 Entity {
     id: myWorld
+    property int numberOfNodes: 100
     Camera {
         id: camera
         projectionType: CameraLens.PerspectiveProjection
@@ -12,7 +13,7 @@ Entity {
         aspectRatio: 16/9
         nearPlane : 0.1
         farPlane : 1000.0
-        position: Qt.vector3d( 0.0, 0.0, 20.0 )
+        position: Qt.vector3d( 0.0, 0.0, 50.0 )
         upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
         viewCenter: Qt.vector3d( 0.0, 0.0, 0.0 )
     }
@@ -39,16 +40,7 @@ Entity {
         specular: "white"
         shininess: 100.0
     }
-    Item{
-        Rectangle {
-            width: 100
-            height: 100
-            color: "red"
-            border.color: "black"
-            border.width: 5
-            radius: 10
-        }
-    }
+
 
 
 
@@ -97,11 +89,75 @@ Entity {
         }
     }
 
-//    Linker{
-//        id:myLinker
 
+    //cylinder
+//    CylinderMesh {
+//        id: cylMesh
+//        length: 10
+//        radius: 2
+//        rings: 100
+//        slices: 20
+//    }
+
+    QQ2.ListModel{
+        id: entityModel
+        QQ2.ListElement{emptyRole: 0}
+    }
+
+    NodeInstantiator {
+        id: collection
+        property int _count: 0
+        property real spacing: 5
+        property int cols: 8
+        property int _rows: count/cols
+
+        model: entityModel
+        delegate: NodeEntity {
+            id: myEntity
+            position: Qt.vector3d(collection.spacing * (index % collection.cols - 0.5 * (collection.cols - 1)),
+                                  0.0,collection.spacing * (Math.floor(index / collection.cols) - 0.5 * collection._rows));
+//
+//            entityMesh: cylMesh
+//            property Material material
+
+//            entityIndex: index
+//            entityCount: myWorld.numberOfNodes
+//            magnitude: 0
+//            property Transform transform : Transform {
+//                id: nodetransform
+//                translation: Qt.vector3d(10,-2.5,0)
+//            }
+//            appendAll()
+
+//            QQ2.Timer {
+//                interval: 10
+//                repeat: false
+//                running: true
+//                onTriggered: {
+//                    entityModel.append({});
+//                }
+
+
+//            }
+
+        }
+
+    }
+
+//    Visualizer {
+//        id: visualizer
+//        animationState: mainview.state
+//        numberOfBars: 120
 //    }
 }
+
+//function appendAll(){
+//    i = 0
+//    while(i<5){
+//    entityModel.append({});
+//        i++
+//    }
+//}
 
 
 
