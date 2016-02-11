@@ -1,7 +1,8 @@
-import QtQuick 2.0
-
+import QtQuick 2.2
+import QtQuick.Controls 1.2
 import QtQuick.Window 2.0
 import QtQuick.Scene3D 2.0
+import Link 1.0
 Item {
     id: mainWindow
     property bool showBox
@@ -27,8 +28,11 @@ Item {
         Button{
             id: increaseHeight
             text: "CLICK ME!"
-            onClicked: test
+            onClicked: myLinker.setMyHeight(myLinker.getMyHeight()+1)
         }
+    }
+    Linker{
+        id: myLinker
     }
 
 

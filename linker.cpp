@@ -13,4 +13,5 @@ int Linker::getMyHeight() const
 void Linker::setMyHeight(int value)
 {
     myHeight = value;
+    emit heightChanged(value);
 }

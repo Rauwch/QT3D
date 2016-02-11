@@ -14,8 +14,8 @@ public:
 
 
 
-    int getMyHeight() const;
-    void setMyHeight(int value);
+    Q_INVOKABLE int getMyHeight() const;
+    Q_INVOKABLE void setMyHeight(int value);
 
 signals:
 
