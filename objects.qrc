@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>OctopusFree_OBJ/OctopusFree.obj</file>
+    </qresource>
+</RCC>
