@@ -4,6 +4,10 @@ import Qt3D.Render 2.0
 Entity{
     id:electron
     
+    Mesh{
+        id: electronMesh
+        source: 
+    }
 
 
 
