@@ -2,7 +2,7 @@
 
 Linker::Linker(QObject *parent) : QObject(parent)
 {
-    myHeight = 10;
+    myHeight = 25;
 }
 
 int Linker::getMyHeight() const

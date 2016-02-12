@@ -13,7 +13,7 @@ Entity {
         aspectRatio: 16/9
         nearPlane : 0.1
         farPlane : 1000.0
-        position: Qt.vector3d( 0.0, 0.0, 50.0 )
+        position: Qt.vector3d( 0.0, 0.0, 100.0 )
         upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
         viewCenter: Qt.vector3d( 0.0, 0.0, 0.0 )
     }
@@ -29,7 +29,7 @@ Entity {
 
     CylinderMesh {
         id: cylinderMesh
-        radius: 1
+        radius: 3
         length: myLinker.height
         rings: 100
         slices: 20
@@ -89,20 +89,6 @@ Entity {
         }
     }
 
-    NodeInstantiator {
-          id: collection
-          property int maxCount: parent.numberOfNodes
-          model: maxCount
-
-          delegate: NodeEntity {
-              id: cubicEntity
-              entityMesh: cylMesh
-              entityIndex: index
-              entityCount: myWorld.numberOfNodes
-              magnitude: 0
-          }
-      }
-
 
     //cylinder
     CylinderMesh {
@@ -113,9 +99,11 @@ Entity {
         slices: 20
     }
 
-    QQ2.ListModel{
-        id: entityModel
-        QQ2.ListElement{emptyRole: 0}
+
+
+
+    Controller{
+        id:myController
     }
 
 

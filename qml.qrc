@@ -5,7 +5,7 @@
         <file>gameScreen.qml</file>
         <file>GroundPlane.qml</file>
         <file>World.qml</file>
-        <file>NodeEntity.qml</file>
         <file>Electron.qml</file>
+        <file>Controller.qml</file>
     </qresource>
 </RCC>
