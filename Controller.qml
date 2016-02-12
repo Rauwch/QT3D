@@ -12,7 +12,7 @@ Entity{
 
         for(var i= 0; i< 4; i++ )
         {
-            var electron = electronFactory.createObject(null,{"beginAnimation": Qt.vector3d(0,0,5),"endAnimation": Qt.vector3d(40,0,5),"startPosition": Qt.vector3d(i*10,0,5),"currentPosition": Qt.vector3d(i*10,0,5),"speed": 0,"direction": 0});
+            var electron = electronFactory.createObject(null,{"beginAnimation": Qt.vector3d(0,0,5),"endAnimation": Qt.vector3d(40,0,5),"startPosition": Qt.vector3d( 10 +i*10,0,5),"speed": 0,"direction": 0});
             electron.parent = controller.parent;
         }
     }
