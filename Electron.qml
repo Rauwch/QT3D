@@ -11,7 +11,7 @@ Entity{
     //start plaats
     property vector3d startPosition
     property vector3d currentPosition
-
+    currentPosition: startPosition
     property real speed: 0
     // richting in welke de elektronen zich begeven
     property int direction
@@ -23,27 +23,18 @@ Entity{
     }
     QQ2.Component.onCompleted: {
         console.log("electron gemaakt");
-        currentPosition = startPosition;
-        electronTransform.beginAnimation2 = beginAnimation;
-        electronTransform.endAnimation2 = endAnimation;
-        electronTransform.startPosition2 = startPosition;
-        electronTransform.currentPosition2 = currentPosition;
+        console.log("Dit is de begin animatie plaats " + beginAnimation)
+        console.log("Dit is de eind animatie plaats " + endAnimation)
+        console.log("Dit is de start plaats " + startPosition)
+        console.log("Dit is de current plaats " + currentPosition)
 
     }
 
     property Transform transform: Transform {
 
         id: electronTransform
-        //begin en einde positie van animatie
-        property vector3d beginAnimation2
-        property vector3d endAnimation2
 
-        //start plaats
-        property vector3d startPosition2
-        property vector3d currentPosition2
-
-
-        translation: currentPosition2
+        translation: currentPosition
         rotation: fromAxisAndAngle(Qt.vector3d(0, 1, 0),0 )
     }
 
@@ -51,9 +42,10 @@ Entity{
         id: electronMovement
         loops:QQ2.Animation.Infinite
         running: true
-        QQ2.Vector3dAnimation {target:electronTransform; property: "currentPosition2"; to: "endAnimation2"; duration:1000; easing.type: QQ2.Easing.Linear}
-        QQ2.Vector3dAnimation {target:electronTransform; property: "currentPosition2"; to: "beginAnimation2"; duration:0; easing.type: QQ2.Easing.Linear}
-        QQ2.Vector3dAnimation {target:electronTransform; property: "currentPosition2"; to: "startPosition2"; duration:1000; easing.type: QQ2.Easing.Linear}
+
+        QQ2.Vector3dAnimation {target:electron; property: "currentPosition"; to: "endAnimation"; duration:1000; easing.type: QQ2.Easing.Linear}
+        //QQ2.Vector3dAnimation {target:electron; property: "currentPosition"; to: "beginAnimation"; duration:0; easing.type: QQ2.Easing.Linear}
+        //QQ2.Vector3dAnimation {target:electron; property: "currentPosition"; to: "startPosition"; duration:1000; easing.type: QQ2.Easing.Linear}
 
 
 
