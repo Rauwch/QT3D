@@ -15,11 +15,7 @@ Entity{
             translation: Qt.vector3d(xAnimation,0,0)
             property int xAnimation: 0
 
-            onXAnimationChanged: {
-                while(xAnimation !=0){
 
-                }
-            }
     }
     components: [entityMesh, xTransform]
 
