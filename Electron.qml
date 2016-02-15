@@ -13,12 +13,13 @@ Entity{
     property vector3d startPosition
     property vector3d currentPosition
     property real currentPosX
-    property real currentPosY
+    property real currentPosY:myLinker.height
     property real currentPosZ
     property real speed
     // richting in welke de elektronen zich begeven
     property int direction
     //property Linker theLinker
+
 
 
     Mesh{
@@ -32,13 +33,13 @@ Entity{
         currentPosition.x = currentPosX;
         currentPosition.y = currentPosY;
         currentPosition.z = currentPosZ;
-        currentPosY = myLinker.getMyHeight();
-        currentPosition.y = myLinker.getMyHeight();
-        startPosition.y= myLinker.getMyHeight();
-        beginAnimation.y = myLinker.getMyHeight();
-        endAnimation.y = myLinker.getMyHeight();
+        currentPosY = myLinker.height;
+        currentPosition.y = myLinker.height;
+        startPosition.y= myLinker.height;
+        beginAnimation.y = myLinker.height;
+        endAnimation.y = myLinker.height;
         console.log("electron gemaakt");
-        console.log("height myLinker: " + myLinker.getMyHeight());
+        console.log("height myLinker: " + myLinker.height);
 
 //        console.log("beginAnimation.x: " + beginAnimation.x);
 //        console.log("endAnimation: " + endAnimation);
@@ -52,7 +53,7 @@ Entity{
 
     property Transform transform: Transform {
         id: electronTransform
-        translation: Qt.vector3d(currentPosX, currentPosY, currentPosZ)
+        translation: Qt.vector3d(currentPosX, myLinker.height, currentPosZ)
         rotation: fromAxisAndAngle(Qt.vector3d(0, 1, 0),direction )
     }
     QQ2.SequentialAnimation on currentPosX{
@@ -67,8 +68,8 @@ Entity{
 //            id: testThisAlso
 //            loops: QQ2.Animation.Infinite
 //            running: true
-//                QQ2.PropertyAnimation { from: currentPosition.y; to: theLinker.height; duration: 0 }
-//            onLoopCountChanged: theLinker.setMyHeight(theLinker.getMyHeight())
+//                QQ2.PropertyAnimation { to: currentPosY; duration: 0 }
+//            //onLoopCountChanged: theLinker.setMyHeight(theLinker.getMyHeight())
 //    }
     components: [electronMesh,electronTransform]
 
