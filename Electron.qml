@@ -18,13 +18,13 @@ Entity{
     property real speed
     // richting in welke de elektronen zich begeven
     property int direction
+    //property Linker theLinker
 
 
     Mesh{
         id: electronMesh
         source: "OctopusFree_OBJ/OctopusFree.obj"
     }
-
     QQ2.Component.onCompleted: {
         currentPosX= startPosition.x;
         currentPosY= startPosition.y;
@@ -32,7 +32,14 @@ Entity{
         currentPosition.x = currentPosX;
         currentPosition.y = currentPosY;
         currentPosition.z = currentPosZ;
+        currentPosY = myLinker.getMyHeight();
+        currentPosition.y = myLinker.getMyHeight();
+        startPosition.y= myLinker.getMyHeight();
+        beginAnimation.y = myLinker.getMyHeight();
+        endAnimation.y = myLinker.getMyHeight();
         console.log("electron gemaakt");
+        console.log("height myLinker: " + myLinker.getMyHeight());
+
 //        console.log("beginAnimation.x: " + beginAnimation.x);
 //        console.log("endAnimation: " + endAnimation);
 //        console.log("startPosition: " + startPosition);
@@ -56,11 +63,13 @@ Entity{
                 QQ2.PropertyAnimation { from: endAnimation.x; to: beginAnimation.x; duration: 0 }
                 QQ2.PropertyAnimation { from: beginAnimation.x; to: startPosition.x; duration: (beginAnimation.x-startPosition.x)*50 }
         }
-    QQ2.SequentialAnimation on currentPosY{
-            id: testThisAlso
-            loops: QQ2.Animation.Infinite
-            running: true
-                QQ2.PropertyAnimation { from: currentPosition.y; to: myLinker.height; duration: 0 }
-        }
+//    QQ2.SequentialAnimation on currentPosY{
+//            id: testThisAlso
+//            loops: QQ2.Animation.Infinite
+//            running: true
+//                QQ2.PropertyAnimation { from: currentPosition.y; to: theLinker.height; duration: 0 }
+//            onLoopCountChanged: theLinker.setMyHeight(theLinker.getMyHeight())
+//    }
     components: [electronMesh,electronTransform]
+
 }

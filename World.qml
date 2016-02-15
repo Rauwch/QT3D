@@ -101,15 +101,10 @@ Entity {
         slices: 20
     }
 
-
-
-
     Controller{
         id:myController
+//        ourLinker: myLinker
     }
-
-
-
 
 }
 
