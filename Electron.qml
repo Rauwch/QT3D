@@ -13,7 +13,7 @@ Entity{
     property vector3d startPosition
     property vector3d currentPosition
     property real currentPosX
-    property real currentPosY:myLinker.height
+    property real currentPosY:myLinker.height/2-7
     property real currentPosZ
     property real speed
     // richting in welke de elektronen zich begeven
@@ -53,7 +53,7 @@ Entity{
 
     property Transform transform: Transform {
         id: electronTransform
-        translation: Qt.vector3d(currentPosX, myLinker.height, currentPosZ)
+        translation: Qt.vector3d(currentPosX, myLinker.height/2-7, currentPosZ)
         rotation: fromAxisAndAngle(Qt.vector3d(0, 1, 0),direction )
     }
     QQ2.SequentialAnimation on currentPosX{

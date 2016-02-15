@@ -50,7 +50,7 @@ Entity {
 
         property Transform transform : Transform {
             id: cylindertransform
-            translation: Qt.vector3d(0,20,0)
+            translation: Qt.vector3d(0,0,0)
         }
         property ObjectPicker objectPicker: ObjectPicker {
 
