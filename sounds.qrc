@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>backgroundMusic.wav</file>
+        <file>bubble.wav</file>
+        <file>Bubbles.wav</file>
+    </qresource>
+</RCC>

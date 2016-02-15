@@ -2,10 +2,14 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>AdsMaterial.qml</file>
-        <file>gameScreen.qml</file>
         <file>GroundPlane.qml</file>
         <file>World.qml</file>
         <file>Electron.qml</file>
         <file>Controller.qml</file>
+        <file>StartScreen.qml</file>
+        <file>Splash.qml</file>
+        <file>GameScreen.qml</file>
+        <file>Credits.qml</file>
+        <file>LoadingScreen.qml</file>
     </qresource>
 </RCC>

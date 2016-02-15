@@ -1,3 +1,4 @@
+
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.0
@@ -6,8 +7,8 @@ import Link 1.0
 Item {
     id: mainWindow
     property bool showBox
-    width:800
-    height:600
+
+
 
     Scene3D{
         anchors.fill: parent

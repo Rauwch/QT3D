@@ -55,7 +55,9 @@ Entity {
         }
         property ObjectPicker objectPicker: ObjectPicker {
 
-            onClicked: {mainWindow.showBox = !mainWindow.showBox }
+            onClicked: {
+                mainWindow.showBox = !mainWindow.showBox;
+                soundEffects.play()}
         }
 
 
