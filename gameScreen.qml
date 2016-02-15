@@ -13,9 +13,8 @@ Item {
 
     Scene3D{
         anchors.fill: parent
-        aspects: ["render", "logic"]
         focus: true
-
+        aspects: ["render", "logic"]
         World { id: world }
     }
 
