@@ -9,11 +9,12 @@ Entity{
     property var electronFactory
     QQ2.Component.onCompleted: {
         electronFactory = Qt.createComponent("Electron.qml");
-
-        for(var i= 0; i< 4; i++ )
+        var j = 10;
+        for(var i= 0; i< j; i++ )
         {
-            var electron = electronFactory.createObject(null,{"beginAnimation": Qt.vector3d(0,0,5),"endAnimation": Qt.vector3d(40,0,5),"startPosition": Qt.vector3d( 10 +i*10,0,5),"speed": 0,"direction": 0});
+            var electron = electronFactory.createObject(null,{"beginAnimation": Qt.vector3d(j*10,0+myLinker.getMyHeight(),0),"endAnimation": Qt.vector3d(0,0+myLinker.getMyHeight(),0),"startPosition": Qt.vector3d(i*10,0+myLinker.getMyHeight(),0),"speed": 0,"direction": -45});
             electron.parent = controller.parent;
-        }
+        };
     }
+
 }

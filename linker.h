@@ -24,8 +24,8 @@ public slots:
 
 
 private:
-
     int myHeight;
+
 };
 
 #endif // LINKER_H
