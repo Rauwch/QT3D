@@ -20,10 +20,11 @@ Item {
     }
 
     //2d box where setting can be edited
-    Rectangle{
+    Column{
         id: textBox
         width: 100
         height: 50
+        spacing: 10
         visible: showBox
 
         //button that allows for height to be edited
