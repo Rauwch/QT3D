@@ -20,31 +20,31 @@ Entity{
     property int direction
     //property Linker theLinker
     property Material material
-    property Material material2
+//    property Material material2
 
 
 
 
     Mesh{
         id: electronMesh
-        source: "OctopusFree_OBJ/OctopusFree.obj"
+        source: "Jelly/OBJ/Jellyfish.obj"
        }
 //    Material: DiffuseMapMaterial {
     material: DiffuseMapMaterial {
             id: theMaterial
-            diffuse: "Body_DF.webp"
+            diffuse: "Jelly/Textures/Jellyfish.png"
 
             specular: Qt.rgba( 1, 1, 1, 1.0 )
             shininess: 0
         }
 
-    material2: DiffuseMapMaterial {
-            id: theMaterial2
-            diffuse: "Eye_DF.webp"
+//    material2: DiffuseMapMaterial {
+//            id: theMaterial2
+//            diffuse: "Eye_DF.webp"
 
-            specular: Qt.rgba( 1, 1, 1, 1.0 )
-            shininess: 0
-        }
+//            specular: Qt.rgba( 1, 1, 1, 1.0 )
+//            shininess: 0
+//        }
 
     QQ2.Component.onCompleted: {
         currentPosX= startPosition.x;
@@ -75,6 +75,7 @@ Entity{
         id: electronTransform
         translation: Qt.vector3d(currentPosX, myLinker.height/2-7, currentPosZ)
         rotation: fromAxisAndAngle(Qt.vector3d(0, 1, 0),direction )
+        scale: 2
     }
     QQ2.SequentialAnimation on currentPosX{
             id: testThis
@@ -91,6 +92,6 @@ Entity{
 //                QQ2.PropertyAnimation { to: currentPosY; duration: 0 }
 //            //onLoopCountChanged: theLinker.setMyHeight(theLinker.getMyHeight())
 //    }
-    components: [electronMesh,electronTransform,theMaterial,theMaterial2]
+    components: [electronMesh,electronTransform,theMaterial]
 
 }

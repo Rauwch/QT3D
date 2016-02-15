@@ -1,8 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>OctopusFree_OBJ/OctopusFree.obj</file>
-        <file>Body_DF.jpg</file>
-        <file>Body_DF.webp</file>
-        <file>Eye_DF.webp</file>
+        <file>Jelly/Textures/Jellyfish.png</file>
+        <file>Jelly/OBJ/Jellyfish.obj</file>
     </qresource>
 </RCC>
