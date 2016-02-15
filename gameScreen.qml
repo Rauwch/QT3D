@@ -22,15 +22,21 @@ Item {
     //2d box where setting can be edited
     Rectangle{
         id: textBox
-        width: 50
+        width: 100
         height: 50
         visible: showBox
 
         //button that allows for height to be edited
         Button{
             id: increaseHeight
-            text: "CLICK ME!"
+            text: "Increase height!"
             onClicked: myLinker.setMyHeight(myLinker.getMyHeight()+1)
+        }
+
+        Button{
+            id: decreaseHeight
+            text: "Decrease height!"
+            onClicked: myLinker.setMyHeight(myLinker.getMyHeight()-1)
         }
     }
     Linker{
