@@ -19,13 +19,33 @@ Entity{
     // richting in welke de elektronen zich begeven
     property int direction
     //property Linker theLinker
+    property Material material
+    property Material material2
+
 
 
 
     Mesh{
         id: electronMesh
         source: "OctopusFree_OBJ/OctopusFree.obj"
-    }
+       }
+//    Material: DiffuseMapMaterial {
+    material: DiffuseMapMaterial {
+            id: theMaterial
+            diffuse: "Body_DF.webp"
+
+            specular: Qt.rgba( 1, 1, 1, 1.0 )
+            shininess: 0
+        }
+
+    material2: DiffuseMapMaterial {
+            id: theMaterial2
+            diffuse: "Eye_DF.webp"
+
+            specular: Qt.rgba( 1, 1, 1, 1.0 )
+            shininess: 0
+        }
+
     QQ2.Component.onCompleted: {
         currentPosX= startPosition.x;
         currentPosY= startPosition.y;
@@ -39,7 +59,7 @@ Entity{
         beginAnimation.y = myLinker.height;
         endAnimation.y = myLinker.height;
         console.log("electron gemaakt");
-        console.log("height myLinker: " + myLinker.height);
+        //console.log("height myLinker: " + myLinker.height);
 
 //        console.log("beginAnimation.x: " + beginAnimation.x);
 //        console.log("endAnimation: " + endAnimation);
@@ -71,6 +91,6 @@ Entity{
 //                QQ2.PropertyAnimation { to: currentPosY; duration: 0 }
 //            //onLoopCountChanged: theLinker.setMyHeight(theLinker.getMyHeight())
 //    }
-    components: [electronMesh,electronTransform]
+    components: [electronMesh,electronTransform,theMaterial,theMaterial2]
 
 }

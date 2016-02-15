@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>OctopusFree_OBJ/OctopusFree.obj</file>
+        <file>Body_DF.jpg</file>
+        <file>Body_DF.webp</file>
+        <file>Eye_DF.webp</file>
     </qresource>
 </RCC>

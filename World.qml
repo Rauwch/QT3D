@@ -70,6 +70,32 @@ Entity {
 
         ]
     }
+    Entity {
+
+        id: cylinder2
+        property Material material
+
+        property Transform transform : Transform {
+            id: cylindertransform2
+            translation: Qt.vector3d(100,0,0)
+        }
+        property ObjectPicker objectPicker: ObjectPicker {
+
+            onClicked: {
+                mainWindow.showBox = !mainWindow.showBox;
+                soundEffects.play()}
+        }
+
+
+
+        components: [
+            cylinderMesh,
+            colorCylinder,
+            cylindertransform2,
+            objectPicker
+
+        ]
+    }
 
     Configuration  {
         controlledCamera: camera
