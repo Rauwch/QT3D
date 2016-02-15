@@ -7,6 +7,7 @@ import Link 1.0
 Item {
     id: mainWindow
     property bool showBox
+    anchors.fill: parent
 
 
 

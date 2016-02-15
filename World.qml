@@ -24,7 +24,6 @@ Entity {
             diffuseColor: Qt.rgba(0.2, 0.5, 0.3, 1.0)
             specularColor: Qt.rgba(0, 0, 0, 1.0)
         }
-
     }
 
     CylinderMesh {
