@@ -23,10 +23,6 @@ Entity {
         specular: "white"
         shininess: 100.0
     }
-
-
-
-
     components: [
         groundMesh,
         groundTransform,

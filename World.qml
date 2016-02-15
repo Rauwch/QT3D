@@ -13,9 +13,9 @@ Entity {
         aspectRatio: 16/9
         nearPlane : 0.1
         farPlane : 1000.0
-        position: Qt.vector3d( 0.0, 0.0, 100.0 )
+        position: Qt.vector3d( 50.0, 25.0, 120.0 )
         upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
-        viewCenter: Qt.vector3d( 0.0, 0.0, 0.0 )
+        viewCenter: Qt.vector3d( 50.0, 0.0, 0.0 )
     }
 
     GroundPlane {
@@ -51,7 +51,7 @@ Entity {
 
         property Transform transform : Transform {
             id: cylindertransform
-            translation: Qt.vector3d(0,-2.5,0)
+            translation: Qt.vector3d(0,20,0)
         }
         property ObjectPicker objectPicker: ObjectPicker {
 
