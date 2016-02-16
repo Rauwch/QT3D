@@ -27,9 +27,10 @@ Item {
         visible: showBox
 
         //button that allows for height to be edited
-        Button{
+        Button {
             id: increaseHeight
             text: "Increase height!"
+
             onClicked: myLinker.setMyHeight(myLinker.getMyHeight()+1)
         }
 
