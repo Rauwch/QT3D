@@ -20,9 +20,9 @@ Entity{
     property vector3d startPosition
     property vector3d currentPosition
     property real currentPosX
-    property real currentPosY:myLinker.height/2-7
+    property real currentPosY
     property real currentPosZ
-    property real speed
+    property real theSpeed
     // richting in welke de elektronen zich begeven
     property int direction
     property Material material
@@ -39,19 +39,8 @@ Entity{
         }
     //initialises all the properties
     QQ2.Component.onCompleted: {
-        currentPosX= startPosition.x;
-        currentPosY= startPosition.y;
-        currentPosZ= startPosition.z;
-        currentPosition.x = currentPosX;
-        currentPosition.y = currentPosY;
-        currentPosition.z = currentPosZ;
-        currentPosY = myLinker.height;
-        currentPosition.y = myLinker.height;
-        startPosition.y= myLinker.height;
-        beginAnimation.y = myLinker.height;
-        endAnimation.y = myLinker.height;
         console.log("electron gemaakt");
-        //console.log("height myLinker: " + myLinker.height);
+        console.log("height myLinker: " + myLinker.height);
 //        console.log("beginAnimation.x: " + beginAnimation.x);
 //        console.log("endAnimation: " + endAnimation);
 //        console.log("startPosition: " + startPosition);
@@ -67,8 +56,14 @@ Entity{
         id: electronTransform
         translation: Qt.vector3d(currentPosX, myLinker.height/2-7, currentPosZ)
         rotation: fromAxisAndAngle(Qt.vector3d(0, 1, 0),direction )
-        scale: 2
+        scale: 2 
     }
+    onTransformChanged: {
+        animationX.complete();
+        animationX.restart();
+        console.log("in TRANSFOOOOOOOORM " + myLinker.speed);
+    }
+
     //animates the electrons' movement
     //start -> end (slow)
     //end -> begin (= reset; instantly)
@@ -78,10 +73,26 @@ Entity{
             id: animationX
             loops: QQ2.Animation.Infinite
             running: true
-                QQ2.PropertyAnimation { from: startPosition.x; to: endAnimation.x; duration: (startPosition.x-endAnimation.x)*50 }
+                QQ2.PropertyAnimation { from: startPosition.x; to: endAnimation.x; duration: myLinker.speed*(startPosition.x/5) }
                 QQ2.PropertyAnimation { from: endAnimation.x; to: beginAnimation.x; duration: 0 }
-                QQ2.PropertyAnimation { from: beginAnimation.x; to: startPosition.x; duration: (beginAnimation.x-startPosition.x)*50 }
+                QQ2.PropertyAnimation { from: beginAnimation.x; to: startPosition.x; duration: myLinker.speed*((beginAnimation.x-startPosition.x)/5)}
+    QQ2.Component.onCompleted:{
+        console.log("speed: " + myLinker.speed);
+//        console.log("speed: " + speed);
+        console.log("begin-start: " + (beginAnimation.x-startPosition.x)/5);
     }
+    }
+    //wordt nog niet gebruikt
+    function updateSpeed(){
+        animationX.complete();
+        animationX.restart();
+    }
+    onTheSpeedChanged:{
+        updateSpeed();
+        console.log("onspeedchanged aangeroepen")
+    }
+
+
 //    QQ2.SequentialAnimation on currentPosY{
 //            id: animationY
 //            loops: QQ2.Animation.Infinite

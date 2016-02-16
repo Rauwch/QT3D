@@ -22,22 +22,31 @@ Item {
     //2d box where setting can be edited
     Column{
         id: textBox
-        width: 100
-        height: 50
+        width: 300
+        height: 150
         spacing: 10
         visible: showBox
 
         //button that allows for height to be edited
+        //trying to increase the speed here as well
         Button {
             id: increaseHeight
             text: "Increase height!"
-
-            onClicked: myLinker.setMyHeight(myLinker.getMyHeight()+1)
+            width: 300
+            height: 50
+            onClicked:{
+                console.log("ervoor" + myLinker.getMySpeed());
+                myLinker.setMySpeed(myLinker.getMySpeed()+1000);
+                console.log("erna" + myLinker.getMySpeed());
+                myLinker.setMyHeight(myLinker.getMyHeight()+1);
+            }
         }
 
         Button{
             id: decreaseHeight
             text: "Decrease height!"
+            width: 300
+            height: 50
             onClicked: myLinker.setMyHeight(myLinker.getMyHeight()-1)
         }
     }
@@ -45,7 +54,11 @@ Item {
     //creates one Linker object
     Linker{
         id: myLinker
+        Component.onCompleted: {
+            console.log("linker in gamescreen")
+        }
     }
+
 
 
 
