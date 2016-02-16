@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>Jelly/Textures/Jellyfish.png</file>
         <file>Jelly/OBJ/Jellyfish.obj</file>
+        <file>Jelly/Textures/Jellyfish.png</file>
     </qresource>
 </RCC>
