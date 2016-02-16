@@ -1,3 +1,9 @@
+/*
+  shows Qt logo on start up application
+  makes it look nicer / more professional
+  covers the eventual loading time
+  */
+
 import QtQuick 2.0
 import QtQuick.Window 2.0
 Window {

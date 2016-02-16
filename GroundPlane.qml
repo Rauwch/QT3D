@@ -1,3 +1,7 @@
+/*
+  creates a (green) groundplane on top of which we put our objects
+  */
+
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 
