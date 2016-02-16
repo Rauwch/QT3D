@@ -6,7 +6,6 @@ import Link 1.0
 Entity{
     id:controller
     property int amountNodes: 4
-    //property Linker ourLinker
     property bool running: false
     property var electronFactory
     QQ2.Component.onCompleted: {

@@ -6,6 +6,7 @@ import Link 1.0
 Entity {
     id: myWorld
     property int numberOfNodes: 4
+
     Camera {
         id: camera
         projectionType: CameraLens.PerspectiveProjection
@@ -56,7 +57,7 @@ Entity {
         property ObjectPicker objectPicker: ObjectPicker {
 
             onClicked: {
-                mainWindow.showBox = !mainWindow.showBox;
+                myGameScreen.showBox = !myGameScreen.showBox;
                 soundEffects.play()}
         }
 

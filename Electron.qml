@@ -58,6 +58,7 @@ Entity{
         startPosition.y= myLinker.height;
         beginAnimation.y = myLinker.height;
         endAnimation.y = myLinker.height;
+        console.log("Dit is de hoogte  " + currentPosY)
         console.log("electron gemaakt");
         //console.log("height myLinker: " + myLinker.height);
 
@@ -92,6 +93,7 @@ Entity{
 //                QQ2.PropertyAnimation { to: currentPosY; duration: 0 }
 //            //onLoopCountChanged: theLinker.setMyHeight(theLinker.getMyHeight())
 //    }
+
     components: [electronMesh,electronTransform,theMaterial]
 
 }

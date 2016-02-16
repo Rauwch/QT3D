@@ -3,13 +3,21 @@ import QtQuick.Controls 1.4
 import QtQuick.Window 2.1
 import QtMultimedia 5.5
 import QtQuick.Layouts 1.2
-QtObject {
-    id: mainWindow
+Item {
+    id: myStartScreen
     property SystemPalette palette: SystemPalette { }
     property int buttonWidth: Screen.width/3
     property int buttonHeight: 50
     Component.onCompleted: {
         //backgroundMusic.play();
+        console.log("myStartScreen wordt aangemaakt")
+    }
+
+    Component{
+        id: theGameScreen
+        GameScreen{
+        }
+
     }
 
     property var startWindow: Window {
@@ -30,13 +38,14 @@ QtObject {
                 onClicked: {
                     //game.visible = true;
                     soundEffects.source = "Bubbles.wav"
-                    soundEffects.play()
-                    //pageLoader.source = "LoadingScreen.qml"
-                    pageLoader.source = "GameScreen.qml"
+                    soundEffects.play()         
+                    pageLoader.sourceComponent = theGameScreen
+
+                    }
 
                 }
 
-            }
+
             Button{
                 id:optionsButton
                 text:"Options"
@@ -68,8 +77,19 @@ QtObject {
         Loader{
             id: pageLoader
             anchors.fill: parent
-        }
+            asynchronous: true
+            visible: status == Loader.Ready
 
+        }
+        property var emptySource
+        Connections{
+            target: pageLoader.item
+
+            onReturner:{
+                pageLoader.sourceComponent= null
+                console.log("Source is empty")
+            }
+        }
 
         MediaPlayer{
             id:backgroundMusic
