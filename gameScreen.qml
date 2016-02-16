@@ -1,4 +1,7 @@
-
+/*
+  2d overlay on top of 3d world (Scene3D)
+  includes the buttons that adjust the properties (increase/decrease height)
+  */
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.0
@@ -8,8 +11,6 @@ Item {
     id: mainWindow
     property bool showBox
     anchors.fill: parent
-
-
 
     Scene3D{
         anchors.fill: parent
@@ -40,6 +41,8 @@ Item {
             onClicked: myLinker.setMyHeight(myLinker.getMyHeight()-1)
         }
     }
+
+    //creates one Linker object
     Linker{
         id: myLinker
     }

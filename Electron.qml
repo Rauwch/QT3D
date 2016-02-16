@@ -75,7 +75,7 @@ Entity{
     //begin -> start (slow)
     //duration is related to distance they have to travel
     QQ2.SequentialAnimation on currentPosX{
-            id: testThis
+            id: animationX
             loops: QQ2.Animation.Infinite
             running: true
                 QQ2.PropertyAnimation { from: startPosition.x; to: endAnimation.x; duration: (startPosition.x-endAnimation.x)*50 }
@@ -83,7 +83,7 @@ Entity{
                 QQ2.PropertyAnimation { from: beginAnimation.x; to: startPosition.x; duration: (beginAnimation.x-startPosition.x)*50 }
     }
 //    QQ2.SequentialAnimation on currentPosY{
-//            id: testThisAlso
+//            id: animationY
 //            loops: QQ2.Animation.Infinite
 //            running: true
 //                QQ2.PropertyAnimation { to: currentPosY; duration: 0 }
