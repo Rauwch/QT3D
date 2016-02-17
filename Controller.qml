@@ -11,10 +11,10 @@ Entity{
     property int amountNodes: 4
     property bool running: false
     property var electronFactory
+    property var amountOfElectrons: 10
     QQ2.Component.onCompleted: {
         electronFactory = Qt.createComponent("Electron.qml");
-        var j = 10;
-        for(var i= 0; i< j; i++ )
+        for(var i= 0; i< amountOfElectrons; i++ )
         {
             //we create the object with:
             //beginAnimation: node out of which the electrons spawn
@@ -23,7 +23,7 @@ Entity{
             //speed: currently not implemented
             //direction: which way the electrons face (positive = counterclockwise looking from top)
             //myLinker.getMyHeight() is used to elevate electrons together with nodes' height
-            var electron = electronFactory.createObject(null,{"beginAnimation": Qt.vector3d(j*10,0+myLinker.getMyHeight(),0),"endAnimation": Qt.vector3d(0,0+myLinker.getMyHeight(),0),"startPosition": Qt.vector3d(i*10,0+myLinker.getMyHeight(),0),
+            var electron = electronFactory.createObject(null,{"beginAnimation": Qt.vector3d(amountOfElectrons*10,0+myLinker.getMyHeight(),0),"endAnimation": Qt.vector3d(0,0+myLinker.getMyHeight(),0),"startPosition": Qt.vector3d(i*10,0+myLinker.getMyHeight(),0),
                             "speed": myLinker.speed,"direction": -45});
             electron.parent = controller.parent;
         };

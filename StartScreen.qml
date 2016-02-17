@@ -14,16 +14,11 @@ Item {
     property SystemPalette palette: SystemPalette { }
     property int buttonWidth: Screen.width/3
     property int buttonHeight: 100
+    signal test()
+    Component.onDestruction: console.log("startscreen destroyed")
     Component.onCompleted: {
         //backgroundMusic.play();
         console.log("myStartScreen wordt aangemaakt")
-    }
-
-    Component{
-        id: theGameScreen
-        GameScreen{
-        }
-
     }
 
 
@@ -34,19 +29,22 @@ Item {
 
 
         Column{
+            id: theColumn
             anchors.centerIn: parent
             spacing: 15
 
             Button{
                 id:levelsButton
-                text:"Game"
+                text:"Levels"
                 width: buttonWidth
                 height: buttonHeight
                 onClicked: {
                     //game.visible = true;
-                    soundEffects.source = "Bubbles.wav"
-                    soundEffects.play()         
-                    pageLoader.sourceComponent = theGameScreen
+                    soundEffects.source = "Bubbles.wav";
+                    soundEffects.play() ;
+                    theColumn.visible = false;
+                    pageLoader.source = "LevelScreen.qml";
+
 
                     }
 
@@ -91,12 +89,14 @@ Item {
         property var emptySource
         Connections{
             target: pageLoader.item
+            Component.onDestruction: console.log(" page loader destroyed")
 
-            onReturner:{
-                pageLoader.sourceComponent= null
-                console.log("Source is empty")
-            }
+//            onTest:{
+//                pageLoader.source= "LevelScreen.qml";
+//                console.log("Source is empty");
+//            }
         }
+
 
         MediaPlayer{
             id:backgroundMusic

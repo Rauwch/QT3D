@@ -6,9 +6,11 @@ import Link 1.0
 Item {
     id: myGameScreen
     property bool showBox
-    signal returner()
+    //signal returner()
     signal speedupdate(var newSpeed)
     anchors.fill: parent
+    Component.onDestruction: console.log("gamescreen destroyed")
+
     Component.onCompleted: {
         console.log("GameScreen wordt aangemaakt");
 
@@ -16,9 +18,12 @@ Item {
 
 
     Scene3D{
+        id: ourScene3D
         anchors.fill: parent
         focus: true
-        aspects: ["render", "logic"]
+        //aspects: ["render", "logic"]
+        aspects: ["input"]
+
         World { id: world }
     }
 
@@ -32,7 +37,15 @@ Item {
 
         id: returnButton
         text:"Return"
-        onClicked: returner()
+        onClicked: {
+            //game.visible = true;
+            soundEffects.source = "Bubbles.wav";
+            soundEffects.play();
+            ourScene3D.destroy();
+            pageLoader.source = "LevelScreen.qml";
+
+            }
+//        onClicked: test();
 
 
     }

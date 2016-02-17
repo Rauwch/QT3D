@@ -89,7 +89,7 @@ Entity {
         property ObjectPicker objectPicker: ObjectPicker {
 
             onClicked: {
-                mainWindow.showBox = !mainWindow.showBox;
+                myGameScreen.showBox = !myGameScreen.showBox;
                 soundEffects.play()}
         }
 

@@ -58,8 +58,8 @@ Entity{
 
     QQ2.Component.onCompleted: {
 
-        console.log("Dit is de hoogte  " + currentPosY)
-        console.log("Linker speed " + myLinker.speed);
+        //console.log("Dit is de hoogte  " + currentPosY)
+        //console.log("Linker speed " + myLinker.speed);
         //console.log("height myLinker: " + myLinker.height);
 
 //        console.log("beginAnimation.x: " + beginAnimation.x);
