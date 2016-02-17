@@ -1,7 +1,7 @@
 /*
-  first window that is shown
+  second window that is shown
   includes:
-    game, options, credits
+    (completed) levels
   */
 
 import QtQuick 2.0
@@ -10,13 +10,13 @@ import QtQuick.Window 2.1
 import QtMultimedia 5.5
 import QtQuick.Layouts 1.2
 Item {
-    id: myStartScreen
+    id: myLevelScreen
     property SystemPalette palette: SystemPalette { }
     property int buttonWidth: Screen.width/3
     property int buttonHeight: 100
     Component.onCompleted: {
         //backgroundMusic.play();
-        console.log("myStartScreen wordt aangemaakt")
+        console.log("myLevelScreen wordt aangemaakt")
     }
 
     Component{
@@ -38,44 +38,35 @@ Item {
             spacing: 15
 
             Button{
-                id:levelsButton
-                text:"Game"
+                id:level1_Button
+                text:"Level_1"
                 width: buttonWidth
                 height: buttonHeight
                 onClicked: {
                     //game.visible = true;
                     soundEffects.source = "Bubbles.wav"
-                    soundEffects.play()         
+                    soundEffects.play()
                     pageLoader.sourceComponent = theGameScreen
 
                     }
 
                 }
 
-
             Button{
-                id:optionsButton
-                text:"Options"
+                id:level2_Button
+                text:"Level_1"
                 width: buttonWidth
                 height: buttonHeight
-
                 onClicked: {
+                    //game.visible = true;
                     soundEffects.source = "Bubbles.wav"
                     soundEffects.play()
-                }
-            }
-            Button{
-                id:creditsButton
-                text:"Credits"
-                width: buttonWidth
-                height: buttonHeight
+                    pageLoader.sourceComponent = theGameScreen
 
-                onClicked: {
-                    soundEffects.source = "Bubbles.wav"
-                    soundEffects.play()
+                    }
+
                 }
-            }
-        }
+
         SoundEffect{
             id: soundEffects
             //source:"Bubbles.wav"

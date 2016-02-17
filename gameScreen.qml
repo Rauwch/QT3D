@@ -51,34 +51,26 @@ Item {
         Button{
             id: increaseHeight
             text: "Increase height!"
-<<<<<<< HEAD
             width: 200
             height: 150
-            onClicked: myLinker.setMyHeight(myLinker.getMyHeight()+1)
-=======
             onClicked: {
                 myLinker.height = myLinker.height + 1;
                 myLinker.speed = myLinker.speed + 2000;
                 speedupdate(myLinker.speed);
             }
->>>>>>> origin/master
         }
 
         Button{
             id: decreaseHeight
             text: "Decrease height!"
-<<<<<<< HEAD
             width: 200
             height: 150
-            onClicked: myLinker.setMyHeight(myLinker.getMyHeight()-1)
-=======
             onClicked: {
                 myLinker.height = myLinker.height - 1;
                 myLinker.speed = myLinker.speed - 2000;
                 speedupdate(myLinker.speed);
             }
 
->>>>>>> origin/master
         }
     }
     Linker{

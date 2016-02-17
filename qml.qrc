@@ -11,5 +11,6 @@
         <file>GameScreen.qml</file>
         <file>Credits.qml</file>
         <file>LoadingScreen.qml</file>
+        <file>LevelScreen.qml</file>
     </qresource>
 </RCC>
