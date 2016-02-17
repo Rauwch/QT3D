@@ -1,4 +1,3 @@
-
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.0
@@ -40,8 +39,8 @@ Item {
     //2d box where setting can be edited
     Column{
         id: textBox
-        width: 200
-        height: 400
+        width: 100
+        height: 50
         spacing: 10
         visible: showBox
 
@@ -51,8 +50,6 @@ Item {
         Button{
             id: increaseHeight
             text: "Increase height!"
-            width: 200
-            height: 150
             onClicked: {
                 myLinker.height = myLinker.height + 1;
                 myLinker.speed = myLinker.speed + 2000;
@@ -63,8 +60,6 @@ Item {
         Button{
             id: decreaseHeight
             text: "Decrease height!"
-            width: 200
-            height: 150
             onClicked: {
                 myLinker.height = myLinker.height - 1;
                 myLinker.speed = myLinker.speed - 2000;

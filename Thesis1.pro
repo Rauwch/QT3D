@@ -5,7 +5,8 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     window.cpp \
-    linker.cpp
+    linker.cpp \
+    levels.cpp
 
 RESOURCES += qml.qrc \
     images.qrc \
@@ -20,6 +21,7 @@ include(deployment.pri)
 
 HEADERS += \
     window.h \
-    linker.h
+    linker.h \
+    levels.h
 
 DISTFILES +=
