@@ -8,8 +8,12 @@ Item {
     id: myGameScreen
     property bool showBox
     signal returner()
+    signal speedupdate(var newSpeed)
     anchors.fill: parent
-    Component.onCompleted: { console.log("GameScreen wordt aangemaakt")}
+    Component.onCompleted: {
+        console.log("GameScreen wordt aangemaakt");
+
+    }
 
 
     Scene3D{
@@ -47,17 +51,27 @@ Item {
         Button{
             id: increaseHeight
             text: "Increase height!"
-            onClicked: myLinker.setMyHeight(myLinker.getMyHeight()+1)
+            onClicked: {
+                myLinker.height = myLinker.height + 1;
+                myLinker.speed = myLinker.speed + 2000;
+                speedupdate(myLinker.speed);
+            }
         }
 
         Button{
             id: decreaseHeight
             text: "Decrease height!"
-            onClicked: myLinker.setMyHeight(myLinker.getMyHeight()-1)
+            onClicked: {
+                myLinker.height = myLinker.height - 1;
+                myLinker.speed = myLinker.speed - 2000;
+                speedupdate(myLinker.speed);
+            }
+
         }
     }
     Linker{
         id: myLinker
+        speed: 2000
     }
 
 

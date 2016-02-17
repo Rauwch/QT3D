@@ -1,6 +1,7 @@
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 import QtQuick 2.0 as QQ2
+import QtQml 2.2
 import Link 1.0
 
 Entity{
@@ -15,7 +16,7 @@ Entity{
     property real currentPosX
     property real currentPosY:myLinker.height/2-7
     property real currentPosZ
-    property real speed
+    property real electronSpeed: myLinker.speed
     // richting in welke de elektronen zich begeven
     property int direction
     //property Linker theLinker
@@ -23,7 +24,16 @@ Entity{
 //    property Material material2
 
 
+    Connections{
+        target: myGameScreen
 
+        onSpeedupdate:{
+            animationX.complete();
+            animationX.restart();
+            electronSpeed = newSpeed;
+            console.log("this is the speed   " + electronSpeed);
+        }
+    }
 
     Mesh{
         id: electronMesh
@@ -47,19 +57,9 @@ Entity{
 //        }
 
     QQ2.Component.onCompleted: {
-        currentPosX= startPosition.x;
-        currentPosY= startPosition.y;
-        currentPosZ= startPosition.z;
-        currentPosition.x = currentPosX;
-        currentPosition.y = currentPosY;
-        currentPosition.z = currentPosZ;
-        currentPosY = myLinker.height;
-        currentPosition.y = myLinker.height;
-        startPosition.y= myLinker.height;
-        beginAnimation.y = myLinker.height;
-        endAnimation.y = myLinker.height;
+
         console.log("Dit is de hoogte  " + currentPosY)
-        console.log("electron gemaakt");
+        console.log("Linker speed " + myLinker.speed);
         //console.log("height myLinker: " + myLinker.height);
 
 //        console.log("beginAnimation.x: " + beginAnimation.x);
@@ -78,13 +78,14 @@ Entity{
         rotation: fromAxisAndAngle(Qt.vector3d(0, 1, 0),direction )
         scale: 2
     }
+
     QQ2.SequentialAnimation on currentPosX{
-            id: testThis
+            id: animationX
             loops: QQ2.Animation.Infinite
             running: true
-                QQ2.PropertyAnimation { from: startPosition.x; to: endAnimation.x; duration: (startPosition.x-endAnimation.x)*50 }
+                QQ2.PropertyAnimation { from: startPosition.x; to: endAnimation.x; duration: (startPosition.x-endAnimation.x)/electronSpeed*100000;  }
                 QQ2.PropertyAnimation { from: endAnimation.x; to: beginAnimation.x; duration: 0 }
-                QQ2.PropertyAnimation { from: beginAnimation.x; to: startPosition.x; duration: (beginAnimation.x-startPosition.x)*50 }
+                QQ2.PropertyAnimation { from: beginAnimation.x; to: startPosition.x; duration: (beginAnimation.x-startPosition.x)/electronSpeed*100000 }
         }
 //    QQ2.SequentialAnimation on currentPosY{
 //            id: testThisAlso
