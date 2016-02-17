@@ -44,6 +44,7 @@
 #include <QQuickView>
 #include <QOpenGLContext>
 #include "linker.h"
+#include "levels.h"
 //int main(int argc, char **argv)
 //{
 //    QGuiApplication app(argc, argv);
@@ -73,6 +74,7 @@ int main(int argc, char* argv[])
         screen->setOrientationUpdateMask(Qt::LandscapeOrientation | Qt::PortraitOrientation |
                                          Qt::InvertedLandscapeOrientation | Qt::InvertedPortraitOrientation);
     qmlRegisterType<Linker>("Link",1,0,"Linker");
+    qmlRegisterType<Levels>("Lvl",1,0,"Levels");
     QQmlEngine engine;
     QQmlComponent component(&engine);
     QQuickWindow::setDefaultAlphaBuffer(true);
