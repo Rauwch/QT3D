@@ -9,6 +9,7 @@ import QtQuick.Controls 1.4
 import QtQuick.Window 2.1
 import QtMultimedia 5.5
 import QtQuick.Layouts 1.2
+import Lvl 1.0
 Item {
     id: myStartScreen
     property SystemPalette palette: SystemPalette { }
@@ -18,7 +19,9 @@ Item {
     Component.onDestruction: console.log("startscreen destroyed")
     Component.onCompleted: {
         //backgroundMusic.play();
-        console.log("myStartScreen wordt aangemaakt")
+        console.log("myStartScreen wordt aangemaakt");
+        myLevels.readLevels();
+        console.log(myLevels.getTester());
     }
 
 
@@ -107,6 +110,10 @@ Item {
         }
     }
 
+    Levels{
+        id:myLevels
+        //Component.onCompleted: console.log("Level is aangemaakt")
+    }
 
 
     property var splashWindow: Splash {

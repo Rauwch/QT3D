@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <QDebug>
 
 class Levels : public QObject
 {
@@ -14,8 +15,11 @@ class Levels : public QObject
 public:
     explicit Levels(QObject *parent = 0);
 
-    Q_INVOKABLE void readLevels() const;
+    Q_INVOKABLE void readLevels();
 
+
+    Q_INVOKABLE int getTester() const;
+    Q_INVOKABLE void setTester(int value);
 
 signals:
 
@@ -24,7 +28,7 @@ public slots:
 
 
 private:
-
+    int tester;
 
 };
 
