@@ -8,6 +8,8 @@
 #include <string>
 #include <QDebug>
 
+using namespace std;
+
 class Levels : public QObject
 {
     Q_OBJECT
@@ -15,11 +17,10 @@ class Levels : public QObject
 public:
     explicit Levels(QObject *parent = 0);
 
-    Q_INVOKABLE void readLevels();
+    Q_INVOKABLE void getLevelAmount();
+    void printArray();
+    void fillLevelArray();
 
-
-    Q_INVOKABLE int getTester() const;
-    Q_INVOKABLE void setTester(int value);
 
 signals:
 
@@ -28,7 +29,10 @@ public slots:
 
 
 private:
-    int tester;
+    vector< vector <int>> levelArray;
+    int amountOfLevels;
+
+
 
 };
 

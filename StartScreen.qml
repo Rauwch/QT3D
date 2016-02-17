@@ -20,8 +20,7 @@ Item {
     Component.onCompleted: {
         //backgroundMusic.play();
         console.log("myStartScreen wordt aangemaakt");
-        myLevels.readLevels();
-        console.log(myLevels.getTester());
+
     }
 
 

@@ -1,40 +1,52 @@
 #include "levels.h"
 
 
-using namespace std;
+
 
 Levels::Levels(QObject *parent) : QObject(parent)
 {
-    tester = 5;
+   getLevelAmount();
+   printArray();
+
 }
 
-void Levels::readLevels()
+
+
+void Levels::getLevelAmount()
 {
-
-    qDebug() << "begin of readLevels";
     string line;
-
+    vector <int> rowVector(2);
+    int row = 0;
     ifstream myfile ("C:/Users/anton.DESKTOP-FMBU6U7/Documents/GitHub/QT3D/levels.txt");
     if(myfile.is_open())
     {
-        while(getline(myfile,line))
+        while(myfile.good())
         {
-            tester = 10;
-            qDebug() << QString::fromStdString(line);
+            levelArray.push_back(rowVector);
+            for(int col = 0; col < 2;col++){
+                myfile >> levelArray[row][col];
+            }
+            row++;
         }
     }
     else{
-        tester = 15;
         qDebug() << "Unable to open file";
+    }
+    myfile.close();
+    amountOfLevels = row;
+
+}
+
+void Levels::printArray()
+{
+    for(int i = 0; i <amountOfLevels; i++)
+    {
+        for(int j = 0; j < 2; j++)
+        {
+            qDebug() <<  (unsigned int) (levelArray[i][j]) ;
+        }
+
     }
 }
 
-int Levels::getTester() const
-{
-    return tester;
-}
 
-void Levels::setTester(int value)
-{
-    tester = value;
-}
