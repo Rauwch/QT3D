@@ -36,8 +36,8 @@ Item {
     //2d box where setting can be edited
     Column{
         id: textBox
-        width: 100
-        height: 50
+        width: 200
+        height: 400
         spacing: 10
         visible: showBox
 
@@ -47,12 +47,16 @@ Item {
         Button{
             id: increaseHeight
             text: "Increase height!"
+            width: 200
+            height: 150
             onClicked: myLinker.setMyHeight(myLinker.getMyHeight()+1)
         }
 
         Button{
             id: decreaseHeight
             text: "Decrease height!"
+            width: 200
+            height: 150
             onClicked: myLinker.setMyHeight(myLinker.getMyHeight()-1)
         }
     }
