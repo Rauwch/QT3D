@@ -15,8 +15,7 @@ Item {
     id: myLevelScreen
     property int buttonWidth: Screen.width/10
     property int buttonHeight: 100
-    property int localIndex:0
-    property int janIndex:0
+
     //signal thereturner()
     Component.onDestruction: console.log("levelscreen destroyed")
 
