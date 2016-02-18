@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include <QDebug>
+#include <QDir>
 
 using namespace std;
 

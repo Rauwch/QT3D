@@ -24,8 +24,7 @@ Item {
     }
         Grid{
             anchors.centerIn: parent
-            rows:2
-            spacing: 20
+            rows: 3
 
             Repeater{
                 id: levelRepeater
@@ -35,36 +34,17 @@ Item {
                     text: "Level "+ (index+1)
                     width: buttonWidth
                     height: buttonHeight
+                    onClicked: {
+                           game.visible = true;
+                           soundEffects.source = "Bubbles.wav";
+                           soundEffects.play();
+                           pageLoader.source = "GameScreen.qml";
+                    }
+
                 }
             }
 
-//            Button{
-//                id:level1
-//                text:"level 1"
-//                width: buttonWidth
-//                height: buttonHeight
-//                onClicked: {
-//                    //game.visible = true;
-//                    soundEffects.source = "Bubbles.wav";
-//                    soundEffects.play();
-//                    pageLoader.source = "GameScreen.qml";
 
-//                    }
-
-//                }
-
-
-//            Button{
-//                id:level2
-//                text:"level 2"
-//                width: buttonWidth
-//                height: buttonHeight
-
-//                onClicked: {
-//                    soundEffects.source = "Bubbles.wav";
-//                    soundEffects.play();
-//                }
-//            }
 
         }
 }

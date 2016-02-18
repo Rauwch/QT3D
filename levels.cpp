@@ -14,10 +14,10 @@ Levels::Levels(QObject *parent) : QObject(parent)
 
 void Levels::getLevelAmount()
 {
-    string line;
+    string path = QDir::homePath().toStdString()+ "/Documents/GitHub/QT3D/levels.txt" ;
     vector <int> rowVector(2);
     int row = 0;
-    ifstream myfile ("C:/Users/anton.DESKTOP-FMBU6U7/Documents/GitHub/QT3D/levels.txt");
+    ifstream myfile (path);
     if(myfile.is_open())
     {
         while(myfile.good())
@@ -30,6 +30,7 @@ void Levels::getLevelAmount()
         }
     }
     else{
+
         qDebug() << "Unable to open file";
     }
     myfile.close();
