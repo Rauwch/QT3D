@@ -49,4 +49,14 @@ void Levels::printArray()
     }
 }
 
+int Levels::getAmountOfLevels() const
+{
+    return amountOfLevels;
+}
+
+void Levels::setAmountOfLevels(int value)
+{
+    amountOfLevels = value;
+}
+
 

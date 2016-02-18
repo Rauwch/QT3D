@@ -13,7 +13,7 @@ using namespace std;
 class Levels : public QObject
 {
     Q_OBJECT
-
+    Q_PROPERTY(int amountOfLevels READ getAmountOfLevels WRITE setAmountOfLevels NOTIFY amountOfLevelsChanged)
 public:
     explicit Levels(QObject *parent = 0);
 
@@ -22,8 +22,11 @@ public:
     void fillLevelArray();
 
 
-signals:
+    Q_INVOKABLE int getAmountOfLevels() const;
+    Q_INVOKABLE void setAmountOfLevels(int value);
 
+signals:
+     void amountOfLevelsChanged(int a);
 
 public slots:
 
