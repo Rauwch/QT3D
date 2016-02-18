@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>qtLogo.jpg</file>
         <file>Qt-logo-medium.png</file>
+        <file>yellowstar.png</file>
     </qresource>
 </RCC>
