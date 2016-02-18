@@ -109,10 +109,7 @@ Item {
         }
     }
 
-    Levels{
-        id:myLevels
-        //Component.onCompleted: console.log("Level is aangemaakt")
-    }
+
 
 
     property var splashWindow: Splash {

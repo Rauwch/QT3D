@@ -46,8 +46,19 @@ void Levels::printArray()
         {
             qDebug() <<  (unsigned int) (levelArray[i][j]) ;
         }
-
     }
+}
+
+int Levels::getAmountOfStars(int level) const
+{
+    int nrStars = 0;
+    nrStars = levelArray[level][1];
+    return nrStars;
+}
+
+void Levels::setAmountOfStars(int level)
+{
+
 }
 
 int Levels::getAmountOfLevels() const
