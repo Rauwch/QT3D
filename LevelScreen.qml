@@ -15,7 +15,6 @@ Item {
     id: myLevelScreen
     property int buttonWidth: Screen.width/10
     property int buttonHeight: 100
-
     //signal thereturner()
     Component.onDestruction: console.log("levelscreen destroyed")
 
@@ -32,73 +31,63 @@ Item {
         anchors.centerIn: parent
         rows: 3
         spacing: 30
-//        Repeater{
-//            id: levelRepeater
-//            model:myLevels.amountOfLevels
-//            delegate:
-//                Button{
-//                Component.onCompleted: {
-//                    //console.log("This is local index "+ localIndex );
-//                    localIndex = janIndex;
-
-//                    //console.log("added local "+ localIndex );
-
-//                }
-//                text: "Level "+ (index+1)
-//                width: buttonWidth
-//                height: buttonHeight
-//                onClicked: {
-//                    //game.visible = true;
-//                    soundEffects.source = "Bubbles.wav";
-//                    soundEffects.play();
-//                    pageLoader.source = "GameScreen.qml";
-//                }
-//                Grid{
-//                    anchors.verticalCenter: parent.bottom
-//                    anchors.horizontalCenter: parent.horizontalCenter
-//                    Repeater{
-//                        Component.onCompleted: {
-//                            console.log("KIJK NAAR HIER MIJ ZO")
-//                            if(localIndex < (myLevels.amountOfLevels-1))
-//                            {
-//                                janIndex = janIndex + 1;
-//                                //localIndex = localIndex + 1;
-//                            }
-//                        }
-
-//                        id: starRepeater
-//                        model: myLevels.getAmountOfStars(localIndex)
-//                        delegate:
-//                            Image{
-//                            Component.onCompleted:{
-
-//                                console.log("Star is completed" + localIndex);
-//                            }
-//                            source: "yellowstar.png";
-//                            width: 50;
-//                            height: 50;
-//                        }
-//                    }
-//                }
-
-
-
-//            }
-//        }
+        //
         Repeater{
             id: levelRepeater
             model:myLevels.amountOfLevels
             delegate:
-                Button{
-                text: "Level "+ (index+1)
+                Rectangle{
+
+                Component.onCompleted:
+                {
+
+
+                    if( myLevels.getAmountOfStars(index) > 0 || myLevels.getAmountOfStars(index-1) )
+                    {
+                        levelMouse.enabled = true;
+
+
+                    }
+                    else{
+                        levelMouse.enabled = false;
+                        levelText.visible = false;
+                    }
+                    if(!levelMouse.enabled)
+                    {
+                        color = "grey";
+                    }
+
+
+                }
+
+                border.width: 3
+                radius: 10
+                Text{
+                    id: levelText
+                    Component.onCompleted:
+                    {
+
+                    }
+
+                    anchors.centerIn: parent
+                    text: "Level "+ (index+1)
+                    font.pixelSize: 30
+                }
+
                 width: buttonWidth
                 height: buttonHeight
-                onClicked: {
-                    //game.visible = true;
-                    soundEffects.source = "Bubbles.wav";
-                    soundEffects.play();
-                    pageLoader.source = "GameScreen.qml";
+                MouseArea{
+                    id: levelMouse
+                    anchors.fill: parent
+
+                    onClicked: {
+                        //game.visible = true;
+                        soundEffects.source = "Bubbles.wav";
+                        soundEffects.play();
+                        pageLoader.source = "GameScreen.qml";
+                    }
                 }
+
                 Grid{
                     anchors.verticalCenter: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -108,6 +97,7 @@ Item {
                         model: myLevels.getAmountOfStars(index)
                         delegate:
                             Image{
+
                             source: "yellowstar.png";
                             width: 50;
                             height: 50;
