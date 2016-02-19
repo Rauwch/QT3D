@@ -13,8 +13,8 @@ import Link 1.0
 import Lvl 1.0
 Item {
     id: myLevelScreen
-    property int buttonWidth: Screen.width/10
-    property int buttonHeight: 100
+    property int buttonWidth: Screen.width/8
+    property int buttonHeight: Screen.height/8
     //signal thereturner()
     Component.onDestruction: console.log("levelscreen destroyed")
 
@@ -45,12 +45,14 @@ Item {
                     if( myLevels.getAmountOfStars(index) > 0 || myLevels.getAmountOfStars(index-1) )
                     {
                         levelMouse.enabled = true;
+                        lockImage.visible = false;
 
 
                     }
                     else{
                         levelMouse.enabled = false;
                         levelText.visible = false;
+                        lockImage.visible = true;
                     }
                     if(!levelMouse.enabled)
                     {
@@ -64,14 +66,16 @@ Item {
                 radius: 10
                 Text{
                     id: levelText
-                    Component.onCompleted:
-                    {
-
-                    }
-
                     anchors.centerIn: parent
                     text: "Level "+ (index+1)
                     font.pixelSize: 30
+                }
+                Image{
+                    id:lockImage
+                    anchors.centerIn: parent
+                    height: parent.height
+                    width: parent.width-parent.width/2
+                    source: "lock.png"
                 }
 
                 width: buttonWidth
