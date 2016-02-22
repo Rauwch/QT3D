@@ -10,7 +10,7 @@ Item {
     Text{
         id:creditsText
         anchors.centerIn: parent
-        text: "Creators:\n\nAnton \"The Bugwhisperer\" Rauws\nJan \"Qt-pie\" van Thillo"
+        text: "Top Sea Men:\n\nAnton \"The Bugwhisperer\" Rauws\nJan \"Qt-pie\" van Thillo"
         font.pixelSize: 30
 
     }
