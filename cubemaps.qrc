@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>miramar_negx.webp</file>
+        <file>miramar_negy.webp</file>
+        <file>miramar_negz.webp</file>
+        <file>miramar_posx.webp</file>
+        <file>miramar_posy.webp</file>
+        <file>miramar_posz.webp</file>
+    </qresource>
+</RCC>

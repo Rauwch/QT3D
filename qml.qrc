@@ -13,5 +13,6 @@
         <file>LoadingScreen.qml</file>
         <file>LevelScreen.qml</file>
         <file>Options.qml</file>
+        <file>OceanBox.qml</file>
     </qresource>
 </RCC>

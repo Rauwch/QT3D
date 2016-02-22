@@ -11,7 +11,7 @@ Entity {
 
     PlaneMesh {
         id: groundMesh
-        width: 400
+        width: 200
         height: width
         meshResolution: Qt.size(2, 2)
     }

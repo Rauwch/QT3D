@@ -12,7 +12,8 @@ RESOURCES += qml.qrc \
     images.qrc \
     sounds.qrc \
     objects.qrc \
-    text.qrc
+    text.qrc \
+    cubemaps.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

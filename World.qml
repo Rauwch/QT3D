@@ -16,28 +16,33 @@ Entity {
     //magic function that fixes all our problems
     function destroyCamera(){
         myCamera.destroy();
+        backgroud.destroy();
     }
 
     Camera {
         id: myCamera
         projectionType: CameraLens.PerspectiveProjection
-        fieldOfView: 45
+        fieldOfView: 75
         aspectRatio: 16/9
         nearPlane : 0.1
         farPlane : 1000.0
-        position: Qt.vector3d( 50.0, 25.0, 120.0 )
+        position: Qt.vector3d( 50.0, 25.0, 50.0 )
         upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
         viewCenter: Qt.vector3d( 50.0, 0.0, 0.0 )
 
     }
-
-    GroundPlane {
-        id:ground
-        material: AdsMaterial {
-            diffuseColor: Qt.rgba(0.2, 0.5, 0.3, 1.0)
-            specularColor: Qt.rgba(0, 0, 0, 1.0)
-        }
+    OceanBox{
+        id:backgroud
+        cameraPosition: myCamera.position
     }
+
+//    GroundPlane {
+//        id:ground
+//        material: AdsMaterial {
+//            diffuseColor: Qt.rgba(0.2, 0.5, 0.3, 1.0)
+//            specularColor: Qt.rgba(0, 0, 0, 1.0)
+//        }
+//    }
 
     CylinderMesh {
         id: cylinderMesh
@@ -119,7 +124,6 @@ Entity {
         Viewport{
             id:mainViewport
             rect: Qt.rect(0,0,1,1)
-            clearColor: "black"
             CameraSelector{
                 id: cameraSelectors
                 camera: myCamera
