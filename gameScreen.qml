@@ -39,11 +39,12 @@ Item {
         text:"Return"
         onClicked: {
             //game.visible = true;
-            soundEffects.source = "Bubbles.wav";
-            soundEffects.play();
-            ourScene3D.destroy();
-            pageLoader.source = "LevelScreen.qml";
-
+            //soundEffects.source = "Bubbles.wav";
+            //soundEffects.play();
+            console.log("before world is deleted");
+            ourScene3D.focus=false;
+            console.log("world is destroyed");
+            //pageLoader.source = "LevelScreen.qml";
             }
 //        onClicked: test();
 
