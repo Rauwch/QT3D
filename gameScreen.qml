@@ -55,6 +55,18 @@ Item {
             }
 
     }
+    Image{
+        id:speedo
+        source: "speedo.png"
+        anchors.right: parent.right
+    }
+
+    Image{
+        source: "archer.png"
+        anchors.centerIn: speedo
+        rotation: 45
+    }
+
     //2d box where setting can be edited
     Column{
         id: textBox

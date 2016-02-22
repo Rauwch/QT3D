@@ -4,5 +4,8 @@
         <file>Qt-logo-medium.png</file>
         <file>yellowstar.png</file>
         <file>lock.png</file>
+        <file>arrow.png</file>
+        <file>speedo.png</file>
+        <file>archer.png</file>
     </qresource>
 </RCC>
