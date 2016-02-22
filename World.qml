@@ -13,8 +13,13 @@ Entity {
     id: myWorld
     property int numberOfNodes: 4
 
+    //magic function that fixes all our problems
+    function destroyCamera(){
+        myCamera.destroy();
+    }
+
     Camera {
-        id: camera
+        id: myCamera
         projectionType: CameraLens.PerspectiveProjection
         fieldOfView: 45
         aspectRatio: 16/9
@@ -105,7 +110,8 @@ Entity {
     }
 
     Configuration  {
-        controlledCamera: camera
+        id: theConfig
+        controlledCamera: myCamera
     }
 
     FrameGraph {
@@ -116,7 +122,7 @@ Entity {
             clearColor: "black"
             CameraSelector{
                 id: cameraSelectors
-                camera: camera
+                camera: myCamera
                 ClearBuffer {
                                buffers: ClearBuffer.ColorDepthBuffer
                           }

@@ -41,12 +41,12 @@ Item {
             //game.visible = true;
             soundEffects.source = "Bubbles.wav";
             soundEffects.play();
+            //need this destroy first to not crash program
+            world.destroyCamera();
             ourScene3D.destroy();
             pageLoader.source = "LevelScreen.qml";
 
             }
-//        onClicked: test();
-
 
     }
     //2d box where setting can be edited
