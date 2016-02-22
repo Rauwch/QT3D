@@ -74,6 +74,8 @@ Item {
                 onClicked: {
                     soundEffects.source = "Bubbles.wav"
                     soundEffects.play()
+                    theColumn.visible = false;
+                    pageLoader.source = "Credits.qml";
                 }
             }
         }
