@@ -6,6 +6,7 @@ import Link 1.0
 Item {
     id: myGameScreen
     property bool showBox
+    property int speedoMeter: -38
     //signal returner()
     signal speedupdate(var newSpeed)
     anchors.fill: parent
@@ -64,7 +65,7 @@ Item {
     Image{
         source: "archer.png"
         anchors.centerIn: speedo
-        rotation: 45
+        rotation: speedoMeter
     }
 
     //2d box where setting can be edited
@@ -83,8 +84,10 @@ Item {
             text: "Increase height!"
             onClicked: {
                 myLinker.height = myLinker.height + 1;
-                myLinker.speed = myLinker.speed + 2000;
+                myLinker.speed = myLinker.speed + 500;
                 speedupdate(myLinker.speed);
+                speedoMeter = speedoMeter + 11;
+                updateAnimation();
             }
         }
 
@@ -93,8 +96,10 @@ Item {
             text: "Decrease height!"
             onClicked: {
                 myLinker.height = myLinker.height - 1;
-                myLinker.speed = myLinker.speed - 2000;
+                myLinker.speed = myLinker.speed - 500;
                 speedupdate(myLinker.speed);
+                speedoMeter = speedoMeter - 11;
+                updateAnimation();
             }
 
         }
@@ -103,7 +108,22 @@ Item {
         id: myLinker
         speed: 2000
     }
+    SequentialAnimation on speedoMeter {
+        id:speedoAnimation
+        loops: Animation.Infinite
+        running: true
+            PropertyAnimation{ from:speedoMeter+1; to: speedoMeter - 1; duration: 100;}
+            PropertyAnimation{ from:speedoMeter-1; to: speedoMeter + 1 ; duration: 100;}
+
+    }
+
+    function updateAnimation(){
+        speedoAnimation.stop();
+        speedoAnimation.start();
+    }
 
 
 
 }
+
+
