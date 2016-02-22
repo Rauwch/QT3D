@@ -45,6 +45,7 @@ Item {
                     soundEffects.source = "Bubbles.wav";
                     soundEffects.play() ;
                     theColumn.visible = false;
+                    //startscreen doesn't get deleted because it wasn't created by the pageloader
                     pageLoader.source = "LevelScreen.qml";
 
 
