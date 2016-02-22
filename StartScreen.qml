@@ -15,6 +15,7 @@ Item {
     property SystemPalette palette: SystemPalette { }
     property int buttonWidth: Screen.width/3
     property int buttonHeight: 100
+    property bool backgroundVisible: false
     signal test()
     Component.onDestruction: console.log("startscreen destroyed")
     Component.onCompleted: {
@@ -28,6 +29,13 @@ Item {
         //visibility: Window.Maximized
         color: palette.window
         title: "Octupus Mayhem"
+
+        Image{
+            id: bikiniImg
+            source: "bikiniBottom.jpg"
+            visible: backgroundVisible
+            anchors.fill: parent
+        }
 
 
         Column{
@@ -61,8 +69,10 @@ Item {
                 height: buttonHeight
 
                 onClicked: {
-                    soundEffects.source = "Bubbles.wav"
-                    soundEffects.play()
+                    soundEffects.source = "Bubbles.wav";
+                    soundEffects.play();
+                    theColumn.visible = false;
+                    pageLoader.source = "Options.qml";
                 }
             }
             Button{
@@ -72,8 +82,8 @@ Item {
                 height: buttonHeight
 
                 onClicked: {
-                    soundEffects.source = "Bubbles.wav"
-                    soundEffects.play()
+                    soundEffects.source = "Bubbles.wav";
+                    soundEffects.play();
                     theColumn.visible = false;
                     pageLoader.source = "Credits.qml";
                 }

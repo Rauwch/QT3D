@@ -117,5 +117,22 @@ Item {
 
 
     }
+    Button{
+        id: theReturnButton
+        //anchors.horizontalCenter: creditsText.horizontalCenter
+        //anchors.verticalCenter: parent.verticalCenter
+        //anchors.verticalCenterOffset: 150
+        width: Screen.width/15
+        height: Screen.height/15
+        text:"Return"
+        onClicked: {
+            soundEffects.source = "Bubbles.wav";
+            soundEffects.play();
+            theColumn.visible= true;
+            pageLoader.source = "";
+
+            }
+
+    }
 }
 
