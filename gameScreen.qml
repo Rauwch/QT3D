@@ -6,7 +6,7 @@ import Link 1.0
 Item {
     id: myGameScreen
     property bool showBox
-    property int speedoMeter: -38
+    property real speedoMeter: 0
     property int speedLevel
     property int numClicks: 0
     property string archerSource
@@ -81,7 +81,7 @@ Item {
         id:currentGoal
         source: "speedGoal.png"
         anchors.centerIn: speedo
-        rotation: 45
+        rotation: 90
 
     }
     Image{
@@ -111,7 +111,7 @@ Item {
                 myLinker.height = myLinker.height + 1;
                 myLinker.speed = myLinker.speed + 500;
                 speedupdate(myLinker.speed);
-                speedoMeter = speedoMeter + 11;
+                speedoMeter = speedoMeter + 45/2;
                 numClicks = numClicks + 1;
                 updateAnimation();
 
@@ -127,7 +127,7 @@ Item {
                 myLinker.height = myLinker.height - 1;
                 myLinker.speed = myLinker.speed - 500;
                 speedupdate(myLinker.speed);
-                speedoMeter = speedoMeter - 11;
+                speedoMeter = speedoMeter - 45/2;
                 numClicks = numClicks + 1;
                 updateAnimation();
             }
@@ -138,18 +138,18 @@ Item {
         id: myLinker
         speed: 2000
     }
-    SequentialAnimation on speedoMeter {
-        id:speedoAnimation
-        loops: Animation.Infinite
-        running: true
-            PropertyAnimation{ from:speedoMeter+1; to: speedoMeter - 1; duration: 100;}
-            PropertyAnimation{ from:speedoMeter-1; to: speedoMeter + 1 ; duration: 100;}
+//    SequentialAnimation on speedoMeter {
+//        id:speedoAnimation
+//        loops: Animation.Infinite
+//        running: true
+//            PropertyAnimation{ from:speedoMeter+1; to: speedoMeter - 1; duration: 100;}
+//            PropertyAnimation{ from:speedoMeter-1; to: speedoMeter + 1 ; duration: 100;}
 
-    }
+//    }
 
     function updateAnimation(){
-        speedoAnimation.stop();
-        speedoAnimation.start();
+//        speedoAnimation.stop();
+//        speedoAnimation.start();
         world.checkMatch();
         archerSource = world.theArchSource;
     }
