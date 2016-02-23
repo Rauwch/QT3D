@@ -20,7 +20,7 @@ Entity {
 
     //magic function that fixes all our problems
     function destroyCamera(){
-        backgroud.destroy();
+        //background.destroy();
         myCamera.destroy();
 
     }
@@ -51,14 +51,14 @@ Entity {
 
     }
 //    OceanBox{
-//        id:backgroud
+//        id:background
 //        cameraPosition: myCamera.position
 //    }
 
     GroundPlane {
         id:ground
         material: AdsMaterial {
-            diffuseColor: Qt.rgba(0.2, 0.5, 0.3, 1.0)
+            diffuseColor: Qt.rgba(0.2, 0.3, 0.5, 1.0)
             specularColor: Qt.rgba(0, 0, 0, 1.0)
         }
     }
@@ -118,7 +118,7 @@ Entity {
         components: [
             cylinderMesh,
             colorCylinder,
-            transform,
+            cylindertransform,
             objectPicker
 
         ]
@@ -137,7 +137,7 @@ Entity {
         components: [
             cylinderMeshGhost,
             colorCylinderGhost,
-            transform,
+            cylindertransformGhost,
             ourAlphaMaterial
 
         ]
@@ -167,6 +167,25 @@ Entity {
             colorCylinder,
             cylindertransform2,
             objectPicker
+
+        ]
+    }
+    Entity {
+
+        id: cylinder2Goal
+//        property Material material
+
+        property Transform transform : Transform {
+            id: cylindertransform2Ghost
+            translation: Qt.vector3d(100,(35-25)/2,0)
+        }
+
+
+        components: [
+            cylinderMeshGhost,
+            colorCylinderGhost,
+            cylindertransform2Ghost,
+            ourAlphaMaterial
 
         ]
     }

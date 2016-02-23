@@ -11,19 +11,19 @@ Entity {
 
     PlaneMesh {
         id: groundMesh
-        width: 200
+        width: 250
         height: width
         meshResolution: Qt.size(2, 2)
     }
 
     Transform {
         id: groundTransform
-        translation: Qt.vector3d(0,-5,0)
+        translation: Qt.vector3d(50,-5,0)
     }
 
     PhongMaterial{
         id: colorMaker
-        diffuse: Qt.rgba(34/255,212/255,46/255,1)
+        diffuse: Qt.rgba(34/255,46/255,212/255,1)
         specular: "white"
         shininess: 100.0
     }
