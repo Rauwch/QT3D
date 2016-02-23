@@ -15,8 +15,9 @@ Entity {
 
     //magic function that fixes all our problems
     function destroyCamera(){
-        myCamera.destroy();
         backgroud.destroy();
+        myCamera.destroy();
+
     }
 
     Camera {
