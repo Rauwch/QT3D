@@ -62,7 +62,6 @@ Item {
         text: "number of clicks: " + numClicks
         anchors.right: parent.right
         anchors.top: speedo.bottom
-//        anchors.verticalCenterOffset: height
         readOnly: true
         font.pixelSize: 30
 
