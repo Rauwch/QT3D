@@ -14,5 +14,8 @@
         <file>LevelScreen.qml</file>
         <file>Options.qml</file>
         <file>OceanBox.qml</file>
+        <file>AlphaMaterial.qml</file>
+        <file>phongalpha.frag</file>
+        <file>phongalpha.vert</file>
     </qresource>
 </RCC>
