@@ -74,7 +74,8 @@ Entity{
 
     property Transform transform: Transform {
         id: electronTransform
-        translation: Qt.vector3d(currentPosX, myLinker.height/2-7, currentPosZ)
+        //translation: Qt.vector3d(currentPosX, myLinker.height/2-7, currentPosZ)
+        translation: Qt.vector3d(currentPosX, (25/2-8)+(myLinker.height-25), currentPosZ)
         rotation: fromAxisAndAngle(Qt.vector3d(0, 1, 0),direction )
         scale: 2
     }

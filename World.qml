@@ -24,6 +24,15 @@ Entity {
         myCamera.destroy();
 
     }
+    function checkMatch(){
+        if(myLinker.height === targetHeight){
+            colorCylinder.diffuse = Qt.rgba(0,1,0,1);
+        }
+        else{
+            colorCylinder.diffuse = Qt.rgba(1,1,0,1);
+
+        }
+    }
 
     AlphaMaterial{
         id: ourAlphaMaterial
@@ -121,7 +130,7 @@ Entity {
 
         property Transform transform : Transform {
             id: cylindertransformGhost
-            translation: Qt.vector3d(0,0,0)
+            translation: Qt.vector3d(0,(35-25)/2,0)
         }
 
 
@@ -140,7 +149,7 @@ Entity {
 
         property Transform transform : Transform {
             id: cylindertransform2
-            translation: Qt.vector3d(100,0,0)
+            translation: Qt.vector3d(100,(myLinker.height-25)/2,0)
         }
 
 

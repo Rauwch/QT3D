@@ -112,8 +112,8 @@ Item {
                 speedupdate(myLinker.speed);
                 speedoMeter = speedoMeter + 11;
                 numClicks = numClicks + 1;
-                console.log("numclicks: " + numClicks);
                 updateAnimation();
+
             }
         }
 
@@ -128,7 +128,6 @@ Item {
                 speedupdate(myLinker.speed);
                 speedoMeter = speedoMeter - 11;
                 numClicks = numClicks + 1;
-                console.log("numclicks: " + numClicks);
                 updateAnimation();
             }
 
@@ -150,6 +149,7 @@ Item {
     function updateAnimation(){
         speedoAnimation.stop();
         speedoAnimation.start();
+        world.checkMatch();
     }
 
 
