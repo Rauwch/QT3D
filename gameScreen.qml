@@ -7,6 +7,7 @@ Item {
     id: myGameScreen
     property bool showBox
     property int speedoMeter: -38
+    property int speedLevel
     //signal returner()
     signal speedupdate(var newSpeed)
     anchors.fill: parent
@@ -54,12 +55,19 @@ Item {
             }
 
     }
+
+
+
     Image{
         id:speedo
         source: "speedo.png"
         anchors.right: parent.right
     }
-
+    Image{
+        id:currentGoal
+        source: "speedGoal.png"
+        anchors.centerIn: speedo
+    }
     Image{
         source: "archer.png"
         anchors.centerIn: speedo
