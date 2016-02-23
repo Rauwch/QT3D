@@ -9,6 +9,7 @@ Item {
     property int speedoMeter: -38
     property int speedLevel
     property int numClicks: 0
+    property string archerSource
     //signal returner()
     signal speedupdate(var newSpeed)
     anchors.fill: parent
@@ -80,9 +81,12 @@ Item {
         id:currentGoal
         source: "speedGoal.png"
         anchors.centerIn: speedo
+        rotation: 45
+
     }
     Image{
-        source: "archer.png"
+        id: archer
+        source: archerSource
         anchors.centerIn: speedo
         rotation: speedoMeter
     }
@@ -147,6 +151,7 @@ Item {
         speedoAnimation.stop();
         speedoAnimation.start();
         world.checkMatch();
+        archerSource = world.theArchSource;
     }
 
 

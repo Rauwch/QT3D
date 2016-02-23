@@ -13,7 +13,8 @@ Entity {
     id: myWorld
     property int numberOfNodes: 4
     property var targetHeight
-    property var stepUp: 0
+    property int stepUp: 0
+    property string theArchSource: "archer.png"
    QQ2.Component.onCompleted:{
        targetHeight = (myLinker.height+10);
    }
@@ -27,9 +28,11 @@ Entity {
     function checkMatch(){
         if(myLinker.height === targetHeight){
             colorCylinder.diffuse = Qt.rgba(0,1,0,1);
+            theArchSource = "archerG.png"
         }
         else{
             colorCylinder.diffuse = Qt.rgba(1,1,0,1);
+            theArchSource = "archer.png"
 
         }
     }
