@@ -50,18 +50,18 @@ Entity {
         viewCenter: Qt.vector3d( 50.0, 0.0, 0.0 )
 
     }
-    OceanBox{
-        id:backgroud
-        cameraPosition: myCamera.position
-    }
-
-//    GroundPlane {
-//        id:ground
-//        material: AdsMaterial {
-//            diffuseColor: Qt.rgba(0.2, 0.5, 0.3, 1.0)
-//            specularColor: Qt.rgba(0, 0, 0, 1.0)
-//        }
+//    OceanBox{
+//        id:backgroud
+//        cameraPosition: myCamera.position
 //    }
+
+    GroundPlane {
+        id:ground
+        material: AdsMaterial {
+            diffuseColor: Qt.rgba(0.2, 0.5, 0.3, 1.0)
+            specularColor: Qt.rgba(0, 0, 0, 1.0)
+        }
+    }
 
     CylinderMesh {
         id: cylinderMesh
@@ -88,7 +88,7 @@ Entity {
     }
     PhongMaterial{
         id: colorCylinderGhost
-        diffuse: Qt.rgba(1,1,1,0.5)
+        diffuse: Qt.rgba(1,1,0,1)
         specular: "white"
         shininess: 100.0
 

@@ -7,11 +7,8 @@ Item {
     id: myGameScreen
     property bool showBox
     property int speedoMeter: -38
-<<<<<<< HEAD
     property int speedLevel
-=======
     property int numClicks: 0
->>>>>>> origin/master
     //signal returner()
     signal speedupdate(var newSpeed)
     anchors.fill: parent
