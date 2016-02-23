@@ -7,7 +7,11 @@ Item {
     id: myGameScreen
     property bool showBox
     property int speedoMeter: -38
+<<<<<<< HEAD
     property int speedLevel
+=======
+    property int numClicks: 0
+>>>>>>> origin/master
     //signal returner()
     signal speedupdate(var newSpeed)
     anchors.fill: parent
@@ -38,6 +42,8 @@ Item {
     Button{
 
         id: returnButton
+        width: Screen.width/15
+        height: Screen.height/15
         text:"Return"
         onClicked: {
             soundEffects.source = "Bubbles.wav";
@@ -56,6 +62,16 @@ Item {
 
     }
 
+    TextField{
+        id: counter
+        text: "number of clicks: " + numClicks
+        anchors.right: parent.right
+        anchors.top: speedo.bottom
+        readOnly: true
+        font.pixelSize: 30
+
+
+    }
 
 
     Image{
@@ -87,24 +103,32 @@ Item {
         //button that allows for height to be edited
         Button{
             id: increaseHeight
+            width: Screen.width/15
+            height: Screen.height/15
             text: "Increase height!"
             onClicked: {
                 myLinker.height = myLinker.height + 1;
                 myLinker.speed = myLinker.speed + 500;
                 speedupdate(myLinker.speed);
                 speedoMeter = speedoMeter + 11;
+                numClicks = numClicks + 1;
+                console.log("numclicks: " + numClicks);
                 updateAnimation();
             }
         }
 
         Button{
             id: decreaseHeight
+            width: Screen.width/15
+            height: Screen.height/15
             text: "Decrease height!"
             onClicked: {
                 myLinker.height = myLinker.height - 1;
                 myLinker.speed = myLinker.speed - 500;
                 speedupdate(myLinker.speed);
                 speedoMeter = speedoMeter - 11;
+                numClicks = numClicks + 1;
+                console.log("numclicks: " + numClicks);
                 updateAnimation();
             }
 

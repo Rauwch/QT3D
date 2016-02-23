@@ -12,12 +12,21 @@ import Link 1.0
 Entity {
     id: myWorld
     property int numberOfNodes: 4
+    property var targetHeight
+    property var stepUp: 0
+   QQ2.Component.onCompleted:{
+       targetHeight = (myLinker.height+10);
+   }
 
     //magic function that fixes all our problems
     function destroyCamera(){
         backgroud.destroy();
         myCamera.destroy();
 
+    }
+
+    AlphaMaterial{
+        id: ourAlphaMaterial
     }
 
     Camera {
@@ -51,6 +60,16 @@ Entity {
         length: myLinker.height
         rings: 100
         slices: 20
+
+    }
+    CylinderMesh {
+        id: cylinderMeshGhost
+        radius: 2
+        length: targetHeight
+        rings: 100
+        slices: 20
+
+
     }
     PhongMaterial{
         id: colorCylinder
@@ -58,7 +77,14 @@ Entity {
         specular: "white"
         shininess: 100.0
     }
+    PhongMaterial{
+        id: colorCylinderGhost
+        diffuse: Qt.rgba(1,1,1,0.5)
+        specular: "white"
+        shininess: 100.0
 
+
+    }
 
 
 
@@ -69,7 +95,7 @@ Entity {
 
         property Transform transform : Transform {
             id: cylindertransform
-            translation: Qt.vector3d(0,0,0)
+            translation: Qt.vector3d(0,(myLinker.height-25)/2,0)
         }
         property ObjectPicker objectPicker: ObjectPicker {
 
@@ -90,6 +116,25 @@ Entity {
     }
     Entity {
 
+        id: cylinder1Goal
+//        property Material material
+
+        property Transform transform : Transform {
+            id: cylindertransformGhost
+            translation: Qt.vector3d(0,0,0)
+        }
+
+
+        components: [
+            cylinderMeshGhost,
+            colorCylinderGhost,
+            transform,
+            ourAlphaMaterial
+
+        ]
+    }
+    Entity {
+
         id: cylinder2
         property Material material
 
@@ -97,6 +142,8 @@ Entity {
             id: cylindertransform2
             translation: Qt.vector3d(100,0,0)
         }
+
+
         property ObjectPicker objectPicker: ObjectPicker {
 
             onClicked: {
