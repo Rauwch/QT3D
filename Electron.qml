@@ -31,7 +31,7 @@ Entity{
             animationX.complete();
             animationX.restart();
             electronSpeed = newSpeed;
-            console.log("this is the speed   " + electronSpeed);
+            //console.log("this is the speed   " + electronSpeed);
         }
     }
 

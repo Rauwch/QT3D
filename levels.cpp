@@ -44,7 +44,7 @@ void Levels::printArray()
     {
         for(int j = 0; j < 2; j++)
         {
-            qDebug() <<  (unsigned int) (levelArray[i][j]) ;
+            //qDebug() <<  (unsigned int) (levelArray[i][j]) ;
         }
     }
 }
