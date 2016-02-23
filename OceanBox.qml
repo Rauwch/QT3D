@@ -6,8 +6,6 @@ import Qt3D.Render 2.0
 Entity {
 
     property alias cameraPosition: transform.translation;
-    property string sourceDirectory: "";
-    property string extension: ".webp"
 
     property TextureCubeMap skyboxTexture: TextureCubeMap {
         generateMipMaps: false
@@ -17,12 +15,12 @@ Entity {
             x: WrapMode.ClampToEdge
             y: WrapMode.ClampToEdge
         }
-        TextureImage { cubeMapFace: Texture.CubeMapPositiveX; source: "miramar_posx.webp"}
-        TextureImage { cubeMapFace: Texture.CubeMapPositiveY; source: "miramar_posy.webp"}
-        TextureImage { cubeMapFace: Texture.CubeMapPositiveZ; source: "miramar_posz.webp"}
-        TextureImage { cubeMapFace: Texture.CubeMapNegativeX; source: "miramar_negx.webp"}
-        TextureImage { cubeMapFace: Texture.CubeMapNegativeY; source: "miramar_negy.webp"}
-        TextureImage { cubeMapFace: Texture.CubeMapNegativeZ; source: "miramar_negz.webp"}
+        TextureImage { cubeMapFace: Texture.CubeMapPositiveX; source: "cubemap1.png"}
+        TextureImage { cubeMapFace: Texture.CubeMapPositiveY; source: "cubemap2.png"}
+        TextureImage { cubeMapFace: Texture.CubeMapPositiveZ; source: "cubemap3.png"}
+        TextureImage { cubeMapFace: Texture.CubeMapNegativeX; source: "cubemap6.png"}
+        TextureImage { cubeMapFace: Texture.CubeMapNegativeY; source: "cubemap5.png"}
+        TextureImage { cubeMapFace: Texture.CubeMapNegativeZ; source: "cubemap4.png"}
     }
 
     ShaderProgram {
