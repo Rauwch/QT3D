@@ -15,6 +15,7 @@ Entity {
     property var targetHeight
     property int stepUp: 0
     property string theArchSource: "archer.png"
+    property bool lvlCompleted: false
    QQ2.Component.onCompleted:{
        targetHeight = (myLinker.height+10);
    }
@@ -28,11 +29,13 @@ Entity {
     function checkMatch(){
         if(myLinker.height === targetHeight){
             colorCylinder.diffuse = Qt.rgba(0,1,0,1);
-            theArchSource = "archerG.png"
+            theArchSource = "archerG.png";
+            lvlCompleted = true;
         }
         else{
             colorCylinder.diffuse = Qt.rgba(1,1,0,1);
             theArchSource = "archer.png"
+            lvlCompleted = false;
 
         }
     }
