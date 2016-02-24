@@ -26,4 +26,7 @@ HEADERS += \
     linker.h \
     levels.h
 
-DISTFILES +=
+DISTFILES += \
+    bolt.ico
+
+RC_ICONS += bolt.ico
