@@ -26,11 +26,17 @@ Item {
         console.log("myStartScreen wordt aangemaakt");
 
     }
+    Levels{
+        id:myLevels
 
+<<<<<<< HEAD
     //    ButtonStyle{
     //        id: styleButton
 
     //    }
+=======
+    }
+>>>>>>> origin/master
 
     property var startWindow: Window {
         //visibility: Window.Maximized
