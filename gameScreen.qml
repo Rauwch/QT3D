@@ -138,6 +138,17 @@ Item {
                 speedoMeter = speedoMeter + 45/2;
                 numClicks = numClicks + 1;
                 updateAnimation();
+                if((myLinker.speed - 500) <= 0){
+                    decreaseHeight.visible = false;
+                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
+
+                }
+                else{
+                    decreaseHeight.visible = true;
+                    increaseHeight.parent.anchors.bottomMargin = 0;
+
+
+                }
 
 
             }
@@ -148,6 +159,7 @@ Item {
             width: Screen.width/15
             height: Screen.height/15
             text: "Decrease height!"
+
             onClicked: {
                 myLinker.height = myLinker.height - 1;
                 myLinker.speed = myLinker.speed - 500;
@@ -155,6 +167,18 @@ Item {
                 speedoMeter = speedoMeter - 45/2;
                 numClicks = numClicks + 1;
                 updateAnimation();
+                if((myLinker.speed - 500) <= 0){
+                    visible = false;
+                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
+
+                }
+                else{
+                    visible = true;
+                    increaseHeight.parent.anchors.bottomMargin = 0;
+
+
+                }
+
             }
 
         }
