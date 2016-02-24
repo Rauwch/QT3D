@@ -3,6 +3,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Window 2.0
 import QtQuick.Scene3D 2.0
 import Link 1.0
+import Lvl 1.0
 
 Item {
     id: myGameScreen
@@ -156,25 +157,31 @@ Item {
         archerSource = world.theArchSource;
         if(world.lvlCompleted){
             popupWindow.visible= true;
+            myLevels.setAmountOfStars(3);
+            myLevels.refreshTextFile();
         }
     }
-    //    applicationWindow{
 
-    //    }
     Rectangle{
         id: popupWindow
         height: Screen.height
         width: Screen.width
         visible: false
+        Text{
+            id:congratsText
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top : parent.top
+            anchors.topMargin: Screen.height/10
+            text: "Congratulations!\nYou have successfully completed the level!"
+            font.pixelSize: 60
+        }
+
         Row{
             anchors.centerIn: parent
             spacing: Screen.width/20
         Button{
             height: Screen.height/10
             width: Screen.width/5
-//            anchors.left: parent.left
-//            anchors.leftMargin: Screen.width/10
-//            anchors.verticalCenter: parent.verticalCenter
             text: "Continue"
             onClicked: {
                 soundEffects.source = "Bubbles.wav";
@@ -188,8 +195,6 @@ Item {
         Button{
             height: Screen.height/10
             width: Screen.width/5
-//            anchors.right: parent.right
-//            anchors.rightMargin: Screen.width/10
             text: "Select level"
             onClicked: {
                 soundEffects.source = "Bubbles.wav";
@@ -203,7 +208,6 @@ Item {
         Button{
             height: Screen.height/10
             width: Screen.width/5
-            //anchors.centerIn: parent
             text: "Restart level"
             onClicked: {
                 soundEffects.source = "Bubbles.wav";

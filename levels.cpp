@@ -17,7 +17,7 @@ void Levels::getLevelAmount()
     string path = QDir::homePath().toStdString()+ "/Documents/GitHub/QT3D/levels.txt" ;
     vector <int> rowVector(2);
     int row = 0;
-    ifstream myfile (path);
+    fstream myfile (path);
     if(myfile.is_open())
     {
         while(myfile.good())
@@ -28,13 +28,17 @@ void Levels::getLevelAmount()
             }
             row++;
         }
+
     }
     else{
 
         qDebug() << "Unable to open file";
     }
+
     myfile.close();
+    row--;
     amountOfLevels = row;
+    qDebug() << "rownums: " << row;
 
 }
 
@@ -49,6 +53,28 @@ void Levels::printArray()
     }
 }
 
+void Levels::refreshTextFile()
+{
+     string path = QDir::homePath().toStdString()+ "/Documents/GitHub/QT3D/levels.txt" ;
+     fstream myfile (path);
+     if(myfile.is_open())
+     {
+         for(int i = 0; i <amountOfLevels; i++)
+         {
+             for(int j = 0; j < 2; j++)
+             {
+                 myfile << levelArray[i][j] << " ";
+             }
+             myfile << "\n";
+         }
+
+     }
+     else{
+
+         qDebug() << "Unable to open file";
+     }
+}
+
 int Levels::getAmountOfStars(int level) const
 {
     int nrStars = 0;
@@ -56,9 +82,9 @@ int Levels::getAmountOfStars(int level) const
     return nrStars;
 }
 
-void Levels::setAmountOfStars(int level)
+void Levels::setAmountOfStars(int nrStars)
 {
-
+    levelArray[currentLevel][1] = nrStars;
 }
 
 int Levels::getAmountOfLevels() const
@@ -69,6 +95,16 @@ int Levels::getAmountOfLevels() const
 void Levels::setAmountOfLevels(int value)
 {
     amountOfLevels = value;
+}
+
+int Levels::getCurrentLevel() const
+{
+    return currentLevel;
+}
+
+void Levels::setCurrentLevel(int value)
+{
+    currentLevel = value;
 }
 
 
