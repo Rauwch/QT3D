@@ -15,12 +15,12 @@ Entity {
             x: WrapMode.ClampToEdge
             y: WrapMode.ClampToEdge
         }
-        TextureImage { cubeMapFace: Texture.CubeMapPositiveX; source: "cubemap1.png"}
-        TextureImage { cubeMapFace: Texture.CubeMapPositiveY; source: "cubemap2.png"}
-        TextureImage { cubeMapFace: Texture.CubeMapPositiveZ; source: "cubemap3.png"}
-        TextureImage { cubeMapFace: Texture.CubeMapNegativeX; source: "cubemap6.png"}
-        TextureImage { cubeMapFace: Texture.CubeMapNegativeY; source: "cubemap5.png"}
-        TextureImage { cubeMapFace: Texture.CubeMapNegativeZ; source: "cubemap4.png"}
+        TextureImage { cubeMapFace: Texture.CubeMapPositiveX; source: "cubemap1.jpg"}
+        TextureImage { cubeMapFace: Texture.CubeMapPositiveY; source: "cubemap5.jpg"}
+        TextureImage { cubeMapFace: Texture.CubeMapPositiveZ; source: "cubemap3.jpg"}
+        TextureImage { cubeMapFace: Texture.CubeMapNegativeX; source: "cubemap4.jpg"}
+        TextureImage { cubeMapFace: Texture.CubeMapNegativeY; source: "cubemap6.jpg"}
+        TextureImage { cubeMapFace: Texture.CubeMapNegativeZ; source: "cubemap2.jpg"}
     }
 
     ShaderProgram {

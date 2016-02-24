@@ -6,11 +6,11 @@
         <file>miramar_posx.webp</file>
         <file>miramar_posy.webp</file>
         <file>miramar_posz.webp</file>
-        <file>cubemap4.png</file>
-        <file>cubemap5.png</file>
-        <file>cubemap6.png</file>
-        <file>cubemap3.png</file>
-        <file>cubemap2.png</file>
-        <file>cubemap1.png</file>
+        <file>cubemap6.jpg</file>
+        <file>cubemap5.jpg</file>
+        <file>cubemap1.jpg</file>
+        <file>cubemap2.jpg</file>
+        <file>cubemap3.jpg</file>
+        <file>cubemap4.jpg</file>
     </qresource>
 </RCC>

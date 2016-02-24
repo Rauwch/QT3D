@@ -9,6 +9,7 @@ import QtQuick.Controls 1.4
 import QtQuick.Window 2.1
 import QtMultimedia 5.5
 import QtQuick.Layouts 1.2
+
 import Lvl 1.0
 Item {
     id: myStartScreen

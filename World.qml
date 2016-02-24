@@ -21,7 +21,7 @@ Entity {
 
     //magic function that fixes all our problems
     function destroyCamera(){
-        //background.destroy();
+        background.destroy();
         myCamera.destroy();
 
     }
@@ -53,10 +53,10 @@ Entity {
         viewCenter: Qt.vector3d( 50.0, 0.0, 0.0 )
 
     }
-//    OceanBox{
-//        id:background
-//        cameraPosition: myCamera.position
-//    }
+    OceanBox{
+        id:background
+        cameraPosition: myCamera.position
+    }
 
     GroundPlane {
         id:ground
