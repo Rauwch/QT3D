@@ -15,7 +15,7 @@ Levels::Levels(QObject *parent) : QObject(parent)
 void Levels::getLevelAmount()
 {
     string path = QDir::homePath().toStdString()+ "/Documents/GitHub/QT3D/levels.txt" ;
-    vector <int> rowVector(2);
+    vector <int> rowVector(4);
     int row = 0;
     fstream myfile (path);
     if(myfile.is_open())
@@ -23,7 +23,7 @@ void Levels::getLevelAmount()
         while(myfile.good())
         {
             levelArray.push_back(rowVector);
-            for(int col = 0; col < 2;col++){
+            for(int col = 0; col < 4;col++){
                 myfile >> levelArray[row][col];
             }
             row++;
@@ -46,7 +46,7 @@ void Levels::printArray()
 {
     for(int i = 0; i <amountOfLevels; i++)
     {
-        for(int j = 0; j < 2; j++)
+        for(int j = 0; j < 4; j++)
         {
             //qDebug() <<  (unsigned int) (levelArray[i][j]) ;
         }
@@ -61,7 +61,7 @@ void Levels::refreshTextFile()
      {
          for(int i = 0; i <amountOfLevels; i++)
          {
-             for(int j = 0; j < 2; j++)
+             for(int j = 0; j < 4; j++)
              {
                  myfile << levelArray[i][j] << " ";
              }
@@ -82,9 +82,24 @@ int Levels::getAmountOfStars(int level) const
     return nrStars;
 }
 
-void Levels::setAmountOfStars(int nrStars)
+void Levels::setAmountOfStars(int numClicks)
 {
-    levelArray[currentLevel][1] = nrStars;
+    int twoEarned = levelArray[currentLevel][2];
+    int threeEarned = levelArray[currentLevel][3];
+    if(numClicks <= threeEarned){
+        levelArray[currentLevel][1] = 3;
+    }
+    else if(numClicks <= twoEarned){
+        if(levelArray[currentLevel][1] < 2){
+        levelArray[currentLevel][1] = 2;
+        }
+    }
+    else{
+        if(levelArray[currentLevel][1] < 1){
+        levelArray[currentLevel][1] = 1;
+        }
+    }
+    refreshTextFile();
 }
 
 int Levels::getAmountOfLevels() const
@@ -106,5 +121,7 @@ void Levels::setCurrentLevel(int value)
 {
     currentLevel = value;
 }
+
+
 
 

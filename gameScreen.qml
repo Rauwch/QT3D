@@ -39,6 +39,8 @@ Item {
     //        anchors.right: parent
 
     //    }
+    Column{
+          anchors.left: parent.left
     Button{
 
         id: returnButton
@@ -61,7 +63,25 @@ Item {
         }
 
     }
+    Button{
 
+        id: retryButton
+        width: Screen.width/15
+        height: Screen.height/15
+        text:"Retry"
+        onClicked: {
+            soundEffects.source = "Bubbles.wav";
+            soundEffects.play();
+            //need this destroy first to not crash program
+            world.destroyCamera();
+            //ourScene3D.destroy();
+            pageLoader.source = "";
+            pageLoader.source = "GameScreen.qml";
+            console.log("world is destroyed");
+        }
+
+    }
+    }
     TextField{
         id: counter
         text: "number of clicks: " + numClicks
@@ -96,10 +116,12 @@ Item {
     //2d box where setting can be edited
     Column{
         id: textBox
-        width: 100
-        height: 50
-        spacing: 10
+        //width: 100
+        //height: 50
+        //spacing: 10
         visible: showBox
+        anchors.bottom: parent.bottom
+        //anchors.left: parent.left
 
 
 
@@ -157,8 +179,7 @@ Item {
         archerSource = world.theArchSource;
         if(world.lvlCompleted){
             popupWindow.visible= true;
-            myLevels.setAmountOfStars(3);
-            myLevels.refreshTextFile();
+            myLevels.setAmountOfStars(numClicks);
         }
     }
 
