@@ -118,7 +118,7 @@ Item {
             id:backgroundMusic
             source:"backgroundMusic.wav"
             //autoPlay: true
-            volume: 0.5
+            volume: 1
             loops: Audio.Infinite
         }
     }
