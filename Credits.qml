@@ -4,16 +4,31 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.1
+import QtQuick.Controls.Styles 1.4
+
 
 
 Item {
-    Text{
-        id:creditsText
+    Rectangle {
+        width: Screen.width/3
+        height: Screen.height/4
         anchors.centerIn: parent
-        text: "Top Sea Men:\n\nAnton \"The Bugwhisperer\" Rauws\nJan \"Qt-pie\" van Thillo"
-        font.pixelSize: 30
+        border.width:  2
+        border.color: "#063e79"
+        radius: 10
+        gradient: Gradient {
+            GradientStop { position: 0 ; color: "#2589f4" }
+            GradientStop { position: 1 ; color: "#0b6fda" }
+        }
 
-    }
+        Text{
+            id:creditsText
+            anchors.centerIn: parent
+            text: "Developers:\n\nAnton \"The Bugwhisperer\" Rauws\nJan \"Qt-pie\" van Thillo"
+            font.pointSize: 20
+
+        }
+}
     Button{
         id: theReturnButton
         //anchors.horizontalCenter: creditsText.horizontalCenter
@@ -22,6 +37,29 @@ Item {
         //width: creditsText.width
         width: Screen.width/15
         height: Screen.height/15
+        style: ButtonStyle {
+            id:styleButton
+            background: Rectangle {
+                //implicitWidth: 100
+                //implicitHeight: 25
+                border.width: 2
+                border.color: "#063e79"
+                radius: 10
+                gradient: Gradient {
+                    GradientStop { position: 0 ; color: "#2589f4" }
+                    GradientStop { position: 1 ; color: "#0b6fda" }
+                }
+            }
+            label: Text {
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                    text: control.text
+                  }
+        }
         text:"Return"
         onClicked: {
             soundEffects.source = "Bubbles.wav";
@@ -29,7 +67,8 @@ Item {
             theColumn.visible= true;
             pageLoader.source = "";
 
-            }
+        }
 
     }
 }
+
