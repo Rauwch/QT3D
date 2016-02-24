@@ -11,5 +11,6 @@
         <file>bikiniBottom.jpg</file>
         <file>speedGoal.png</file>
         <file>archerG.png</file>
+        <file>backIcon.png</file>
     </qresource>
 </RCC>
