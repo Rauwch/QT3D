@@ -28,7 +28,7 @@ Item {
             font.pointSize: 20
 
         }
-}
+    }
     Button{
         id: theReturnButton
         //anchors.horizontalCenter: creditsText.horizontalCenter
@@ -50,17 +50,14 @@ Item {
                     GradientStop { position: 1 ; color: "#0b6fda" }
                 }
             }
-            label: Text {
-                    renderType: Text.NativeRendering
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.family: "Helvetica"
-                    font.pointSize: 20
-                    color: "black"
-                    text: control.text
-                  }
+
         }
-        text:"Return"
+        Image{
+            source: "backIcon.png"
+            height: 3*parent.height/4
+            width: 3*parent.width/4
+            anchors.centerIn: parent
+        }
         onClicked: {
             soundEffects.source = "Bubbles.wav";
             soundEffects.play();
