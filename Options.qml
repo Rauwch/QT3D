@@ -49,14 +49,15 @@ Item {
                 text:"On"
 
                 onClicked: {
-                    soundEffects.muted = false;
+                    soundEffects.volume = 1.0;
                 }
             }
 
             Button{
                 text:"Off"
                 onClicked: {
-                    soundEffects.muted = true;
+                    soundEffects.volume = 0.0;
+                    ;
                 }
             }
         }

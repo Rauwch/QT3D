@@ -9,6 +9,8 @@ import QtQuick.Controls 1.4
 import QtQuick.Window 2.1
 import QtMultimedia 5.5
 import QtQuick.Layouts 1.2
+import QtQuick.Controls.Styles 1.4
+
 
 import Lvl 1.0
 Item {
@@ -16,7 +18,7 @@ Item {
     property SystemPalette palette: SystemPalette { }
     property int buttonWidth: Screen.width/3
     property int buttonHeight: 100
-    property bool backgroundVisible: false
+    property bool backgroundVisible: true
     signal test()
     Component.onDestruction: console.log("startscreen destroyed")
     Component.onCompleted: {
@@ -25,6 +27,10 @@ Item {
 
     }
 
+    //    ButtonStyle{
+    //        id: styleButton
+
+    //    }
 
     property var startWindow: Window {
         //visibility: Window.Maximized
@@ -49,18 +55,43 @@ Item {
                 text:"Levels"
                 width: buttonWidth
                 height: buttonHeight
-                onClicked: {
-                    //game.visible = true;
-                    soundEffects.source = "Bubbles.wav";
-                    soundEffects.play() ;
-                    theColumn.visible = false;
-                    //startscreen doesn't get deleted because it wasn't created by the pageloader
-                    pageLoader.source = "LevelScreen.qml";
+                style: ButtonStyle {
+                    id:styleButton
+                    background: Rectangle {
+                        //implicitWidth: 100
+                        //implicitHeight: 25
+                        border.width: control.activeFocus ? 4 : 2
+
+                        border.color: "#063e79"
+                        radius: 10
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#479af5" : "#2589f4" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#2589f4" : "#0b6fda" }
+                        }
+                    }
+                    label: Text {
+                            renderType: Text.NativeRendering
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            font.family: "Helvetica"
+                            font.pointSize: 20
+                            color: "black"
+                            text: control.text
+                          }
+                }
+
+                    onClicked: {
+                        //game.visible = true;
+                        soundEffects.source = "Bubbles.wav";
+                        soundEffects.play() ;
+                        theColumn.visible = false;
+                        //startscreen doesn't get deleted because it wasn't created by the pageloader
+                        pageLoader.source = "LevelScreen.qml";
 
 
                     }
 
-                }
+            }
 
 
             Button{
@@ -68,7 +99,29 @@ Item {
                 text:"Options"
                 width: buttonWidth
                 height: buttonHeight
-
+                style: ButtonStyle {
+                    id:styleButton
+                    background: Rectangle {
+                        //implicitWidth: 100
+                        //implicitHeight: 25
+                        border.width: control.activeFocus ? 4 : 2
+                        border.color: "#063e79"
+                        radius: 10
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#479af5" : "#2589f4" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#2589f4" : "#0b6fda" }
+                        }
+                    }
+                    label: Text {
+                            renderType: Text.NativeRendering
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            font.family: "Helvetica"
+                            font.pointSize: 20
+                            color: "black"
+                            text: control.text
+                          }
+                }
                 onClicked: {
                     soundEffects.source = "Bubbles.wav";
                     soundEffects.play();
@@ -81,7 +134,30 @@ Item {
                 text:"Credits"
                 width: buttonWidth
                 height: buttonHeight
+                style: ButtonStyle {
+                    id:styleButton
+                    background: Rectangle {
+                        //implicitWidth: 100
+                        //implicitHeight: 25
+                        border.width: control.activeFocus ? 4 : 2
 
+                        border.color: "#063e79"
+                        radius: 10
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#479af5" : "#2589f4" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#2589f4" : "#0b6fda" }
+                        }
+                    }
+                    label: Text {
+                            renderType: Text.NativeRendering
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            font.family: "Helvetica"
+                            font.pointSize: 20
+                            color: "black"
+                            text: control.text
+                          }
+                }
                 onClicked: {
                     soundEffects.source = "Bubbles.wav";
                     soundEffects.play();
@@ -107,10 +183,10 @@ Item {
             target: pageLoader.item
             Component.onDestruction: console.log(" page loader destroyed")
 
-//            onTest:{
-//                pageLoader.source= "LevelScreen.qml";
-//                console.log("Source is empty");
-//            }
+            //            onTest:{
+            //                pageLoader.source= "LevelScreen.qml";
+            //                console.log("Source is empty");
+            //            }
         }
 
 
@@ -130,8 +206,8 @@ Item {
         onTimeout: {
             startWindow.visible = true;
             startWindow.visibility = Window.Maximized
-    }
+        }
 
-}
+    }
 }
 
