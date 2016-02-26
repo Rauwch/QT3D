@@ -54,8 +54,6 @@ Item {
                 style: ButtonStyle {
                     id:styleButton
                     background: Rectangle {
-                        //implicitWidth: 100
-                        //implicitHeight: 25
                         border.width: control.activeFocus ? 4 : 2
 
                         border.color: "#063e79"

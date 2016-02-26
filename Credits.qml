@@ -34,8 +34,6 @@ Item {
         style: ButtonStyle {
             id:styleButton
             background: Rectangle {
-                //implicitWidth: 100
-                //implicitHeight: 25
                 border.width: 2
                 border.color: "#063e79"
                 radius: 10
@@ -57,7 +55,6 @@ Item {
             soundEffects.play();
             theColumn.visible= true;
             pageLoader.source = "";
-
         }
 
     }
