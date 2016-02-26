@@ -1,3 +1,7 @@
+/*
+  options page that includes sound / music
+  */
+
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.1
@@ -34,9 +38,6 @@ Item {
             }
         }
 
-        //colums: 3
-
-
         Row {
             id:soundEffectsButton
             spacing: 20
@@ -57,49 +58,10 @@ Item {
                 text:"Off"
                 onClicked: {
                     soundEffects.volume = 0.0;
-                    ;
                 }
             }
         }
-
-
-
     }
-//    Button{
-//        id: bikiniButton
-//        text:"Bikini Botton"
-//        width: Screen.width/15
-//        height: Screen.height/15
-//        anchors.centerIn: parent
-//        anchors.horizontalCenterOffset: width/2
-//        onClicked: {
-//            soundEffects.source = "Bubbles.wav";
-//            soundEffects.play();
-
-
-//            myStartScreen.backgroundVisible = true;
-//        }
-//    }
-
-
-
-//    Button{
-//        id: noBikiniButton
-//        text:"Bikini Bottoff"
-//        width: Screen.width/15
-//        height: Screen.height/15
-//        anchors.centerIn: parent
-//        anchors.horizontalCenterOffset: -width/2
-//        onClicked: {
-//            soundEffects.source = "Bubbles.wav";
-//            soundEffects.play();
-
-
-//            myStartScreen.backgroundVisible = false;
-//        }
-//    }
-
-
     Button{
         id: theReturnButton
         //anchors.horizontalCenter: creditsText.horizontalCenter
@@ -113,9 +75,6 @@ Item {
             soundEffects.play();
             theColumn.visible= true;
             pageLoader.source = "";
-
-            }
-
+        }
     }
-
 }

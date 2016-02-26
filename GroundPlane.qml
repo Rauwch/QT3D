@@ -1,5 +1,5 @@
 /*
-  creates a (green) groundplane on top of which we put our objects
+  creates a groundplane on top of which we put our objects
   */
 
 import Qt3D.Core 2.0

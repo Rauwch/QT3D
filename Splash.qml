@@ -1,7 +1,7 @@
 /*
   shows Qt logo on start up application
   makes it look nicer / more professional
-  covers the eventual loading time
+  coverts the eventual loading time
   */
 
 import QtQuick 2.0
@@ -20,16 +20,14 @@ Window {
     Image {
         id: splashImage
         source: "Qt-logo-medium.png"
-
-
     }
 
     Timer {
-           interval: timeInterval; running: true; repeat: false
-           onTriggered: {
-               visible = false
-               splash.timeout()
-           }
+        interval: timeInterval; running: true; repeat: false
+        onTriggered: {
+            visible = false
+            splash.timeout()
+        }
     }
     Component.onCompleted: visible = true
 }

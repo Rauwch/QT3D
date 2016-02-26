@@ -1,3 +1,7 @@
+/*
+  class that handles 2d overlay of game
+  this includes all buttons/ indicators that show up during the game
+*/
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.0
@@ -19,7 +23,6 @@ Item {
 
     Component.onCompleted: {
         console.log("GameScreen wordt aangemaakt");
-
     }
 
 
@@ -27,60 +30,47 @@ Item {
         id: ourScene3D
         anchors.fill: parent
         focus: true
-        //aspects: ["render", "logic"]
         aspects: ["input"]
 
         World { id: world }
     }
 
-    //    Button{
-    //        id: backButton
-    //        text: "Return"
-    //        anchors.right: parent
-
-    //    }
     Column{
-          anchors.left: parent.left
-    Button{
+        anchors.left: parent.left
+        Button{
 
-        id: returnButton
-        width: Screen.width/15
-        height: Screen.height/15
-        text:"Return"
-        onClicked: {
-            soundEffects.source = "Bubbles.wav";
-            soundEffects.play();
-            //need this destroy first to not crash program
-            world.destroyCamera();
-            //ourScene3D.destroy();
-            pageLoader.source = "LevelScreen.qml";
+            id: returnButton
+            width: Screen.width/15
+            height: Screen.height/15
+            text:"Return"
+            onClicked: {
+                soundEffects.source = "Bubbles.wav";
+                soundEffects.play();
+                //need this destroy first to not crash program
+                world.destroyCamera();
+                pageLoader.source = "LevelScreen.qml";
+                console.log("world is destroyed");
+            }
 
-            //soundEffects.source = "Bubbles.wav";
-            //soundEffects.play();
-            //ourScene3D.focus=false;
-            console.log("world is destroyed");
-            //pageLoader.source = "LevelScreen.qml";
         }
+        Button{
 
-    }
-    Button{
+            id: retryButton
+            width: Screen.width/15
+            height: Screen.height/15
+            text:"Retry"
+            onClicked: {
+                soundEffects.source = "Bubbles.wav";
+                soundEffects.play();
+                //need this destroy first to not crash program
+                world.destroyCamera();
+                //ourScene3D.destroy();
+                pageLoader.source = "";
+                pageLoader.source = "GameScreen.qml";
+                console.log("world is destroyed");
+            }
 
-        id: retryButton
-        width: Screen.width/15
-        height: Screen.height/15
-        text:"Retry"
-        onClicked: {
-            soundEffects.source = "Bubbles.wav";
-            soundEffects.play();
-            //need this destroy first to not crash program
-            world.destroyCamera();
-            //ourScene3D.destroy();
-            pageLoader.source = "";
-            pageLoader.source = "GameScreen.qml";
-            console.log("world is destroyed");
         }
-
-    }
     }
     TextField{
         id: counter
@@ -89,8 +79,6 @@ Item {
         anchors.top: speedo.bottom
         readOnly: true
         font.pixelSize: 30
-
-
     }
 
 
@@ -116,14 +104,8 @@ Item {
     //2d box where setting can be edited
     Column{
         id: textBox
-        //width: 100
-        //height: 50
-        //spacing: 10
         visible: showBox
         anchors.bottom: parent.bottom
-        //anchors.left: parent.left
-
-
 
         //button that allows for height to be edited
         Button{
@@ -147,9 +129,7 @@ Item {
                     decreaseHeight.visible = true;
                     increaseHeight.parent.anchors.bottomMargin = 0;
 
-
                 }
-
 
             }
         }
@@ -187,26 +167,13 @@ Item {
         id: myLinker
         speed: 2000
     }
-    //    SequentialAnimation on speedoMeter {
-    //        id:speedoAnimation
-    //        loops: Animation.Infinite
-    //        running: true
-    //            PropertyAnimation{ from:speedoMeter+1; to: speedoMeter - 1; duration: 100;}
-    //            PropertyAnimation{ from:speedoMeter-1; to: speedoMeter + 1 ; duration: 100;}
-
-    //    }
 
     function updateAnimation(){
-        //        speedoAnimation.stop();
-        //        speedoAnimation.start();
         world.checkMatch();
         archerSource = world.theArchSource;
         if(world.lvlCompleted){
             popupWindow.visible= true;
             continueBtn.visible= (myLevels.getCurrentLevel() < myLevels.amountOfLevels);
-            //console.log("currentLevel" + myLevels.getCurrentLevel());
-            //console.log("amountOfLevels" + myLevels.amountOfLevels);
-
             myLevels.setAmountOfStars(numClicks);
         }
     }
@@ -228,48 +195,48 @@ Item {
         Row{
             anchors.centerIn: parent
             spacing: Screen.width/20
-        Button{
-            id: continueBtn
-            height: Screen.height/10
-            width: Screen.width/5
-            text: "Continue"
-            onClicked: {
-                soundEffects.source = "Bubbles.wav";
-                soundEffects.play();
-                myLevels.setCurrentLevel(myLevels.getCurrentLevel()+1);
-                world.destroyCamera();
-                pageLoader.source = "";
-                pageLoader.source = "GameScreen.qml";
+            Button{
+                id: continueBtn
+                height: Screen.height/10
+                width: Screen.width/5
+                text: "Continue"
+                onClicked: {
+                    soundEffects.source = "Bubbles.wav";
+                    soundEffects.play();
+                    myLevels.setCurrentLevel(myLevels.getCurrentLevel()+1);
+                    world.destroyCamera();
+                    pageLoader.source = "";
+                    pageLoader.source = "GameScreen.qml";
 
-                console.log("world is destroyed");
+                    console.log("world is destroyed");
+                }
             }
-            }
-        Button{
-            height: Screen.height/10
-            width: Screen.width/5
-            text: "Select level"
-            onClicked: {
-                soundEffects.source = "Bubbles.wav";
-                soundEffects.play();
-                world.destroyCamera();
-                pageLoader.source = "LevelScreen.qml";
-                console.log("world is destroyed");
-            }
+            Button{
+                height: Screen.height/10
+                width: Screen.width/5
+                text: "Select level"
+                onClicked: {
+                    soundEffects.source = "Bubbles.wav";
+                    soundEffects.play();
+                    world.destroyCamera();
+                    pageLoader.source = "LevelScreen.qml";
+                    console.log("world is destroyed");
+                }
 
-        }
-        Button{
-            height: Screen.height/10
-            width: Screen.width/5
-            text: "Restart level"
-            onClicked: {
-                soundEffects.source = "Bubbles.wav";
-                soundEffects.play();
-                world.destroyCamera();
-                pageLoader.source = "";
-                pageLoader.source = "GameScreen.qml";
-                console.log("world is destroyed");
             }
-        }
+            Button{
+                height: Screen.height/10
+                width: Screen.width/5
+                text: "Restart level"
+                onClicked: {
+                    soundEffects.source = "Bubbles.wav";
+                    soundEffects.play();
+                    world.destroyCamera();
+                    pageLoader.source = "";
+                    pageLoader.source = "GameScreen.qml";
+                    console.log("world is destroyed");
+                }
+            }
         }
     }
 

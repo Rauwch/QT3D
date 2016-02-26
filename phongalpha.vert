@@ -1,3 +1,6 @@
+/*
+  use these classes to make our cylinder see-through
+  */
 attribute vec3 vertexPosition;
 attribute vec3 vertexNormal;
 

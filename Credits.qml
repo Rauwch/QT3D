@@ -1,12 +1,10 @@
 /*
-  to be implemented: names of designers, etc
-  */
+    page with credits (our names)
+   */
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.1
 import QtQuick.Controls.Styles 1.4
-
-
 
 Item {
     Rectangle {
@@ -31,10 +29,6 @@ Item {
     }
     Button{
         id: theReturnButton
-        //anchors.horizontalCenter: creditsText.horizontalCenter
-        //anchors.verticalCenter: parent.verticalCenter
-        //anchors.verticalCenterOffset: 150
-        //width: creditsText.width
         width: Screen.width/15
         height: Screen.height/15
         style: ButtonStyle {

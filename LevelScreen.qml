@@ -1,7 +1,5 @@
 /*
-  first window that is shown
-  includes:
-    game, options, credits
+  window that lets user choose a level
   */
 
 import QtQuick 2.0
@@ -15,18 +13,11 @@ Item {
     id: myLevelScreen
     property int buttonWidth: Screen.width/8
     property int buttonHeight: Screen.height/8
-    //signal thereturner()
     Component.onDestruction: console.log("levelscreen destroyed")
 
     Component.onCompleted: {
         console.log("mylevelscreen wordt aangemaakt");
-        //console.log("Numbers of levels " + myLevels.amountOfLevels);
     }
-
-//    Levels{
-//        id:myLevels
-
-//    }
     Grid{
         anchors.centerIn: parent
         rows: 3
@@ -40,14 +31,10 @@ Item {
 
                 Component.onCompleted:
                 {
-
-
                     if( myLevels.getAmountOfStars(index) > 0 || myLevels.getAmountOfStars(index-1) )
                     {
                         levelMouse.enabled = true;
                         lockImage.visible = false;
-
-
                     }
                     else{
                         levelMouse.enabled = false;
@@ -58,8 +45,6 @@ Item {
                     {
                         color = "grey";
                     }
-
-
                 }
 
                 border.width: 3
@@ -87,9 +72,6 @@ Item {
                     onClicked: {
                         //game.visible = true;
                         myLevels.setCurrentLevel(index + 1);
-                        //console.log("index" + index);
-
-                        //myLevels.setAmountOfStars(3);
                         soundEffects.source = "Bubbles.wav";
                         soundEffects.play();
                         pageLoader.source = "GameScreen.qml";
@@ -112,20 +94,11 @@ Item {
                         }
                     }
                 }
-
-
-
             }
         }
-
-
-
     }
     Button{
         id: theReturnButton
-        //anchors.horizontalCenter: creditsText.horizontalCenter
-        //anchors.verticalCenter: parent.verticalCenter
-        //anchors.verticalCenterOffset: 150
         width: Screen.width/15
         height: Screen.height/15
         text:"Return"
@@ -135,7 +108,7 @@ Item {
             theColumn.visible= true;
             pageLoader.source = "";
 
-            }
+        }
 
     }
 }
