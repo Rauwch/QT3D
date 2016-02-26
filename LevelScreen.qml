@@ -86,7 +86,9 @@ Item {
 
                     onClicked: {
                         //game.visible = true;
-                        myLevels.setCurrentLevel(index);
+                        myLevels.setCurrentLevel(index + 1);
+                        //console.log("index" + index);
+
                         //myLevels.setAmountOfStars(3);
                         soundEffects.source = "Bubbles.wav";
                         soundEffects.play();

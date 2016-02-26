@@ -203,6 +203,10 @@ Item {
         archerSource = world.theArchSource;
         if(world.lvlCompleted){
             popupWindow.visible= true;
+            continueBtn.visible= (myLevels.getCurrentLevel() < myLevels.amountOfLevels);
+            //console.log("currentLevel" + myLevels.getCurrentLevel());
+            //console.log("amountOfLevels" + myLevels.amountOfLevels);
+
             myLevels.setAmountOfStars(numClicks);
         }
     }
@@ -225,15 +229,18 @@ Item {
             anchors.centerIn: parent
             spacing: Screen.width/20
         Button{
+            id: continueBtn
             height: Screen.height/10
             width: Screen.width/5
             text: "Continue"
             onClicked: {
                 soundEffects.source = "Bubbles.wav";
                 soundEffects.play();
+                myLevels.setCurrentLevel(myLevels.getCurrentLevel()+1);
                 world.destroyCamera();
                 pageLoader.source = "";
                 pageLoader.source = "GameScreen.qml";
+
                 console.log("world is destroyed");
             }
             }

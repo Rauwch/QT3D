@@ -84,19 +84,20 @@ int Levels::getAmountOfStars(int level) const
 
 void Levels::setAmountOfStars(int numClicks)
 {
-    int twoEarned = levelArray[currentLevel][2];
-    int threeEarned = levelArray[currentLevel][3];
+    int currentIndex = currentLevel - 1;
+    int twoEarned = levelArray[currentIndex][2];
+    int threeEarned = levelArray[currentIndex][3];
     if(numClicks <= threeEarned){
-        levelArray[currentLevel][1] = 3;
+        levelArray[currentIndex][1] = 3;
     }
     else if(numClicks <= twoEarned){
-        if(levelArray[currentLevel][1] < 2){
-        levelArray[currentLevel][1] = 2;
+        if(levelArray[currentIndex][1] < 2){
+        levelArray[currentIndex][1] = 2;
         }
     }
     else{
-        if(levelArray[currentLevel][1] < 1){
-        levelArray[currentLevel][1] = 1;
+        if(levelArray[currentIndex][1] < 1){
+        levelArray[currentIndex][1] = 1;
         }
     }
     refreshTextFile();
