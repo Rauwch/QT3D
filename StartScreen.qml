@@ -39,7 +39,7 @@ Item {
         //visibility: Window.Maximized
         color: palette.window
         title: "Octupus Mayhem"
-
+        visible:  true
         Image{
             id: bikiniImg
             source: "bikiniBottom.jpg"
@@ -205,12 +205,12 @@ Item {
 
 
 
-    property var splashWindow: Splash {
-        onTimeout: {
-            startWindow.visible = true;
-            startWindow.visibility = Window.Maximized
-        }
+//    property var splashWindow: Splash {
+//        onTimeout: {
+//            startWindow.visible = true;
+//            startWindow.visibility = Window.Maximized
+//        }
 
-    }
+//    }
 }
 

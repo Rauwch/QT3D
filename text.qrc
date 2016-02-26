@@ -1,5 +1,1 @@
-<RCC>
-    <qresource prefix="/">
-        <file>levels.txt</file>
-    </qresource>
-</RCC>
+<RCC/>
