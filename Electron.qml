@@ -1,3 +1,7 @@
+/*
+  instances of squids
+  */
+
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 import QtQuick 2.0 as QQ2
@@ -21,7 +25,7 @@ Entity{
     property int direction
     //property Linker theLinker
     property Material material
-//    property Material material2
+    //    property Material material2
 
 
     Connections{
@@ -31,70 +35,36 @@ Entity{
             animationX.complete();
             animationX.restart();
             electronSpeed = newSpeed;
-            //console.log("this is the speed   " + electronSpeed);
         }
     }
 
     Mesh{
         id: electronMesh
         source: "Jelly/OBJ/Jellyfish.obj"
-       }
-//    Material: DiffuseMapMaterial {
-    material: DiffuseMapMaterial {
-            id: theMaterial
-            diffuse: "Jelly/Textures/Jellyfish.png"
-
-            specular: Qt.rgba( 1, 1, 1, 1.0 )
-            shininess: 0
-        }
-
-//    material2: DiffuseMapMaterial {
-//            id: theMaterial2
-//            diffuse: "Eye_DF.webp"
-
-//            specular: Qt.rgba( 1, 1, 1, 1.0 )
-//            shininess: 0
-//        }
-
-    QQ2.Component.onCompleted: {
-
-        //console.log("Dit is de hoogte  " + currentPosY)
-        //console.log("Linker speed " + myLinker.speed);
-        //console.log("height myLinker: " + myLinker.height);
-
-//        console.log("beginAnimation.x: " + beginAnimation.x);
-//        console.log("endAnimation: " + endAnimation);
-//        console.log("startPosition: " + startPosition);
-//        console.log("currentPosition: " + currentPosition);
-//        console.log("currentPosX: " + currentPosX);
-//        console.log("currentPosY: " + currentPosY);
-//        console.log("currentPosZ: " + currentPosZ);
     }
+    material: DiffuseMapMaterial {
+        id: theMaterial
+        diffuse: "Jelly/Textures/Jellyfish.png"
 
+        specular: Qt.rgba( 1, 1, 1, 1.0 )
+        shininess: 0
+    }
 
     property Transform transform: Transform {
         id: electronTransform
-        //translation: Qt.vector3d(currentPosX, myLinker.height/2-7, currentPosZ)
         translation: Qt.vector3d(currentPosX, (25/2-8)+(myLinker.height-25), currentPosZ)
         rotation: fromAxisAndAngle(Qt.vector3d(0, 1, 0),direction )
         scale: 2
     }
 
     QQ2.SequentialAnimation on currentPosX{
-            id: animationX
-            loops: QQ2.Animation.Infinite
-            running: true
-                QQ2.PropertyAnimation { from: startPosition.x; to: endAnimation.x; duration: (startPosition.x-endAnimation.x)/electronSpeed*100000;  }
-                QQ2.PropertyAnimation { from: endAnimation.x; to: beginAnimation.x; duration: 0 }
-                QQ2.PropertyAnimation { from: beginAnimation.x; to: startPosition.x; duration: (beginAnimation.x-startPosition.x)/electronSpeed*100000 }
-        }
-//    QQ2.SequentialAnimation on currentPosY{
-//            id: testThisAlso
-//            loops: QQ2.Animation.Infinite
-//            running: true
-//                QQ2.PropertyAnimation { to: currentPosY; duration: 0 }
-//            //onLoopCountChanged: theLinker.setMyHeight(theLinker.getMyHeight())
-//    }
+        id: animationX
+        loops: QQ2.Animation.Infinite
+        running: true
+        QQ2.PropertyAnimation { from: startPosition.x; to: endAnimation.x; duration: (startPosition.x-endAnimation.x)/electronSpeed*100000;  }
+        QQ2.PropertyAnimation { from: endAnimation.x; to: beginAnimation.x; duration: 0 }
+        QQ2.PropertyAnimation { from: beginAnimation.x; to: startPosition.x; duration: (beginAnimation.x-startPosition.x)/electronSpeed*100000 }
+    }
 
     components: [electronMesh,electronTransform,theMaterial]
 

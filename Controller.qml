@@ -23,7 +23,7 @@ Entity{
             //direction: which way the electrons face (positive = counterclockwise looking from top)
             //myLinker.getMyHeight() is used to elevate electrons together with nodes' height
             var electron = electronFactory.createObject(null,{"beginAnimation": Qt.vector3d(amountOfElectrons*10,0+myLinker.getMyHeight(),0),"endAnimation": Qt.vector3d(0,0+myLinker.getMyHeight(),0),"startPosition": Qt.vector3d(i*10,0+myLinker.getMyHeight(),0),
-                            "speed": myLinker.speed,"direction": -45});
+                                                            "speed": myLinker.speed,"direction": -45});
             electron.parent = controller.parent;
         };
     }

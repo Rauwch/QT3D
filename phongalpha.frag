@@ -1,3 +1,6 @@
+/*
+  use these classes to make our cylinder see-through
+  */
 #define FP highp
 
 uniform FP vec4 lightPosition;

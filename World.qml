@@ -16,9 +16,9 @@ Entity {
     property int stepUp: 0
     property string theArchSource: "archer.png"
     property bool lvlCompleted: false
-   QQ2.Component.onCompleted:{
-       targetHeight = (myLinker.height+10);
-   }
+    QQ2.Component.onCompleted:{
+        targetHeight = (myLinker.height+10);
+    }
 
     //magic function that fixes all our problems
     function destroyCamera(){
@@ -101,8 +101,6 @@ Entity {
 
     }
 
-
-
     Entity {
 
         id: cylinder1
@@ -119,8 +117,6 @@ Entity {
                 soundEffects.play()}
         }
 
-
-
         components: [
             cylinderMesh,
             colorCylinder,
@@ -130,22 +126,17 @@ Entity {
         ]
     }
     Entity {
-
         id: cylinder1Goal
-//        property Material material
-
         property Transform transform : Transform {
             id: cylindertransformGhost
             translation: Qt.vector3d(0,(35-25)/2,0)
         }
-
 
         components: [
             cylinderMeshGhost,
             colorCylinderGhost,
             cylindertransformGhost,
             ourAlphaMaterial
-
         ]
     }
     Entity {
@@ -157,8 +148,6 @@ Entity {
             id: cylindertransform2
             translation: Qt.vector3d(100,(myLinker.height-25)/2,0)
         }
-
-
         property ObjectPicker objectPicker: ObjectPicker {
 
             onClicked: {
@@ -166,36 +155,26 @@ Entity {
                 soundEffects.play()}
         }
 
-
-
         components: [
             cylinderMesh,
             colorCylinder,
             cylindertransform2,
             objectPicker
-
         ]
     }
     Entity {
-
         id: cylinder2Goal
-//        property Material material
-
         property Transform transform : Transform {
             id: cylindertransform2Ghost
             translation: Qt.vector3d(100,(35-25)/2,0)
         }
-
-
         components: [
             cylinderMeshGhost,
             colorCylinderGhost,
             cylindertransform2Ghost,
             ourAlphaMaterial
-
         ]
     }
-
     Configuration  {
         id: theConfig
         controlledCamera: myCamera
@@ -210,13 +189,11 @@ Entity {
                 id: cameraSelectors
                 camera: myCamera
                 ClearBuffer {
-                               buffers: ClearBuffer.ColorDepthBuffer
-                          }
+                    buffers: ClearBuffer.ColorDepthBuffer
+                }
             }
         }
     }
-
-
     //cylinder
     CylinderMesh {
         id: cylMesh
@@ -228,19 +205,10 @@ Entity {
 
     Controller{
         id:myController
-//        ourLinker: myLinker
     }
 
 
 }
-
-//function appendAll(){
-//    i = 0
-//    while(i<5){
-//    entityModel.append({});
-//        i++
-//    }
-//}
 
 
 

@@ -22,21 +22,14 @@ Item {
     signal test()
     Component.onDestruction: console.log("startscreen destroyed")
     Component.onCompleted: {
-        //backgroundMusic.play();
         console.log("myStartScreen wordt aangemaakt");
 
     }
     Levels{
         id:myLevels
-
-    //    ButtonStyle{
-    //        id: styleButton
-
-    //    }
     }
 
     property var startWindow: Window {
-        //visibility: Window.Maximized
         color: palette.window
         title: "Octupus Mayhem"
         visible:  true
@@ -61,8 +54,6 @@ Item {
                 style: ButtonStyle {
                     id:styleButton
                     background: Rectangle {
-                        //implicitWidth: 100
-                        //implicitHeight: 25
                         border.width: control.activeFocus ? 4 : 2
 
                         border.color: "#063e79"
@@ -73,26 +64,26 @@ Item {
                         }
                     }
                     label: Text {
-                            renderType: Text.NativeRendering
-                            verticalAlignment: Text.AlignVCenter
-                            horizontalAlignment: Text.AlignHCenter
-                            font.family: "Helvetica"
-                            font.pointSize: 20
-                            color: "black"
-                            text: control.text
-                          }
+                        renderType: Text.NativeRendering
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.family: "Helvetica"
+                        font.pointSize: 20
+                        color: "black"
+                        text: control.text
+                    }
                 }
 
-                    onClicked: {
-                        //game.visible = true;
-                        soundEffects.source = "Bubbles.wav";
-                        soundEffects.play() ;
-                        theColumn.visible = false;
-                        //startscreen doesn't get deleted because it wasn't created by the pageloader
-                        pageLoader.source = "LevelScreen.qml";
+                onClicked: {
+                    //game.visible = true;
+                    soundEffects.source = "Bubbles.wav";
+                    soundEffects.play() ;
+                    theColumn.visible = false;
+                    //startscreen doesn't get deleted because it wasn't created by the pageloader
+                    pageLoader.source = "LevelScreen.qml";
 
 
-                    }
+                }
 
             }
 
@@ -116,14 +107,14 @@ Item {
                         }
                     }
                     label: Text {
-                            renderType: Text.NativeRendering
-                            verticalAlignment: Text.AlignVCenter
-                            horizontalAlignment: Text.AlignHCenter
-                            font.family: "Helvetica"
-                            font.pointSize: 20
-                            color: "black"
-                            text: control.text
-                          }
+                        renderType: Text.NativeRendering
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.family: "Helvetica"
+                        font.pointSize: 20
+                        color: "black"
+                        text: control.text
+                    }
                 }
                 onClicked: {
                     soundEffects.source = "Bubbles.wav";
@@ -152,14 +143,14 @@ Item {
                         }
                     }
                     label: Text {
-                            renderType: Text.NativeRendering
-                            verticalAlignment: Text.AlignVCenter
-                            horizontalAlignment: Text.AlignHCenter
-                            font.family: "Helvetica"
-                            font.pointSize: 20
-                            color: "black"
-                            text: control.text
-                          }
+                        renderType: Text.NativeRendering
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.family: "Helvetica"
+                        font.pointSize: 20
+                        color: "black"
+                        text: control.text
+                    }
                 }
                 onClicked: {
                     soundEffects.source = "Bubbles.wav";
@@ -186,13 +177,7 @@ Item {
             target: pageLoader.item
             Component.onDestruction: console.log(" page loader destroyed")
 
-            //            onTest:{
-            //                pageLoader.source= "LevelScreen.qml";
-            //                console.log("Source is empty");
-            //            }
         }
-
-
         MediaPlayer{
             id:backgroundMusic
             source:"backgroundMusic.wav"
@@ -203,13 +188,12 @@ Item {
     }
 
 
-
-
 //    property var splashWindow: Splash {
 //        onTimeout: {
 //            startWindow.visible = true;
 //            startWindow.visibility = Window.Maximized
 //        }
+
 
 //    }
 }
