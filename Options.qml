@@ -7,6 +7,8 @@ import QtQuick.Controls 1.2
 import QtQuick.Window 2.1
 import QtQuick.Layouts 1.2
 import QtQuick.Controls.Styles 1.4
+import QtQuick.Extras 1.4
+
 Item {
 
     Column{
@@ -21,6 +23,12 @@ Item {
             spacing: 20
             //width: Screen.width/3
             //height: Screen.height/4
+            Switch{
+                id: theSwitch
+                property bool on: false
+                visible: false
+            }
+
             Rectangle {
                 width: Screen.width/6
                 height: 100
@@ -32,73 +40,111 @@ Item {
                     GradientStop { position: 0 ; color: "#2589f4" }
                     GradientStop { position: 1 ; color: "#0b6fda" }
                 }
-            Text{
-                anchors.centerIn: parent
-                text: "Background Music"
-                renderType: Text.NativeRendering
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.family: "Helvetica"
-                font.pointSize: 20
-                color: "black"
-            }
-            }
-            Button{
-                width: 100
-                height: 100
-                style: ButtonStyle {
-                    background: Rectangle {
-                        border.width: 2
-                        border.color: "#063e79"
-                        radius: 10
-                        gradient: Gradient {
-                            GradientStop { position: 0 ; color: "#2589f4" }
-                            GradientStop { position: 1 ; color: "#0b6fda" }
-                        }
-                    }
-                    label: Text {
-                        renderType: Text.NativeRendering
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        font.family: "Helvetica"
-                        font.pointSize: 20
-                        color: "black"
-                        text:"On"
-                    }
-                }
-                onClicked: {
-                    backgroundMusic.play();
+                Text{
+                    anchors.centerIn: parent
+                    text: "Background Music"
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
                 }
             }
+            Switch{
+                implicitWidth: 400
+                implicitHeight: 100
+                style: SwitchStyle {
+                    groove: Rectangle {
+                            implicitWidth: 200
+                            implicitHeight: 100
+                            radius: 10
+                            border.width:  2
+                            border.color: "#063e79"
+                            gradient: Gradient {
+                                GradientStop { position: 0 ; color: "#2589f4" }
+                                GradientStop { position: 1 ; color: "#0b6fda" }
+                            }
+                    }
+//                    handle: Rectangle {
+//                            implicitWidth: 100
+//                            implicitHeight: 100
+//                            radius: 10
+//                            border.width:  2
+//                            border.color: "#063e79"
+//                            gradient: Gradient {
+//                                GradientStop { position: 0 ; color: "#0b6fda" }
+//                                GradientStop { position: 1 ; color: "#2589f4" }
+//                            }
+//                    }
+                }
 
-            Button{
-                width: 100
-                height: 100
-                style: ButtonStyle {
-                    background: Rectangle {
-                        border.width: 2
-                        border.color: "#063e79"
-                        radius: 10
-                        gradient: Gradient {
-                            GradientStop { position: 0 ; color: "#2589f4" }
-                            GradientStop { position: 1 ; color: "#0b6fda" }
-                        }
+                onClicked:{
+                    if(checked){
+                        backgroundMusic.play();
                     }
-                    label: Text {
-                        renderType: Text.NativeRendering
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        font.family: "Helvetica"
-                        font.pointSize: 20
-                        color: "black"
-                        text:"Off"
+                    if(!checked){
+                        backgroundMusic.stop();
                     }
-
-                }
-                onClicked: {
-                    backgroundMusic.stop();
                 }
             }
+//            Button{
+//                width: 100
+//                height: 100
+
+//                style: ButtonStyle {
+//                    background: Rectangle {
+//                        border.width: 2
+//                        border.color: "#063e79"
+//                        radius: 10
+//                        gradient: Gradient {
+//                            GradientStop { position: 0 ; color: "#2589f4" }
+//                            GradientStop { position: 1 ; color: "#0b6fda" }
+//                        }
+//                    }
+//                    label: Text {
+//                        renderType: Text.NativeRendering
+//                        verticalAlignment: Text.AlignVCenter
+//                        horizontalAlignment: Text.AlignHCenter
+//                        font.family: "Helvetica"
+//                        font.pointSize: 20
+//                        color: "black"
+//                        text:"On"
+//                    }
+//                }
+//                onClicked: {
+//                    backgroundMusic.play();
+//                }
+//            }
+
+//            Button{
+//                width: 100
+//                height: 100
+//                style: ButtonStyle {
+//                    background: Rectangle {
+//                        border.width: 2
+//                        border.color: "#063e79"
+//                        radius: 10
+//                        gradient: Gradient {
+//                            GradientStop { position: 0 ; color: "#2589f4" }
+//                            GradientStop { position: 1 ; color: "#0b6fda" }
+//                        }
+//                    }
+//                    label: Text {
+//                        renderType: Text.NativeRendering
+//                        verticalAlignment: Text.AlignVCenter
+//                        horizontalAlignment: Text.AlignHCenter
+//                        font.family: "Helvetica"
+//                        font.pointSize: 20
+//                        color: "black"
+//                        text:"Off"
+//                    }
+
+//                }
+//                onClicked: {
+//                    backgroundMusic.stop();
+//                }
+//            }
         }
 
         Row {
@@ -114,75 +160,113 @@ Item {
                     GradientStop { position: 0 ; color: "#2589f4" }
                     GradientStop { position: 1 ; color: "#0b6fda" }
                 }
-            Text{
-                text: "Sound Effects"
-                anchors.centerIn: parent
-                renderType: Text.NativeRendering
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.family: "Helvetica"
-                font.pointSize: 20
-                color: "black"
-            }
-}
-            Button{
-                width: 100
-                height: 100
-                style: ButtonStyle {
-                    background: Rectangle {
-                        border.width: 2
-                        border.color: "#063e79"
-                        radius: 10
-                        gradient: Gradient {
-                            GradientStop { position: 0 ; color: "#2589f4" }
-                            GradientStop { position: 1 ; color: "#0b6fda" }
-                        }
-
-                    }
-                    label: Text {
-                        renderType: Text.NativeRendering
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        font.family: "Helvetica"
-                        font.pointSize: 20
-                        color: "black"
-                        text:"On"
-                    }
-
-                }
-                onClicked: {
-                    soundEffects.volume = 1.0;
+                Text{
+                    text: "Sound Effects"
+                    anchors.centerIn: parent
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
                 }
             }
-
-            Button{
-                width: 100
-                height: 100
-                style: ButtonStyle {
-                    background: Rectangle {
-                        border.width: 2
-                        border.color: "#063e79"
-                        radius: 10
-                        gradient: Gradient {
-                            GradientStop { position: 0 ; color: "#2589f4" }
-                            GradientStop { position: 1 ; color: "#0b6fda" }
-                        }
+            Switch{
+                implicitWidth: 400
+                implicitHeight: 100
+                style: SwitchStyle {
+                    groove: Rectangle {
+                            implicitWidth: 200
+                            implicitHeight: 100
+                            radius: 10
+                            border.width:  2
+                            border.color: "#063e79"
+                            gradient: Gradient {
+                                GradientStop { position: 0 ; color: "#2589f4" }
+                                GradientStop { position: 1 ; color: "#0b6fda" }
+                            }
                     }
-                    label: Text {
-                        renderType: Text.NativeRendering
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        font.family: "Helvetica"
-                        font.pointSize: 20
-                        color: "black"
-                        text:"Off"
-                    }
-
+//                    handle: Rectangle {
+//                            implicitWidth: 100
+//                            implicitHeight: 100
+//                            radius: 10
+//                            border.width:  2
+//                            border.color: "#063e79"
+//                            gradient: Gradient {
+//                                GradientStop { position: 0 ; color: "#0b6fda" }
+//                                GradientStop { position: 1 ; color: "#2589f4" }
+//                            }
+//                    }
                 }
-                onClicked: {
-                    soundEffects.volume = 0.0;
+
+                onClicked:{
+                    if(checked){
+                        soundEffects.volume = 1.0;
+                    }
+                    if(!checked){
+                        soundEffects.volume = 0.0;
+                    }
                 }
             }
+
+//            Button{
+//                width: 100
+//                height: 100
+//                style: ButtonStyle {
+//                    background: Rectangle {
+//                        border.width: 2
+//                        border.color: "#063e79"
+//                        radius: 10
+//                        gradient: Gradient {
+//                            GradientStop { position: 0 ; color: "#2589f4" }
+//                            GradientStop { position: 1 ; color: "#0b6fda" }
+//                        }
+
+//                    }
+//                    label: Text {
+//                        renderType: Text.NativeRendering
+//                        verticalAlignment: Text.AlignVCenter
+//                        horizontalAlignment: Text.AlignHCenter
+//                        font.family: "Helvetica"
+//                        font.pointSize: 20
+//                        color: "black"
+//                        text:"On"
+//                    }
+
+//                }
+//                onClicked: {
+//                    soundEffects.volume = 1.0;
+//                }
+//            }
+
+//            Button{
+//                width: 100
+//                height: 100
+//                style: ButtonStyle {
+//                    background: Rectangle {
+//                        border.width: 2
+//                        border.color: "#063e79"
+//                        radius: 10
+//                        gradient: Gradient {
+//                            GradientStop { position: 0 ; color: "#2589f4" }
+//                            GradientStop { position: 1 ; color: "#0b6fda" }
+//                        }
+//                    }
+//                    label: Text {
+//                        renderType: Text.NativeRendering
+//                        verticalAlignment: Text.AlignVCenter
+//                        horizontalAlignment: Text.AlignHCenter
+//                        font.family: "Helvetica"
+//                        font.pointSize: 20
+//                        color: "black"
+//                        text:"Off"
+//                    }
+
+//                }
+//                onClicked: {
+//                    soundEffects.volume = 0.0;
+//                }
+//            }
         }
     }
     Button{
