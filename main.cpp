@@ -40,48 +40,43 @@
 #include <QtQuick/QQuickWindow>
 #include <QtCore/QUrl>
 #include <QDebug>
+#include <QQmlContext>
+#include <QObject>
 #include <QGuiApplication>
 #include <QQuickView>
 #include <QOpenGLContext>
+
 #include "linker.h"
 #include "levels.h"
-//int main(int argc, char **argv)
-//{
-//    QGuiApplication app(argc, argv);
-//    qmlRegisterType<Linker>("Link",1,0,"Linker");
-//    QSurfaceFormat format;
-//    if (QOpenGLContext::openGLModuleType() == QOpenGLContext::LibGL) {
-//        format.setVersion(3, 2);
-//        format.setProfile(QSurfaceFormat::CoreProfile);
-//    }
-//    format.setDepthBufferSize(24);
-//    format.setSamples(4);
+#include "calc.h"
+using namespace std;
 
-//    QQuickView view;
-//    view.setFormat(format);
-//    view.setResizeMode(QQuickView::SizeRootObjectToView);
-//    view.setSource(QUrl("qrc:/StartScreen.qml"));
-//    view.setColor("#000000");
-//    view.show();
 
-//    return app.exec();
-//}
+
 
 int main(int argc, char* argv[])
 {
+
+    //Calc* c=new Calc();
+
     QGuiApplication app(argc, argv);
     foreach (QScreen * screen, QGuiApplication::screens())
         screen->setOrientationUpdateMask(Qt::LandscapeOrientation | Qt::PortraitOrientation |
                                          Qt::InvertedLandscapeOrientation | Qt::InvertedPortraitOrientation);
     qmlRegisterType<Linker>("Link",1,0,"Linker");
+    qmlRegisterType<Calc>("Calc",1,0,"Calculator");
     qmlRegisterType<Levels>("Lvl",1,0,"Levels");
+
     QQmlEngine engine;
     QQmlComponent component(&engine);
+    //engine.rootContext()->setContextProperty(QStringLiteral("calculator"),c);
     QQuickWindow::setDefaultAlphaBuffer(true);
     component.loadUrl(QUrl("qrc:/StartScreen.qml"));
     if ( component.isReady() )
         component.create();
-    else
+    else{
+
         qWarning() << component.errorString();
+    }
     return app.exec();
 }

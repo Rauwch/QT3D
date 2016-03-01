@@ -17,5 +17,12 @@
         <file>AlphaMaterial.qml</file>
         <file>phongalpha.frag</file>
         <file>phongalpha.vert</file>
+        <file>World3D.qml</file>
+        <file>Wire.qml</file>
+        <file>Source.qml</file>
+        <file>Resistor.qml</file>
+        <file>Generator.qml</file>
+        <file>Elektron.qml</file>
+        <file>TestWorld.qml</file>
     </qresource>
 </RCC>

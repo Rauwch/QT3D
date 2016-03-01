@@ -8,6 +8,7 @@ import QtQuick.Window 2.0
 import QtQuick.Scene3D 2.0
 import Link 1.0
 import Lvl 1.0
+import Calc 1.0
 
 Item {
     id: myGameScreen
@@ -32,7 +33,7 @@ Item {
         focus: true
         aspects: ["input"]
 
-        World { id: world }
+        World3D { id: world }
     }
 
     Column{
@@ -163,19 +164,24 @@ Item {
 
         }
     }
+    Calculator{
+        id: calculator
+    }
+
+
     Linker{
         id: myLinker
         speed: 2000
     }
 
     function updateAnimation(){
-        world.checkMatch();
-        archerSource = world.theArchSource;
-        if(world.lvlCompleted){
-            popupWindow.visible= true;
-            continueBtn.visible= (myLevels.getCurrentLevel() < myLevels.amountOfLevels);
-            myLevels.setAmountOfStars(numClicks);
-        }
+//        world.checkMatch();
+//        archerSource = world.theArchSource;
+//        if(world.lvlCompleted){
+//            popupWindow.visible= true;
+//            continueBtn.visible= (myLevels.getCurrentLevel() < myLevels.amountOfLevels);
+//            myLevels.setAmountOfStars(numClicks);
+//        }
     }
 
     Rectangle{

@@ -25,7 +25,7 @@ Entity {
         id: colorMaker
         diffuse: Qt.rgba(34/255,46/255,212/255,1)
         specular: "white"
-        shininess: 100.0
+        shininess: 0.0
     }
     components: [
         groundMesh,
