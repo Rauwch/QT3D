@@ -118,9 +118,14 @@ Entity{
         var j = 0
         for(i=0;i<calculator.getNumberOfWires();i++){
             console.log("orientationangle: " + 90*(calculator.getAngleOfWire(i)-1));
-            var pole = o.poleFactory.createObject(null, {"x":calculator.getXCoordOfWire(i)*root.sf,
+            var pole;
+            pole = o.poleFactory.createObject(null, {"x":calculator.getXCoordOfWire(i)*root.sf,
                                                       "z":-calculator.getYCoordOfWire(i)*root.sf,
                                                       "y":calculator.voltageAtNode(calculator.getNodeOfWire(i))});
+            console.log("x: " + calculator.getXCoordOfWire(i)*root.sf);
+            console.log("z: " + -calculator.getYCoordOfWire(i)*root.sf);
+            console.log("y: " + calculator.voltageAtNode(calculator.getNodeOfWire(i)));
+
             pole.parent=root.parent;
             root.poles[j]=pole;
             j++;

@@ -18,6 +18,9 @@ Entity{
 
 
     components: [somesh,sotrans]
+    QQ2.Component.onCompleted: {
+        console.log("pole x y z: " + x + " " + y + " " + z);
+    }
 
     Entity{
         id:somesh
@@ -38,7 +41,7 @@ Entity{
         PhongMaterial {
             id:mat
             diffuse: "white"
-            ambient: "white"
+            ambient: "yellow"
             specular: "blue"
             shininess: 0.2
         }
