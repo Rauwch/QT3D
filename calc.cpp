@@ -72,7 +72,8 @@ void Calc::readFile(QString s)
                             break;
 
                         case 'g':
-
+                            for(int i=2; i<line.length();i++)
+                                process_goal_line(line);
                             break;
 
                         case 'w':
@@ -151,8 +152,21 @@ std::vector<std::shared_ptr<Wire> > Calc::process_wire_line(QString &lijn)
         int y=wireParams.at(2).toInt();
         int angle=wireParams.at(0).toInt();
         int length=wireParams.at(4).toInt();
+        bool isGoal;
+        if(wireParams.at(5).toInt() == 1)
+        {
+            isGoal = true;
+        }
+        else if(wireParams.at(5).toInt() == 0)
+        {
+            isGoal = false;
+        }
+        else
+        {
+            qDebug() << "Wrong entry for variable";
+        }
         int node=wireParams.at(3).toInt();
-        auto w =std::make_shared<Wire>(x,y,angle,length,node);
+        auto w =std::make_shared<Wire>(x,y,angle,length,node,isGoal);
         wir.push_back(w);
         //TODO check if input is correct!!
 
@@ -221,6 +235,15 @@ void Calc::process_source_line(QString &lijn)
     sources.push_back(s);
 
 
+}
+
+void Calc::process_goal_line(QString &lijn)
+{
+    lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
+    lijn.replace("g","",Qt::CaseSensitivity::CaseInsensitive); //remove g
+    QStringList list=lijn.split(" ",QString::SkipEmptyParts);
+    goalX = list.at(0).toInt();
+    goalY = list.at(1).toInt();
 }
 
 
@@ -816,6 +839,26 @@ std::vector<float> Calc::computeNetwork(int  nrOfNodes)
 
 
 
+}
+
+int Calc::getGoalY() const
+{
+    return goalY;
+}
+
+void Calc::setGoalY(int value)
+{
+    goalY = value;
+}
+
+int Calc::getGoalX() const
+{
+    return goalX;
+}
+
+void Calc::setGoalX(int value)
+{
+    goalX = value;
 }
 
 

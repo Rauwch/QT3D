@@ -1,7 +1,7 @@
 #include "wire.h"
 
-Wire::Wire(int x, int y, int angle, int length, int node, float current)
-    :length(length),current(current),node(node)
+Wire::Wire(int x, int y, int angle, int length, int node, bool goal, float current)
+    :length(length),current(current),node(node), isGoal(goal)
 {
     this->setValue(0);
     this->setXCoord(x);
@@ -29,4 +29,14 @@ int Wire::getNode() const
 void Wire::setNode(int value)
 {
     node = value;
+}
+
+bool Wire::getIsGoal() const
+{
+    return isGoal;
+}
+
+void Wire::setIsGoal(bool value)
+{
+    isGoal = value;
 }

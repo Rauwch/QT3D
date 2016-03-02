@@ -1,16 +1,14 @@
 #include "resistor.h"
 #include "component.h"
-Resistor::Resistor(float v, int n1, int n2, int x, int y, int angle, bool variable, int initial, int step)
- : node1(n1),node2(n2)
+Resistor::Resistor(float v, int n1, int n2, int x, int y, int angle, bool var, int init, int stepSize)
+ : node1(n1),node2(n2), variable(var), initial(init), step(stepSize)
 {
 
     this->setValue(v);
     this->setXCoord(x);
     this->setYCoord(y);
     this->setAngle(angle);
-    this->setVariable(variable);
-    this->setInitial(initial);
-    this->setStep(step);
+
 }
 
 int Resistor::getNode1() const
@@ -31,6 +29,36 @@ int Resistor::getNode2() const
 void Resistor::setNode2(int value)
 {
     node2 = value;
+}
+
+bool Resistor::getVariable() const
+{
+    return variable;
+}
+
+void Resistor::setVariable(bool value)
+{
+    variable = value;
+}
+
+int Resistor::getInitial() const
+{
+    return initial;
+}
+
+void Resistor::setInitial(int value)
+{
+    initial = value;
+}
+
+int Resistor::getStep() const
+{
+    return step;
+}
+
+void Resistor::setStep(int value)
+{
+    step = value;
 }
 
 

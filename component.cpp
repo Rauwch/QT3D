@@ -68,36 +68,6 @@ void Component::setCurrent(float value)
     current = value;
 }
 
-int Component::getInitial() const
-{
-    return initial;
-}
-
-void Component::setInitial(int value)
-{
-    initial = value;
-}
-
-int Component::getStep() const
-{
-    return step;
-}
-
-void Component::setStep(int value)
-{
-    step = value;
-}
-
-bool Component::getVariable() const
-{
-    return variable;
-}
-
-void Component::setVariable(bool value)
-{
-    variable = value;
-}
-
 
 Component::Component(float v)
 {
