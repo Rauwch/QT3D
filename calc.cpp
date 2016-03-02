@@ -169,10 +169,24 @@ void Calc::process_resistor_line(QString &lijn)
     int x=list.at(5).toInt();
     int y=list.at(6).toInt();
     int angle=list.at(7).toInt();
+    bool variable;
+    if(list.at(8).toInt() == 1)
+    {
+        variable = true;
+    }
+    else if(list.at(8).toInt() == 0)
+    {
+        variable = false;
+    }
+    else{
+        qDebug() << "Wrong entry for variable";
+    }
+    int initial = list.at(9).toInt();
+    int step = list.at(10).toInt();
     int node1=list.at(1).toInt();
     int node2=list.at(2).toInt();
     float v=list.at(3).toFloat();
-    auto r =std::make_shared<Resistor>(v,node1,node2,x,y,angle);
+    auto r =std::make_shared<Resistor>(v,node1,node2,x,y,angle,variable,initial,step);
     resistors.push_back(r);
 
 }
@@ -185,10 +199,24 @@ void Calc::process_source_line(QString &lijn)
     int x=list.at(5).toInt();
     int y=list.at(6).toInt();
     int angle=list.at(7).toInt();
+    bool variable;
+    if(list.at(8).toInt() == 1)
+    {
+        variable = true;
+    }
+    else if(list.at(8).toInt() == 0)
+    {
+        variable = false;
+    }
+    else{
+        qDebug() << "Wrong entry for variable";
+    }
+    int initial = list.at(9).toInt();
+    int step = list.at(10).toInt();
     int nodep=list.at(1).toInt();
     int nodem=list.at(2).toInt();
     float v=list.at(3).toFloat();
-    auto s =std::make_shared<Source>(v,nodep,nodem,x,y,angle);
+    auto s =std::make_shared<Source>(v,nodep,nodem,x,y,angle,variable,initial,step);
     sources.push_back(s);
 
 

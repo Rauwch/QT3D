@@ -1,13 +1,16 @@
 #include "source.h"
 #include "component.h"
-Source::Source(float v, int np, int nm, int x, int y, int angle)
+Source::Source(float v, int np, int nm, int x, int y, int angle, bool variable, int initial, int step)
     : nodep(np), nodem(nm)
 
 {
-        this->setValue(v);
+    this->setValue(v);
     this->setXCoord(x);
     this->setYCoord(y);
     this->setAngle(angle);
+    this->setVariable(variable);
+    this->setInitial(initial);
+    this->setStep(step);
 }
 
 

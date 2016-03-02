@@ -6,7 +6,7 @@
 class Resistor : public Component
 {
 public:
-    Resistor(float v,int n1,int n2,int x,int y,int angle);
+    Resistor(float v,int n1,int n2,int x,int y,int angle, bool variable, int initial, int step);
     int getNode1() const;
     void setNode1(int value);
 

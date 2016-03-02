@@ -34,7 +34,7 @@ Entity {
 
     Camera {
         id: myCamera
-        projectionType: CameraLens.OrthogonalProjection
+        projectionType: CameraLens.PerspectiveProjection
         fieldOfView: 75
         aspectRatio: 16/9
         nearPlane : 0.1
@@ -47,7 +47,9 @@ Entity {
     }
 
     function destroyCamera(){
+        background.destroy();
         mainCamera.destroy();
+        console.log("destroy camera")
 
     }
 
