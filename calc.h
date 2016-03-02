@@ -67,8 +67,15 @@ public:
     std::vector<std::shared_ptr<Wire> > process_wire_line(QString& lijn);//TODO remove return type and push_back wires in global wires var
     void process_resistor_line(QString &lijn);
     void process_source_line(QString &lijn);
+    void process_goal_line(QString &lijn);
 
 
+
+    int getGoalX() const;
+    void setGoalX(int value);
+
+    int getGoalY() const;
+    void setGoalY(int value);
 
 private:
     std::vector<float> computeNetwork(int nrOfNodes);
@@ -76,10 +83,13 @@ private:
 
     //variables for circuit
     std::vector<float> sol;
+    int goalX;
+    int goalY;
     std::vector<std::shared_ptr<Component>> sources;
     std::vector<std::shared_ptr<Component>> resistors;
     std::vector<std::shared_ptr<Wire>> wires;
     QString fileName;
+
 };
 
 #endif // CALC_H

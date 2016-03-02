@@ -29,19 +29,10 @@ public:
     virtual float getCurrent() const;
     virtual void setCurrent(float value);
 
-    int getInitial() const;
-    void setInitial(int value);
-
-    int getStep() const;
-    void setStep(int value);
-
-    bool getVariable() const;
-    void setVariable(bool value);
 
 protected:
     float value,current;
-    int angle,xCoord,yCoord,initial,step;
-    bool variable;
+    int angle,xCoord,yCoord;
 };
 
 #endif // COMPONENT_H
