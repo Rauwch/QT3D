@@ -115,13 +115,41 @@ Entity{
         }
 
         console.log("number of sources, resistors", root.sources.length, root.resistors.length);
+        var j = 0
         for(i=0;i<calculator.getNumberOfWires();i++){
-            console.log("amount of nodes: " + calculator.getNumberOfWires());
+            console.log("orientationangle: " + 90*(calculator.getAngleOfWire(i)-1));
             var pole = o.poleFactory.createObject(null, {"x":calculator.getXCoordOfWire(i)*root.sf,
-                                                  "z":-calculator.getYCoordOfWire(i)*root.sf,
+                                                      "z":-calculator.getYCoordOfWire(i)*root.sf,
+                                                      "y":calculator.voltageAtNode(calculator.getNodeOfWire(i))});
+            pole.parent=root.parent;
+            root.poles[j]=pole;
+            j++;
+            //orientationangle
+            var xDif= 0;
+            var zDif= 0;
+            switch(90*(calculator.getAngleOfWire(i)-1)){
+            case(0):
+                xDif = calculator.getLengthOfWire(i)*root.sf;
+                break;
+            case(90):
+                zDif = -calculator.getLengthOfWire(i)*root.sf;
+                break;
+            case(180):
+                xDif = -calculator.getLengthOfWire(i)*root.sf;
+                break;
+            case(270):
+                zDif = calculator.getLengthOfWire(i)*root.sf;
+                break;
+            default:
+                break;
+
+            }
+            pole = o.poleFactory.createObject(null, {"x":calculator.getXCoordOfWire(i)*root.sf + xDif,
+                                                  "z":-calculator.getYCoordOfWire(i)*root.sf + zDif,
                                                   "y":calculator.voltageAtNode(calculator.getNodeOfWire(i))});
             pole.parent=root.parent;
-            root.poles[i]=pole;
+            root.poles[j]=pole;
+            j++;
         }
 
 
