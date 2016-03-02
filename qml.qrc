@@ -24,5 +24,6 @@
         <file>Generator.qml</file>
         <file>Elektron.qml</file>
         <file>TestWorld.qml</file>
+        <file>Pole.qml</file>
     </qresource>
 </RCC>

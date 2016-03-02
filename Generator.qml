@@ -13,6 +13,7 @@ Entity{
     property var sources:[]
     property var resistors :[]
     property var wires: []
+    property var poles: []
 
     QQ2.QtObject{
 
@@ -22,6 +23,7 @@ Entity{
         property var sourceFactory
         property var resistorFactory
         property var wireFactory
+        property var poleFactory
 
 
 
@@ -43,6 +45,7 @@ Entity{
         o.sourceFactory=Qt.createComponent("Source.qml");
         o.resistorFactory=Qt.createComponent("Resistor.qml");
         o.wireFactory=Qt.createComponent("Wire.qml");
+        o.poleFactory=Qt.createComponent("Pole.qml");
 
         for(var i=0;i<calculator.getNumberOfSources();i++){
             console.log("amount of sources " + calculator.getNumberOfSources());
@@ -112,6 +115,14 @@ Entity{
         }
 
         console.log("number of sources, resistors", root.sources.length, root.resistors.length);
+        for(i=0;i<calculator.getNumberOfWires();i++){
+            console.log("amount of nodes: " + calculator.getNumberOfWires());
+            var pole = o.poleFactory.createObject(null, {"x":calculator.getXCoordOfWire(i)*root.sf,
+                                                  "z":-calculator.getYCoordOfWire(i)*root.sf,
+                                                  "y":calculator.voltageAtNode(calculator.getNodeOfWire(i))});
+            pole.parent=root.parent;
+            root.poles[i]=pole;
+        }
 
 
     }
