@@ -72,6 +72,7 @@ void Calc::readFile(QString s)
                             break;
 
                         case 'g':
+
                             break;
 
                         case 'w':
