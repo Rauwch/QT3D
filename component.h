@@ -33,6 +33,7 @@ public:
 protected:
     float value,current;
     int angle,xCoord,yCoord;
+    //stuff we added
 };
 
 #endif // COMPONENT_H

@@ -47,22 +47,43 @@ Entity{
         o.wireFactory=Qt.createComponent("Wire.qml");
         o.poleFactory=Qt.createComponent("Pole.qml");
 
+
+        //create goals
+        //nodes
+        //voltages
+        //current
+        //calculate and save values
+        //maybe use new function "getNumberOfGoalSources"
         for(var i=0;i<calculator.getNumberOfSources();i++){
             console.log("amount of sources " + calculator.getNumberOfSources());
 
             var negNode = calculator.nodeMAtSource(i);
+            //check if voltage showGoal is on
+            //if not, object doesn't have to be created
+            var source = o.sourceFactory.createObject(null,{"s":calculator.getVoltageAtSource(i),"x":calculator.getXCoordOfSource(i)*root.sf,"z":-calculator.getYCoordOfSource(i)*root.sf,"y":calculator.voltageAtNode(negNode)});
+            source.parent=root.parent;
+            root.sources[i]=source;
+        }
 
+        //create sources using the "initial" values instead of the "solution" values
+        for(var i=0;i<calculator.getNumberOfSources();i++){
+            var negNode = calculator.nodeMAtSource(i);
+            //"s":calculator.getVoltageAtSource(i)
+                //needs a new calculation based on initial values
+            //"x":calculator.getXCoordOfSource(i)*root.sf
+                //can stay the same
+            //"z":-calculator.getYCoordOfSource(i)*root.sf
+                //can stay the same
+            //"y":calculator.voltageAtNode(negNode)})
+                //needs a new calculation based on initial values
             var source = o.sourceFactory.createObject(null,{"s":calculator.getVoltageAtSource(i),"x":calculator.getXCoordOfSource(i)*root.sf,"z":-calculator.getYCoordOfSource(i)*root.sf,"y":calculator.voltageAtNode(negNode)});
             source.parent=root.parent;
             root.sources[i]=source;
 
-            console.log("Current trough source: ", i , calculator.getCurrentofSource(i));
-
-
         }
 
         //TODO Probleem met angle oplossen
-
+        //create resistors
         for( var i=0;i<calculator.getNumberOfResistors();i++){
 
 
@@ -96,7 +117,7 @@ Entity{
 
 
         //add wires TODO make automatisch
-
+        //create wires
         for(i=0;i<calculator.getNumberOfWires();i++){
 
 
@@ -113,8 +134,7 @@ Entity{
             console.log("Current trough Wire at pos : ", calculator.getXCoordOfWire(i),calculator.getYCoordOfWire(i),calculator.getCurrentofWire(i));
 
         }
-
-        console.log("number of sources, resistors", root.sources.length, root.resistors.length);
+        //create poles
         var j = 0
         for(i=0;i<calculator.getNumberOfWires();i++){
             console.log("orientationangle: " + 90*(calculator.getAngleOfWire(i)-1));
