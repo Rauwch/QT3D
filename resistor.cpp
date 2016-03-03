@@ -3,7 +3,7 @@
 Resistor::Resistor(float v, int n1, int n2, int x, int y, int angle, bool var, int init, int stepSize)
  : node1(n1),node2(n2), variable(var), initial(init), step(stepSize)
 {
-
+    this->setInitialValue(init);
     this->setValue(v);
     this->setXCoord(x);
     this->setYCoord(y);

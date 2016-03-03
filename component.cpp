@@ -68,6 +68,16 @@ void Component::setCurrent(float value)
     current = value;
 }
 
+float Component::getInitialValue() const
+{
+    return initialValue;
+}
+
+void Component::setInitialValue(float value)
+{
+    initialValue = value;
+}
+
 
 Component::Component(float v)
 {

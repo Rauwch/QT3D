@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     source.cpp \
     resistor.cpp \
     component.cpp \
-    calc.cpp
+    calc.cpp \
+    goalvoltage.cpp
 
 RESOURCES += qml.qrc \
     images.qrc \
@@ -35,7 +36,8 @@ HEADERS += \
     source.h \
     resistor.h \
     component.h \
-    calc.h
+    calc.h \
+    goalvoltage.h
 
 DISTFILES += \
     bolt.ico

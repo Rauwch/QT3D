@@ -4,6 +4,7 @@ Source::Source(float v, int np, int nm, int x, int y, int angle, bool var, int i
     : nodep(np), nodem(nm),variable(var), initial(init),step(stepSize)
 
 {
+    this->setInitialValue(init);
     this->setValue(v);
     this->setXCoord(x);
     this->setYCoord(y);

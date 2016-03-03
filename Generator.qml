@@ -33,7 +33,26 @@ Entity{
     QQ2.Component.onCompleted: {
         console.log("this is the current level: " + myLevels.getCurrentLevel() );
         calculator.readFile(":/assets/Levels/inputfile_" + myLevels.getCurrentLevel() + ".sj");
+        initializeLevel();
         buildLevel(); //Bouw Circuit
+    }
+
+    function initializeLevel(){
+        calculator.solveLevel();
+        for( var i =0;i < calculator.getNumberOfGoals();i++)
+        {
+            console.log("amount of goals " + calculator.getNumberOfGoals());
+            console.log( "i = " + i + "   node number " + calculator.nodeAtGoal(i));
+
+            calculator.setVoltageAtGoal(i,calculator.voltageAtNode(calculator.nodeAtGoal(i)));
+            console.log("voltage at node: " + calculator.getVoltageAtGoal(i));
+        }
+
+//        for(var j = 0; j < goalVoltage.size(); j++)
+//        {
+//            console.log("goal X " +goalVoltage[j].x + " goal Y "+ goalVoltage[j].y + " goal node " + goalVoltage[j].node + " goal voltage " + goalVoltage[j].voltage );
+//        }
+
     }
 
     function buildLevel(){

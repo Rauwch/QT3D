@@ -30,6 +30,7 @@ void Calc::solveLevel()
     nodes.sort();
     nodes.unique();
     sol=computeNetwork(nodes.size());
+    //functie om sources, wires en resistors opnieuw te vullen
     correctAngles();
     setCurrentsOfResistors();
 
@@ -72,8 +73,8 @@ void Calc::readFile(QString s)
                             break;
 
                         case 'g':
-                            for(int i=2; i<line.length();i++)
                                 process_goal_line(line);
+
                             break;
 
                         case 'w':
@@ -206,6 +207,8 @@ void Calc::process_resistor_line(QString &lijn)
 
 }
 
+
+
 void Calc::process_source_line(QString &lijn)
 {
 
@@ -239,15 +242,18 @@ void Calc::process_source_line(QString &lijn)
 
 void Calc::process_goal_line(QString &lijn)
 {
+    qDebug() << "reading a new goal line" ;
     lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
     lijn.replace("g","",Qt::CaseSensitivity::CaseInsensitive); //remove g
-    QStringList list=lijn.split(" ",QString::SkipEmptyParts);
-    goalX = list.at(0).toInt();
-    goalY = list.at(1).toInt();
+    QStringList list=lijn.split(" ");
+    qDebug() << list;
+    int x = list.at(0).toInt();
+    int y = list.at(1).toInt();
+    int node = list.at(2).toInt();
+    auto g = std::make_shared<GoalVoltage>(x,y,node);
+    goals.push_back(g);
+
 }
-
-
-
 //Functie om hoek te corrigeren TODO proberen verkleinen
 void Calc::correctAngles()
 {
@@ -841,25 +847,7 @@ std::vector<float> Calc::computeNetwork(int  nrOfNodes)
 
 }
 
-int Calc::getGoalY() const
-{
-    return goalY;
-}
 
-void Calc::setGoalY(int value)
-{
-    goalY = value;
-}
-
-int Calc::getGoalX() const
-{
-    return goalX;
-}
-
-void Calc::setGoalX(int value)
-{
-    goalX = value;
-}
 
 
 

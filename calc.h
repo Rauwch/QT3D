@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <QString>
 #include "wire.h"
+#include "goalvoltage.h"
 
 class Calc: public QObject
 {
@@ -46,6 +47,13 @@ public:
     Q_INVOKABLE int nodePAtSource(int sourceNr){return sources.at(sourceNr)->getNodep();}
     Q_INVOKABLE int nodeMAtSource(int sourceNr){return sources.at(sourceNr)->getNodem();}
 
+    //Goals
+    Q_INVOKABLE int getNumberOfGoals(){return goals.size();}
+    Q_INVOKABLE void setVoltageAtGoal(int goalNr,float voltage){goals.at(goalNr)->setVoltage(voltage);}
+    Q_INVOKABLE int nodeAtGoal(int goalNr){return goals.at(goalNr)->getNode();}
+    Q_INVOKABLE GoalVoltage getGoal(int goalNr){ return *goals.at(goalNr);}
+    Q_INVOKABLE float getVoltageAtGoal(int goalNr){return goals.at(goalNr)->getVoltage();}
+
     //Wires
     Q_INVOKABLE int getNumberOfWires(){return wires.size();}
     Q_INVOKABLE float getCurrentofWire(int wiNr){return wires.at(wiNr)->getCurrent();}
@@ -71,23 +79,17 @@ public:
 
 
 
-    int getGoalX() const;
-    void setGoalX(int value);
 
-    int getGoalY() const;
-    void setGoalY(int value);
 
 private:
     std::vector<float> computeNetwork(int nrOfNodes);
 
-
     //variables for circuit
     std::vector<float> sol;
-    int goalX;
-    int goalY;
     std::vector<std::shared_ptr<Component>> sources;
     std::vector<std::shared_ptr<Component>> resistors;
     std::vector<std::shared_ptr<Wire>> wires;
+    std::vector<std::shared_ptr<GoalVoltage>> goals;
     QString fileName;
 
 };

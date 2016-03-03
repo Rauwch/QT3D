@@ -30,8 +30,11 @@ public:
     virtual void setCurrent(float value);
 
 
+    float getInitialValue() const;
+    void setInitialValue(float value);
+
 protected:
-    float value,current;
+    float value,current,initialValue;
     int angle,xCoord,yCoord;
     //stuff we added
 };
