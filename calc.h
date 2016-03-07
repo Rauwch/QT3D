@@ -40,12 +40,14 @@ public:
     //Sources
     Q_INVOKABLE int getNumberOfSources(){return sources.size();}
     Q_INVOKABLE float getVoltageAtSource(int sourceNr){return sources.at(sourceNr)->getValue();}
+    Q_INVOKABLE void adjustVoltageAtSource(int sourceNr,int step){sources.at(sourceNr)->setValue(getVoltageAtSource(sourceNr)+step);}
     Q_INVOKABLE float getCurrentofSource(int sourceNr){return sources.at(sourceNr)->getCurrent();}
     Q_INVOKABLE int getAngleOfSource(int soNr){return sources.at(soNr)->getAngle();}
     Q_INVOKABLE int getXCoordOfSource(int soNr){return sources.at(soNr)->getXCoord();}
     Q_INVOKABLE int getYCoordOfSource(int soNr){return sources.at(soNr)->getYCoord();}
     Q_INVOKABLE int nodePAtSource(int sourceNr){return sources.at(sourceNr)->getNodep();}
     Q_INVOKABLE int nodeMAtSource(int sourceNr){return sources.at(sourceNr)->getNodem();}
+    Q_INVOKABLE int getStepOfSource(int sourceNr){return sources.at(sourceNr)->getStep();}
 
     //Goals
     Q_INVOKABLE int getNumberOfGoals(){return goals.size();}

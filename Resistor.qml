@@ -17,8 +17,7 @@ Entity{
     //Variable voor hoek.
     property real a: 90 //Hoek volgens z as,bepaald door spanning over weerstand
     property real orientationAngle: 0 //Hoek volgens y as, bepaald door plaatsing weerstand
-
-    components: [finmesh,fintrans]
+    components: [finmesh,fintrans]//,objectPicker]
 
     Entity{
         //Weerstand met juiste waardes, zonder plaatsing
@@ -53,6 +52,7 @@ Entity{
 
         }
 
+
         Transform{
             id:retrans
             matrix: {
@@ -71,6 +71,15 @@ Entity{
     }
 
 
+//    property ObjectPicker objectPicker: ObjectPicker {
+//        hoverEnabled: true;
+//        onEntered: console.log("hover")
+//        onExited: console.log("exit hover")
+//        onClicked: {
+//            console.log("clicked on a resistor");
+//            myGameScreen.showBox = !myGameScreen.showBox;
+//        }
+//    }
 
 }
 

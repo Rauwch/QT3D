@@ -9,6 +9,7 @@ Entity{
 
     //size of each coordinate step
     property real sf:5
+
     //arrays for components
     property var sources:[]
     property var resistors :[]
@@ -26,9 +27,6 @@ Entity{
         property var wireFactory
         property var poleFactory
         property var goalFactory
-
-
-
     }
 
 
@@ -53,6 +51,10 @@ Entity{
             calculator.storeCurrentGoals();
             //console.log("voltage at node: " + calculator.getVoltageAtGoal(i));
         }
+
+    }
+    //update level function
+    function updateLevel(){
 
     }
 
@@ -81,27 +83,27 @@ Entity{
             var negNode = calculator.nodeMAtSource(i);
             //check if voltage showGoal is on
             //if not, object doesn't have to be created
-            var source = o.sourceFactory.createObject(null,{"s":calculator.getVoltageAtSource(i),"x":calculator.getXCoordOfSource(i)*root.sf,"z":-calculator.getYCoordOfSource(i)*root.sf,"y":calculator.voltageAtNode(negNode)});
+            var source = o.sourceFactory.createObject(null,{"sourceNr": i,"s":calculator.getVoltageAtSource(i),"x":calculator.getXCoordOfSource(i)*root.sf,"z":-calculator.getYCoordOfSource(i)*root.sf,"y":calculator.voltageAtNode(negNode)});
             source.parent=root.parent;
             root.sources[i]=source;
         }
 
         //create sources using the "initial" values instead of the "solution" values
-        for(var i=0;i<calculator.getNumberOfSources();i++){
-            var negNode = calculator.nodeMAtSource(i);
-            //"s":calculator.getVoltageAtSource(i)
-                //needs a new calculation based on initial values
-            //"x":calculator.getXCoordOfSource(i)*root.sf
-                //can stay the same
-            //"z":-calculator.getYCoordOfSource(i)*root.sf
-                //can stay the same
-            //"y":calculator.voltageAtNode(negNode)})
-                //needs a new calculation based on initial values
-            var source = o.sourceFactory.createObject(null,{"s":calculator.getVoltageAtSource(i),"x":calculator.getXCoordOfSource(i)*root.sf,"z":-calculator.getYCoordOfSource(i)*root.sf,"y":calculator.voltageAtNode(negNode)});
-            source.parent=root.parent;
-            root.sources[i]=source;
+//        for(var i=0;i<calculator.getNumberOfSources();i++){
+//            var negNode = calculator.nodeMAtSource(i);
+//            //"s":calculator.getVoltageAtSource(i)
+//                //needs a new calculation based on initial values
+//            //"x":calculator.getXCoordOfSource(i)*root.sf
+//                //can stay the same
+//            //"z":-calculator.getYCoordOfSource(i)*root.sf
+//                //can stay the same
+//            //"y":calculator.voltageAtNode(negNode)})
+//                //needs a new calculation based on initial values
+//            var source = o.sourceFactory.createObject(null,{"s":calculator.getVoltageAtSource(i),"x":calculator.getXCoordOfSource(i)*root.sf,"z":-calculator.getYCoordOfSource(i)*root.sf,"y":calculator.voltageAtNode(negNode)});
+//            source.parent=root.parent;
+//            root.sources[i]=source;
 
-        }
+//        }
 
         //TODO Probleem met angle oplossen
         //create resistors

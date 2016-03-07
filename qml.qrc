@@ -27,5 +27,6 @@
         <file>Pole.qml</file>
         <file>GoalPole.qml</file>
         <file>Cube.qml</file>
+        <file>Bal.qml</file>
     </qresource>
 </RCC>

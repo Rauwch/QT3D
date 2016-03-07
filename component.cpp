@@ -78,6 +78,16 @@ void Component::setInitialValue(float value)
     initialValue = value;
 }
 
+int Component::getStep() const
+{
+    return step;
+}
+
+void Component::setStep(int value)
+{
+    step = value;
+}
+
 
 Component::Component(float v)
 {

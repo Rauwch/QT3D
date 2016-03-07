@@ -32,9 +32,12 @@ public:
     float getInitialValue() const;
     void setInitialValue(float value);
 
+    int getStep() const;
+    void setStep(int value);
+
 protected:
     float value,current,initialValue;
-    int angle,xCoord,yCoord;
+    int angle,xCoord,yCoord, step ;
     //stuff we added
 };
 

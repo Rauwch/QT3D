@@ -20,46 +20,60 @@ Entity {
 
     //Camera
     Camera {
-        id: mainCamera
+        id: camera
         projectionType: CameraLens.PerspectiveProjection
-        fieldOfView: 60
-        aspectRatio: 16/9
-        //position: Qt.vector3d(zoomlevel*Math.sin(cameraAngle*180/Math.PI)+x*generator.sf, zoomlevel, -zoomlevel*Math.cos(cameraAngle*180/Math.PI)+z*generator.sf )
-        //viewCenter: Qt.vector3d(x*generator.sf, 0.0, z*generator.sf)
-
-        position: Qt.vector3d( 50.0, 25.0, 50.0 )
+        fieldOfView: 45
+        aspectRatio: _view.width / _view.height
+        nearPlane : 0.1
+        farPlane : 1000.0
+        position: Qt.vector3d( 0.0, 0.0, -40.0 )
         upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
-        viewCenter: Qt.vector3d( 50.0, 0.0, 0.0 )
+        viewCenter: Qt.vector3d( 0.0, 0.0, 0.0 )
     }
 
+    Configuration {
+        controlledCamera: camera
+    }
 
-
-    //Render settings
-    FrameGraph {
-        id : forward_renderer
-        Viewport {
-            rect: Qt.rect(0.0, 0.0, 1.0, 1.0)
+    components: FrameGraph {
+        ForwardRenderer {
+            camera: camera
             clearColor: "black"
-
-            ClearBuffer {
-                buffers : ClearBuffer.ColorDepthBuffer
-
-            }
-
-            CameraSelector {
-                camera: mainCamera
-
-            }
         }
     }
-
-
-    components: [forward_renderer]
-
-    Elektron{
+    SphereMesh {
+        id: sphereMesh
     }
 
+    Entity {
+        id: sphere3
 
+        property Material material: PhongMaterial {
+            diffuse: "yellow"
+        }
+
+        property bool toggled: false
+        property real scaleFactor: toggled ? 5.0 : 0.5
+        QQ2.Behavior on scaleFactor { QQ2.NumberAnimation { duration: 200; easing.type: QQ2.Easing.InQuad } }
+
+        property Transform transform: Transform {
+            scale: sphere3.scaleFactor
+            translation: Qt.vector3d(0, 0, 0)
+        }
+
+        property ObjectPicker objectPicker: ObjectPicker {
+            hoverEnabled: false
+
+            onPressed: sphere3.toggled = !sphere3.toggled
+
+            onEntered: sphere3.material.ambient = "black"
+            onExited: sphere3.material.ambient = "white"
+
+            onClicked: console.log("Clicked Sphere 3")
+        }
+
+        components: [sphereMesh, material, transform, objectPicker]
+    }
 
 
 }

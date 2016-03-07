@@ -256,6 +256,7 @@ void Calc::process_source_line(QString &lijn)
 
     lijn.replace("v","",Qt::CaseSensitivity::CaseInsensitive); //remove v
     QStringList list=lijn.split(" ",QString::SkipEmptyParts);
+    qDebug() << list;
     int x=list.at(5).toInt();
     int y=list.at(6).toInt();
     int angle=list.at(7).toInt();
@@ -272,11 +273,14 @@ void Calc::process_source_line(QString &lijn)
         qDebug() << "Wrong entry for variable";
     }
     int initial = list.at(9).toInt();
+    qDebug() << "this is the initiale " << initial;
+
     int step = list.at(10).toInt();
+    qDebug() << "this is the step size " << step;
     int nodep=list.at(1).toInt();
     int nodem=list.at(2).toInt();
     float v=list.at(3).toFloat();
-    auto s =std::make_shared<Source>(v,nodep,nodem,x,y,angle,variable,initial,step);
+    auto s =std::make_shared<Source>(v,nodep,nodem,x,y,angle,step, variable,initial);
     sources.push_back(s);
 
 

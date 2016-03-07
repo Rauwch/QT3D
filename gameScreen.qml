@@ -17,6 +17,7 @@ Item {
     property int speedLevel
     property int numClicks: 0
     property string archerSource
+    property int clickedSource
     //signal returner()
     signal speedupdate(var newSpeed)
     anchors.fill: parent
@@ -31,7 +32,7 @@ Item {
         id: ourScene3D
         anchors.fill: parent
         focus: true
-        aspects: ["input"]
+        aspects: "input"
 
         World3D { id: world }
     }
@@ -116,22 +117,28 @@ Item {
             height: Screen.height/15
             text: "Increase height!"
             onClicked: {
-                myLinker.height = myLinker.height + 1;
-                myLinker.speed = myLinker.speed + 500;
-                speedupdate(myLinker.speed);
-                speedoMeter = speedoMeter + 45/2;
-                numClicks = numClicks + 1;
-                updateAnimation();
-                if((myLinker.speed - 500) <= 0){
-                    decreaseHeight.visible = false;
-                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
+                  //console.log("Voltage at the source before click: " + calculator.getVoltageAtSource(clickedSource));
+                  //console.log("this is the source that is clicked: " + clickedSource);
+                  calculator.adjustVoltageAtSource(clickedSource,calculator.getStepOfSource(clickedSource));
+                  //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
+                  world.generator.buildLevel();
 
-                }
-                else{
-                    decreaseHeight.visible = true;
-                    increaseHeight.parent.anchors.bottomMargin = 0;
+//                myLinker.height = myLinker.height + 1;
+//                myLinker.speed = myLinker.speed + 500;
+//                speedupdate(myLinker.speed);
+//                speedoMeter = speedoMeter + 45/2;
+//                numClicks = numClicks + 1;
+//                updateAnimation();
+//                if((myLinker.speed - 500) <= 0){
+//                    decreaseHeight.visible = false;
+//                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
 
-                }
+//                }
+//                else{
+//                    decreaseHeight.visible = true;
+//                    increaseHeight.parent.anchors.bottomMargin = 0;
+
+//                }
 
             }
         }

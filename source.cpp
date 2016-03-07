@@ -1,9 +1,10 @@
 #include "source.h"
 #include "component.h"
-Source::Source(float v, int np, int nm, int x, int y, int angle, bool var, int init, int stepSize)
-    : nodep(np), nodem(nm),variable(var), initial(init),step(stepSize)
+Source::Source(float v, int np, int nm, int x, int y, int angle, int stepSize, bool var, int init)
+    : nodep(np), nodem(nm),variable(var), initial(init)
 
 {
+    this->setStep(stepSize);
     this->setInitialValue(init);
     this->setValue(v);
     this->setXCoord(x);
@@ -44,15 +45,6 @@ void Source::setInitial(int value)
     initial = value;
 }
 
-int Source::getStep() const
-{
-    return step;
-}
-
-void Source::setStep(int value)
-{
-    step = value;
-}
 
 bool Source::getVariable() const
 {
