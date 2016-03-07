@@ -49,6 +49,7 @@ Item {
                 soundEffects.play();
                 //need this destroy first to not crash program
                 world.destroyCamera();
+                pageLoader.source = "";
                 pageLoader.source = "LevelScreen.qml";
                 console.log("world is destroyed");
             }

@@ -2,13 +2,13 @@
 *g1 x y goal
 *z1 2star 3star
 *w
-*w(hoek x y node length showGoal isGoal)
-*w(hoek x y node length showGoal isGoal)
-*w(hoek x y node length showGoal isGoal)
-*w(hoek x y node length showGoal isGoal)
-*w(hoek x y node length showGoal isGoal)
-*w(hoek x y node length showGoal isGoal)
-*w(hoek x y node length showGoal isGoal)
+*w(hoek x y node length isGoal)
+*w(hoek x y node length isGoal)
+*w(hoek x y node length isGoal)
+*w(hoek x y node length isGoal)
+*w(hoek x y node length isGoal)
+*w(hoek x y node length isGoal)
+*w(hoek x y node length isGoal)
 *
 *
 */w

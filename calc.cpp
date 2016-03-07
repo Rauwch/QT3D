@@ -42,6 +42,19 @@ void Calc::solveLevel()
 
 }
 
+void Calc::storeCurrentGoals()
+{
+    for(int i = 0; i < wires.size(); i++)
+    {
+        if(wires.at(i)->getIsGoal())
+        {
+            currentGoals.push_back(wires.at(i));
+        }
+
+    }
+    qDebug() << "this is the amount of current Goals " << currentGoals.size();
+}
+
 
 void Calc::readFile(QString s)
 {
@@ -134,6 +147,35 @@ void Calc::readFile(QString s)
         }
         file->close();
     }
+}
+
+void Calc::updateSources()
+{
+    for(int i= 0; i < sources.size(); i++)
+    {
+        qDebug() <<"sourcers ervoor " << sources.at(i)->getValue();
+        if(sources.at(i)->getInitialValue() != 0)
+        {
+            sources.at(i)->setValue(sources.at(i)->getInitialValue());
+            qDebug() <<"sourcers erna " <<sources.at(i)->getValue();
+
+        }
+    }
+}
+
+void Calc::updateResistors()
+{
+
+    for( unsigned int i= 0; i < resistors.size(); i++)
+    {
+        qDebug() << "resistors ervoor "<< resistors.at(i)->getValue();
+        if(resistors.at(i)->getInitialValue() != 0)
+        {
+            resistors.at(i)->setValue(resistors.at(i)->getInitialValue());
+            qDebug() << "resistors erna "<< resistors.at(i)->getValue();
+        }
+    }
+
 }
 
 

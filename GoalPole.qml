@@ -5,7 +5,7 @@ import QtQuick 2.2 as QQ2
 
 
 Entity{
-    id:pole
+    id:goalPole
 
     //property real s: 1 //Grote van bron, bepaald door spanning
 
@@ -40,10 +40,14 @@ Entity{
 
         PhongMaterial {
             id:mat
-            diffuse: "white"
-            ambient: "white"
+            diffuse: "yellow"
+            ambient: "yellow"
             specular: "blue"
-            shininess: 0.2
+            shininess: 0
+        }
+
+        AlphaMaterial{
+            id: ourAlphaMaterial
         }
     }
 
@@ -56,6 +60,26 @@ Entity{
 
     }
 
+//    Cube{
+//        id: cubeBottom
+//        xVal: goalPole.x
+//        yVal: 0
+//        zVal: goalPole.z
+//    }
+    Cube{
+        id: cubeTop
+        xVal: goalPole.x
+        yVal: 1
+        zVal: goalPole.z
+    }
+    Cube{
+        id: cubeBottom
+        xVal: goalPole.x
+        yVal: 0
+        zVal: goalPole.z
+    }
+
+
+
 
 }
-

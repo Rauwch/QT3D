@@ -20,11 +20,34 @@ Entity{
 
     //global scale factor
     property real sf:1
-
-
+    property bool isGoal
+   // property string colorWire
+//    property color colorGoal: "yellow"
+//    property color colorNotGoal: "red"
     //list of electrons
     property var electrons: []
     components: [finmesh,fintrans]
+
+//    QQ2.Component.onCompleted: {
+//        if(isGoal)
+//                colorWire = red;
+//        else
+//                colorWire = blue;
+//    }
+    function toColor(){
+        if(isGoal){
+             return "yellow";}
+        else{
+            return "ghostwhite";}
+    }
+    function toRadius(){
+        if(isGoal){
+            return 0.2;
+        }
+        else{
+            return 0.02;
+        }
+    }
 
     Entity{
         id:finmesh
@@ -34,11 +57,17 @@ Entity{
         Entity{
             //basismodel draad
             id:wismesh
+//            QQ2.Component.onCompleted: {
+//                if(isGoal)
+//                    components: [mesh, trans,matGoal]
+//                else
+//                    components: [mesh, trans,mat]
+//            }
             components: [mesh, trans,mat]
 
             CylinderMesh {
                 id:mesh
-                radius: 0.02
+                radius: toRadius()
                 length: 1*l
             }
             Transform{
@@ -48,7 +77,14 @@ Entity{
 
             PhongMaterial {
                 id:mat
-                diffuse: "yellow"
+                diffuse: toColor()
+                ambient: toColor()
+                specular: toColor()
+                shininess: 0
+            }
+            PhongMaterial {
+                id:matGoal
+                diffuse: "red"
                 ambient: "yellow"
                 specular: "yellow"
                 shininess: 0.2

@@ -53,7 +53,12 @@ public:
     Q_INVOKABLE int nodeAtGoal(int goalNr){return goals.at(goalNr)->getNode();}
     Q_INVOKABLE GoalVoltage getGoal(int goalNr){ return *goals.at(goalNr);}
     Q_INVOKABLE float getVoltageAtGoal(int goalNr){return goals.at(goalNr)->getVoltage();}
+    Q_INVOKABLE int getXCoordOfGoal(int goalNr){return goals.at(goalNr)->getX();}
+    Q_INVOKABLE int getYCoordOfGoal(int goalNr){return goals.at(goalNr)->getY();}
 
+    // Current Goals
+    Q_INVOKABLE void storeCurrentGoals();
+    Q_INVOKABLE bool getGoalCurrent(int goalNr){return wires.at(goalNr)->getIsGoal();}
     //Wires
     Q_INVOKABLE int getNumberOfWires(){return wires.size();}
     Q_INVOKABLE float getCurrentofWire(int wiNr){return wires.at(wiNr)->getCurrent();}
@@ -66,10 +71,14 @@ public:
     //Read in a new file
     Q_INVOKABLE void readFile(QString s);
 
+    //update
+    Q_INVOKABLE void updateSources();
+    Q_INVOKABLE void updateResistors();
+
     //Methode voor juiste richtingen
     void correctAngles();
     void setCurrentsOfResistors();
-    void setCurrentsOfWires();
+    Q_INVOKABLE void setCurrentsOfWires();
 
     //Methodes for reading files
     std::vector<std::shared_ptr<Wire> > process_wire_line(QString& lijn);//TODO remove return type and push_back wires in global wires var
@@ -90,6 +99,7 @@ private:
     std::vector<std::shared_ptr<Component>> resistors;
     std::vector<std::shared_ptr<Wire>> wires;
     std::vector<std::shared_ptr<GoalVoltage>> goals;
+    std::vector<std::shared_ptr<Wire>> currentGoals;
     QString fileName;
 
 };

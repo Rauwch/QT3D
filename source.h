@@ -25,7 +25,7 @@ public:
     void setVariable(bool value);
 
 private:
-    int nodep, nodem, initial,step;
+    int nodep, nodem, initial, step;
     bool variable;
 };
 

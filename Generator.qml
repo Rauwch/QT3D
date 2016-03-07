@@ -14,6 +14,7 @@ Entity{
     property var resistors :[]
     property var wires: []
     property var poles: []
+    property var goals: []
 
     QQ2.QtObject{
 
@@ -24,6 +25,7 @@ Entity{
         property var resistorFactory
         property var wireFactory
         property var poleFactory
+        property var goalFactory
 
 
 
@@ -34,6 +36,8 @@ Entity{
         console.log("this is the current level: " + myLevels.getCurrentLevel() );
         calculator.readFile(":/assets/Levels/inputfile_" + myLevels.getCurrentLevel() + ".sj");
         initializeLevel();
+        calculator.updateResistors();
+        calculator.updateSources();
         buildLevel(); //Bouw Circuit
     }
 
@@ -41,17 +45,14 @@ Entity{
         calculator.solveLevel();
         for( var i =0;i < calculator.getNumberOfGoals();i++)
         {
-            console.log("amount of goals " + calculator.getNumberOfGoals());
-            console.log( "i = " + i + "   node number " + calculator.nodeAtGoal(i));
+            //console.log("amount of goals " + calculator.getNumberOfGoals());
+            //console.log( "i = " + i + "   node number " + calculator.nodeAtGoal(i));
 
             calculator.setVoltageAtGoal(i,calculator.voltageAtNode(calculator.nodeAtGoal(i)));
-            console.log("voltage at node: " + calculator.getVoltageAtGoal(i));
+            calculator.setCurrentsOfWires();
+            calculator.storeCurrentGoals();
+            //console.log("voltage at node: " + calculator.getVoltageAtGoal(i));
         }
-
-//        for(var j = 0; j < goalVoltage.size(); j++)
-//        {
-//            console.log("goal X " +goalVoltage[j].x + " goal Y "+ goalVoltage[j].y + " goal node " + goalVoltage[j].node + " goal voltage " + goalVoltage[j].voltage );
-//        }
 
     }
 
@@ -65,6 +66,7 @@ Entity{
         o.resistorFactory=Qt.createComponent("Resistor.qml");
         o.wireFactory=Qt.createComponent("Wire.qml");
         o.poleFactory=Qt.createComponent("Pole.qml");
+        o.goalFactory= Qt.createComponent("GoalPole.qml");
 
 
         //create goals
@@ -140,14 +142,16 @@ Entity{
         for(i=0;i<calculator.getNumberOfWires();i++){
 
 
-
+        var test = 1;
+            console.log("ZEROANDONE: " + calculator.getGoalCurrent(i));
             var wire = o.wireFactory.createObject(null,{"x":calculator.getXCoordOfWire(i)*root.sf,
                                                       "z":-calculator.getYCoordOfWire(i)*root.sf,
                                                       "y":calculator.voltageAtNode(calculator.getNodeOfWire(i)),
                                                       "l":calculator.getLengthOfWire(i)*root.sf,
                                                       "orientationAngle":90*(calculator.getAngleOfWire(i)-1),
                                                       "eSize": calculator.getCurrentofWire(i),
-                                                      "sf":root.sf});
+                                                      "sf":root.sf,
+                                                      "isGoal":calculator.getGoalCurrent(i)});
             wire.parent=root.parent;
             root.wires[i]=wire;
             console.log("Current trough Wire at pos : ", calculator.getXCoordOfWire(i),calculator.getYCoordOfWire(i),calculator.getCurrentofWire(i));
@@ -155,15 +159,18 @@ Entity{
         }
         //create poles
         var j = 0
-        for(i=0;i<calculator.getNumberOfWires();i++){
+        for(i=0;i<calculator.getNumberOfWires();i++)
+        {
             console.log("orientationangle: " + 90*(calculator.getAngleOfWire(i)-1));
             var pole;
             pole = o.poleFactory.createObject(null, {"x":calculator.getXCoordOfWire(i)*root.sf,
                                                       "z":-calculator.getYCoordOfWire(i)*root.sf,
                                                       "y":calculator.voltageAtNode(calculator.getNodeOfWire(i))});
-            console.log("x: " + calculator.getXCoordOfWire(i)*root.sf);
-            console.log("z: " + -calculator.getYCoordOfWire(i)*root.sf);
-            console.log("y: " + calculator.voltageAtNode(calculator.getNodeOfWire(i)));
+
+             //console.log("POLEEEE value is " + calculator.getXCoordOfWire(i) +"       POLEEEE value is " + calculator.getYCoordOfWire(i) )
+//            console.log("x: " + calculator.getXCoordOfWire(i)*root.sf);
+//            console.log("z: " + -calculator.getYCoordOfWire(i)*root.sf);
+//            console.log("y: " + calculator.voltageAtNode(calculator.getNodeOfWire(i)));
 
             pole.parent=root.parent;
             root.poles[j]=pole;
@@ -191,10 +198,25 @@ Entity{
             pole = o.poleFactory.createObject(null, {"x":calculator.getXCoordOfWire(i)*root.sf + xDif,
                                                   "z":-calculator.getYCoordOfWire(i)*root.sf + zDif,
                                                   "y":calculator.voltageAtNode(calculator.getNodeOfWire(i))});
+            //console.log("POLEEEE value is " + calculator.getXCoordOfWire(i) +"       POLEEEE value is " + calculator.getYCoordOfWire(i) )
             pole.parent=root.parent;
             root.poles[j]=pole;
             j++;
         }
+
+        // create goal poles
+        for (i = 0; i<calculator.getNumberOfGoals(); i++)
+        {
+            var goalPole;
+            goalPole = o.goalFactory.createObject(null,{"x":calculator.getXCoordOfGoal(i)*root.sf,
+                                                  "z":-calculator.getYCoordOfGoal(i)*root.sf,
+                                                  "y":calculator.getVoltageAtGoal(i) });
+            console.log("xgoal value is " + calculator.getXCoordOfGoal(i) +"       ygoal value is " + calculator.getYCoordOfGoal(i) )
+            console.log("goal value is " + calculator.getVoltageAtGoal(i));
+            goalPole.parent=root.parent;
+            root.goals[i]=goalPole;
+        }
+
 
 
     }

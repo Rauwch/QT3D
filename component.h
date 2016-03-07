@@ -29,7 +29,6 @@ public:
     virtual float getCurrent() const;
     virtual void setCurrent(float value);
 
-
     float getInitialValue() const;
     void setInitialValue(float value);
 
