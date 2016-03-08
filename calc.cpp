@@ -39,12 +39,12 @@ void Calc::solveLevel()
     }
 
     setCurrentsOfWires();
-
+    qDebug() << "END OF SOLVE LEVEL";
 }
 
 void Calc::storeCurrentGoals()
 {
-    for(int i = 0; i < wires.size(); i++)
+    for(unsigned int i = 0; i < wires.size(); i++)
     {
         if(wires.at(i)->getIsGoal())
         {
@@ -56,6 +56,8 @@ void Calc::storeCurrentGoals()
     }
     qDebug() << "this is the amount of current Goals " << currentGoals.size();
 }
+
+
 
 
 void Calc::readFile(QString s)
@@ -153,13 +155,13 @@ void Calc::readFile(QString s)
 
 void Calc::updateSources()
 {
-    for(int i= 0; i < sources.size(); i++)
+    for(unsigned int i= 0; i < sources.size(); i++)
     {
-        //qDebug() <<"sourcers ervoor " << sources.at(i)->getValue();
+        qDebug() <<"sourcers ervoor " << sources.at(i)->getValue();
         if(sources.at(i)->getInitialValue() != 0)
         {
             sources.at(i)->setValue(sources.at(i)->getInitialValue());
-            //qDebug() <<"sourcers erna " <<sources.at(i)->getValue();
+            qDebug() <<"sourcers erna " <<sources.at(i)->getValue();
 
         }
     }
@@ -170,11 +172,11 @@ void Calc::updateResistors()
 
     for( unsigned int i= 0; i < resistors.size(); i++)
     {
-        //qDebug() << "resistors ervoor "<< resistors.at(i)->getValue();
+        qDebug() << "resistors ervoor "<< resistors.at(i)->getValue();
         if(resistors.at(i)->getInitialValue() != 0)
         {
             resistors.at(i)->setValue(resistors.at(i)->getInitialValue());
-            //qDebug() << "resistors erna "<< resistors.at(i)->getValue();
+            qDebug() << "resistors erna "<< resistors.at(i)->getValue();
         }
     }
 
@@ -283,6 +285,7 @@ void Calc::process_source_line(QString &lijn)
     int nodem=list.at(2).toInt();
     float v=list.at(3).toFloat();
     auto s =std::make_shared<Source>(v,nodep,nodem,x,y,angle,step, variable,initial);
+    qDebug() << "ADDED a SOURCE TO THE SOURCE LIST";
     sources.push_back(s);
 
 
@@ -294,7 +297,8 @@ void Calc::process_goal_line(QString &lijn)
     lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
     lijn.replace("g","",Qt::CaseSensitivity::CaseInsensitive); //remove g
     QStringList list=lijn.split(" ");
-    qDebug() << list;
+
+
     int x = list.at(0).toInt();
     int y = list.at(1).toInt();
     int node = list.at(2).toInt();
@@ -311,7 +315,7 @@ bool Calc::checkGoals()
     int goalNode;
     int currentVoltage;
 
-        for(int i = 0; i < goals.size();i++)
+        for(unsigned int i = 0; i < goals.size();i++)
         {
 
             goalVoltage = goals.at(i)->getVoltage();
@@ -329,7 +333,7 @@ bool Calc::checkGoals()
             }
         }
 
-    for( int i = 0; i <currentGoals.size();i++)
+    for(unsigned int i = 0; i <currentGoals.size();i++)
     {
         qDebug() << "currentCurrent is: " <<(float) currentGoals.at(i)->getCurrent() << "  goalCurrent is:  " << (float) currentGoals.at(i)->getGoalValue() ;
         if(currentGoals.at(i)->getCurrent()!= currentGoals.at(i)->getGoalValue())
@@ -344,6 +348,15 @@ bool Calc::checkGoals()
     }
 
     return allGoals;
+}
+
+int Calc::calculateAngle()
+{
+    float Igoal = getCurrentInGoalWire();
+    float Icurrent = getGoalinGoalWire();
+    int angle;
+    angle = (Igoal-Icurrent)/(Igoal)+90;
+    return angle;
 }
 //Functie om hoek te corrigeren TODO proberen verkleinen
 void Calc::correctAngles()

@@ -7,6 +7,7 @@ import QtQuick 2.0 as QQ2
 
 Entity{
     id:root
+
     //Positie variablen
     property real x: 0
     property real y: 0
@@ -104,6 +105,10 @@ Entity{
         }
 
     }
+    function printeSize(){
+        console.log("this is the size of E: " + eSize)
+        electrons[0].printS();
+    }
 
     Transform{
         id:fintrans
@@ -121,14 +126,11 @@ Entity{
         property var electronFactory
 
     }
-    QQ2.Component.onCompleted: {
-        o.electronFactory=Qt.createComponent("Elektron.qml");
-        spawnElectrons();
-    }
+
 
 
     function spawnElectrons(){
-
+        o.electronFactory=Qt.createComponent("Elektron.qml");
         for(var i=0;i<2*root.l/root.sf;i++){
             var electron;
             if(root.eSize>0)

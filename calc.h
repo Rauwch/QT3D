@@ -62,8 +62,9 @@ public:
 
     // Current Goals
     Q_INVOKABLE void storeCurrentGoals();
-    Q_INVOKABLE bool getGoalCurrent(int goalNr){return wires.at(goalNr)->getIsGoal();}
-
+    Q_INVOKABLE bool getGoalCurrent(int goalNr){return wires.at(goalNr)->getIsGoal();} 
+    Q_INVOKABLE float getCurrentInGoalWire(){return currentGoals.at(0)->getCurrent();}
+    Q_INVOKABLE float getGoalinGoalWire(){return currentGoals.at(0)->getGoalValue();}
     //Wires
     Q_INVOKABLE int getNumberOfWires(){return wires.size();}
     Q_INVOKABLE float getCurrentofWire(int wiNr){return wires.at(wiNr)->getCurrent();}
@@ -93,6 +94,8 @@ public:
 
     //Check all the goals
     Q_INVOKABLE bool checkGoals();
+    Q_INVOKABLE int calculateAngle();
+
 
     //angle calculations for resistor bends
     Q_INVOKABLE float getBendX(int length, float angleYZ, float angleXY){return length*cos(angleYZ)*sin(angleXY);}

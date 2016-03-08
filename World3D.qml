@@ -8,7 +8,7 @@ import QtQuick 2.0 as QQ2
 Entity {
     id: world3D
     property real cameraAngle: -45
-
+    QQ2.Component.onCompleted: { console.log("Completed world3D")}
     //CiruitMiddle
     property real x: 4.5
     property real y: 0

@@ -41,20 +41,23 @@ Entity{
 
     function initializeLevel(){
         calculator.solveLevel();
+        //console.log("INSIDE INITIALIZE LEVEL")
         for( var i =0;i < calculator.getNumberOfGoals();i++)
         {
             //console.log("amount of goals " + calculator.getNumberOfGoals());
             //console.log( "i = " + i + "   node number " + calculator.nodeAtGoal(i));
 
             calculator.setVoltageAtGoal(i,calculator.voltageAtNode(calculator.nodeAtGoal(i)));
-            calculator.setCurrentsOfWires();
-            calculator.storeCurrentGoals();
-            //console.log("voltage at node: " + calculator.getVoltageAtGoal(i));
+            //console.log("amount of current goals: " + calculator.currentGoals.size());
         }
+        calculator.setCurrentsOfWires();
+        calculator.storeCurrentGoals();
+        //console.log("INSIDE INITIALIZE LEVEL")
 
     }
     //update level function
     function updateLevel(){
+        console.log("grote van sources: " + sources.length)
         for( var i= 0; i <sources.length; i++)
         {
             sources[i].s = calculator.getVoltageAtSource(i);
@@ -82,11 +85,20 @@ Entity{
             resistors[i].y = minVolt;
 
         }
+        console.log("groote van wires: " + wires.length)
         for(  i= 0; i <wires.length; i++)
         {
             wires[i].y = calculator.voltageAtNode(calculator.getNodeOfWire(i));
-            console.log("Current through goals wire: " + calculator.getCurrentofWire(i) );
-            wires[i].eSize = calculator.getCurrentofWire(i)*10;
+            console.log("Current through goals wire: " + calculator.getCurrentofWire(i) + "Voltage at node " );
+            wires[i].eSize = calculator.getCurrentofWire(i)*1000;
+            console.log("AMOUNT OF ELECTRONS FROM A WIRE" + wires[i].electrons.length)
+            for(var j = 0; j < wires[i].electrons.length; j++)
+            {
+                console.log("amount of electrons ");
+                wires[i].electrons[j].s = calculator.getCurrentofWire(i);
+            }
+
+            wires[i].printeSize();
         }
         for( i = 0; i < poles.length; i++)
         {
@@ -101,8 +113,8 @@ Entity{
 
 
         calculator.solveLevel();
-
-
+        myGameScreen.calculateArrow();
+        console.log("After calculate arrow");
         o.sourceFactory=Qt.createComponent("Source.qml");
         o.resistorFactory=Qt.createComponent("BentResistor.qml");
         o.wireFactory=Qt.createComponent("Wire.qml");
@@ -126,6 +138,8 @@ Entity{
             source.parent=root.parent;
             root.sources[i]=source;
         }
+
+        //console.log("After build sources");
 
         //create sources using the "initial" values instead of the "solution" values
 //        for(var i=0;i<calculator.getNumberOfSources();i++){
@@ -175,6 +189,7 @@ Entity{
             console.log("Current trough resistor: ", i ,calculator.getCurrentofResistor(i));
 
         }
+        //console.log("After build resistors");
 
 
 
@@ -195,9 +210,11 @@ Entity{
                                                       "isGoal":calculator.getGoalCurrent(i)});
             wire.parent=root.parent;
             root.wires[i]=wire;
-            console.log("Current trough Wire at pos : ", calculator.getXCoordOfWire(i),calculator.getYCoordOfWire(i),calculator.getCurrentofWire(i));
+            root.wires[i].spawnElectrons();
+            //console.log("Current trough Wire at pos : ", calculator.getXCoordOfWire(i),calculator.getYCoordOfWire(i),calculator.getCurrentofWire(i));
 
         }
+        //console.log("After build wires");
         //create poles
         var j = 0
         for(i=0;i<calculator.getNumberOfWires();i++)
@@ -247,6 +264,8 @@ Entity{
             j++;
         }
 
+        //console.log("After build poles");
+
         // create goal poles
         for (i = 0; i<calculator.getNumberOfGoals(); i++)
         {
@@ -259,6 +278,7 @@ Entity{
             goalPole.parent=root.parent;
             root.goals[i]=goalPole;
         }
+        //console.log("After build goal poles");
 
 
 

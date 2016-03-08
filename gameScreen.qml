@@ -18,13 +18,26 @@ Item {
     property int numClicks: 0
     property string archerSource
     property int clickedSource
+    property int angleOfArrow: 0
     //signal returner()
-    signal speedupdate(var newSpeed)
+    signal sizeupdate()
     anchors.fill: parent
     Component.onDestruction: console.log("gamescreen destroyed")
 
     Component.onCompleted: {
         console.log("GameScreen wordt aangemaakt");
+        //calculateArrow();
+
+    }
+
+    function calculateArrow(){
+        var Igoal = calculator.getCurrentInGoalWire();
+        var Icurrent = calculator.getGoalinGoalWire();
+        var angle;
+        console.log("Voor berekening Angle" + (Igoal-Icurrent)/(Igoal))
+        angle = ((Igoal-Icurrent)/(Icurrent))*300+90
+        angleOfArrow = angle;
+        console.log("DIT IS DE HOEK: " + angle)
     }
 
 
@@ -34,7 +47,9 @@ Item {
         focus: true
         aspects: "input"
 
-        World3D { id: world }
+        World3D {
+            id: world
+        }
     }
 
     Column{
@@ -94,15 +109,14 @@ Item {
         id:currentGoal
         source: "speedGoal.png"
         anchors.centerIn: speedo
-        rotation: 90
-
     }
     Image{
         id: archer
-        source: archerSource
+        source: "archerG.png"
         anchors.centerIn: speedo
-        rotation: speedoMeter
+        rotation: angleOfArrow
     }
+
 
     //2d box where setting can be edited
     Column{
@@ -123,8 +137,11 @@ Item {
                 calculator.solveLevel();
                 //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
                 //world.generator.buildLevel();
+                sizeupdate()
                 world.generator.updateLevel();
                 popupWindow.visible = calculator.checkGoals();
+                calculateArrow();
+                console.log("The angle is: " + angleOfArrow);
                 //                myLinker.height = myLinker.height + 1;
                 //                myLinker.speed = myLinker.speed + 500;
                 //                speedupdate(myLinker.speed);
@@ -156,7 +173,9 @@ Item {
                 calculator.solveLevel();
 
                 world.generator.updateLevel();
+                calculateArrow();
                 popupWindow.visible = calculator.checkGoals();
+
                 //                myLinker.height = myLinker.height - 1;
                 //                myLinker.speed = myLinker.speed - 500;
                 //                speedupdate(myLinker.speed);

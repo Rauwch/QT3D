@@ -32,9 +32,10 @@ Entity{
 
     components: [electronMesh,trans,theMaterial]
 
-    SphereMesh{
-        id:mesh
-        radius:s*4
+
+
+    function printS(){
+        console.log("DE GROTE VAN S:  "+ s);
     }
 
     Mesh{
@@ -54,7 +55,7 @@ Entity{
     {
         id:trans
         translation: (Qt.vector3d(x, y, z))
-        scale: s
+        scale: s*2
         //scale: 0.5
     }
     PhongMaterial {
