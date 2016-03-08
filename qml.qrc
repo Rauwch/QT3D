@@ -28,5 +28,6 @@
         <file>GoalPole.qml</file>
         <file>Cube.qml</file>
         <file>Bal.qml</file>
+        <file>BentResistor.qml</file>
     </qresource>
 </RCC>

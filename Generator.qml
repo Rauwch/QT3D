@@ -104,7 +104,7 @@ Entity{
 
 
         o.sourceFactory=Qt.createComponent("Source.qml");
-        o.resistorFactory=Qt.createComponent("Resistor.qml");
+        o.resistorFactory=Qt.createComponent("BentResistor.qml");
         o.wireFactory=Qt.createComponent("Wire.qml");
         o.poleFactory=Qt.createComponent("Pole.qml");
         o.goalFactory= Qt.createComponent("GoalPole.qml");
