@@ -153,11 +153,11 @@ void Calc::updateSources()
 {
     for(int i= 0; i < sources.size(); i++)
     {
-        qDebug() <<"sourcers ervoor " << sources.at(i)->getValue();
+        //qDebug() <<"sourcers ervoor " << sources.at(i)->getValue();
         if(sources.at(i)->getInitialValue() != 0)
         {
             sources.at(i)->setValue(sources.at(i)->getInitialValue());
-            qDebug() <<"sourcers erna " <<sources.at(i)->getValue();
+            //qDebug() <<"sourcers erna " <<sources.at(i)->getValue();
 
         }
     }
@@ -168,11 +168,11 @@ void Calc::updateResistors()
 
     for( unsigned int i= 0; i < resistors.size(); i++)
     {
-        qDebug() << "resistors ervoor "<< resistors.at(i)->getValue();
+        //qDebug() << "resistors ervoor "<< resistors.at(i)->getValue();
         if(resistors.at(i)->getInitialValue() != 0)
         {
             resistors.at(i)->setValue(resistors.at(i)->getInitialValue());
-            qDebug() << "resistors erna "<< resistors.at(i)->getValue();
+            //qDebug() << "resistors erna "<< resistors.at(i)->getValue();
         }
     }
 
@@ -299,6 +299,30 @@ void Calc::process_goal_line(QString &lijn)
     auto g = std::make_shared<GoalVoltage>(x,y,node);
     goals.push_back(g);
 
+}
+
+bool Calc::checkGoals()
+{
+    bool allGoals = true;
+    for(int i = 0; i < goals.size();i++)
+    {
+
+        int goalVoltage = goals.at(i)->getVoltage();
+        int goalNode = goals.at(i)->getNode();
+        int currentVoltage = voltageAtNode(goalNode);
+        qDebug()  <<"this is the current voltage: " << currentVoltage << " and the goalVoltage: " << goalVoltage;
+        if(goalVoltage != currentVoltage)
+        {
+            allGoals = false;
+            goals.at(i)->setMatch(false);
+        }
+        else
+        {
+          goals.at(i)->setMatch(true);
+        }
+    }
+
+    return allGoals;
 }
 //Functie om hoek te corrigeren TODO proberen verkleinen
 void Calc::correctAngles()

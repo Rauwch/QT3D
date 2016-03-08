@@ -19,9 +19,13 @@ public:
     float getVoltage() const;
     void setVoltage(float value);
 
+    bool getMatch() const;
+    void setMatch(bool value);
+
 private:
     int x, y, node;
     float voltage;
+    bool match;
 };
 
 #endif // GOALVOLTAGE_H

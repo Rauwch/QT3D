@@ -48,3 +48,13 @@ void GoalVoltage::setVoltage(float value)
 {
     voltage = value;
 }
+
+bool GoalVoltage::getMatch() const
+{
+    return match;
+}
+
+void GoalVoltage::setMatch(bool value)
+{
+    match = value;
+}

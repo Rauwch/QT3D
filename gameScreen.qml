@@ -117,28 +117,30 @@ Item {
             height: Screen.height/15
             text: "Increase height!"
             onClicked: {
-                  //console.log("Voltage at the source before click: " + calculator.getVoltageAtSource(clickedSource));
-                  //console.log("this is the source that is clicked: " + clickedSource);
-                  calculator.adjustVoltageAtSource(clickedSource,calculator.getStepOfSource(clickedSource));
-                  //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
-                  world.generator.buildLevel();
+                //console.log("Voltage at the source before click: " + calculator.getVoltageAtSource(clickedSource));
+                //console.log("this is the source that is clicked: " + clickedSource);
+                calculator.adjustVoltageAtSource(clickedSource,calculator.getStepOfSource(clickedSource));
+                calculator.solveLevel();
+                //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
+                //world.generator.buildLevel();
+                world.generator.updateLevel();
+                popupWindow.visible = calculator.checkGoals();
+                //                myLinker.height = myLinker.height + 1;
+                //                myLinker.speed = myLinker.speed + 500;
+                //                speedupdate(myLinker.speed);
+                //                speedoMeter = speedoMeter + 45/2;
+                //                numClicks = numClicks + 1;
+                //                updateAnimation();
+                //                if((myLinker.speed - 500) <= 0){
+                //                    decreaseHeight.visible = false;
+                //                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
 
-//                myLinker.height = myLinker.height + 1;
-//                myLinker.speed = myLinker.speed + 500;
-//                speedupdate(myLinker.speed);
-//                speedoMeter = speedoMeter + 45/2;
-//                numClicks = numClicks + 1;
-//                updateAnimation();
-//                if((myLinker.speed - 500) <= 0){
-//                    decreaseHeight.visible = false;
-//                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
+                //                }
+                //                else{
+                //                    decreaseHeight.visible = true;
+                //                    increaseHeight.parent.anchors.bottomMargin = 0;
 
-//                }
-//                else{
-//                    decreaseHeight.visible = true;
-//                    increaseHeight.parent.anchors.bottomMargin = 0;
-
-//                }
+                //                }
 
             }
         }
@@ -150,23 +152,28 @@ Item {
             text: "Decrease height!"
 
             onClicked: {
-                myLinker.height = myLinker.height - 1;
-                myLinker.speed = myLinker.speed - 500;
-                speedupdate(myLinker.speed);
-                speedoMeter = speedoMeter - 45/2;
-                numClicks = numClicks + 1;
-                updateAnimation();
-                if((myLinker.speed - 500) <= 0){
-                    visible = false;
-                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
+                calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
+                calculator.solveLevel();
 
-                }
-                else{
-                    visible = true;
-                    increaseHeight.parent.anchors.bottomMargin = 0;
+                world.generator.updateLevel();
+                popupWindow.visible = calculator.checkGoals();
+                //                myLinker.height = myLinker.height - 1;
+                //                myLinker.speed = myLinker.speed - 500;
+                //                speedupdate(myLinker.speed);
+                //                speedoMeter = speedoMeter - 45/2;
+                //                numClicks = numClicks + 1;
+                //                updateAnimation();
+                //                if((myLinker.speed - 500) <= 0){
+                //                    visible = false;
+                //                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
+
+                //                }
+                //                else{
+                //                    visible = true;
+                //                    increaseHeight.parent.anchors.bottomMargin = 0;
 
 
-                }
+                //                }
 
             }
 
@@ -183,13 +190,13 @@ Item {
     }
 
     function updateAnimation(){
-//        world.checkMatch();
-//        archerSource = world.theArchSource;
-//        if(world.lvlCompleted){
-//            popupWindow.visible= true;
-//            continueBtn.visible= (myLevels.getCurrentLevel() < myLevels.amountOfLevels);
-//            myLevels.setAmountOfStars(numClicks);
-//        }
+        //        world.checkMatch();
+        //        archerSource = world.theArchSource;
+        //        if(world.lvlCompleted){
+        //            popupWindow.visible= true;
+        //            continueBtn.visible= (myLevels.getCurrentLevel() < myLevels.amountOfLevels);
+        //            myLevels.setAmountOfStars(numClicks);
+        //        }
     }
 
     Rectangle{

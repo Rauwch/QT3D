@@ -15,6 +15,7 @@ Entity{
     property real y: 0
     property real z: 0
 
+    property int nodeOfWire: 0
 
 
     components: [somesh,sotrans]

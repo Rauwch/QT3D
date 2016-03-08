@@ -55,6 +55,44 @@ Entity{
     }
     //update level function
     function updateLevel(){
+        for( var i= 0; i <sources.length; i++)
+        {
+            sources[i].s = calculator.getVoltageAtSource(i);
+        }
+
+        for( i= 0; i <resistors.length; i++)
+        {
+
+            var minVolt = Math.min(calculator.voltageAtNode(calculator.node1AtResistor(i)),calculator.voltageAtNode(calculator.node2AtResistor(i)));
+            var maxVolt = Math.max(calculator.voltageAtNode(calculator.node1AtResistor(i)),calculator.voltageAtNode(calculator.node2AtResistor(i)));
+
+
+            //Hoek van de weerstand
+            var angle = Math.atan2(root.sf,(minVolt-maxVolt));
+
+
+            //Lengte van de weerstand
+            var length = Math.abs(((maxVolt-minVolt))/Math.cos(angle));
+
+            resistors[i].a = angle*180/Math.PI;
+            resistors[i].l = length;
+            resistors[i].s = calculator.resistanceAtResistor(i);
+            resistors[i].x = calculator.getXCoordOfResistor(i)*root.sf;
+            resistors[i].z = -calculator.getYCoordOfResistor(i)*root.sf;
+            resistors[i].y = minVolt;
+
+        }
+        for(  i= 0; i <wires.length; i++)
+        {
+            wires[i].y = calculator.voltageAtNode(calculator.getNodeOfWire(i));
+            wires[i].eSize = calculator.getCurrentofWire(i);
+        }
+        for( i = 0; i < poles.length; i++)
+        {
+            poles[i].y = calculator.voltageAtNode(poles[i].nodeOfWire);
+        }
+
+
 
     }
 
@@ -167,7 +205,8 @@ Entity{
             var pole;
             pole = o.poleFactory.createObject(null, {"x":calculator.getXCoordOfWire(i)*root.sf,
                                                       "z":-calculator.getYCoordOfWire(i)*root.sf,
-                                                      "y":calculator.voltageAtNode(calculator.getNodeOfWire(i))});
+                                                      "y":calculator.voltageAtNode(calculator.getNodeOfWire(i)),
+                                                        "nodeOfWire": calculator.getNodeOfWire(i)});
 
              //console.log("POLEEEE value is " + calculator.getXCoordOfWire(i) +"       POLEEEE value is " + calculator.getYCoordOfWire(i) )
 //            console.log("x: " + calculator.getXCoordOfWire(i)*root.sf);
@@ -199,7 +238,8 @@ Entity{
             }
             pole = o.poleFactory.createObject(null, {"x":calculator.getXCoordOfWire(i)*root.sf + xDif,
                                                   "z":-calculator.getYCoordOfWire(i)*root.sf + zDif,
-                                                  "y":calculator.voltageAtNode(calculator.getNodeOfWire(i))});
+                                                  "y":calculator.voltageAtNode(calculator.getNodeOfWire(i)),
+                                               "nodeOfWire": calculator.getNodeOfWire(i)});
             //console.log("POLEEEE value is " + calculator.getXCoordOfWire(i) +"       POLEEEE value is " + calculator.getYCoordOfWire(i) )
             pole.parent=root.parent;
             root.poles[j]=pole;
@@ -212,7 +252,7 @@ Entity{
             var goalPole;
             goalPole = o.goalFactory.createObject(null,{"x":calculator.getXCoordOfGoal(i)*root.sf,
                                                   "z":-calculator.getYCoordOfGoal(i)*root.sf,
-                                                  "y":calculator.getVoltageAtGoal(i) });
+                                                  "y":calculator.getVoltageAtGoal(i)});
             console.log("xgoal value is " + calculator.getXCoordOfGoal(i) +"       ygoal value is " + calculator.getYCoordOfGoal(i) )
             console.log("goal value is " + calculator.getVoltageAtGoal(i));
             goalPole.parent=root.parent;

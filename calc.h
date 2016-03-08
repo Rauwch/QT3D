@@ -61,6 +61,7 @@ public:
     // Current Goals
     Q_INVOKABLE void storeCurrentGoals();
     Q_INVOKABLE bool getGoalCurrent(int goalNr){return wires.at(goalNr)->getIsGoal();}
+
     //Wires
     Q_INVOKABLE int getNumberOfWires(){return wires.size();}
     Q_INVOKABLE float getCurrentofWire(int wiNr){return wires.at(wiNr)->getCurrent();}
@@ -88,7 +89,8 @@ public:
     void process_source_line(QString &lijn);
     void process_goal_line(QString &lijn);
 
-
+    //Check all the goals
+    Q_INVOKABLE bool checkGoals();
 
 
 
