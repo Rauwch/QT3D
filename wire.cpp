@@ -7,6 +7,8 @@ Wire::Wire(int x, int y, int angle, int length, int node, bool goal, float curre
     this->setXCoord(x);
     this->setAngle(angle);
     this->setYCoord(y);
+    this->setMatch(false);
+    this->setGoalValue(0);
 }
 
 
@@ -39,4 +41,26 @@ bool Wire::getIsGoal() const
 void Wire::setIsGoal(bool value)
 {
     isGoal = value;
+}
+
+bool Wire::getMatch() const
+{
+    return match;
+}
+
+void Wire::setMatch(bool value)
+{
+    match = value;
+}
+
+
+
+float Wire::getGoalValue() const
+{
+    return goalValue;
+}
+
+void Wire::setGoalValue(float value)
+{
+    goalValue = value;
 }

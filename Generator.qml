@@ -85,7 +85,8 @@ Entity{
         for(  i= 0; i <wires.length; i++)
         {
             wires[i].y = calculator.voltageAtNode(calculator.getNodeOfWire(i));
-            wires[i].eSize = calculator.getCurrentofWire(i);
+            console.log("Current through goals wire: " + calculator.getCurrentofWire(i) );
+            wires[i].eSize = calculator.getCurrentofWire(i)*10;
         }
         for( i = 0; i < poles.length; i++)
         {

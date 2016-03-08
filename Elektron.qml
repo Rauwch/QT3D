@@ -54,9 +54,8 @@ Entity{
     {
         id:trans
         translation: (Qt.vector3d(x, y, z))
-        //scale: s*4
-        scale: 0.5
-
+        scale: s
+        //scale: 0.5
     }
     PhongMaterial {
         id:mat
@@ -75,7 +74,7 @@ Entity{
 
             target: electron
             property: "x"
-            duration: electron.dur*4/s/100*Math.abs(xbegin-xend)
+            duration: electron.dur*Math.abs(xbegin-xend)
             from: electron.xbegin
             to: electron.xend
         }
@@ -83,7 +82,7 @@ Entity{
 
             target: electron
             property: "x"
-            duration: electron.dur*4/s/100*Math.abs(xstart-xbegin)
+            duration: electron.dur*Math.abs(xstart-xbegin)
             from: electron.xstart
             to: electron.xbegin
         }

@@ -49,6 +49,8 @@ void Calc::storeCurrentGoals()
         if(wires.at(i)->getIsGoal())
         {
             currentGoals.push_back(wires.at(i));
+            wires.at(i)->setGoalValue(wires.at(i)->getCurrent());
+            qDebug() << "this is the starting current: " << wires.at(i)->getCurrent();
         }
 
     }
@@ -86,7 +88,7 @@ void Calc::readFile(QString s)
                             break;
 
                         case 'g':
-                                process_goal_line(line);
+                            process_goal_line(line);
 
                             break;
 
@@ -300,25 +302,44 @@ void Calc::process_goal_line(QString &lijn)
     goals.push_back(g);
 
 }
-
+// Comparing ints to round of the floats
 bool Calc::checkGoals()
 {
-    bool allGoals = true;
-    for(int i = 0; i < goals.size();i++)
-    {
 
-        int goalVoltage = goals.at(i)->getVoltage();
-        int goalNode = goals.at(i)->getNode();
-        int currentVoltage = voltageAtNode(goalNode);
-        qDebug()  <<"this is the current voltage: " << currentVoltage << " and the goalVoltage: " << goalVoltage;
-        if(goalVoltage != currentVoltage)
+    bool allGoals = true;
+    int goalVoltage;
+    int goalNode;
+    int currentVoltage;
+
+        for(int i = 0; i < goals.size();i++)
+        {
+
+            goalVoltage = goals.at(i)->getVoltage();
+            goalNode = goals.at(i)->getNode();
+            currentVoltage = voltageAtNode(goalNode);
+            qDebug()  <<"this is the current voltage: " << currentVoltage << " and the goalVoltage: " << goalVoltage;
+            if(goalVoltage != currentVoltage)
+            {
+                allGoals = false;
+                goals.at(i)->setMatch(false);
+            }
+            else
+            {
+              goals.at(i)->setMatch(true);
+            }
+        }
+
+    for( int i = 0; i <currentGoals.size();i++)
+    {
+        qDebug() << "currentCurrent is: " <<(float) currentGoals.at(i)->getCurrent() << "  goalCurrent is:  " << (float) currentGoals.at(i)->getGoalValue() ;
+        if(currentGoals.at(i)->getCurrent()!= currentGoals.at(i)->getGoalValue())
         {
             allGoals = false;
-            goals.at(i)->setMatch(false);
+            currentGoals.at(i)->setMatch(false);
         }
         else
         {
-          goals.at(i)->setMatch(true);
+            currentGoals.at(i)->setMatch(true);
         }
     }
 

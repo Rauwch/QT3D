@@ -17,10 +17,18 @@ public:
     bool getIsGoal() const;
     void setIsGoal(bool value);
 
+    bool getMatch() const;
+    void setMatch(bool value);
+
+
+
+    float getGoalValue() const;
+    void setGoalValue(float value);
+
 private:
     int length,node;
-    float current;
-    bool isGoal;
+    float current,goalValue;
+    bool isGoal, match;
 };
 
 #endif // WIRE_H
