@@ -141,9 +141,9 @@ Entity{
             resistor.parent=root.parent;
             root.resistors[i]=resistor;
             root.resistors[i].makeBends();
-            root.resistors[i].printBends();
-            root.resistors[i].updateBends();
-            root.resistors[i].printBends();
+//            root.resistors[i].printBends();
+//            root.resistors[i].updateBends();
+//            root.resistors[i].printBends();
 
             console.log("Current trough resistor: ", i ,calculator.getCurrentofResistor(i));
 

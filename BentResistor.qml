@@ -18,18 +18,10 @@ Entity{
     //Variable voor hoek.
     property real a: 90 //Hoek volgens z as,bepaald door spanning over weerstand
     property real orientationAngle: 0 //Hoek volgens y as, bepaald door plaatsing weerstand
-    property real localVar: 40
-    property real numBends: 10
+    property real localVar: 45
+    property real numBends: 6
 
     property var bends: []
-
-    //    QQ2.Component.onCompleted: {
-    //        console.log("complete before");
-
-    //        makeBends();
-    //        console.log("complete after");
-
-    //    }
     Calculator{
         id: localCalc
     }
@@ -51,13 +43,11 @@ Entity{
 
             if(i%2 == 0){
                 bends[i].a = ((theBentResistor.a)+localVar);
-
                 bends[i].y = theBentResistor.y + (localCalc.calcSin(theBentResistor.l,theBentResistor.a-90)*(i/numBends));
                 bends[i].z = theBentResistor.z + (localCalc.calcCos(theBentResistor.l,theBentResistor.a-90)*(i/numBends));
             }
             else{
                 bends[i].a = ((theBentResistor.a)-localVar);
-
                 bends[i].y = theBentResistor.bends[i-1].y + localCalc.calcSin(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90);
                 bends[i].z = theBentResistor.bends[i-1].z + localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90);
             }
