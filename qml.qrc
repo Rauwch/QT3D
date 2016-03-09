@@ -29,5 +29,6 @@
         <file>Cube.qml</file>
         <file>Bal.qml</file>
         <file>BentResistor.qml</file>
+        <file>ResistorBal.qml</file>
     </qresource>
 </RCC>

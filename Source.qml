@@ -43,7 +43,6 @@ Entity{
 //    }
 
     function updateBal(){
-        //clickableBal.updateBitch();
         clickableBal.yVal = source.y + source.s/2;
     }
 
