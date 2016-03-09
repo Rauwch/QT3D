@@ -81,22 +81,24 @@ Entity{
                 console.log("even: " + i);
             }
             else{
-//                console.log(i + " y " + theBentResistor.bends[i].y);
-//                console.log(i + " y " + theBentResistor.bends[i-1].y);
+                //                console.log(i + " y " + theBentResistor.bends[i].y);
+                //                console.log(i + " y " + theBentResistor.bends[i-1].y);
 
                 bend = o.bendFactory.createObject(null,{"s": theBentResistor.s,
                                                       "l":localCalc.calcLength(theBentResistor.l/6,localVar),
                                                       "x":theBentResistor.x,
-                                                      "y":theBentResistor.bends[i].y + localCalc.calcSin(theBentResistor.l,theBentResistor.a+localVar-90),
-                                                      "z":theBentResistor.bends[i].z + localCalc.calcCos(theBentResistor.l,theBentResistor.a+localVar-90),
+                                                      "y":theBentResistor.bends[i-1].y + localCalc.calcSin(theBentResistor.l,theBentResistor.a+localVar-90),
+                                                      "z":theBentResistor.bends[i-1].z + localCalc.calcCos(theBentResistor.l,theBentResistor.a+localVar-90),
                                                       "a":theBentResistor.a-localVar,
                                                       "orientationAngle":theBentResistor.orientationAngle});
                 console.log("odd: " + i);
             }
 
             console.log("after var bend");
+
             bend.parent=theBentResistor.parent;
             theBentResistor.bends[i]=bend;
+            console.log("SIZE OF BENDS " + bends.length);
             console.log(i + " y " + theBentResistor.bends[i].y);
 
             console.log("end make bends");
