@@ -140,6 +140,7 @@ Entity{
 
             resistor.parent=root.parent;
             root.resistors[i]=resistor;
+            root.resistors[i].makeBends();
             console.log("Current trough resistor: ", i ,calculator.getCurrentofResistor(i));
 
         }
