@@ -18,7 +18,8 @@ Entity{
     //Variable voor hoek.
     property real a: 90 //Hoek volgens z as,bepaald door spanning over weerstand
     property real orientationAngle: 0 //Hoek volgens y as, bepaald door plaatsing weerstand
-    property real localVar: 12
+    property real localVar: 40
+    property real numBends: 6
 
     property var bends: []
 
@@ -40,68 +41,32 @@ Entity{
 
     function makeBends(){
         o.bendFactory= Qt.createComponent("Resistor.qml");
-        //        console.log("inside makeBends");
-        //        console.log(" s " + theBentResistor.s);
-        //        console.log(" l " + localCalc.calcLength(theBentResistor.l/6,localVar));
-        //        console.log(" x " + theBentResistor.x);
-        //        console.log(" y " + theBentResistor.y);
-        //        console.log(" z " + theBentResistor.z);
-        //        console.log(" a " + (theBentResistor.a+localVar));
-        //        console.log(" OA " + theBentResistor.orientationAngle);
-        //        //var bend = o.bendFactory.createObject(null,{"s": theBentResistor.s,"l":localCalc.calcLength(theBentResistor.l/6,localVar),"x":theBentResistor.x,"y":theBentResistor.y,"z":theBentResistor.z,"a":theBentResistor.a+localVar,"orientationAngle":theBentResistor.orientationAngle});
-        //        for(var i=0; i<2; i++){
-        //            var bend = o.bendFactory.createObject(null,{"s": theBentResistor.s,"l":(localCalc.calcLength(theBentResistor.l/6,localVar)),"x":theBentResistor.x,"y":theBentResistor.y,"z":theBentResistor.z,"a":(theBentResistor.a+localVar),"orientationAngle":(theBentResistor.orientationAngle)});
-
-        //            //var bend = o.bendFactory.createObject(null,{"s": 100,"l":9,"x":5,"y":0,"z":-15,"a":163,"orientationAngle":270});
-        //            console.log("after var bend");
-        //            bend.parent=theBentResistor.parent;
-        //            theBentResistor.bends[i]=bend;
-        //            console.log("size array " + theBentResistor.bends.length);
-        //            console.log(i + " s " + theBentResistor.bends[i].s);
-        //            console.log(i + " l " + theBentResistor.bends[i].l);
-        //            console.log(i + " x1 " + theBentResistor.bends[i].x);
-        //            console.log(i + " y " + theBentResistor.bends[i].y);
-        //            console.log(i + " z " + theBentResistor.bends[i].z);
-        //            console.log(i + " a " + theBentResistor.bends[i].a);
-        //            console.log(i + " OA " + theBentResistor.bends[i].orientationAngle);
-        //        }
-        //    }
-
-        for(var i=0; i<6; i++){
+        for(var i=0; i<numBends; i++){
             var bend;
-
             if(i%2 == 0){
                 bend = o.bendFactory.createObject(null,{"s": theBentResistor.s,
-                                                      "l":localCalc.calcLength(theBentResistor.l/6,localVar),
+                                                      "l":localCalc.calcLength(theBentResistor.l/numBends,localVar),
                                                       "x":theBentResistor.x,
-                                                      "y":theBentResistor.y + (localCalc.calcSin(theBentResistor.l,theBentResistor.a-90)*(i/2)/3),
-                                                      "z":theBentResistor.z + (localCalc.calcCos(theBentResistor.l,theBentResistor.a-90)*(i/2)/3),
+                                                      "y":theBentResistor.y + (localCalc.calcSin(theBentResistor.l,theBentResistor.a-90)*(i/numBends)),
+                                                      "z":theBentResistor.z + (localCalc.calcCos(theBentResistor.l,theBentResistor.a-90)*(i/numBends)),
                                                       "a":theBentResistor.a+localVar,
                                                       "orientationAngle":theBentResistor.orientationAngle});
                 console.log("even: " + i);
             }
             else{
-                //                console.log(i + " y " + theBentResistor.bends[i].y);
-                //                console.log(i + " y " + theBentResistor.bends[i-1].y);
-
                 bend = o.bendFactory.createObject(null,{"s": theBentResistor.s,
-                                                      "l":localCalc.calcLength(theBentResistor.l/6,localVar),
+                                                      "l":localCalc.calcLength(theBentResistor.l/numBends,localVar),
                                                       "x":theBentResistor.x,
-                                                      "y":theBentResistor.bends[i-1].y + localCalc.calcSin(theBentResistor.l,theBentResistor.a+localVar-90),
-                                                      "z":theBentResistor.bends[i-1].z + localCalc.calcCos(theBentResistor.l,theBentResistor.a+localVar-90),
+                                                      "y":theBentResistor.bends[i-1].y + localCalc.calcSin(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90),
+                                                      "z":theBentResistor.bends[i-1].z + localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90),
                                                       "a":theBentResistor.a-localVar,
                                                       "orientationAngle":theBentResistor.orientationAngle});
                 console.log("odd: " + i);
             }
 
-            console.log("after var bend");
-
             bend.parent=theBentResistor.parent;
             theBentResistor.bends[i]=bend;
             console.log("SIZE OF BENDS " + bends.length);
-            console.log(i + " y " + theBentResistor.bends[i].y);
-
-            console.log("end make bends");
         }
     }
 }
