@@ -94,14 +94,14 @@ Entity {
         id:generator
     }
 
-    OceanBox{
-        id:background
-        cameraPosition: mainCamera.position
-    }
+//    OceanBox{
+//        id:background
+//        cameraPosition: mainCamera.position
+//    }
 
-    GroundPlane{
-        id: myGroundPlane
-    }
+//    GroundPlane{
+//        id: myGroundPlane
+//    }
 
 
 
