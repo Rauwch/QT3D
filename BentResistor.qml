@@ -18,8 +18,8 @@ Entity{
     //Variable voor hoek.
     property real a: 90 //Hoek volgens z as,bepaald door spanning over weerstand
     property real orientationAngle: 0 //Hoek volgens y as, bepaald door plaatsing weerstand
-    property real localVar: 45
-    property real numBends: 6
+    property real localVar: 60
+    property real numBends: 14
 
     property var bends: []
     Calculator{
@@ -51,6 +51,7 @@ Entity{
                 bends[i].y = theBentResistor.bends[i-1].y + localCalc.calcSin(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90);
                 bends[i].z = theBentResistor.bends[i-1].z + localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90);
             }
+            bends[i].l = localCalc.calcLength(theBentResistor.l/numBends,localVar);
 
         }
 
