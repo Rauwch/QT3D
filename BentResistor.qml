@@ -22,6 +22,12 @@ Entity{
     property real numBends: 14
 
     property var bends: []
+
+    property var clickableBal
+    property var xtest
+    property var ytest
+    property var ztest
+
     Calculator{
         id: localCalc
     }
@@ -29,6 +35,9 @@ Entity{
         id:o
         //Variables for spawning objects
         property var bendFactory
+        property var balFactory
+
+
     }
     function printBends(){
         console.log("inside printBends");
@@ -73,11 +82,12 @@ Entity{
         //                bends[i].a = theBentResistor.a-localVar;
         //                bends[i].orientationAngle = theBentResistor.orientationAngle;                }
         //        }
-
+        updateBal();
     }
 
     function makeBends(){
         o.bendFactory= Qt.createComponent("Resistor.qml");
+
         for(var i=0; i<numBends; i++){
             var bend;
             if(i%2 == 0){
@@ -101,10 +111,33 @@ Entity{
                 console.log("odd: " + i);
             }
 
+
             bend.parent=theBentResistor.parent;
             theBentResistor.bends[i]=bend;
             console.log("SIZE OF BENDS " + bends.length);
+            if(i == numBends/2){
+                xtest = theBentResistor.bends[i].x;
+                ytest = theBentResistor.bends[i].y;
+                ztest = theBentResistor.bends[i].z;
+                console.log("xtest" + xtest);
+                console.log("ytest" + ytest);
+                console.log("ztest" + ztest);
+                createBal(xtest, ytest, ztest);
+            }
         }
+    }
+    function createBal(balx, baly, balz) {
+        o.balFactory = Qt.createComponent("ResistorBal.qml");
+        theBentResistor.clickableBal = o.balFactory.createObject(theBentResistor,{"xVal": balx,"yVal":  baly, "zVal": balz});
+
+        if (o.balFactory === null) {
+            // Error Handling
+            console.log("Error creating object");
+        }
+    }
+    function updateBal(){
+        clickableBal.yVal = theBentResistor.bends[numBends/2].y;
+        clickableBal.zVal = theBentResistor.bends[numBends/2].z;
     }
 }
 
