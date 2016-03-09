@@ -46,7 +46,7 @@ Entity{
         property Material material: DiffuseMapMaterial {
         id: theMaterial
         diffuse: "Jelly/Textures/Jellyfish.png"
-
+        ambient: Qt.rgba( 1, 1, 1, 1.0 )
         specular: Qt.rgba( 1, 1, 1, 1.0 )
         shininess: 0
     }

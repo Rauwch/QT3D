@@ -7,7 +7,7 @@ import Qt3D.Render 2.0
 
 Entity {
     id: root
-    property Material material
+
 
     PlaneMesh {
         id: groundMesh
@@ -18,19 +18,20 @@ Entity {
 
     Transform {
         id: groundTransform
-        translation: Qt.vector3d(50,-5,0)
+        translation: Qt.vector3d(50,0,0)
     }
 
-    PhongMaterial{
-        id: colorMaker
-        diffuse: Qt.rgba(34/255,46/255,212/255,1)
-        specular: "white"
-        shininess: 0.0
-    }
+    property Material material: DiffuseMapMaterial {
+    id: theMaterial
+    diffuse: "sandTexture.jpg"
+
+    specular: Qt.rgba( 1, 1, 1, 1.0 )
+    shininess: 0
+}
     components: [
         groundMesh,
         groundTransform,
-        colorMaker
+        material
     ]
 }
 

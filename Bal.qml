@@ -9,7 +9,7 @@ Entity{
     property real yVal: 0
     property real zVal: 0
     property real sourceNr
-    components: [mesh,bolTrans,objectPicker]
+    components: [mesh,bolTrans,objectPicker,material]
 
     SphereMesh{
         id:mesh
@@ -21,6 +21,13 @@ Entity{
         translation: Qt.vector3d(xVal,yVal,zVal)
 
     }
+    property Material material: DiffuseMapMaterial {
+    id: theMaterial
+    diffuse: "rockTexture.jpg"
+    ambient: Qt.rgba( 1, 1, 1, 1.0 )
+    specular: Qt.rgba( 1, 1, 1, 1.0 )
+    shininess: 0
+}
 
     property ObjectPicker objectPicker: ObjectPicker {
         onClicked: {

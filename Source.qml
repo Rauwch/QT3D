@@ -64,7 +64,7 @@ Entity{
         Entity{
             //            //Basismodel bron
             id:somesh
-            components: [mesh,trans,mat]
+            components: [cmesh,trans,material]
 
             CuboidMesh {
                 id:mesh
@@ -73,26 +73,42 @@ Entity{
                 xyMeshResolution: Qt.size(2, 2)
             }
 
+            CylinderMesh{
+                id: cmesh
+                radius: 1
+                length: 1
+            }
+
             Transform{
                 id:trans
                 translation: Qt.vector3d(0, 0.5, 0)
             }
 
-            PhongMaterial {
-                id:mat
-                diffuse: "red"
-                ambient: "red"
-                specular: "blue"
-                shininess: 0.2
-            }
+            property Material material: DiffuseMapMaterial {
+            id: theMaterial
+            diffuse: "rockTexture.jpg"
+            ambient: Qt.rgba( 1, 1, 1, 1.0 )
+            specular: Qt.rgba( 1, 1, 1, 1.0 )
+            shininess: 0
+        }
+
+//            PhongMaterial {
+//                id:mat
+//                diffuse: "red"
+//                ambient: "red"
+//                specular: "blue"
+//                shininess: 0.2
+//            }
         }
 
         Transform{
             id:sotrans
             translation: Qt.vector3d(x, y, z)
-            scale3D : Qt.vector3d(2, 1*s, 2)
+            scale3D : Qt.vector3d(1, 1*s, 1)
 
         }
+
+
     }
 }
 

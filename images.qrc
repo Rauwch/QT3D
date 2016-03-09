@@ -12,5 +12,7 @@
         <file>speedGoal.png</file>
         <file>archerG.png</file>
         <file>backIcon.png</file>
+        <file>rockTexture.jpg</file>
+        <file>sandTexture.jpg</file>
     </qresource>
 </RCC>
