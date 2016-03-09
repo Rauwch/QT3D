@@ -141,7 +141,7 @@ Item {
                 calculator.solveLevel();
                 //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
                 //world.generator.buildLevel();
-                sizeupdate()
+                sizeupdate();
                 world.generator.updateLevel();
                 popupWindow.visible = calculator.checkGoals();
                 calculateArrow();

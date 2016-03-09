@@ -19,7 +19,7 @@ Entity{
     property real a: 90 //Hoek volgens z as,bepaald door spanning over weerstand
     property real orientationAngle: 0 //Hoek volgens y as, bepaald door plaatsing weerstand
     property real localVar: 40
-    property real numBends: 6
+    property real numBends: 10
 
     property var bends: []
 
@@ -37,6 +37,52 @@ Entity{
         id:o
         //Variables for spawning objects
         property var bendFactory
+    }
+    function printBends(){
+        console.log("inside printBends");
+        console.log("num Bends: " + numBends);
+        for(var i=0; i<numBends; i++){
+            console.log(" s " + bends[i].s + " l " + bends[i].l +" x " + bends[i].x +" y " + bends[i].y +" z " + bends[i].z +" a " + bends[i].a +" OA " + bends[i].orientationAngle);
+        }
+    }
+
+    function updateBends(){
+        for(var i=0; i<numBends; i++){
+
+            if(i%2 == 0){
+                bends[i].a = ((theBentResistor.a)+localVar);
+
+                bends[i].y = theBentResistor.y + (localCalc.calcSin(theBentResistor.l,theBentResistor.a-90)*(i/numBends));
+                bends[i].z = theBentResistor.z + (localCalc.calcCos(theBentResistor.l,theBentResistor.a-90)*(i/numBends));
+            }
+            else{
+                bends[i].a = ((theBentResistor.a)-localVar);
+
+                bends[i].y = theBentResistor.bends[i-1].y + localCalc.calcSin(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90);
+                bends[i].z = theBentResistor.bends[i-1].z + localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90);
+            }
+
+        }
+
+        //            if(i%2 == 0){
+        //                bends[i].s = theBentResistor.s;
+        //                bends[i].l = localCalc.calcLength(theBentResistor.l/numBends,localVar);
+        //                bends[i].x = theBentResistor.x;
+        //                bends[i].y = theBentResistor.y + (localCalc.calcSin(theBentResistor.l,theBentResistor.a-90)*(i/numBends));
+        //                bends[i].z = theBentResistor.z + (localCalc.calcCos(theBentResistor.l,theBentResistor.a-90)*(i/numBends));
+        //                bends[i].a = theBentResistor.a+localVar;
+        //                bends[i].orientationAngle = theBentResistor.orientationAngle;
+        //            }
+        //            else{
+        //                bends[i].s = theBentResistor.s;
+        //                bends[i].l = localCalc.calcLength(theBentResistor.l/numBends,localVar);
+        //                bends[i].x = theBentResistor.x;
+        //                bends[i].y = theBentResistor.bends[i-1].y + localCalc.calcSin(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90);
+        //                bends[i].z = theBentResistor.bends[i-1].z + localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90);
+        //                bends[i].a = theBentResistor.a-localVar;
+        //                bends[i].orientationAngle = theBentResistor.orientationAngle;                }
+        //        }
+
     }
 
     function makeBends(){

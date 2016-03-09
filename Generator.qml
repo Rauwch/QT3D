@@ -96,21 +96,21 @@ Entity{
         //console.log("After build sources");
 
         //create sources using the "initial" values instead of the "solution" values
-//        for(var i=0;i<calculator.getNumberOfSources();i++){
-//            var negNode = calculator.nodeMAtSource(i);
-//            //"s":calculator.getVoltageAtSource(i)
-//                //needs a new calculation based on initial values
-//            //"x":calculator.getXCoordOfSource(i)*root.sf
-//                //can stay the same
-//            //"z":-calculator.getYCoordOfSource(i)*root.sf
-//                //can stay the same
-//            //"y":calculator.voltageAtNode(negNode)})
-//                //needs a new calculation based on initial values
-//            var source = o.sourceFactory.createObject(null,{"s":calculator.getVoltageAtSource(i),"x":calculator.getXCoordOfSource(i)*root.sf,"z":-calculator.getYCoordOfSource(i)*root.sf,"y":calculator.voltageAtNode(negNode)});
-//            source.parent=root.parent;
-//            root.sources[i]=source;
+        //        for(var i=0;i<calculator.getNumberOfSources();i++){
+        //            var negNode = calculator.nodeMAtSource(i);
+        //            //"s":calculator.getVoltageAtSource(i)
+        //                //needs a new calculation based on initial values
+        //            //"x":calculator.getXCoordOfSource(i)*root.sf
+        //                //can stay the same
+        //            //"z":-calculator.getYCoordOfSource(i)*root.sf
+        //                //can stay the same
+        //            //"y":calculator.voltageAtNode(negNode)})
+        //                //needs a new calculation based on initial values
+        //            var source = o.sourceFactory.createObject(null,{"s":calculator.getVoltageAtSource(i),"x":calculator.getXCoordOfSource(i)*root.sf,"z":-calculator.getYCoordOfSource(i)*root.sf,"y":calculator.voltageAtNode(negNode)});
+        //            source.parent=root.parent;
+        //            root.sources[i]=source;
 
-//        }
+        //        }
 
         //TODO Probleem met angle oplossen
         //create resistors
@@ -141,6 +141,10 @@ Entity{
             resistor.parent=root.parent;
             root.resistors[i]=resistor;
             root.resistors[i].makeBends();
+            root.resistors[i].printBends();
+            root.resistors[i].updateBends();
+            root.resistors[i].printBends();
+
             console.log("Current trough resistor: ", i ,calculator.getCurrentofResistor(i));
 
         }
@@ -153,7 +157,7 @@ Entity{
         for(i=0;i<calculator.getNumberOfWires();i++){
 
 
-        var test = 1;
+            var test = 1;
             //console.log("ZEROANDONE: " + calculator.getGoalCurrent(i));
             var wire = o.wireFactory.createObject(null,{"x":calculator.getXCoordOfWire(i)*root.sf,
                                                       "z":-calculator.getYCoordOfWire(i)*root.sf,
@@ -177,14 +181,14 @@ Entity{
             console.log("orientationangle: " + 90*(calculator.getAngleOfWire(i)-1));
             var pole;
             pole = o.poleFactory.createObject(null, {"x":calculator.getXCoordOfWire(i)*root.sf,
-                                                      "z":-calculator.getYCoordOfWire(i)*root.sf,
-                                                      "y":calculator.voltageAtNode(calculator.getNodeOfWire(i)),
-                                                        "nodeOfWire": calculator.getNodeOfWire(i)});
+                                                  "z":-calculator.getYCoordOfWire(i)*root.sf,
+                                                  "y":calculator.voltageAtNode(calculator.getNodeOfWire(i)),
+                                                  "nodeOfWire": calculator.getNodeOfWire(i)});
 
-             //console.log("POLEEEE value is " + calculator.getXCoordOfWire(i) +"       POLEEEE value is " + calculator.getYCoordOfWire(i) )
-//            console.log("x: " + calculator.getXCoordOfWire(i)*root.sf);
-//            console.log("z: " + -calculator.getYCoordOfWire(i)*root.sf);
-//            console.log("y: " + calculator.voltageAtNode(calculator.getNodeOfWire(i)));
+            //console.log("POLEEEE value is " + calculator.getXCoordOfWire(i) +"       POLEEEE value is " + calculator.getYCoordOfWire(i) )
+            //            console.log("x: " + calculator.getXCoordOfWire(i)*root.sf);
+            //            console.log("z: " + -calculator.getYCoordOfWire(i)*root.sf);
+            //            console.log("y: " + calculator.voltageAtNode(calculator.getNodeOfWire(i)));
 
             pole.parent=root.parent;
             root.poles[j]=pole;
@@ -212,7 +216,7 @@ Entity{
             pole = o.poleFactory.createObject(null, {"x":calculator.getXCoordOfWire(i)*root.sf + xDif,
                                                   "z":-calculator.getYCoordOfWire(i)*root.sf + zDif,
                                                   "y":calculator.voltageAtNode(calculator.getNodeOfWire(i)),
-                                               "nodeOfWire": calculator.getNodeOfWire(i)});
+                                                  "nodeOfWire": calculator.getNodeOfWire(i)});
             //console.log("POLEEEE value is " + calculator.getXCoordOfWire(i) +"       POLEEEE value is " + calculator.getYCoordOfWire(i) )
             pole.parent=root.parent;
             root.poles[j]=pole;
@@ -226,8 +230,8 @@ Entity{
         {
             var goalPole;
             goalPole = o.goalFactory.createObject(null,{"x":calculator.getXCoordOfGoal(i)*root.sf,
-                                                  "z":-calculator.getYCoordOfGoal(i)*root.sf,
-                                                  "y":calculator.getVoltageAtGoal(i)});
+                                                      "z":-calculator.getYCoordOfGoal(i)*root.sf,
+                                                      "y":calculator.getVoltageAtGoal(i)});
             console.log("xgoal value is " + calculator.getXCoordOfGoal(i) +"       ygoal value is " + calculator.getYCoordOfGoal(i) )
             console.log("goal value is " + calculator.getVoltageAtGoal(i));
             goalPole.parent=root.parent;
@@ -240,7 +244,8 @@ Entity{
     }
     //update level function
     function updateLevel(){
-        console.log("grote van sources: " + sources.length)
+        console.log("inside update level");
+        console.log("grote van sources: " + sources.length);
         for( var i= 0; i <sources.length; i++)
         {
             sources[i].s = calculator.getVoltageAtSource(i);
@@ -268,6 +273,9 @@ Entity{
             resistors[i].x = calculator.getXCoordOfResistor(i)*root.sf;
             resistors[i].z = -calculator.getYCoordOfResistor(i)*root.sf;
             resistors[i].y = minVolt;
+            resistors[i].updateBends();
+            resistors[i].printBends();
+
 
         }
         console.log("groote van wires: " + wires.length)
