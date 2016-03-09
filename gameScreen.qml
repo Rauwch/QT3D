@@ -47,7 +47,11 @@ Item {
         focus: true
         aspects: "input"
 
-        World3D {
+//        TestWorld{
+//            id: world
+//        }
+
+        World3D{
             id: world
         }
     }

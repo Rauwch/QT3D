@@ -13,9 +13,9 @@
 *
 */w
 */sj
-R(name node1 node2 value) *sj (x y hoek isAdjustable showGoal beginwaarde stapgrote) */sj
-R(name node1 node2 value) *sj (x y hoek isAdjustable showGoal beginwaarde stapgrote) */sj
-V(naam node1 node2 value) *sj (x y hoek isAdjustable showGoal beginwaarde stapgrote)
+R(name node1 node2 value) *sj (x y hoek isAdjustable beginwaarde stapgrote) */sj
+R(name node1 node2 value) *sj (x y hoek isAdjustable beginwaarde stapgrote) */sj
+V(naam node1 node2 value) *sj (x y hoek isAdjustable beginwaarde stapgrote) */sj
 
 .end
 

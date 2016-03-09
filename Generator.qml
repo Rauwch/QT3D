@@ -44,75 +44,24 @@ Entity{
         //console.log("INSIDE INITIALIZE LEVEL")
         for( var i =0;i < calculator.getNumberOfGoals();i++)
         {
-            //console.log("amount of goals " + calculator.getNumberOfGoals());
-            //console.log( "i = " + i + "   node number " + calculator.nodeAtGoal(i));
+            console.log("amount of goals " + calculator.getNumberOfGoals());
+            console.log( "i = " + i + "   node number " + calculator.nodeAtGoal(i));
 
             calculator.setVoltageAtGoal(i,calculator.voltageAtNode(calculator.nodeAtGoal(i)));
             //console.log("amount of current goals: " + calculator.currentGoals.size());
         }
         calculator.setCurrentsOfWires();
         calculator.storeCurrentGoals();
-        //console.log("INSIDE INITIALIZE LEVEL")
+        console.log("INSIDE INITIALIZE LEVEL")
 
     }
-    //update level function
-    function updateLevel(){
-        console.log("grote van sources: " + sources.length)
-        for( var i= 0; i <sources.length; i++)
-        {
-            sources[i].s = calculator.getVoltageAtSource(i);
-        }
 
-        for( i= 0; i <resistors.length; i++)
-        {
-
-            var minVolt = Math.min(calculator.voltageAtNode(calculator.node1AtResistor(i)),calculator.voltageAtNode(calculator.node2AtResistor(i)));
-            var maxVolt = Math.max(calculator.voltageAtNode(calculator.node1AtResistor(i)),calculator.voltageAtNode(calculator.node2AtResistor(i)));
-
-
-            //Hoek van de weerstand
-            var angle = Math.atan2(root.sf,(minVolt-maxVolt));
-
-
-            //Lengte van de weerstand
-            var length = Math.abs(((maxVolt-minVolt))/Math.cos(angle));
-
-            resistors[i].a = angle*180/Math.PI;
-            resistors[i].l = length;
-            resistors[i].s = calculator.resistanceAtResistor(i);
-            resistors[i].x = calculator.getXCoordOfResistor(i)*root.sf;
-            resistors[i].z = -calculator.getYCoordOfResistor(i)*root.sf;
-            resistors[i].y = minVolt;
-
-        }
-        console.log("groote van wires: " + wires.length)
-        for(  i= 0; i <wires.length; i++)
-        {
-            wires[i].y = calculator.voltageAtNode(calculator.getNodeOfWire(i));
-            console.log("Current through goals wire: " + calculator.getCurrentofWire(i) + "Voltage at node " );
-            wires[i].eSize = calculator.getCurrentofWire(i)*1000;
-            console.log("AMOUNT OF ELECTRONS FROM A WIRE" + wires[i].electrons.length)
-            for(var j = 0; j < wires[i].electrons.length; j++)
-            {
-                console.log("amount of electrons ");
-                wires[i].electrons[j].s = calculator.getCurrentofWire(i);
-            }
-
-            wires[i].printeSize();
-        }
-        for( i = 0; i < poles.length; i++)
-        {
-            poles[i].y = calculator.voltageAtNode(poles[i].nodeOfWire);
-        }
-
-
-
-    }
 
     function buildLevel(){
 
 
         calculator.solveLevel();
+        console.log("before calculate arrow")
         myGameScreen.calculateArrow();
         console.log("After calculate arrow");
         o.sourceFactory=Qt.createComponent("Source.qml");
@@ -134,9 +83,14 @@ Entity{
             var negNode = calculator.nodeMAtSource(i);
             //check if voltage showGoal is on
             //if not, object doesn't have to be created
-            var source = o.sourceFactory.createObject(null,{"sourceNr": i,"s":calculator.getVoltageAtSource(i),"x":calculator.getXCoordOfSource(i)*root.sf,"z":-calculator.getYCoordOfSource(i)*root.sf,"y":calculator.voltageAtNode(negNode)});
+            var source = o.sourceFactory.createObject(null,{"sourceNr": i,"s":calculator.getVoltageAtSource(i),
+                                                          "x":calculator.getXCoordOfSource(i)*root.sf,
+                                                          "z":-calculator.getYCoordOfSource(i)*root.sf,
+                                                          "y":calculator.voltageAtNode(negNode),
+                                                          "clickable": calculator.getSourceIsVariable(i)});
             source.parent=root.parent;
             root.sources[i]=source;
+            //root.sources[i].checkClickable();
         }
 
         //console.log("After build sources");
@@ -199,7 +153,7 @@ Entity{
 
 
         var test = 1;
-            console.log("ZEROANDONE: " + calculator.getGoalCurrent(i));
+            //console.log("ZEROANDONE: " + calculator.getGoalCurrent(i));
             var wire = o.wireFactory.createObject(null,{"x":calculator.getXCoordOfWire(i)*root.sf,
                                                       "z":-calculator.getYCoordOfWire(i)*root.sf,
                                                       "y":calculator.voltageAtNode(calculator.getNodeOfWire(i)),
@@ -279,6 +233,61 @@ Entity{
             root.goals[i]=goalPole;
         }
         //console.log("After build goal poles");
+
+
+
+    }
+    //update level function
+    function updateLevel(){
+        console.log("grote van sources: " + sources.length)
+        for( var i= 0; i <sources.length; i++)
+        {
+            sources[i].s = calculator.getVoltageAtSource(i);
+            sources[i].y = calculator.voltageAtNode(calculator.nodeMAtSource(i));
+            sources[i].updateBal();
+        }
+
+        for( i= 0; i <resistors.length; i++)
+        {
+
+            var minVolt = Math.min(calculator.voltageAtNode(calculator.node1AtResistor(i)),calculator.voltageAtNode(calculator.node2AtResistor(i)));
+            var maxVolt = Math.max(calculator.voltageAtNode(calculator.node1AtResistor(i)),calculator.voltageAtNode(calculator.node2AtResistor(i)));
+
+
+            //Hoek van de weerstand
+            var angle = Math.atan2(root.sf,(minVolt-maxVolt));
+
+
+            //Lengte van de weerstand
+            var length = Math.abs(((maxVolt-minVolt))/Math.cos(angle));
+
+            resistors[i].a = angle*180/Math.PI;
+            resistors[i].l = length;
+            resistors[i].s = calculator.resistanceAtResistor(i);
+            resistors[i].x = calculator.getXCoordOfResistor(i)*root.sf;
+            resistors[i].z = -calculator.getYCoordOfResistor(i)*root.sf;
+            resistors[i].y = minVolt;
+
+        }
+        console.log("groote van wires: " + wires.length)
+        for(  i= 0; i <wires.length; i++)
+        {
+            wires[i].y = calculator.voltageAtNode(calculator.getNodeOfWire(i));
+            console.log("Current through goals wire: " + calculator.getCurrentofWire(i) + "Voltage at node " );
+            wires[i].eSize = calculator.getCurrentofWire(i)*1000;
+            console.log("AMOUNT OF ELECTRONS FROM A WIRE" + wires[i].electrons.length)
+            for(var j = 0; j < wires[i].electrons.length; j++)
+            {
+                console.log("amount of electrons ");
+                wires[i].electrons[j].s = calculator.getCurrentofWire(i);
+            }
+
+            wires[i].printeSize();
+        }
+        for( i = 0; i < poles.length; i++)
+        {
+            poles[i].y = calculator.voltageAtNode(poles[i].nodeOfWire);
+        }
 
 
 

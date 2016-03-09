@@ -50,6 +50,7 @@ public:
     Q_INVOKABLE int nodePAtSource(int sourceNr){return sources.at(sourceNr)->getNodep();}
     Q_INVOKABLE int nodeMAtSource(int sourceNr){return sources.at(sourceNr)->getNodem();}
     Q_INVOKABLE int getStepOfSource(int sourceNr){return sources.at(sourceNr)->getStep();}
+    Q_INVOKABLE bool getSourceIsVariable(int sourceNr){return sources.at(sourceNr)->getVariable();}
 
     //Goals
     Q_INVOKABLE int getNumberOfGoals(){return goals.size();}
@@ -63,8 +64,16 @@ public:
     // Current Goals
     Q_INVOKABLE void storeCurrentGoals();
     Q_INVOKABLE bool getGoalCurrent(int goalNr){return wires.at(goalNr)->getIsGoal();} 
-    Q_INVOKABLE float getCurrentInGoalWire(){return currentGoals.at(0)->getCurrent();}
-    Q_INVOKABLE float getGoalinGoalWire(){return currentGoals.at(0)->getGoalValue();}
+    Q_INVOKABLE float getCurrentInGoalWire(){
+        if(currentGoals.size() != 0)
+            return currentGoals.at(0)->getCurrent();
+        return 0;
+    }
+    Q_INVOKABLE float getGoalinGoalWire(){
+        if(currentGoals.size() !=0)
+            return currentGoals.at(0)->getGoalValue();
+        return 0;
+    }
     //Wires
     Q_INVOKABLE int getNumberOfWires(){return wires.size();}
     Q_INVOKABLE float getCurrentofWire(int wiNr){return wires.at(wiNr)->getCurrent();}
@@ -113,7 +122,7 @@ private:
 
     //variables for circuit
     std::vector<float> sol;
-    std::vector<std::shared_ptr<Component>> sources;
+    std::vector<std::shared_ptr<Source>> sources;
     std::vector<std::shared_ptr<Component>> resistors;
     std::vector<std::shared_ptr<Wire>> wires;
     std::vector<std::shared_ptr<GoalVoltage>> goals;

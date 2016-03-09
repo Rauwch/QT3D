@@ -8,7 +8,8 @@ Entity{
     property real xVal: 0
     property real yVal: 0
     property real zVal: 0
-    components: [mesh,bolTrans]
+    property real sourceNr
+    components: [mesh,bolTrans,objectPicker]
 
     SphereMesh{
         id:mesh
@@ -19,6 +20,14 @@ Entity{
         id:bolTrans
         translation: Qt.vector3d(xVal,yVal,zVal)
 
+    }
+
+    property ObjectPicker objectPicker: ObjectPicker {
+        onClicked: {
+            console.log("clicked on a THESOURCE");
+            myGameScreen.showBox = !myGameScreen.showBox;
+            myGameScreen.clickedSource = sourceNr;
+        }
     }
 
 }
