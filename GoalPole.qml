@@ -24,7 +24,7 @@ Entity{
 
     Entity{
         id:somesh
-        components: [mesh,trans,mat]
+        components: [mesh,trans,material]
 
         CuboidMesh {
             id:mesh
@@ -38,11 +38,11 @@ Entity{
             translation: Qt.vector3d(0, 0.5, 0)
         }
 
-        PhongMaterial {
-            id:mat
-            diffuse: "yellow"
-            ambient: "yellow"
-            specular: "blue"
+        property Material material: DiffuseMapMaterial {
+            id: theMaterial
+            diffuse: "goalPole.png"
+            ambient: Qt.rgba( 1, 1, 1, 1.0 )
+            specular: Qt.rgba( 1, 1, 1, 1.0 )
             shininess: 0
         }
 
@@ -55,7 +55,7 @@ Entity{
         id:sotrans
         translation: Qt.vector3d(x, 0, z)
         //scale3D : Qt.vector3d(2, 1*s, 2)
-        scale3D : Qt.vector3d(0.5, 1*y, 0.5)
+        scale3D : Qt.vector3d(1, 1*y, 1)
 
 
     }

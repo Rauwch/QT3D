@@ -14,5 +14,9 @@
         <file>backIcon.png</file>
         <file>rockTexture.jpg</file>
         <file>sandTexture.jpg</file>
+        <file>poleTexture.png</file>
+        <file>postTexture.png</file>
+        <file>goalPole.png</file>
+        <file>t0017_0.png</file>
     </qresource>
 </RCC>

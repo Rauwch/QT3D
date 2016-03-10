@@ -15,7 +15,7 @@ Entity {
     property real z: -4.5
 
     //Zoomlevel
-    property real zoomlevel: 15
+    property real zoomlevel: 50
 
 
     //Camera
@@ -74,7 +74,9 @@ Entity {
         aspectRatio: 16 / 9
         nearPlane : 0.1
         farPlane : 1000.0
-        position: Qt.vector3d( 50.0, 25.0, 50.0 )
+        position: Qt.vector3d(zoomlevel*Math.sin(cameraAngle*180/Math.PI)+x*generator.sf,
+                              zoomlevel, -zoomlevel*Math.cos(cameraAngle*180/Math.PI)+z*generator.sf )
+
         upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
         viewCenter: Qt.vector3d( 0.0, 0.0, 0.0 )
     }

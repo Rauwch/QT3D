@@ -120,6 +120,24 @@ Item {
         anchors.centerIn: speedo
         rotation: angleOfArrow
     }
+    Button{
+        id:rotateCamera
+        onClicked:
+        {
+           animation.start()
+            //world.cameraAngle = world.cameraAngle + 15;
+        }
+    }
+
+    NumberAnimation
+        {
+            id: animation
+            target: world
+            property: "cameraAngle"
+            from: world.cameraAngle
+            to: world.cameraAngle+15;
+            duration: 10000
+        }
 
 
     //2d box where setting can be edited

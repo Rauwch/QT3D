@@ -12,18 +12,18 @@ Entity{
 
     Entity{
     id:theCubeMesh
-    components: [cubeMesh,cubeMat]
+    components: [cubeMesh,material]
     CuboidMesh {
         id:cubeMesh
         yzMeshResolution: Qt.size(2, 2)
         xzMeshResolution: Qt.size(2, 2)
         xyMeshResolution: Qt.size(2, 2)
     }
-    PhongMaterial {
-        id:cubeMat
-        diffuse: "yellow"
-        ambient: "yellow"
-        specular: "yellow"
+    property Material material: DiffuseMapMaterial {
+        id: theMaterial
+        diffuse: "t0017_0.png"
+        ambient: Qt.rgba( 1, 1, 1, 1.0 )
+        specular: Qt.rgba( 1, 1, 1, 1.0 )
         shininess: 0
     }
 //    Transform{
@@ -34,7 +34,7 @@ Entity{
     Transform{
         id:theCubeTrans
         translation.y: yVal
-        scale3D : Qt.vector3d(5, 0.01, 5)
+        scale3D : Qt.vector3d(5, 0.02, 5)
 
 
     }

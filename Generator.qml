@@ -87,7 +87,8 @@ Entity{
                                                           "x":calculator.getXCoordOfSource(i)*root.sf,
                                                           "z":-calculator.getYCoordOfSource(i)*root.sf,
                                                           "y":calculator.voltageAtNode(negNode),
-                                                          "clickable": calculator.getSourceIsVariable(i)});
+                                                          "clickable": calculator.getSourceIsVariable(i),
+                                                          "eSize": calculator.getCurrentofWire(i)});
             source.parent=root.parent;
             root.sources[i]=source;
             //root.sources[i].checkClickable();
@@ -250,7 +251,8 @@ Entity{
         {
             sources[i].s = calculator.getVoltageAtSource(i);
             sources[i].y = calculator.voltageAtNode(calculator.nodeMAtSource(i));
-            sources[i].updateBal();
+            sources[i].eSize = calculator.getCurrentofWire(i)
+            sources[i].updateBal();;
         }
 
         for( i= 0; i <resistors.length; i++)

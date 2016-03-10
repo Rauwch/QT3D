@@ -14,6 +14,7 @@ Entity{
     property real z: 0
     property bool clickable: false
     property var clickableBal
+    property var eSize: 7
 
 
     QQ2.QtObject{
@@ -30,17 +31,17 @@ Entity{
         else
             console.log("Er wordt geen bal aangemaakt")
     }
-//    Entity{
-//        components: [objectPicker,clickableBal]
+    //    Entity{
+    //        components: [objectPicker,clickableBal]
 
-//        property ObjectPicker objectPicker: ObjectPicker {
-//            onClicked: {
-//                console.log("clicked on a THESOURCE");
-//                myGameScreen.showBox = !myGameScreen.showBox;
-//                myGameScreen.clickedSource = sourceNr;
-//            }
-//        }
-//    }
+    //        property ObjectPicker objectPicker: ObjectPicker {
+    //            onClicked: {
+    //                console.log("clicked on a THESOURCE");
+    //                myGameScreen.showBox = !myGameScreen.showBox;
+    //                myGameScreen.clickedSource = sourceNr;
+    //            }
+    //        }
+    //    }
 
     function updateBal(){
         clickableBal.yVal = source.y + source.s/2;
@@ -85,26 +86,26 @@ Entity{
             }
 
             property Material material: DiffuseMapMaterial {
-            id: theMaterial
-            diffuse: "rockTexture.jpg"
-            ambient: Qt.rgba( 1, 1, 1, 1.0 )
-            specular: Qt.rgba( 1, 1, 1, 1.0 )
-            shininess: 0
-        }
+                id: theMaterial
+                diffuse: "poleTexture.png"
+                ambient: Qt.rgba( 1, 1, 1, 1.0 )
+                specular: Qt.rgba( 1, 1, 1, 1.0 )
+                shininess: 0
+            }
 
-//            PhongMaterial {
-//                id:mat
-//                diffuse: "red"
-//                ambient: "red"
-//                specular: "blue"
-//                shininess: 0.2
-//            }
+            //            PhongMaterial {
+            //                id:mat
+            //                diffuse: "red"
+            //                ambient: "red"
+            //                specular: "blue"
+            //                shininess: 0.2
+            //            }
         }
 
         Transform{
             id:sotrans
             translation: Qt.vector3d(x, y, z)
-            scale3D : Qt.vector3d(1, 1*s, 1)
+            scale3D : Qt.vector3d(1, (1*s + eSize*10) , 1)
 
         }
 

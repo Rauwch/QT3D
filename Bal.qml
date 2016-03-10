@@ -9,6 +9,7 @@ Entity{
     property real yVal: 0
     property real zVal: 0
     property real sourceNr
+    property real breath
     components: [mesh,bolTrans,objectPicker,material]
 
     SphereMesh{
@@ -23,8 +24,8 @@ Entity{
     }
     property Material material: DiffuseMapMaterial {
     id: theMaterial
-    diffuse: "rockTexture.jpg"
-    ambient: Qt.rgba( 1, 1, 1, 1.0 )
+    diffuse: "poleTexture.png"
+    ambient: Qt.rgba( breath, breath, breath, 1.0 )
     specular: Qt.rgba( 1, 1, 1, 1.0 )
     shininess: 0
 }
@@ -36,5 +37,30 @@ Entity{
             myGameScreen.clickedSource = sourceNr;
         }
     }
+
+    QQ2.SequentialAnimation{
+
+
+        running: true
+        loops: QQ2.Animation.Infinite
+        QQ2.NumberAnimation {
+
+            target: theBol
+            property: "breath"
+            duration: 1000
+            from: 1
+            to: 0.5
+        }
+        QQ2.NumberAnimation {
+
+            target: theBol
+            property: "breath"
+            duration: 1000
+            from: 0.5
+            to: 1
+        }
+
+    }
+
 
 }
