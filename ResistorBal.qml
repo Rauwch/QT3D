@@ -28,6 +28,7 @@ Entity{
 
             myGameScreen.showRes = !myGameScreen.showRes;
             myGameScreen.clickedRes = resistorNr;
+            myGameScreen.showBox = false;
         }
     }
 

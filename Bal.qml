@@ -35,6 +35,7 @@ Entity{
             console.log("clicked on a THESOURCE");
             myGameScreen.showBox = !myGameScreen.showBox;
             myGameScreen.clickedSource = sourceNr;
+            myGameScreen.showRes = false;
         }
     }
 
