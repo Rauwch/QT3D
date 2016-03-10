@@ -171,7 +171,7 @@ Entity{
         }
     }
     function updateBal(){
-        if(clickableBal !== null){
+        if(!(clickableBal === undefined)){
             clickableBal.yVal = theBentResistor.bends[numBends/2].y;
             clickableBal.zVal = theBentResistor.bends[numBends/2].z;
         }
