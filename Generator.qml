@@ -132,12 +132,14 @@ Entity{
 
 
             var resistor = o.resistorFactory.createObject(null,{"a":(angle*180/Math.PI),
+                                                              "resistorNr": i,
                                                               "l":length,
                                                               "s":calculator.resistanceAtResistor(i),
                                                               "x":calculator.getXCoordOfResistor(i)*root.sf,
                                                               "z":-calculator.getYCoordOfResistor(i)*root.sf,
                                                               "y":minVolt,
-                                                              "orientationAngle":90*(calculator.getAngleOfResistor(i)-1)});
+                                                              "clickable": calculator.getResistorIsVariable(i),
+                                                              "orientationAngle":90*(calculator.getAngleOfResistor(i)-1) });
 
             resistor.parent=root.parent;
             root.resistors[i]=resistor;

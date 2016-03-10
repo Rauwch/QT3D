@@ -13,14 +13,18 @@ import Calc 1.0
 Item {
     id: myGameScreen
     property bool showBox
+    property bool showRes
     property real speedoMeter: 0
     property int speedLevel
     property int numClicks: 0
+
     property string archerSource
     property int clickedSource
+    property int clickedRes
+
     property int angleOfArrow: 0
     //signal returner()
-    signal sizeupdate()
+    //signal sizeupdate()
     anchors.fill: parent
     Component.onDestruction: console.log("gamescreen destroyed")
 
@@ -159,7 +163,7 @@ Item {
                 calculator.solveLevel();
                 //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
                 //world.generator.buildLevel();
-                sizeupdate();
+                //sizeupdate();
                 world.generator.updateLevel();
                 popupWindow.visible = calculator.checkGoals();
                 calculateArrow();
@@ -192,6 +196,87 @@ Item {
 
             onClicked: {
                 calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
+                calculator.solveLevel();
+
+                world.generator.updateLevel();
+                calculateArrow();
+                popupWindow.visible = calculator.checkGoals();
+
+                //                myLinker.height = myLinker.height - 1;
+                //                myLinker.speed = myLinker.speed - 500;
+                //                speedupdate(myLinker.speed);
+                //                speedoMeter = speedoMeter - 45/2;
+                //                numClicks = numClicks + 1;
+                //                updateAnimation();
+                //                if((myLinker.speed - 500) <= 0){
+                //                    visible = false;
+                //                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
+
+                //                }
+                //                else{
+                //                    visible = true;
+                //                    increaseHeight.parent.anchors.bottomMargin = 0;
+
+
+                //                }
+
+            }
+
+        }
+    }
+
+    Column{
+        id: resistorBox
+        visible: showRes
+        anchors.bottom: parent.bottom
+
+        //button that allows for height to be edited
+        Button{
+            id: increaseResistor
+            width: Screen.width/15
+            height: Screen.height/15
+            text: "Increase bends!"
+            onClicked: {
+                //console.log("Voltage at the source before click: " + calculator.getVoltageAtSource(clickedSource));
+                //console.log("this is the source that is clicked: " + clickedSource);
+                //calculator.adjustVoltageAtSource(clickedSource,calculator.getStepOfSource(clickedSource));
+                calculator.solveLevel();
+                //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
+                //world.generator.buildLevel();
+                world.generator.updateLevel();
+
+                calculateArrow();
+                console.log("The angle is: " + angleOfArrow);
+
+                popupWindow.visible = calculator.checkGoals();
+                //                myLinker.height = myLinker.height + 1;
+                //                myLinker.speed = myLinker.speed + 500;
+                //                speedupdate(myLinker.speed);
+                //                speedoMeter = speedoMeter + 45/2;
+                //                numClicks = numClicks + 1;
+                //                updateAnimation();
+                //                if((myLinker.speed - 500) <= 0){
+                //                    decreaseHeight.visible = false;
+                //                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
+
+                //                }
+                //                else{
+                //                    decreaseHeight.visible = true;
+                //                    increaseHeight.parent.anchors.bottomMargin = 0;
+
+                //                }
+
+            }
+        }
+
+        Button{
+            id: decreaseResistor
+            width: Screen.width/15
+            height: Screen.height/15
+            text: "Decrease bends!"
+
+            onClicked: {
+                //calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
                 calculator.solveLevel();
 
                 world.generator.updateLevel();

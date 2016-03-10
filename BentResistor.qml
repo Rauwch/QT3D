@@ -27,6 +27,8 @@ Entity{
     property var xtest
     property var ytest
     property var ztest
+    property bool clickable: false
+    property var resistorNr
 
     Calculator{
         id: localCalc
@@ -39,6 +41,14 @@ Entity{
 
 
     }
+    QQ2.Component.onCompleted: {
+        makeBends();
+        if(clickable)
+            createBal();
+        else
+            console.log("no clickable bal")
+    }
+
     function printBends(){
         console.log("inside printBends");
         console.log("num Bends: " + numBends);
@@ -129,14 +139,14 @@ Entity{
                 console.log("xtest" + xtest);
                 console.log("ytest" + ytest);
                 console.log("ztest" + ztest);
-                createBal(xtest, ytest, ztest);
+                //createBal(xtest, ytest, ztest);
             }
         }
         printBends();
     }
-    function createBal(balx, baly, balz) {
+    function createBal() {
         o.balFactory = Qt.createComponent("ResistorBal.qml");
-        theBentResistor.clickableBal = o.balFactory.createObject(theBentResistor,{"xVal": balx,"yVal":  baly, "zVal": balz});
+        theBentResistor.clickableBal = o.balFactory.createObject(theBentResistor,{"xVal": xtest,"yVal":  ytest, "zVal": ztest});
 
         if (o.balFactory === null) {
             // Error Handling

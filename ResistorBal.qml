@@ -25,8 +25,9 @@ Entity{
     property ObjectPicker objectPicker: ObjectPicker {
         onClicked: {
             console.log("clicked on a THERESISTOR");
-            //myGameScreen.showBox = !myGameScreen.showBox;
-            //myGameScreen.clickedSource = resistorNr;
+
+            myGameScreen.showRes = !myGameScreen.showRes;
+            myGameScreen.clickedRes = resistorNr;
         }
     }
 

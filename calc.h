@@ -32,6 +32,7 @@ public:
     Q_INVOKABLE int getNumberOfResistors(){return resistors.size();}
     Q_INVOKABLE float resistanceAtResistor(int resNr){return resistors.at(resNr)->getValue();}
     Q_INVOKABLE float getCurrentofResistor(int resNr){return resistors.at(resNr)->getCurrent();}
+    Q_INVOKABLE bool getResistorIsVariable(int resNr){return resistors.at(resNr)->getVariable();}
     Q_INVOKABLE int getAngleOfResistor(int resNr){return resistors.at(resNr)->getAngle();}
     Q_INVOKABLE int getXCoordOfResistor(int resNr){return resistors.at(resNr)->getXCoord();}
     Q_INVOKABLE int getYCoordOfResistor(int resNr){return resistors.at(resNr)->getYCoord();}
@@ -124,7 +125,7 @@ private:
     //variables for circuit
     std::vector<float> sol;
     std::vector<std::shared_ptr<Source>> sources;
-    std::vector<std::shared_ptr<Component>> resistors;
+    std::vector<std::shared_ptr<Resistor>> resistors;
     std::vector<std::shared_ptr<Wire>> wires;
     std::vector<std::shared_ptr<GoalVoltage>> goals;
     std::vector<std::shared_ptr<Wire>> currentGoals;
