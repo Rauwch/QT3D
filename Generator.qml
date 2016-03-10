@@ -16,6 +16,7 @@ Entity{
     property var wires: []
     property var poles: []
     property var goals: []
+    property var bendValues: []
 
     QQ2.QtObject{
 
@@ -33,6 +34,7 @@ Entity{
     QQ2.Component.onCompleted: {
         console.log("this is the current level: " + myLevels.getCurrentLevel() );
         calculator.readFile(":/assets/Levels/inputfile_" + myLevels.getCurrentLevel() + ".sj");
+        initializeBendsArray();
         initializeLevel();
         calculator.updateResistors();
         calculator.updateSources();
@@ -144,9 +146,7 @@ Entity{
             resistor.parent=root.parent;
             root.resistors[i]=resistor;
             root.resistors[i].makeBends();
-//            root.resistors[i].printBends();
-//            root.resistors[i].updateBends();
-//            root.resistors[i].printBends();
+
 
             console.log("Current trough resistor: ", i ,calculator.getCurrentofResistor(i));
 
@@ -245,12 +245,24 @@ Entity{
 
 
     }
+    function initializeBendsArray(){
+        bendValues[0] = 20;
+        bendValues[1] = 35;
+        bendValues[2] = 50;
+        bendValues[3] = 65;
+        bendValues[4] = 80;
+    }
+
     function increaseRes(){
-        resistors[0].localVar += 20;
+        console.log("intensity " + resistors[0].bendIntensity)
+        resistors[0].bendIntensity = resistors[0].bendIntensity + 1;
+        resistors[0].localVar = bendValues[resistors[0].bendIntensity];
+
 
     }
     function decreaseRes(){
-        resistors[0].localVar -= 20;
+        resistors[0].bendIntensity = resistors[0].bendIntensity - 1;
+        resistors[0].localVar = bendValues[resistors[0].bendIntensity];
 
     }
 

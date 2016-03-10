@@ -246,28 +246,17 @@ Item {
                 //world.generator.buildLevel();
                 world.generator.increaseRes();
                 world.generator.updateLevel();
-
                 calculateArrow();
                 console.log("The angle is: " + angleOfArrow);
-
                 popupWindow.visible = calculator.checkGoals();
-                //                myLinker.height = myLinker.height + 1;
-                //                myLinker.speed = myLinker.speed + 500;
-                //                speedupdate(myLinker.speed);
-                //                speedoMeter = speedoMeter + 45/2;
-                //                numClicks = numClicks + 1;
-                //                updateAnimation();
-                //                if((myLinker.speed - 500) <= 0){
-                //                    decreaseHeight.visible = false;
-                //                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
+                if(world.generator.resistors[0].bendIntensity >= 4){
+                    visible = false;
+                }
+                if(world.generator.resistors[0].bendIntensity >= 1){
+                    decreaseResistor.visible = true;
+                    increaseResistor.parent.anchors.bottomMargin = 0;
 
-                //                }
-                //                else{
-                //                    decreaseHeight.visible = true;
-                //                    increaseHeight.parent.anchors.bottomMargin = 0;
-
-                //                }
-
+                }
             }
         }
 
@@ -281,29 +270,17 @@ Item {
                 //calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
                 calculator.solveLevel();
                 world.generator.decreaseRes();
-
                 world.generator.updateLevel();
                 calculateArrow();
                 popupWindow.visible = calculator.checkGoals();
+                if(world.generator.resistors[0].bendIntensity <= 0){
+                    increaseResistor.parent.anchors.bottomMargin = Screen.height/15;
+                    visible = false;
 
-                //                myLinker.height = myLinker.height - 1;
-                //                myLinker.speed = myLinker.speed - 500;
-                //                speedupdate(myLinker.speed);
-                //                speedoMeter = speedoMeter - 45/2;
-                //                numClicks = numClicks + 1;
-                //                updateAnimation();
-                //                if((myLinker.speed - 500) <= 0){
-                //                    visible = false;
-                //                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
-
-                //                }
-                //                else{
-                //                    visible = true;
-                //                    increaseHeight.parent.anchors.bottomMargin = 0;
-
-
-                //                }
-
+                }
+                if(world.generator.resistors[0].bendIntensity <= 3){
+                    increaseResistor.visible = true;
+                }
             }
 
         }

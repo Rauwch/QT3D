@@ -9,7 +9,8 @@ Entity{
     property real yVal: 0
     property real zVal: 0
     property real resistorNr
-    components: [mesh,bolTrans,objectPicker]
+    property real breath
+    components: [mesh,bolTrans,objectPicker,material]
 
     SphereMesh{
         id:mesh
@@ -21,7 +22,13 @@ Entity{
         translation: Qt.vector3d(xVal,yVal,zVal)
 
     }
-
+    property Material material: DiffuseMapMaterial {
+        id: theMaterial
+        diffuse: "poleTexture.png"
+        ambient: Qt.rgba( breath, breath, breath, 1.0 )
+        specular: Qt.rgba( 1, 1, 1, 1.0 )
+        shininess: 0
+    }
     property ObjectPicker objectPicker: ObjectPicker {
         onClicked: {
             console.log("clicked on a THERESISTOR");
@@ -31,12 +38,36 @@ Entity{
             myGameScreen.showBox = false;
         }
     }
+    QQ2.SequentialAnimation{
+
+
+        running: true
+        loops: QQ2.Animation.Infinite
+        QQ2.NumberAnimation {
+
+            target: theBol
+            property: "breath"
+            duration: 1000
+            from: 1
+            to: 0.5
+        }
+        QQ2.NumberAnimation {
+
+            target: theBol
+            property: "breath"
+            duration: 1000
+            from: 0.5
+            to: 1
+        }
+
+    }
     function setThevisible(theint){
         if(theint === 0){
-           theBol.setEnabled(false);
+            theBol.setEnabled(false);
         }
         if(theint === 1){
-           theBol.setEnabled(true);
-        }    }
+            theBol.setEnabled(true);
+        }
+    }
 
 }
