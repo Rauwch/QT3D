@@ -31,5 +31,12 @@ Entity{
             myGameScreen.showBox = false;
         }
     }
+    function setThevisible(theint){
+        if(theint === 0){
+           theBol.setEnabled(false);
+        }
+        if(theint === 1){
+           theBol.setEnabled(true);
+        }    }
 
 }

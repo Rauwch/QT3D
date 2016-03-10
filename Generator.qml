@@ -245,6 +245,15 @@ Entity{
 
 
     }
+    function increaseRes(){
+        resistors[0].localVar += 20;
+
+    }
+    function decreaseRes(){
+        resistors[0].localVar -= 20;
+
+    }
+
     //update level function
     function updateLevel(){
         console.log("inside update level");
@@ -279,6 +288,7 @@ Entity{
             resistors[i].y = minVolt;
             resistors[i].updateBends();
             resistors[i].printBends();
+            resistors[i].deleteBends();
 
 
         }

@@ -240,9 +240,11 @@ Item {
                 //console.log("Voltage at the source before click: " + calculator.getVoltageAtSource(clickedSource));
                 //console.log("this is the source that is clicked: " + clickedSource);
                 //calculator.adjustVoltageAtSource(clickedSource,calculator.getStepOfSource(clickedSource));
+
                 calculator.solveLevel();
                 //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
                 //world.generator.buildLevel();
+                world.generator.increaseRes();
                 world.generator.updateLevel();
 
                 calculateArrow();
@@ -278,6 +280,7 @@ Item {
             onClicked: {
                 //calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
                 calculator.solveLevel();
+                world.generator.decreaseRes();
 
                 world.generator.updateLevel();
                 calculateArrow();

@@ -18,7 +18,7 @@ Entity{
     //Variable voor hoek.
     property real a: 90 //Hoek volgens z as,bepaald door spanning over weerstand
     property real orientationAngle: 0 //Hoek volgens y as, bepaald door plaatsing weerstand
-    property real localVar: 30
+    property real localVar: 60
     property real numBends: 10
 
     property var bends: []
@@ -55,6 +55,23 @@ Entity{
         for(var i=0; i<numBends; i++){
             console.log(" s " + bends[i].s + " l " + bends[i].l +" x " + bends[i].x +" y " + bends[i].y +" z " + bends[i].z +" a " + bends[i].a +" OA " + bends[i].orientationAngle);
         }
+    }
+
+    function deleteBends(){
+//        for(var i=0; i<(numBends); i++){
+//            bends[i].destroy();
+//        }
+
+        //clickableBal.setThevisible(0);
+//        numBends = 6;
+//        makeBends();
+       // clickableBal.setThevisible(1);
+
+        //createBal();
+        updateBends();
+        updateBal();
+
+        //theBentResistor.destroy();
     }
 
     function updateBends(){
@@ -154,8 +171,10 @@ Entity{
         }
     }
     function updateBal(){
-        clickableBal.yVal = theBentResistor.bends[numBends/2].y;
-        clickableBal.zVal = theBentResistor.bends[numBends/2].z;
+        if(clickableBal !== null){
+            clickableBal.yVal = theBentResistor.bends[numBends/2].y;
+            clickableBal.zVal = theBentResistor.bends[numBends/2].z;
+        }
     }
 }
 
