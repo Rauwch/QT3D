@@ -23,7 +23,7 @@ Entity{
 
     }
     function setGreen(){
-        theMaterial.diffuse = "poleTexture.png";
+        theMaterial.diffuse = "goalPoleGo.png";
         console.log("GREEN");
         cubeTop.setGreen();
         cubeBottom.setGreen();

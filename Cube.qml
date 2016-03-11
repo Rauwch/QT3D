@@ -42,6 +42,6 @@ Entity{
         theMaterial.diffuse = "t0017_0.png";
     }
     function setGreen(){
-        theMaterial.diffuse = "poleTexture.png";
+        theMaterial.diffuse = "t0044_0.png";
     }
 }

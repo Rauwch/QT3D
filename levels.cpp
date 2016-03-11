@@ -14,8 +14,8 @@ Levels::Levels(QObject *parent) : QObject(parent)
 
 void Levels::getLevelAmount()
 {
-    //QFile * file = new QFile(":/assets/Levels/levels.txt");
-    QFile * file = new QFile("levels.txt");
+    QFile * file = new QFile(":/assets/Levels/levels.txt");
+    //QFile * file = new QFile("levels.txt");
     //string path = QDir::homePath().toStdString()+ "/Documents/GitHub/QT3D/levels.txt" ;
     vector <int> rowVector(4);
     int row = 0;

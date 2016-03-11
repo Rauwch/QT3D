@@ -19,5 +19,7 @@
         <file>goalPole.png</file>
         <file>t0017_0.png</file>
         <file>resistorTexture.png</file>
+        <file>goalPoleGo.png</file>
+        <file>t0044_0.png</file>
     </qresource>
 </RCC>
