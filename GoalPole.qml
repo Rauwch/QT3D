@@ -20,10 +20,22 @@ Entity{
     components: [somesh,sotrans]
     QQ2.Component.onCompleted: {
         console.log("pole x y z: " + x + " " + y + " " + z);
-            theMaterial.diffuse = "poleTexture.png";
 
     }
+    function setGreen(){
+        theMaterial.diffuse = "poleTexture.png";
+        console.log("GREEN");
+        cubeTop.setGreen();
+        cubeBottom.setGreen();
 
+
+    }
+    function setRed(){
+        theMaterial.diffuse = "goalPole.png";
+        console.log("RED");
+        cubeTop.setRed();
+        cubeBottom.setRed();
+    }
     Entity{
         id:somesh
         components: [mesh,trans,material]

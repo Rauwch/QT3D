@@ -329,23 +329,26 @@ bool Calc::checkGoals()
     int goalNode;
     int currentVoltage;
 
-        for(unsigned int i = 0; i < goals.size();i++)
-        {
+    for(unsigned int i = 0; i < goals.size();i++)
+    {
 
-            goalVoltage = goals.at(i)->getVoltage();
-            goalNode = goals.at(i)->getNode();
-            currentVoltage = voltageAtNode(goalNode);
-            qDebug()  <<"this is the current voltage: " << currentVoltage << " and the goalVoltage: " << goalVoltage;
-            if(goalVoltage != currentVoltage)
-            {
-                allGoals = false;
-                goals.at(i)->setMatch(false);
-            }
-            else
-            {
-              goals.at(i)->setMatch(true);
-            }
+        goalVoltage = goals.at(i)->getVoltage();
+        goalNode = goals.at(i)->getNode();
+        currentVoltage = voltageAtNode(goalNode);
+        qDebug()  <<"this is the current voltage: " << currentVoltage << " and the goalVoltage: " << goalVoltage;
+        if(goalVoltage != currentVoltage)
+        {
+            allGoals = false;
+            qDebug() << "FALSE goalV " << goalVoltage << "currentV " << currentVoltage;
+            goals.at(i)->setMatch(false);
         }
+        else
+        {
+            qDebug() << "TRUE goalV " << goalVoltage << "currentV " << currentVoltage;
+
+            goals.at(i)->setMatch(true);
+        }
+    }
 
     for(unsigned int i = 0; i <currentGoals.size();i++)
     {

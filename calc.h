@@ -63,6 +63,7 @@ public:
     Q_INVOKABLE float getVoltageAtGoal(int goalNr){return goals.at(goalNr)->getVoltage();}
     Q_INVOKABLE int getXCoordOfGoal(int goalNr){return goals.at(goalNr)->getX();}
     Q_INVOKABLE int getYCoordOfGoal(int goalNr){return goals.at(goalNr)->getY();}
+    Q_INVOKABLE bool getMatch(int goalNr){return goals.at(goalNr)->getMatch();}
 
     // Current Goals
     Q_INVOKABLE void storeCurrentGoals();
