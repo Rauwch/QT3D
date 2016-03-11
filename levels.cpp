@@ -14,7 +14,8 @@ Levels::Levels(QObject *parent) : QObject(parent)
 
 void Levels::getLevelAmount()
 {
-    QFile * file = new QFile(":/assets/Levels/levels.txt");
+    //QFile * file = new QFile(":/assets/Levels/levels.txt");
+    QFile * file = new QFile("levels.txt");
     //string path = QDir::homePath().toStdString()+ "/Documents/GitHub/QT3D/levels.txt" ;
     vector <int> rowVector(4);
     int row = 0;
@@ -55,7 +56,7 @@ void Levels::printArray()
     {
         for(int j = 0; j < 4; j++)
         {
-            qDebug() <<  (unsigned int) (levelArray[i][j]) ;
+            //qDebug() <<  (unsigned int) (levelArray[i][j]) ;
         }
     }
 }
@@ -63,29 +64,28 @@ void Levels::printArray()
 void Levels::refreshTextFile()
 {
     qDebug() << "Inside refreshTextFile";
-   QFile *file = new QFile(":/assets/Levels/levels.txt");
-    if(file->open(QFile::WriteOnly |QFile::Text))
+    QFile * file = new QFile(":/assets/Levels/levels.txt");
+    if (!file->open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        QTextStream output(file);
+        qDebug() << file->errorString();
+         return;
+    }
 
-        QString line;
-        for(int i = 0; i <amountOfLevels; i++)
+    QTextStream output(file);
+
+    for(int i = 0; i <amountOfLevels; i++)
+    {
+        qDebug() <<"Writing to textfile";
+        for(int j = 0; j < 4; j++)
         {
-            qDebug() <<"Writing to textfile";
-            for(int j = 0; j < 4; j++)
-            {
-                 output << levelArray[i][j] << " " ;
-                 qDebug() << levelArray[i][j] << " ";
-            }
-            output << endl;
-
+            output << levelArray[i][j] << " " ;
+            qDebug() << levelArray[i][j] << " ";
         }
+        output << endl;
 
     }
-    else{
 
-        qDebug() << "Unable to open file";
-    }
+
 }
 
 int Levels::getAmountOfStars(int level) const

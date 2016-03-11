@@ -172,7 +172,6 @@ Item {
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-                     myLevels.refreshTextFile();
                 }
                 calculateArrow();
                 console.log("The angle is: " + angleOfArrow);
@@ -213,7 +212,6 @@ Item {
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-                     myLevels.refreshTextFile();
                 }
 
                 //                myLinker.height = myLinker.height - 1;
@@ -267,7 +265,6 @@ Item {
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-                     myLevels.refreshTextFile();
                 }
                 if(world.generator.resistors[0].bendIntensity >= 4){
                     visible = false;
@@ -299,7 +296,6 @@ Item {
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-                    myLevels.refreshTextFile();
                 }
                 if(world.generator.resistors[0].bendIntensity <= 0){
                     increaseResistor.parent.anchors.bottomMargin = Screen.height/15;
