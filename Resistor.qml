@@ -30,7 +30,7 @@ Entity{
         Entity{
             //Basismodel weestand
             id:resmesh
-            components: [mesh, trans,mat]
+            components: [mesh, trans,material]
 
             CylinderMesh {
                 id:mesh
@@ -45,12 +45,12 @@ Entity{
 
             }
 
-            PhongMaterial {
-                id:mat
-                diffuse: "green"
-                ambient: "green"
-                specular: "blue"
-                shininess: 0.2
+            property Material material: DiffuseMapMaterial {
+                id: theMaterial
+                diffuse: "resistorTexture.png"
+                ambient: Qt.rgba( 1, 1, 1, 1.0 )
+                specular: Qt.rgba( 1, 1, 1, 1.0 )
+                shininess: 0
             }
 
         }

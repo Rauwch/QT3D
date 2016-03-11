@@ -18,5 +18,6 @@
         <file>postTexture.png</file>
         <file>goalPole.png</file>
         <file>t0017_0.png</file>
+        <file>resistorTexture.png</file>
     </qresource>
 </RCC>

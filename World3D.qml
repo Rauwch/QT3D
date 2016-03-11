@@ -8,36 +8,39 @@ import QtQuick 2.0 as QQ2
 Entity {
     id: world3D
     property real cameraAngle: -45
-    QQ2.Component.onCompleted: { console.log("Completed world3D")}
+    //QQ2.Component.onCompleted: { console.log("Completed world3D")}
     //CiruitMiddle
-    property real x: 4.5
+    property real x: 5
     property real y: 0
-    property real z: -4.5
+    property real z: -5
 
     //Zoomlevel
-    property real zoomlevel: 50
+    property real zoomlevel: 45
 
 
     //Camera
+    Camera {
+        id: mainCamera
+        projectionType: CameraLens.PerspectiveProjection
+        fieldOfView: 45
+        aspectRatio: 16 / 9
+        nearPlane : 0.1
+        farPlane : 1000.0
+        position: Qt.vector3d(zoomlevel*Math.sin(cameraAngle*180/Math.PI)+x*generator.sf,
+                              zoomlevel, -zoomlevel*Math.cos(cameraAngle*180/Math.PI)+z*generator.sf )
 
+        upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
+        viewCenter: Qt.vector3d((x*generator.sf + generator.sf)/2 , 0.0, (z*generator.sf - generator.sf)/2)
 
-//    Camera {
-//        id: mainCamera
-//        projectionType: CameraLens.PerspectiveProjection
-//        fieldOfView: 5
-//        aspectRatio: 16/9
-//        nearPlane : 0.1
-//        farPlane : 1000.0
-//        position: Qt.vector3d( 50.0, 25.0, 50.0 )
-//        upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
-//        //viewCenter: Qt.vector3d(x*generator.sf, 0.0, z*generator.sf)
-//        viewCenter: Qt.vector3d(0,0,0)
+    }
 
-//      }
 
     Light{
         id: light
 
+    }
+    QQ2.Component.onCompleted: {
+        console.log(" X position: " + mainCamera.position.x + " Z Position: " + mainCamera.position.z );
     }
 
     function destroyCamera(){
@@ -67,19 +70,7 @@ Entity {
 //    }
 //    components: forward_renderer
 
-    Camera {
-        id: mainCamera
-        projectionType: CameraLens.PerspectiveProjection
-        fieldOfView: 45
-        aspectRatio: 16 / 9
-        nearPlane : 0.1
-        farPlane : 1000.0
-        position: Qt.vector3d(zoomlevel*Math.sin(cameraAngle*180/Math.PI)+x*generator.sf,
-                              zoomlevel, -zoomlevel*Math.cos(cameraAngle*180/Math.PI)+z*generator.sf )
 
-        upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
-        viewCenter: Qt.vector3d( 0.0, 0.0, 0.0 )
-    }
 
     Configuration {
         controlledCamera: mainCamera

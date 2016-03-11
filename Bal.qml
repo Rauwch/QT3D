@@ -23,12 +23,12 @@ Entity{
 
     }
     property Material material: DiffuseMapMaterial {
-    id: theMaterial
-    diffuse: "poleTexture.png"
-    ambient: Qt.rgba( breath, breath, breath, 1.0 )
-    specular: Qt.rgba( 1, 1, 1, 1.0 )
-    shininess: 0
-}
+        id: theMaterial
+        diffuse: "poleTexture.png"
+        ambient: Qt.rgba( breath, breath, breath, 1.0 )
+        specular: Qt.rgba( 1, 1, 1, 1.0 )
+        shininess: 0
+    }
 
     property ObjectPicker objectPicker: ObjectPicker {
         onClicked: {

@@ -126,10 +126,12 @@ Item {
     }
     Button{
         id:rotateCamera
+        anchors.top: counter.bottom
+        anchors.horizontalCenter: counter.horizontalCenter
         onClicked:
         {
            animation.start()
-            //world.cameraAngle = world.cameraAngle + 15;
+
         }
     }
 
@@ -139,7 +141,7 @@ Item {
             target: world
             property: "cameraAngle"
             from: world.cameraAngle
-            to: world.cameraAngle+15;
+            to: world.cameraAngle+15/180*Math.PI;
             duration: 10000
         }
 
@@ -290,10 +292,10 @@ Item {
     }
 
 
-    Linker{
-        id: myLinker
-        speed: 2000
-    }
+//    Linker{
+//        id: myLinker
+//        speed: 2000
+//    }
 
     function updateAnimation(){
         //        world.checkMatch();
