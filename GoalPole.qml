@@ -20,6 +20,8 @@ Entity{
     components: [somesh,sotrans]
     QQ2.Component.onCompleted: {
         console.log("pole x y z: " + x + " " + y + " " + z);
+            theMaterial.diffuse = "poleTexture.png";
+
     }
 
     Entity{
@@ -51,6 +53,7 @@ Entity{
         }
     }
 
+
     Transform{
         id:sotrans
         translation: Qt.vector3d(x, 0, z)
@@ -60,12 +63,6 @@ Entity{
 
     }
 
-//    Cube{
-//        id: cubeBottom
-//        xVal: goalPole.x
-//        yVal: 0
-//        zVal: goalPole.z
-//    }
     Cube{
         id: cubeTop
         xVal: goalPole.x
