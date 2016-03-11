@@ -38,6 +38,8 @@ public:
     Q_INVOKABLE int getYCoordOfResistor(int resNr){return resistors.at(resNr)->getYCoord();}
     Q_INVOKABLE int node1AtResistor(int resNr){return resistors.at(resNr)->getNode1();}
     Q_INVOKABLE int node2AtResistor(int resNr){return resistors.at(resNr)->getNode2();}
+    Q_INVOKABLE int getStepOfResistor(int resNr){return resistors.at(resNr)->getStep();}
+    Q_INVOKABLE void adjustResistance(int resNr,int step){resistors.at(resNr)->setValue(resistanceAtResistor(resNr)+step);}
 
 
     //Sources

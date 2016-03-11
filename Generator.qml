@@ -246,18 +246,17 @@ Entity{
 
     }
     function initializeBendsArray(){
-        bendValues[0] = 20;
+        bendValues[0] = 0;
         bendValues[1] = 35;
         bendValues[2] = 50;
         bendValues[3] = 65;
-        bendValues[4] = 80;
+        bendValues[4] = 75;
     }
 
     function increaseRes(){
         console.log("intensity " + resistors[0].bendIntensity)
         resistors[0].bendIntensity = resistors[0].bendIntensity + 1;
         resistors[0].localVar = bendValues[resistors[0].bendIntensity];
-
 
     }
     function decreaseRes(){
