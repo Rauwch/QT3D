@@ -51,9 +51,9 @@ Item {
         focus: true
         aspects: "input"
 
-//        TestWorld{
-//            id: world
-//        }
+        //        TestWorld{
+        //            id: world
+        //        }
 
         World3D{
             id: world
@@ -130,20 +130,20 @@ Item {
         anchors.horizontalCenter: counter.horizontalCenter
         onClicked:
         {
-           animation.start()
+            animation.start()
 
         }
     }
 
     NumberAnimation
-        {
-            id: animation
-            target: world
-            property: "cameraAngle"
-            from: world.cameraAngle
-            to: world.cameraAngle+15/180*Math.PI;
-            duration: 10000
-        }
+    {
+        id: animation
+        target: world
+        property: "cameraAngle"
+        from: world.cameraAngle
+        to: world.cameraAngle+15/180*Math.PI;
+        duration: 10000
+    }
 
 
     //2d box where setting can be edited
@@ -169,10 +169,14 @@ Item {
                 world.generator.updateLevel();
                 numClicks = numClicks + 1;
                 popupWindow.visible = calculator.checkGoals();
+                world.generator.updateGoalPoles();
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+
                 }
+
+
                 calculateArrow();
                 console.log("The angle is: " + angleOfArrow);
                 //                myLinker.height = myLinker.height + 1;
@@ -209,9 +213,11 @@ Item {
                 calculateArrow();
                 numClicks = numClicks + 1;
                 popupWindow.visible = calculator.checkGoals();
+                world.generator.updateGoalPoles();
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+
                 }
 
                 //                myLinker.height = myLinker.height - 1;
@@ -265,6 +271,7 @@ Item {
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+
                 }
                 if(world.generator.resistors[0].bendIntensity >= 4){
                     visible = false;
@@ -314,10 +321,10 @@ Item {
     }
 
 
-//    Linker{
-//        id: myLinker
-//        speed: 2000
-//    }
+    //    Linker{
+    //        id: myLinker
+    //        speed: 2000
+    //    }
 
     function updateAnimation(){
         //        world.checkMatch();

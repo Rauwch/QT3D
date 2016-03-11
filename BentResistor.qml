@@ -136,7 +136,6 @@ Entity{
                 //createBal(xtest, ytest, ztest);
             }
         }
-        printBends();
     }
     function createBal() {
         o.balFactory = Qt.createComponent("ResistorBal.qml");

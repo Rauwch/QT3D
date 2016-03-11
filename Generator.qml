@@ -245,6 +245,21 @@ Entity{
 
 
     }
+    function updateGoalPoles(){
+        console.log("UPDATEGOALPOLES");
+        console.log(goals.length);
+        for(var i = 0; i<goals.length; i++){
+            //console.log("getMATch");
+            //console.log("getMATCh "  + calculator.getMatch(i));
+            if( calculator.getMatch(i)){
+                goals[i].setGreen();
+            }
+            else{
+                goals[i].setRed();
+            }
+        }
+    }
+
     function initializeBendsArray(){
         bendValues[0] = 0;
         bendValues[1] = 35;
@@ -312,7 +327,7 @@ Entity{
             console.log("AMOUNT OF ELECTRONS FROM A WIRE" + wires[i].electrons.length)
             for(var j = 0; j < wires[i].electrons.length; j++)
             {
-                console.log("amount of electrons ");
+                //console.log("amount of electrons ");
                 wires[i].electrons[j].s = calculator.getCurrentofWire(i);
             }
 
