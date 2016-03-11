@@ -103,6 +103,7 @@ public:
     void process_resistor_line(QString &lijn);
     void process_source_line(QString &lijn);
     void process_goal_line(QString &lijn);
+    void process_click_line(QString &lijn);
 
     //Check all the goals
     Q_INVOKABLE bool checkGoals();
@@ -121,7 +122,13 @@ public:
 
 
 
+    Q_INVOKABLE int getTwoStar() const;
+    Q_INVOKABLE int getThreeStar() const;
+
 private:
+    int twoStar;
+    int threeStar;
+
     std::vector<float> computeNetwork(int nrOfNodes);
 
     //variables for circuit

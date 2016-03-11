@@ -27,7 +27,7 @@ public:
     Q_INVOKABLE void refreshTextFile();
 
     Q_INVOKABLE int getAmountOfStars(int level) const;
-    Q_INVOKABLE void setAmountOfStars(int numClicks);
+    Q_INVOKABLE void setAmountOfStars(int numClicks, int twoStar, int threeStar);
 
 
     Q_INVOKABLE int getAmountOfLevels() const;

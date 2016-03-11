@@ -18,7 +18,6 @@ RESOURCES += qml.qrc \
     images.qrc \
     sounds.qrc \
     objects.qrc \
-    text.qrc \
     cubemaps.qrc \
     resource.qrc
 

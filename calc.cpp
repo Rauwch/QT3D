@@ -102,6 +102,9 @@ void Calc::readFile(QString s)
                             }
                             break;
 
+                        case 'c':
+                            process_click_line(line);
+                            break;
                         case '/':
                             if(line.length()>2){
                                 //qDebug()<<line;
@@ -306,6 +309,17 @@ void Calc::process_goal_line(QString &lijn)
     goals.push_back(g);
 
 }
+
+void Calc::process_click_line(QString &lijn)
+{
+    qDebug() << "reading a new click line" ;
+    lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
+    lijn.replace("c","",Qt::CaseSensitivity::CaseInsensitive); //remove c
+    QStringList list=lijn.split(" ");
+
+    twoStar = list.at(0).toInt();
+    threeStar = list.at(1).toInt();
+}
 // Comparing ints to round of the floats
 bool Calc::checkGoals()
 {
@@ -347,6 +361,11 @@ bool Calc::checkGoals()
         }
     }
 
+    if(allGoals)
+    {
+
+    }
+
     return allGoals;
 }
 
@@ -358,6 +377,18 @@ int Calc::calculateAngle()
     angle = (Igoal-Icurrent)/(Igoal)+90;
     return angle;
 }
+
+int Calc::getTwoStar() const
+{
+    return twoStar;
+}
+
+int Calc::getThreeStar() const
+{
+    return threeStar;
+}
+
+
 //Functie om hoek te corrigeren TODO proberen verkleinen
 void Calc::correctAngles()
 {

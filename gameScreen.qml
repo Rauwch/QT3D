@@ -167,7 +167,13 @@ Item {
                 //world.generator.buildLevel();
                 //sizeupdate();
                 world.generator.updateLevel();
+                numClicks = numClicks + 1;
                 popupWindow.visible = calculator.checkGoals();
+                if(calculator.checkGoals())
+                {
+                    myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+                     myLevels.refreshTextFile();
+                }
                 calculateArrow();
                 console.log("The angle is: " + angleOfArrow);
                 //                myLinker.height = myLinker.height + 1;
@@ -202,7 +208,13 @@ Item {
 
                 world.generator.updateLevel();
                 calculateArrow();
+                numClicks = numClicks + 1;
                 popupWindow.visible = calculator.checkGoals();
+                if(calculator.checkGoals())
+                {
+                    myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+                     myLevels.refreshTextFile();
+                }
 
                 //                myLinker.height = myLinker.height - 1;
                 //                myLinker.speed = myLinker.speed - 500;
@@ -249,8 +261,14 @@ Item {
                 //world.generator.buildLevel();
                 world.generator.updateLevel();
                 calculateArrow();
+                numClicks = numClicks + 1;
                 console.log("The angle is: " + angleOfArrow);
                 popupWindow.visible = calculator.checkGoals();
+                if(calculator.checkGoals())
+                {
+                    myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+                     myLevels.refreshTextFile();
+                }
                 if(world.generator.resistors[0].bendIntensity >= 4){
                     visible = false;
                 }
@@ -272,11 +290,17 @@ Item {
                 //calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
                 calculator.adjustResistance(clickedRes, -calculator.getStepOfResistor(clickedRes));
                 console.log("step: " + (-calculator.getStepOfResistor(clickedRes)));
+                numClicks = numClicks + 1;
                 world.generator.decreaseRes();
                 calculator.solveLevel();
                 world.generator.updateLevel();
                 calculateArrow();
                 popupWindow.visible = calculator.checkGoals();
+                if(calculator.checkGoals())
+                {
+                    myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+                    myLevels.refreshTextFile();
+                }
                 if(world.generator.resistors[0].bendIntensity <= 0){
                     increaseResistor.parent.anchors.bottomMargin = Screen.height/15;
                     visible = false;
