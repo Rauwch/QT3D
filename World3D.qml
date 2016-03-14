@@ -7,7 +7,7 @@ import QtQuick 2.0 as QQ2
 
 Entity {
     id: world3D
-    property real cameraAngle: -45
+    property real cameraAngle: 180
     //QQ2.Component.onCompleted: { console.log("Completed world3D")}
     //CiruitMiddle
     property real x: 5
@@ -15,7 +15,7 @@ Entity {
     property real z: -5
 
     //Zoomlevel
-    property real zoomlevel: 45
+    property real zoomlevel: 60
 
 
     //Camera
@@ -27,10 +27,10 @@ Entity {
         nearPlane : 0.1
         farPlane : 1000.0
         position: Qt.vector3d(zoomlevel*Math.sin(cameraAngle*180/Math.PI)+x*generator.sf,
-                              zoomlevel, -zoomlevel*Math.cos(cameraAngle*180/Math.PI)+z*generator.sf )
+                              zoomlevel*0.6, -zoomlevel*Math.cos(cameraAngle*180/Math.PI)+z*generator.sf )
 
-        upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
-        viewCenter: Qt.vector3d((x*generator.sf + generator.sf)/2 , 0.0, (z*generator.sf - generator.sf)/2)
+        //upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
+        viewCenter: Qt.vector3d((x*generator.sf + generator.sf)/2+3 , 0.0, (z*generator.sf - generator.sf)/2+3)
 
     }
 

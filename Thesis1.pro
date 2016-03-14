@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     resistor.cpp \
     component.cpp \
     calc.cpp \
-    goalvoltage.cpp
+    goalvoltage.cpp \
+    leaderboard.cpp
 
 RESOURCES += qml.qrc \
     images.qrc \
@@ -36,7 +37,8 @@ HEADERS += \
     resistor.h \
     component.h \
     calc.h \
-    goalvoltage.h
+    goalvoltage.h \
+    leaderboard.h
 
 DISTFILES += \
     bolt.ico

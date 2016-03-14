@@ -14,6 +14,7 @@ Item {
     id: myGameScreen
     property bool showBox
     property bool showRes
+    property bool showTutorial: true
     property real speedoMeter: 0
     property int speedLevel
     property int numClicks: 0
@@ -100,12 +101,37 @@ Item {
     }
     TextField{
         id: counter
-        text: "number of clicks: " + numClicks
+        text: "aantal kliks: " + numClicks
         anchors.right: parent.right
         anchors.top: speedo.bottom
         readOnly: true
         font.pixelSize: 30
     }
+//    Button{
+//        anchors.bottomMargin: 100//tutorialScreen.yVal
+//        anchors.leftMargin: 100//tutorialScreen.xVal
+//    }
+
+    Tutorial{
+        id: tutorialScreen
+//        anchors.bottomMargin: 100//tutorialScreen.yVal
+//        anchors.leftMargin: 100//tutorialScreen.xVal
+    }
+//    Button{
+//        anchors.bottom: parent.bottom
+//        anchors.right: parent.right
+//    }
+
+//    Rectangle{
+//        width: 100;
+//        height: 100;
+//        anchors.bottom: parent.bottom
+//        anchors.right: parent.right
+
+//    }
+
+
+
 
 
     Image{
@@ -135,15 +161,25 @@ Item {
         }
     }
 
-    NumberAnimation
-    {
+    PropertyAnimation{
         id: animation
         target: world
         property: "cameraAngle"
         from: world.cameraAngle
-        to: world.cameraAngle+15/180*Math.PI;
+        to: world.cameraAngle+ 0.00001
         duration: 10000
+
     }
+
+    //    NumberAnimation
+    //    {
+    //        id: animation
+    //        target: world
+    //        property: "cameraAngle"
+    //        from: world.cameraAngle
+    //        to: world.cameraAngle+1
+    //        duration: 1000
+    //    }
 
 
     //2d box where setting can be edited

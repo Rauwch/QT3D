@@ -29,10 +29,9 @@
         <file>Cube.qml</file>
         <file>Bal.qml</file>
         <file>BentResistor.qml</file>
-
         <file>Light.qml</file>
-
         <file>ResistorBal.qml</file>
-
+        <file>Tutorial.qml</file>
+        <file>Leaderboard.qml</file>
     </qresource>
 </RCC>
