@@ -114,8 +114,9 @@ Item {
 
     Tutorial{
         id: tutorialScreen
-//        anchors.bottomMargin: 100//tutorialScreen.yVal
-//        anchors.leftMargin: 100//tutorialScreen.xVal
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+
     }
 //    Button{
 //        anchors.bottom: parent.bottom
