@@ -10,7 +10,7 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 
 Item {
-
+    id: allOptions
     Column{
         anchors.centerIn: parent
         height: Screen.height/2
@@ -24,15 +24,19 @@ Item {
             //width: Screen.width/3
             //height: Screen.height/4
             Component.onCompleted: {
-                if(backgroundMusic.playing())
-                    theSwitch.on = true;
+                console.log("musicbool : " + myStartScreen.musicBool);
+//                theSwitch.checked = myStartScreen.musicBool;
+//                if(backgroundMusic.playing())
+//                    theSwitch.checked = true;
+                    //theSwitch.on = true;
             }
 
-            Switch{
-                id: theSwitch
-                property bool on: false
-                visible: false
-            }
+//            Switch{
+//                id: theSwitch
+//                //checked: allOptions.parent.musicBool
+//                property bool on: false
+//                visible: false
+//            }
 
             Rectangle {
                 width: Screen.width/6
@@ -59,6 +63,7 @@ Item {
             Switch{
                 implicitWidth: 400
                 implicitHeight: 100
+                checked: myStartScreen.musicBool
                 style: SwitchStyle {
                     groove: Rectangle {
                             implicitWidth: 200
@@ -74,11 +79,13 @@ Item {
                 }
 
                 onClicked:{
-                    if(checked){
-                        backgroundMusic.play();
-                    }
-                    if(!checked){
+                    if(myStartScreen.musicBool){
                         backgroundMusic.stop();
+                        myStartScreen.musicBool = false;
+                    }
+                    else{
+                        backgroundMusic.play();
+                        myStartScreen.musicBool = true;
                     }
                 }
             }
@@ -111,6 +118,7 @@ Item {
             Switch{
                 implicitWidth: 400
                 implicitHeight: 100
+                checked: myStartScreen.soundBool
                 style: SwitchStyle {
                     groove: Rectangle {
                             implicitWidth: 200
@@ -125,13 +133,16 @@ Item {
                     }
 
                 }
-
+                //this part definitely doesn't work as intended
+                //problem partly being that it has effect on the music (if this gets muted, so does the music)
                 onClicked:{
-                    if(checked){
-                        soundEffects.volume = 1.0;
+                    if(myStartScreen.soundBool){
+                        soundEffects.source = "";
+                        myStartScreen.soundBool = false;
                     }
-                    if(!checked){
-                        soundEffects.volume = 0.0;
+                    else{
+                        soundEffects.source = "Bubbles.wav";
+                        myStartScreen.soundBool = true;
                     }
                 }
             }

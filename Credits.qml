@@ -51,7 +51,7 @@ Item {
             anchors.centerIn: parent
         }
         onClicked: {
-            soundEffects.source = "Bubbles.wav";
+            //soundEffects.source = "Bubbles.wav";
             soundEffects.play();
             theColumn.visible= true;
             pageLoader.source = "";

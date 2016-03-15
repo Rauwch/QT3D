@@ -71,7 +71,7 @@ Item {
             height: Screen.height/15
             text:"Return"
             onClicked: {
-                soundEffects.source = "Bubbles.wav";
+                //soundEffects.source = "Bubbles.wav";
                 soundEffects.play();
                 //need this destroy first to not crash program
                 world.destroyCamera();
@@ -88,7 +88,7 @@ Item {
             height: Screen.height/15
             text:"Retry"
             onClicked: {
-                soundEffects.source = "Bubbles.wav";
+                //soundEffects.source = "Bubbles.wav";
                 soundEffects.play();
                 //need this destroy first to not crash program
                 world.destroyCamera();
@@ -408,7 +408,7 @@ Item {
                 width: Screen.width/5
                 text: "Continue"
                 onClicked: {
-                    soundEffects.source = "Bubbles.wav";
+                    //soundEffects.source = "Bubbles.wav";
                     soundEffects.play();
                     myLevels.setCurrentLevel(myLevels.getCurrentLevel()+1);
                     world.destroyCamera();
@@ -423,7 +423,7 @@ Item {
                 width: Screen.width/5
                 text: "Select level"
                 onClicked: {
-                    soundEffects.source = "Bubbles.wav";
+                    //soundEffects.source = "Bubbles.wav";
                     soundEffects.play();
                     world.destroyCamera();
                     pageLoader.source = "LevelScreen.qml";
@@ -436,7 +436,7 @@ Item {
                 width: Screen.width/5
                 text: "Restart level"
                 onClicked: {
-                    soundEffects.source = "Bubbles.wav";
+                    //soundEffects.source = "Bubbles.wav";
                     soundEffects.play();
                     world.destroyCamera();
                     pageLoader.source = "";

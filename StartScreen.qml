@@ -19,6 +19,8 @@ Item {
     property int buttonWidth: Screen.width/3
     property int buttonHeight: 100
     property bool backgroundVisible: true
+    property bool musicBool: false
+    property bool soundBool: true
     signal test()
     Component.onDestruction: console.log("startscreen destroyed")
     Component.onCompleted: {
@@ -77,7 +79,7 @@ Item {
 
                 onClicked: {
                     //game.visible = true;
-                    soundEffects.source = "Bubbles.wav";
+                    //soundEffects.source = "Bubbles.wav";
                     soundEffects.play() ;
                     theColumn.visible = false;
                     //startscreen doesn't get deleted because it wasn't created by the pageloader
@@ -118,7 +120,7 @@ Item {
                     }
                 }
                 onClicked: {
-                    soundEffects.source = "Bubbles.wav";
+                    //soundEffects.source = "Bubbles.wav";
                     soundEffects.play();
                     theColumn.visible = false;
                     pageLoader.source = "Options.qml";
@@ -154,7 +156,7 @@ Item {
                     }
                 }
                 onClicked: {
-                    soundEffects.source = "Bubbles.wav";
+                    //soundEffects.source = "Bubbles.wav";
                     soundEffects.play();
                     theColumn.visible = false;
                     pageLoader.source = "Credits.qml";
@@ -163,7 +165,7 @@ Item {
         }
         SoundEffect{
             id: soundEffects
-            //source:"Bubbles.wav"
+            source:"Bubbles.wav"
         }
 
         Loader{

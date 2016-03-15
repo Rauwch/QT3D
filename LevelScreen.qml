@@ -99,7 +99,7 @@ Item {
                     onClicked: {
                         //game.visible = true;
                         myLevels.setCurrentLevel(index + 1);
-                        soundEffects.source = "Bubbles.wav";
+                        //soundEffects.source = "Bubbles.wav";
                         soundEffects.play();
                         pageLoader.source = "GameScreen.qml";
                     }
@@ -148,7 +148,7 @@ Item {
             anchors.centerIn: parent
         }
         onClicked: {
-            soundEffects.source = "Bubbles.wav";
+            //soundEffects.source = "Bubbles.wav";
             soundEffects.play();
             theColumn.visible= true;
             pageLoader.source = "";
