@@ -1,6 +1,6 @@
 *sj
 *gx y goal
-*z2star 3star
+*c2star 3star
 *w
 *w(hoek x y node length isGoal)
 *w(hoek x y node length isGoal)

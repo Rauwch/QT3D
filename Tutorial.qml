@@ -23,10 +23,10 @@ Rectangle{
         visible: {stage <= numStages}
 
         Component.onCompleted: {
-//            instructionWindow.anchors.left = screenWindow.left;
-//            instructionWindow.anchors.bottom = screenWindow.bottom;
-//            instructionWindow.anchors.leftMargin = (Screen.width/2 - instructionWindow.width/2);
-//            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
+            //            instructionWindow.anchors.left = screenWindow.left;
+            //            instructionWindow.anchors.bottom = screenWindow.bottom;
+            //            instructionWindow.anchors.leftMargin = (Screen.width/2 - instructionWindow.width/2);
+            //            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
             myGameScreen.setPopupWindowForTutorial(numberOfLevel);
             setInstructionText();
         }
@@ -56,14 +56,21 @@ Rectangle{
             instructionWindow.anchors.bottom = screenWindow.bottom;
             instructionWindow.anchors.leftMargin = (Screen.width/2 - instructionWindow.width/2);
             instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
-            instructionText.text = "Welcome to the first tutorial!"
+            instructionText.text = "Welcome to the first tutorial!";
             break;
         case(2):
+            instructionWindow.anchors.left = screenWindow.left;
+            instructionWindow.anchors.bottom = screenWindow.bottom;
+            instructionWindow.anchors.leftMargin = (Screen.width/2 - instructionWindow.width/2);
+            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
+            instructionText.text = "Welcome to the second tutorial!";
+            break;
+        case(3):
             instructionWindow.anchors.right = screenWindow.right;
             instructionWindow.anchors.bottom = screenWindow.bottom;
             instructionWindow.anchors.rightMargin = (Screen.width/2 - instructionWindow.width/2);
             instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
-            instructionText.text = "Welcome to the second tutorial"
+            instructionText.text = "Welcome to the third tutorial";
             break;
         }
     }
@@ -76,6 +83,10 @@ Rectangle{
         case(2):
             numStages = 3;
             updateInstructionsLvlTwo();
+            break;
+        case(3):
+            numStages = 3;
+            updateInstructionsLvlThree();
             break;
         }
     }
@@ -96,7 +107,7 @@ Rectangle{
         case(numStages):
             if(ballExplained){
                 stage++;
-                    instructionText.text = "Thank you for completing the first tutorial!";
+                instructionText.text = "Thank you for completing the first tutorial!";
             }
             break;
         default:
@@ -106,6 +117,36 @@ Rectangle{
         }
     }
     function updateInstructionsLvlTwo(){
+        switch(stage){
+        case(0):
+            stage++;
+            instructionWindow.anchors.leftMargin = 100;
+            instructionText.text = "STAP 1/4\nDeze dikke gele lijn toont aan welke kwallen jou hulp nodig hebben\n";
+            break;
+        case(1):
+            stage++;
+            instructionWindow.anchors.leftMargin = 100;
+            instructionText.text = "STAP 2/4\nDe grootte van de kwallen en hun doel staan hier aangeduid.\n";
+            break;
+        case(2):
+            stage++;
+            instructionWindow.anchors.leftMargin = 100;
+            instructionText.text = "STAP 3/4\nJe kan de grootte van de kwallen aanpassen door de lift van hoogte te veranderen\nKlik op de bol van de lift en probeer het zelf";
+            buttonNext.visible = false;
+            break;
+        case(numStages):
+            if(ballExplained){
+                stage++;
+                instructionText.text = "Thank you for completing the second tutorial!";
+            }
+            break;
+        default:
+            instructionWindow.anchors.leftMargin = (Screen.width/2 - instructionWindow.width/2);
+            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
+            break;
+        }
+    }
+    function updateInstructionsLvlThree(){
 
         switch(stage){
         case(0):
@@ -127,7 +168,7 @@ Rectangle{
         case(numStages):
             if(ballExplained){
                 stage++;
-                    instructionText.text = "Thank you for completing the second tutorial!";
+                instructionText.text = "Thank you for completing the third tutorial!";
             }
             break;
         default:
@@ -136,7 +177,6 @@ Rectangle{
             break;
         }
     }
-
     function checkBallclicked(){
         if(ballExplained==false){
             if(myGameScreen.clickedSource != null){
@@ -151,9 +191,17 @@ Rectangle{
                     ballExplained = true;
                     instructionWindow.anchors.rightMargin = Screen.width - instructionWindow.width - 100;
                     instructionWindow.anchors.bottomMargin = 150;
+                    instructionText.text = "STAP 4/4\nHeel goed! \nKlik op de knoppen om de hoogte aan te passen";
+                    break;
+                case(3):
+                    ballExplained = true;
+                    instructionWindow.anchors.rightMargin = Screen.width - instructionWindow.width - 100;
+                    instructionWindow.anchors.bottomMargin = 150;
                     instructionText.text = "STAP 4/4\nHeel goed! \nKlik op de knoppen om de bochten aan te passen";
                     break;
                 }
+
+
             }
         }
     }
