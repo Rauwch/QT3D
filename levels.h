@@ -8,6 +8,7 @@
 #include <string>
 #include <QDebug>
 #include <QDir>
+#include <QStandardPaths>
 
 using namespace std;
 

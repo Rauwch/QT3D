@@ -5,5 +5,8 @@
         <file>assets/Levels/inputfile_3.sj</file>
         <file>assets/Levels/levels.txt</file>
         <file>assets/Levels/inputfile_4.sj</file>
+        <file>assets/Leaderboards/level1.txt</file>
+        <file>assets/Leaderboards/level2.txt</file>
+        <file>assets/Leaderboards/level3.txt</file>
     </qresource>
 </RCC>
