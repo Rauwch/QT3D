@@ -225,9 +225,6 @@ Entity{
             root.poles[j]=pole;
             j++;
         }
-
-        //console.log("After build poles");
-
         // create goal poles
         for (i = 0; i<calculator.getNumberOfGoals(); i++)
         {
@@ -240,17 +237,9 @@ Entity{
             goalPole.parent=root.parent;
             root.goals[i]=goalPole;
         }
-        //console.log("After build goal poles");
-
-
-
     }
     function updateGoalPoles(){
-        console.log("UPDATEGOALPOLES");
-        console.log(goals.length);
         for(var i = 0; i<goals.length; i++){
-            //console.log("getMATch");
-            //console.log("getMATCh "  + calculator.getMatch(i));
             if( calculator.getMatch(i)){
                 goals[i].setGreen();
             }

@@ -109,7 +109,7 @@ Entity{
                                                       "z":(theBentResistor.z + ((-1)*(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(theBentResistor.l,theBentResistor.a-90)*(i/numBends)))),
                                                       "a":(theBentResistor.a+localVar),
                                                       "orientationAngle":theBentResistor.orientationAngle});
-                console.log("even: " + i);
+                //console.log("even: " + i);
             }
             else{
                 bend = o.bendFactory.createObject(null,{"s": theBentResistor.s,
@@ -119,20 +119,20 @@ Entity{
                                                       "z":(theBentResistor.bends[i-1].z + ((-1)*(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90)))),
                                                       "a":(theBentResistor.a-localVar),
                                                       "orientationAngle":theBentResistor.orientationAngle});
-                console.log("odd: " + i);
+                //console.log("odd: " + i);
             }
 
 
             bend.parent=theBentResistor.parent;
             theBentResistor.bends[i]=bend;
-            console.log("SIZE OF BENDS " + bends.length);
+            //console.log("SIZE OF BENDS " + bends.length);
             if(i == numBends/2){
                 xtest = theBentResistor.bends[i].x;
                 ytest = theBentResistor.bends[i].y;
                 ztest = theBentResistor.bends[i].z;
-                console.log("xtest" + xtest);
-                console.log("ytest" + ytest);
-                console.log("ztest" + ztest);
+//                console.log("xtest" + xtest);
+//                console.log("ytest" + ytest);
+//                console.log("ztest" + ztest);
                 //createBal(xtest, ytest, ztest);
             }
         }

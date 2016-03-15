@@ -11,10 +11,14 @@ Entity{
     property real sourceNr
     property real breath
     components: [mesh,bolTrans,objectPicker,material]
-
     SphereMesh{
         id:mesh
         radius: 1.75
+    }
+
+    signal hasbeenclicked()
+    QQ2.Component.onCompleted: {
+        objectPicker.clicked.connect(hasbeenclicked);
     }
 
     Transform{
@@ -31,8 +35,10 @@ Entity{
     }
 
     property ObjectPicker objectPicker: ObjectPicker {
+
         onClicked: {
             console.log("clicked on a THESOURCE");
+            myGameScreen.updateTutorial();
             myGameScreen.showBox = !myGameScreen.showBox;
             myGameScreen.clickedSource = sourceNr;
             myGameScreen.showRes = false;

@@ -107,10 +107,10 @@ Item {
         readOnly: true
         font.pixelSize: 30
     }
-//    Button{
-//        anchors.bottomMargin: 100//tutorialScreen.yVal
-//        anchors.leftMargin: 100//tutorialScreen.xVal
-//    }
+    //    Button{
+    //        anchors.bottomMargin: 100//tutorialScreen.yVal
+    //        anchors.leftMargin: 100//tutorialScreen.xVal
+    //    }
 
     Tutorial{
         id: tutorialScreen
@@ -118,22 +118,9 @@ Item {
         anchors.bottom: parent.bottom
 
     }
-//    Button{
-//        anchors.bottom: parent.bottom
-//        anchors.right: parent.right
-//    }
-
-//    Rectangle{
-//        width: 100;
-//        height: 100;
-//        anchors.bottom: parent.bottom
-//        anchors.right: parent.right
-
-//    }
-
-
-
-
+    function updateTutorial(){
+        tutorialScreen.checkBallclicked();
+    }
 
     Image{
         id:speedo
@@ -372,12 +359,26 @@ Item {
         //            myLevels.setAmountOfStars(numClicks);
         //        }
     }
+    function setPopupWindowForTutorial(tutorialLevel){
+        popupWindow.setText(tutorialLevel);
+    }
 
     Rectangle{
         id: popupWindow
         height: Screen.height
         width: Screen.width
         visible: false
+        function setText(tutorialLevel){
+            switch(tutorialLevel){
+            case(1):
+                congratsText.text = "Thank you for completing the first tutorial!";
+                break;
+            default:
+                congratsText.text = "Congratulations!\nYou have successfully completed the level!";
+
+            }
+        }
+
         Text{
             id:congratsText
             anchors.horizontalCenter: parent.horizontalCenter

@@ -67,6 +67,7 @@ int main(int argc, char* argv[])
     qmlRegisterType<Calc>("Calc",1,0,"Calculator");
     qmlRegisterType<Levels>("Lvl",1,0,"Levels");
 
+
     QQmlEngine engine;
     QQmlComponent component(&engine);
     //engine.rootContext()->setContextProperty(QStringLiteral("calculator"),c);
