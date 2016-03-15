@@ -11,27 +11,54 @@ Levels::Levels(QObject *parent) : QObject(parent)
 }
 
 
-
 void Levels::getLevelAmount()
 {
+    QString path = QDir::currentPath() + "/levels.txt";
+    QFile * newFile = new QFile(path);
     QFile * file = new QFile(":/assets/Levels/levels.txt");
-    //QFile * file = new QFile("levels.txt");
-    //string path = QDir::homePath().toStdString()+ "/Documents/GitHub/QT3D/levels.txt" ;
-    vector <int> rowVector(4);
+    bool fileExists = newFile->exists();
+    vector <int> rowVector(2);
     int row = 0;
-    //fstream myfile (path);
+    // qDebug() << "print newFIle" << newFile;
     if(file->open(QIODevice::ReadOnly| QIODevice::Text))
     {
-        QTextStream in(file);
-        while (!in.atEnd())
+        qDebug()<< "open file";
+    }
+    QTextStream in(file);
+    if(newFile->open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        //als de file nog niet bestaat
+        QTextStream stream(newFile);
+        if(!fileExists){
+            while (!in.atEnd())
+            {
+                QString line = in.readLine();
+                stream << line;
+                stream << endl;
+                //create leaderboardFiles
+                row++;
+                QString leaderPath= QDir::currentPath() + "/leaderboard"+QString::number(row)+ ".txt";
+                qDebug() << " PATH:  " << leaderPath;
+                QFile * leaderBoard = new QFile(leaderPath);
+                if(leaderBoard->open(QIODevice::ReadWrite| QIODevice::Text))
+                {
+                    qDebug()<< "open file";
+                }
+                leaderBoard->close();
+            }
+        }
+        stream.seek(0);
+        row = 0;
+        while (!stream.atEnd())
         {
-            QString line = in.readLine();
-            if (!line.isEmpty()&&!line.isNull()){
 
+            QString line = stream.readLine();
+            if (!line.isEmpty()&&!line.isNull()){
+                //qDebug() << "add level";
                 QStringList list=line.split(" ");
 
                 levelArray.push_back(rowVector);
-                for(int col = 0; col < 4; col++){
+                for(int col = 0; col < 2; col++){
                     levelArray[row][col] = list.at(col).toInt();
                 }
                 row++;
@@ -40,13 +67,10 @@ void Levels::getLevelAmount()
         }
 
     }
-    else{
-
-        qDebug() << "Unable to open file";
-    }
     amountOfLevels = row;
     qDebug() << "rownums: " << row;
     file->close();
+    newFile->close();
 
 }
 
@@ -63,20 +87,21 @@ void Levels::printArray()
 
 void Levels::refreshTextFile()
 {
-    qDebug() << "Inside refreshTextFile";
-    QFile * file = new QFile(":/assets/Levels/levels.txt");
+    //qDebug() << "Inside refreshTextFile";
+    QString path = QDir::currentPath() + "/levels.txt";
+    QFile * file = new QFile(path);
     if (!file->open(QIODevice::WriteOnly | QIODevice::Text))
     {
         qDebug() << file->errorString();
-         return;
+        return;
     }
 
     QTextStream output(file);
 
     for(int i = 0; i <amountOfLevels; i++)
     {
-        qDebug() <<"Writing to textfile";
-        for(int j = 0; j < 4; j++)
+        //qDebug() <<"Writing to textfile";
+        for(int j = 0; j < 2; j++)
         {
             output << levelArray[i][j] << " " ;
             qDebug() << levelArray[i][j] << " ";

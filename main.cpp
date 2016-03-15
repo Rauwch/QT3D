@@ -49,6 +49,7 @@
 #include "linker.h"
 #include "levels.h"
 #include "calc.h"
+#include "leaderboard.h"
 using namespace std;
 
 
@@ -66,6 +67,7 @@ int main(int argc, char* argv[])
     qmlRegisterType<Linker>("Link",1,0,"Linker");
     qmlRegisterType<Calc>("Calc",1,0,"Calculator");
     qmlRegisterType<Levels>("Lvl",1,0,"Levels");
+    qmlRegisterType<Leaderboard>("LB",1,0,"Levelboard");
 
 
     QQmlEngine engine;

@@ -15,6 +15,7 @@ Item {
     property bool showBox
     property bool showRes
     property bool showTutorial: true
+    property bool showLeaderboardEntry: false
     property real speedoMeter: 0
     property int speedLevel
     property int numClicks: 0
@@ -371,6 +372,20 @@ Item {
         popupWindow.setText(tutorialLevel);
     }
 
+    function checkLeaderboard()
+    {
+        if(theLeaderboard.myLevelboard.getAmountOfEntries()< 5)
+        {
+            return true;
+        }
+
+        else if(theLeaderboard.myLevelboard.getLowestEntry() > numClicks)
+        {
+            return true;
+        }
+        return false;
+    }
+
     Rectangle{
         id: popupWindow
         height: Screen.height
@@ -397,6 +412,7 @@ Item {
         }
 
         Row{
+            id: theButtons
             anchors.centerIn: parent
             spacing: Screen.width/20
             Button{
@@ -442,7 +458,39 @@ Item {
                 }
             }
         }
+
+        Leaderboard{
+            id: theLeaderboard
+            Component.onCompleted: {
+                console.log(" lowest entry: " + theLeaderboard.myLevelboard.getLowestEntry())
+            }
+
+//            anchors.top: theButtons.bottom;
+//            anchors.horizontalCenter: popupWindow.Center
+//            anchors.topMargin: 50
+            anchors.centerIn: parent
+        }
+
+        Row{
+            anchors.top: theLeaderboard.bottom
+            visible: checkLeaderboard()
+            TextInput{
+                width: 100
+
+
+            }
+            Button{
+
+            }
+        }
+
+
+
+
+
     }
+
+
 
 
 
