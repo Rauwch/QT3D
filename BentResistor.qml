@@ -126,13 +126,19 @@ Entity{
             bend.parent=theBentResistor.parent;
             theBentResistor.bends[i]=bend;
             //console.log("SIZE OF BENDS " + bends.length);
-            if(i == numBends/2){
+            if(i == numBends-1){
+                //                xtest = theBentResistor.bends[i].x;
+                //                ytest = theBentResistor.bends[i].y;
+                //                ztest = theBentResistor.bends[i].z;
+
                 xtest = theBentResistor.bends[i].x;
-                ytest = theBentResistor.bends[i].y;
-                ztest = theBentResistor.bends[i].z;
-//                console.log("xtest" + xtest);
-//                console.log("ytest" + ytest);
-//                console.log("ztest" + ztest);
+                ytest = theBentResistor.y + (localCalc.calcSin(theBentResistor.l,theBentResistor.a-90));
+                //ztest = theBentResistor.bends[i].z + ((-1)*(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90)));
+                ztest = (theBentResistor.z + ((-1)*(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(theBentResistor.l,theBentResistor.a-90)*(i/numBends))));
+
+                //                console.log("xtest" + xtest);
+                //                console.log("ytest" + ytest);
+                //                console.log("ztest" + ztest);
                 //createBal(xtest, ytest, ztest);
             }
         }
