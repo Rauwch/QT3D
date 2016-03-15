@@ -54,7 +54,7 @@ Item {
                         lockImage.visible = false;
 
                     }
-                    if(index <= 2){
+                    if(index <= 3){
                         levelText.text= "Tutorial " + (index+1);
                     }
                 }
@@ -73,7 +73,7 @@ Item {
                 Text{
                     id: levelText
                     anchors.centerIn: parent
-                    text: "Level "+ (index-2)
+                    text: "Level "+ (index-3)
                     //font.pixelSize: 30
                     renderType: Text.NativeRendering
                     verticalAlignment: Text.AlignVCenter

@@ -33,7 +33,7 @@ Item {
     Component.onCompleted: {
         console.log("GameScreen wordt aangemaakt");
         //calculateArrow();
-        if(myLevels.getCurrentLevel() <= 3){
+        if(myLevels.getCurrentLevel() <= 4){
             setPopupWindowForTutorial(myLevels.getCurrentLevel());
             tutorialScreen.numberOfLevel = myLevels.getCurrentLevel();
             tutorialScreen.visible = true;

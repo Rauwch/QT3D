@@ -23,10 +23,6 @@ Rectangle{
         visible: {stage <= numStages}
 
         Component.onCompleted: {
-            //            instructionWindow.anchors.left = screenWindow.left;
-            //            instructionWindow.anchors.bottom = screenWindow.bottom;
-            //            instructionWindow.anchors.leftMargin = (Screen.width/2 - instructionWindow.width/2);
-            //            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
             myGameScreen.setPopupWindowForTutorial(numberOfLevel);
             setInstructionText();
         }
@@ -72,6 +68,13 @@ Rectangle{
             instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
             instructionText.text = "Welcome to the third tutorial";
             break;
+        case(4):
+            instructionWindow.anchors.right = screenWindow.right;
+            instructionWindow.anchors.bottom = screenWindow.bottom;
+            instructionWindow.anchors.rightMargin = (Screen.width/2 - instructionWindow.width/2);
+            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
+            instructionText.text = "Welcome to the fourth tutorial";
+            break;
         }
     }
     function updateInstructions(){
@@ -87,6 +90,10 @@ Rectangle{
         case(3):
             numStages = 3;
             updateInstructionsLvlThree();
+            break;
+        case(4):
+            numStages = 3;
+            updateInstructionsLvlFour();
             break;
         }
     }
@@ -177,6 +184,37 @@ Rectangle{
             break;
         }
     }
+    function updateInstructionsLvlFour(){
+
+        switch(stage){
+        case(0):
+            stage++;
+            instructionWindow.anchors.rightMargin = 150;
+            instructionText.text = "STAP 1/4\nVanboven zien we wat er gebeurt als een inktvis zijn pad in 2 deelt\nDe grote inktvis wordt gesplitst in twee kleinere inktvissen";
+            break;
+        case(1):
+            stage++;
+            instructionWindow.anchors.rightMargin = 150;
+            instructionText.text = "STAP 2/4\nVanonder zien we wat er gebeurt als de paden van 2 inktvissen bij elkaar komen\nDe twee kleine inktvissen maken samen één grote inktvis";
+            break;
+        case(2):
+            stage++;
+            instructionWindow.anchors.rightMargin = 150;
+            instructionText.text = "STAP 3/4\nKijk nu wat er gebeurt als je de scherpte van de bochten aanpast";
+            buttonNext.visible = false;
+            break;
+        case(numStages):
+            if(ballExplained){
+                stage++;
+                instructionText.text = "Thank you for completing the fourth tutorial!";
+            }
+            break;
+        default:
+            instructionWindow.anchors.leftMargin = (Screen.width/2 - instructionWindow.width/2);
+            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
+            break;
+        }
+    }
     function checkBallclicked(){
         if(ballExplained==false){
             if(myGameScreen.clickedSource != null){
@@ -198,6 +236,12 @@ Rectangle{
                     instructionWindow.anchors.rightMargin = Screen.width - instructionWindow.width - 100;
                     instructionWindow.anchors.bottomMargin = 150;
                     instructionText.text = "STAP 4/4\nHeel goed! \nKlik op de knoppen om de bochten aan te passen";
+                    break;
+                case(4):
+                    ballExplained = true;
+                    instructionWindow.anchors.rightMargin = Screen.width - instructionWindow.width - 100;
+                    instructionWindow.anchors.bottomMargin = 150;
+                    instructionText.text = "STAP 4/4\nHeel goed! \nProbeer nu de inktvissen op de dikke lijn de juiste grootte te geven";
                     break;
                 }
 

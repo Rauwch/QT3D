@@ -59,25 +59,12 @@ Entity{
     }
 
     function deleteBends(){
-        //        for(var i=0; i<(numBends); i++){
-        //            bends[i].destroy();
-        //        }
-
-        //clickableBal.setThevisible(0);
-        //        numBends = 6;
-        //        makeBends();
-        // clickableBal.setThevisible(1);
-
-        //createBal();
         updateBends();
         updateBal();
-
-        //theBentResistor.destroy();
     }
 
     function updateBends(){
         for(var i=0; i<numBends; i++){
-
             if(i%2 == 0){
                 bends[i].a = ((theBentResistor.a)+localVar);
                 bends[i].y = theBentResistor.y + (localCalc.calcSin(theBentResistor.l,theBentResistor.a-90)*(i/numBends));
@@ -89,17 +76,13 @@ Entity{
                 bends[i].z = (theBentResistor.bends[i-1].z + (-(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90))));
             }
             bends[i].l = localCalc.calcLength(theBentResistor.l/numBends,localVar);
-
         }
-        //updateBal();
     }
 
     function makeBends(){
         o.bendFactory= Qt.createComponent("Resistor.qml");
-
         for(var i=0; i<numBends; i++){
             var bend;
-
             if(i%2 == 0){
 
                 bend = o.bendFactory.createObject(null,{"s": theBentResistor.s,
@@ -109,7 +92,6 @@ Entity{
                                                       "z":(theBentResistor.z + ((-1)*(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(theBentResistor.l,theBentResistor.a-90)*(i/numBends)))),
                                                       "a":(theBentResistor.a+localVar),
                                                       "orientationAngle":theBentResistor.orientationAngle});
-                //console.log("even: " + i);
             }
             else{
                 bend = o.bendFactory.createObject(null,{"s": theBentResistor.s,
@@ -119,27 +101,13 @@ Entity{
                                                       "z":(theBentResistor.bends[i-1].z + ((-1)*(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90)))),
                                                       "a":(theBentResistor.a-localVar),
                                                       "orientationAngle":theBentResistor.orientationAngle});
-                //console.log("odd: " + i);
             }
-
-
             bend.parent=theBentResistor.parent;
             theBentResistor.bends[i]=bend;
-            //console.log("SIZE OF BENDS " + bends.length);
             if(i == numBends-1){
-                //                xtest = theBentResistor.bends[i].x;
-                //                ytest = theBentResistor.bends[i].y;
-                //                ztest = theBentResistor.bends[i].z;
-
                 xtest = theBentResistor.bends[i].x;
                 ytest = theBentResistor.y + (localCalc.calcSin(theBentResistor.l,theBentResistor.a-90));
-                //ztest = theBentResistor.bends[i].z + ((-1)*(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90)));
                 ztest = (theBentResistor.z + ((-1)*(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(theBentResistor.l,theBentResistor.a-90)*(i/numBends))));
-
-                //                console.log("xtest" + xtest);
-                //                console.log("ytest" + ytest);
-                //                console.log("ztest" + ztest);
-                //createBal(xtest, ytest, ztest);
             }
         }
     }
@@ -153,126 +121,11 @@ Entity{
         }
     }
     function updateBal(){
-//        if(!(clickableBal === undefined)){
-//            clickableBal.yVal = theBentResistor.bends[numBends/2].y;
-//            clickableBal.zVal = theBentResistor.bends[numBends/2].z;
-//        }
+        if(clickable){
+            clickableBal.yVal = theBentResistor.y + (localCalc.calcSin(theBentResistor.l,theBentResistor.a-90));
+        }
     }
 }
 
-//}
-//}
-//    Resistor{
-//        id: resistor1
-//        s:100
-//        l:3.3
-//        x:5
-//        y:0
-//        z:-15
-//        a:163
-//        orientationAngle:270
-//        QQ2.Component.onCompleted: {
-//            console.log(" Resistor1" );
-//            console.log(" l " + theBentResistor.l/2);
-//            console.log(" l " + localCalc.calcLength(theBentResistor.l/2,localVar));
-//            console.log(" x " + theBentResistor.x);
-//            console.log(" y " + theBentResistor.y);
-//            console.log(" z " + theBentResistor.z);
-//            console.log(" a " + theBentResistor.a+localVar);
-//        }
-
-//    }
-
-//}
-//    Resistor{
-//        id: resistor2
-//        s: theBentResistor.s
-//        l: resistor1.l
-//        x: theBentResistor.x
-//        y: resistor1.y+localCalc.calcSin(resistor1.l,theBentResistor.a+localVar-90)
-//        z: resistor1.z+localCalc.calcCos(resistor1.l,theBentResistor.a+localVar-90)
-//        a: theBentResistor.a-localVar
-//        orientationAngle: theBentResistor.orientationAngle
-//        QQ2.Component.onCompleted: {
-//            console.log(" Resistor2" );
-//            console.log(" x " + theBentResistor.x);
-//            console.log(" y " + theBentResistor.y+localCalc.calcSin(resistor1.l,theBentResistor.a+localVar-90));
-//            console.log(" z " + theBentResistor.z+localCalc.calcCos(resistor1.l,theBentResistor.a+localVar-90));
-//            console.log(" a " + theBentResistor.a+localVar);
-//        }
-
-//    }
-//    Resistor{
-//        id: resistor3
-//        s: theBentResistor.s
-//        l: resistor1.l
-//        x: theBentResistor.x
-//        y: resistor1.y+(localCalc.calcSin(theBentResistor.l,theBentResistor.a-90)/3)
-//        z: resistor1.z+(localCalc.calcCos(theBentResistor.l,theBentResistor.a-90)/3)
-//        a: theBentResistor.a+localVar
-//        orientationAngle: theBentResistor.orientationAngle
-//        QQ2.Component.onCompleted: {
-//            console.log(" Resistor2" );
-//            console.log(" x " + theBentResistor.x);
-//            console.log(" y " + theBentResistor.y+localCalc.calcSin(resistor1.l,theBentResistor.a+localVar-90));
-//            console.log(" z " + theBentResistor.z+localCalc.calcCos(resistor1.l,theBentResistor.a+localVar-90));
-//            console.log(" a " + theBentResistor.a+localVar);
-//        }
-
-//    }
-//    Resistor{
-//        id: resistor4
-//        s: theBentResistor.s
-//        l: resistor3.l
-//        x: theBentResistor.x
-//        y: resistor3.y+localCalc.calcSin(resistor1.l,theBentResistor.a+localVar-90)
-//        z: resistor3.z+localCalc.calcCos(resistor1.l,theBentResistor.a+localVar-90)
-//        a: theBentResistor.a-localVar
-//        orientationAngle: theBentResistor.orientationAngle
-//        QQ2.Component.onCompleted: {
-//            console.log(" Resistor2" );
-//            console.log(" x " + theBentResistor.x);
-//            console.log(" y " + theBentResistor.y+localCalc.calcSin(resistor1.l,theBentResistor.a+localVar-90));
-//            console.log(" z " + theBentResistor.z+localCalc.calcCos(resistor1.l,theBentResistor.a+localVar-90));
-//            console.log(" a " + theBentResistor.a+localVar);
-//        }
-
-//    }
-//    Resistor{
-//        id: resistor5
-//        s: theBentResistor.s
-//        l: resistor1.l
-//        x: theBentResistor.x
-//        y: resistor1.y+(localCalc.calcSin(theBentResistor.l,theBentResistor.a-90)*2/3)
-//        z: resistor1.z+(localCalc.calcCos(theBentResistor.l,theBentResistor.a-90)*2/3)
-//        a: theBentResistor.a+localVar
-//        orientationAngle: theBentResistor.orientationAngle
-//        QQ2.Component.onCompleted: {
-//            console.log(" Resistor2" );
-//            console.log(" x " + theBentResistor.x);
-//            console.log(" y " + theBentResistor.y+localCalc.calcSin(resistor1.l,theBentResistor.a+localVar-90));
-//            console.log(" z " + theBentResistor.z+localCalc.calcCos(resistor1.l,theBentResistor.a+localVar-90));
-//            console.log(" a " + theBentResistor.a+localVar);
-//        }
-
-//    }
-//    Resistor{
-//        id: resistor6
-//        s: theBentResistor.s
-//        l: resistor1.l
-//        x: theBentResistor.x
-//        y: resistor5.y+localCalc.calcSin(resistor1.l,theBentResistor.a+localVar-90)
-//        z: resistor5.z+localCalc.calcCos(resistor1.l,theBentResistor.a+localVar-90)
-//        a: theBentResistor.a-localVar
-//        orientationAngle: theBentResistor.orientationAngle
-//        QQ2.Component.onCompleted: {
-//            console.log(" Resistor2" );
-//            console.log(" x " + theBentResistor.x);
-//            console.log(" y " + theBentResistor.y+localCalc.calcSin(resistor1.l,theBentResistor.a+localVar-90));
-//            console.log(" z " + theBentResistor.z+localCalc.calcCos(resistor1.l,theBentResistor.a+localVar-90));
-//            console.log(" a " + theBentResistor.a+localVar);
-//        }
-
-//    }
 
 
