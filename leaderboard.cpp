@@ -45,6 +45,66 @@ void Leaderboard::readLeaderboard(int level)
     file->close();
 }
 
+void Leaderboard::addEntry(QString name, int stars, int clicks)
+{
+    qDebug() << "in add entry";
+    int checkClicks = 0;
+    int i = 0;
+    while(clicks >= checkClicks)
+    {
+        if(levelboard.size() == 0)
+            break;
+        qDebug() << "clicks: " << clicks << " checkClicks "<<  checkClicks;
+        if(i >= levelboard.size())
+        {
+            i++;
+            break;
+
+        }
+        checkClicks = levelboard[i][2].toInt();
+
+        i++;
+         qDebug() << "in while";
+    }
+    qDebug() << " after a while";
+    if(levelboard.size() != 0)
+        i--;
+    vector <QString> rowVector(3);
+     qDebug() << "before insert";
+    levelboard.insert(levelboard.begin()+i,rowVector);
+    levelboard[i][0] = name;
+    levelboard[i][1] =  QString::number(stars);
+    levelboard[i][2] =  QString::number(clicks);
+    amountOfEntries++;
+}
+
+void Leaderboard::writeLeaderBoard(int level)
+{
+    //qDebug() << "Inside refreshTextFile";
+    QString path = QDir::currentPath() + "/leaderboard"+ QString::number(level)  +".txt";
+    QFile * file = new QFile(path);
+    if (!file->open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        qDebug() << file->errorString();
+        return;
+    }
+
+    QTextStream output(file);
+
+    for(int i = 0; i <amountOfEntries; i++)
+    {
+        //qDebug() <<"Writing to textfile";
+        for(int j = 0; j < 3; j++)
+        {
+            output << levelboard[i][j] << " " ;
+            qDebug() << levelboard[i][j] << " ";
+        }
+        output << endl;
+
+    }
+ file->close();
+}
+
 QString Leaderboard::giveName(int index)
 {
     QString name = 0;

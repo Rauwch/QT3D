@@ -6,16 +6,18 @@ import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.0
 import QtQuick.Scene3D 2.0
+import QtQuick.Controls.Styles 1.4
 import Link 1.0
 import Lvl 1.0
 import Calc 1.0
+
 
 Item {
     id: myGameScreen
     property bool showBox
     property bool showRes
     property bool showTutorial: true
-    property bool showLeaderboardEntry: false
+    property bool showLeaderboardEntry: true
     property real speedoMeter: 0
     property int speedLevel
     property int numClicks: 0
@@ -42,16 +44,6 @@ Item {
             tutorialScreen.visible = false;
         }
 
-    }
-
-    function calculateArrow(){
-        var Igoal = calculator.getCurrentInGoalWire();
-        var Icurrent = calculator.getGoalinGoalWire();
-        var angle;
-        console.log("Voor berekening Angle" + (Igoal-Icurrent)/(Igoal))
-        angle = ((Igoal-Icurrent)/(Icurrent))*300+90
-        angleOfArrow = angle;
-        console.log("DIT IS DE HOEK: " + angle)
     }
 
 
@@ -377,32 +369,7 @@ Item {
     //        speed: 2000
     //    }
 
-    function updateAnimation(){
-        //        world.checkMatch();
-        //        archerSource = world.theArchSource;
-        //        if(world.lvlCompleted){
-        //            popupWindow.visible= true;
-        //            continueBtn.visible= (myLevels.getCurrentLevel() < myLevels.amountOfLevels);
-        //            myLevels.setAmountOfStars(numClicks);
-        //        }
-    }
-    function setPopupWindowForTutorial(tutorialLevel){
-        popupWindow.setText(tutorialLevel);
-    }
 
-    function checkLeaderboard()
-    {
-        if(theLeaderboard.myLevelboard.getAmountOfEntries()< 5)
-        {
-            return true;
-        }
-
-        else if(theLeaderboard.myLevelboard.getLowestEntry() > numClicks)
-        {
-            return true;
-        }
-        return false;
-    }
 
     Rectangle{
         id: popupWindow
@@ -424,14 +391,16 @@ Item {
             id:congratsText
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top : parent.top
-            anchors.topMargin: Screen.height/10
+            anchors.topMargin: Screen.height/12
             text: "Congratulations!\nYou have successfully completed the level!"
             font.pixelSize: 60
         }
 
         Row{
             id: theButtons
-            anchors.centerIn: parent
+            anchors.top : congratsText.bottom
+            anchors.topMargin:  50
+            anchors.horizontalCenter: parent.horizontalCenter
             spacing: Screen.width/20
             Button{
                 id: continueBtn
@@ -477,30 +446,104 @@ Item {
             }
         }
 
-        Leaderboard{
-            id: theLeaderboard
-            Component.onCompleted: {
-                console.log(" lowest entry: " + theLeaderboard.myLevelboard.getLowestEntry())
+
+        //        Leaderboard{
+        //            id: theLeaderboard
+        //            Component.onCompleted: {
+        //                console.log(" lowest entry: " + theLeaderboard.myLevelboard.getLowestEntry())
+        //            }
+
+        //            //            anchors.top: theButtons.bottom;
+        //            //            anchors.horizontalCenter: popupWindow.Center
+        //            //            anchors.topMargin: 50
+        //            anchors.top : theButtons.bottom
+        //            anchors.topMargin: 50
+        //            anchors.horizontalCenter: parent.horizontalCenter
+        //        }
+
+            Loader
+            {
+                id:leaderLoader
+                source: "Leaderboard.qml"
+                anchors.top : theButtons.bottom
+                anchors.topMargin: 50
+                anchors.horizontalCenter: parent.horizontalCenter;
+
+                Row{
+                    id: buttonRow
+                    anchors.top:leaderLoader.item.bottom
+                    anchors.topMargin: 50
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: {checkLeaderboard() && showLeaderboardEntry}
+                    TextField{
+                        id:myTextField
+                        width: 100
+                        placeholderText : "Geef hier je naam in"
+                        style: TextFieldStyle {
+                            textColor: "black"
+                            background: Rectangle {
+                                radius: 2
+                                implicitWidth: 100
+                                implicitHeight: 24
+                                border.color: "#333"
+                                border.width: 1
+                            }
+                        }
+                    }
+                    Button{
+                        onClicked: {
+                            console.log("this is the text: " + myTextField.displayText);
+                            leaderLoader.item.myLevelboard.addEntry(myTextField.displayText, getStars(), numClicks );
+                            leaderLoader.item.myLevelboard.writeLeaderBoard(myLevels.getCurrentLevel());
+                            leaderLoader.source="";
+                            leaderLoader.source="Leaderboard.qml";
+                            showLeaderboardEntry = false;
+                        }
+
+                    }
+                }
             }
 
-//            anchors.top: theButtons.bottom;
-//            anchors.horizontalCenter: popupWindow.Center
+
+
+
+//        Row{
+//            id: buttonRow
+//            anchors.top:filler.bottom
 //            anchors.topMargin: 50
-            anchors.centerIn: parent
-        }
 
-        Row{
-            anchors.top: theLeaderboard.bottom
-            visible: checkLeaderboard()
-            TextInput{
-                width: 100
+//            anchors.horizontalCenter: parent.horizontalCenter
+//            visible: {checkLeaderboard() && showLeaderboardEntry}
+//            TextField{
+//                id:myTextField
+//                width: 100
+//                placeholderText : "Geef hier je naam in"
+//                style: TextFieldStyle {
+//                    textColor: "black"
+//                    background: Rectangle {
+//                        radius: 2
+//                        implicitWidth: 100
+//                        implicitHeight: 24
+//                        border.color: "#333"
+//                        border.width: 1
+//                    }
+//                }
+//            }
+//            Button{
+//                onClicked: {
+//                    console.log("this is the text: " + myTextField.displayText);
+//                    leaderLoader.item.myLevelboard.addEntry(myTextField.displayText, getStars(), numClicks );
+//                    leaderLoader.item.myLevelboard.writeLeaderBoard(myLevels.getCurrentLevel());
+//                    leaderLoader.source="";
+//                    leaderLoader.source="Leaderboard.qml";
+//                    showLeaderboardEntry = false;
+//                }
+
+//            }
+//        }
 
 
-            }
-            Button{
-
-            }
-        }
 
 
 
@@ -508,10 +551,61 @@ Item {
 
     }
 
+    //this are all the functions
+
+    function calculateArrow(){
+        var Igoal = calculator.getCurrentInGoalWire();
+        var Icurrent = calculator.getGoalinGoalWire();
+        var angle;
+        console.log("Voor berekening Angle" + (Igoal-Icurrent)/(Igoal))
+        angle = ((Igoal-Icurrent)/(Icurrent))*300+90
+        angleOfArrow = angle;
+        console.log("DIT IS DE HOEK: " + angle)
+    }
+
+    function updateAnimation(){
+        //        world.checkMatch();
+        //        archerSource = world.theArchSource;
+        //        if(world.lvlCompleted){
+        //            popupWindow.visible= true;
+        //            continueBtn.visible= (myLevels.getCurrentLevel() < myLevels.amountOfLevels);
+        //            myLevels.setAmountOfStars(numClicks);
+        //        }
+    }
+    function setPopupWindowForTutorial(tutorialLevel){
+        popupWindow.setText(tutorialLevel);
+    }
+
+    function checkLeaderboard()
+    {
+        if(leaderLoader.item.myLevelboard.getAmountOfEntries()< 5)
+        {
+            return true;
+        }
+
+        else if(leaderLoader.item.myLevelboard.getLowestEntry() > numClicks)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    function getStars()
+    {
+        if(calculator.getThreeStar() >=  numClicks)
+            return 3;
+
+        else if(calculator.getTwoStar() >= numClicks)
+            return 2;
+        else
+            return 1;
+    }
 
 
 
 
 }
+
+
 
 

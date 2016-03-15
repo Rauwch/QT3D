@@ -14,6 +14,7 @@ Levels::Levels(QObject *parent) : QObject(parent)
 void Levels::getLevelAmount()
 {
     QString path = QDir::currentPath() + "/levels.txt";
+    qDebug() << path;
     QFile * newFile = new QFile(path);
     QFile * file = new QFile(":/assets/Levels/levels.txt");
     bool fileExists = newFile->exists();

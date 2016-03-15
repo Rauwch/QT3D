@@ -18,6 +18,8 @@ public:
 
    //read file
     Q_INVOKABLE void readLeaderboard(int level);
+    Q_INVOKABLE void addEntry(QString name, int stars, int clicks);
+    Q_INVOKABLE void writeLeaderBoard(int level);
     Q_INVOKABLE QString giveName(int index);
     Q_INVOKABLE int giveStars(int index);
     Q_INVOKABLE int giveClicks(int index);
