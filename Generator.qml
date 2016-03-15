@@ -268,6 +268,16 @@ Entity{
         resistors[0].localVar = bendValues[resistors[0].bendIntensity];
 
     }
+    function increaseVolt(){
+        sources[0].heightIntensity = sources[0].heightIntensity + 1;
+        //resistors[0].localVar = bendValues[resistors[0].bendIntensity];
+
+    }
+    function decreaseVolt(){
+        sources[0].heightIntensity = sources[0].heightIntensity - 1;
+        //resistors[0].localVar = bendValues[resistors[0].bendIntensity];
+
+    }
 
     //update level function
     function updateLevel(){

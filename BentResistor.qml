@@ -91,7 +91,7 @@ Entity{
             bends[i].l = localCalc.calcLength(theBentResistor.l/numBends,localVar);
 
         }
-        updateBal();
+        //updateBal();
     }
 
     function makeBends(){
@@ -153,10 +153,10 @@ Entity{
         }
     }
     function updateBal(){
-        if(!(clickableBal === undefined)){
-            clickableBal.yVal = theBentResistor.bends[numBends/2].y;
-            clickableBal.zVal = theBentResistor.bends[numBends/2].z;
-        }
+//        if(!(clickableBal === undefined)){
+//            clickableBal.yVal = theBentResistor.bends[numBends/2].y;
+//            clickableBal.zVal = theBentResistor.bends[numBends/2].z;
+//        }
     }
 }
 

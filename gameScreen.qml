@@ -196,6 +196,8 @@ Item {
                 //console.log("this is the source that is clicked: " + clickedSource);
                 calculator.adjustVoltageAtSource(clickedSource,calculator.getStepOfSource(clickedSource));
                 calculator.solveLevel();
+                world.generator.increaseVolt();
+
                 //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
                 //world.generator.buildLevel();
                 //sizeupdate();
@@ -208,7 +210,14 @@ Item {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
 
                 }
+                if(world.generator.sources[0].heightIntensity >= 4){
+                    visible = false;
+                }
+                if(world.generator.sources[0].heightIntensity >= 1){
+                    decreaseHeight.visible = true;
+                    increaseHeight.parent.anchors.bottomMargin = 0;
 
+                }
 
                 calculateArrow();
                 console.log("The angle is: " + angleOfArrow);
@@ -241,6 +250,7 @@ Item {
             onClicked: {
                 calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
                 calculator.solveLevel();
+                world.generator.decreaseVolt();
 
                 world.generator.updateLevel();
                 calculateArrow();
@@ -251,6 +261,14 @@ Item {
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
 
+                }
+                if(world.generator.sources[0].heightIntensity <= 0){
+                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
+                    visible = false;
+
+                }
+                if(world.generator.sources[0].heightIntensity <= 3){
+                    increaseHeight.visible = true;
                 }
 
                 //                myLinker.height = myLinker.height - 1;

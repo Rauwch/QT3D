@@ -15,6 +15,7 @@ Entity{
     property bool clickable: false
     property var clickableBal
     property var eSize: 7
+    property real heightIntensity: 2
 
 
     QQ2.QtObject{
@@ -45,14 +46,14 @@ Entity{
 
     function updateBal(){
         if(clickable){
-            clickableBal.yVal = source.y + source.s/2;
+            clickableBal.yVal = source.y + source.s;
         }
     }
 
     function createBal() {
 
         o.balFactory = Qt.createComponent("Bal.qml");
-        source.clickableBal = o.balFactory.createObject(source,{"xVal": source.x,"yVal":  source.y + (source.s/2), "zVal": source.z, "sourceNr": source.sourceNr});
+        source.clickableBal = o.balFactory.createObject(source,{"xVal": source.x,"yVal":  source.y + (source.s), "zVal": source.z, "sourceNr": source.sourceNr});
 
         if (o.balFactory === null) {
             // Error Handling
@@ -107,7 +108,7 @@ Entity{
         Transform{
             id:sotrans
             translation: Qt.vector3d(x, y, z)
-            scale3D : Qt.vector3d(1, (1*s + eSize*10) , 1)
+            scale3D : Qt.vector3d(1, (1*s) , 1)
 
         }
 
