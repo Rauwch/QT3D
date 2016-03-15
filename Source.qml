@@ -44,7 +44,9 @@ Entity{
     //    }
 
     function updateBal(){
-        clickableBal.yVal = source.y + source.s/2;
+        if(clickable){
+            clickableBal.yVal = source.y + source.s/2;
+        }
     }
 
     function createBal() {

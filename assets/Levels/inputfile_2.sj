@@ -1,17 +1,27 @@
 *sj
-*w
 *c5 10
-*w1 2 4 0 2 0,w4 4 4 0 1 0
-*w2 1 3 1 1 0,w1 1 4 1 1 0
-*w2 1 1 2 1 1,w3 4 1 2 3 0, w4 4 2 2 1 0
+*w
+*w2 1 3 0 2 0,w1 1 5 0 4 0
+*w4 5 5 0 2 0,w4 5 3 1 2 0
+*w3 5 1 1 4 1,w2 1 1 1 1 0 
 *
 *
 */w
 */sj
 
-R1 1 2 100 *sj 1 2 2 0 0 0 */sj
-R2 2 0 100 *sj 4 3 4 0 0 0 */sj
-V1 1 0 20v *sj 2 4 3 1 24 2 */sj
+
+R1 0 1 100 *sj 1 2 2 1 160 30 */sj
+V1 1 0 20v *sj 5 3 4 0 0 0 */sj
+
 
 
 .end
+
+** Uitleg:
+*** Alle draden staan tussen w en /w (in spicecomment) gesplitst door een comma
+*** Syntax: WHoek Xcoord YCoord Node Lenght (Voor hoek: 1, wijst naar rechts, 2 naarboven, 3 naar links en 4 naar onder)
+*** Voor weerstanden en bronnen: Gewoon zoals in spice.
+*** Achter elke Component een spicecomment in de voor van *sj Xcoord Ycoord Hoek Aanpasbaar Beginwaarde stapgrote */sj
+
+*** File altijd op .sj laten eindigen
+

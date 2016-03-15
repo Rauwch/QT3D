@@ -24,7 +24,6 @@ Item {
         anchors.centerIn: parent
         rows: 3
         spacing: 30
-        //
         Repeater{
             id: levelRepeater
             model:myLevels.amountOfLevels
@@ -55,6 +54,9 @@ Item {
                         lockImage.visible = false;
 
                     }
+                    if(index <= 2){
+                        levelText.text= "Tutorial " + (index+1);
+                    }
                 }
 
                 border.width: 2
@@ -71,7 +73,7 @@ Item {
                 Text{
                     id: levelText
                     anchors.centerIn: parent
-                    text: "Level "+ (index+1)
+                    text: "Level "+ (index-2)
                     //font.pixelSize: 30
                     renderType: Text.NativeRendering
                     verticalAlignment: Text.AlignVCenter
@@ -154,5 +156,6 @@ Item {
         }
 
     }
+
 }
 
