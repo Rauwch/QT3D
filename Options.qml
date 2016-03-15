@@ -23,6 +23,11 @@ Item {
             spacing: 20
             //width: Screen.width/3
             //height: Screen.height/4
+            Component.onCompleted: {
+                if(backgroundMusic.playing())
+                    theSwitch.on = true;
+            }
+
             Switch{
                 id: theSwitch
                 property bool on: false
@@ -66,17 +71,6 @@ Item {
                                 GradientStop { position: 1 ; color: "#0b6fda" }
                             }
                     }
-//                    handle: Rectangle {
-//                            implicitWidth: 100
-//                            implicitHeight: 100
-//                            radius: 10
-//                            border.width:  2
-//                            border.color: "#063e79"
-//                            gradient: Gradient {
-//                                GradientStop { position: 0 ; color: "#0b6fda" }
-//                                GradientStop { position: 1 ; color: "#2589f4" }
-//                            }
-//                    }
                 }
 
                 onClicked:{
@@ -88,63 +82,6 @@ Item {
                     }
                 }
             }
-//            Button{
-//                width: 100
-//                height: 100
-
-//                style: ButtonStyle {
-//                    background: Rectangle {
-//                        border.width: 2
-//                        border.color: "#063e79"
-//                        radius: 10
-//                        gradient: Gradient {
-//                            GradientStop { position: 0 ; color: "#2589f4" }
-//                            GradientStop { position: 1 ; color: "#0b6fda" }
-//                        }
-//                    }
-//                    label: Text {
-//                        renderType: Text.NativeRendering
-//                        verticalAlignment: Text.AlignVCenter
-//                        horizontalAlignment: Text.AlignHCenter
-//                        font.family: "Helvetica"
-//                        font.pointSize: 20
-//                        color: "black"
-//                        text:"On"
-//                    }
-//                }
-//                onClicked: {
-//                    backgroundMusic.play();
-//                }
-//            }
-
-//            Button{
-//                width: 100
-//                height: 100
-//                style: ButtonStyle {
-//                    background: Rectangle {
-//                        border.width: 2
-//                        border.color: "#063e79"
-//                        radius: 10
-//                        gradient: Gradient {
-//                            GradientStop { position: 0 ; color: "#2589f4" }
-//                            GradientStop { position: 1 ; color: "#0b6fda" }
-//                        }
-//                    }
-//                    label: Text {
-//                        renderType: Text.NativeRendering
-//                        verticalAlignment: Text.AlignVCenter
-//                        horizontalAlignment: Text.AlignHCenter
-//                        font.family: "Helvetica"
-//                        font.pointSize: 20
-//                        color: "black"
-//                        text:"Off"
-//                    }
-
-//                }
-//                onClicked: {
-//                    backgroundMusic.stop();
-//                }
-//            }
         }
 
         Row {
@@ -186,17 +123,7 @@ Item {
                                 GradientStop { position: 1 ; color: "#0b6fda" }
                             }
                     }
-//                    handle: Rectangle {
-//                            implicitWidth: 100
-//                            implicitHeight: 100
-//                            radius: 10
-//                            border.width:  2
-//                            border.color: "#063e79"
-//                            gradient: Gradient {
-//                                GradientStop { position: 0 ; color: "#0b6fda" }
-//                                GradientStop { position: 1 ; color: "#2589f4" }
-//                            }
-//                    }
+
                 }
 
                 onClicked:{
@@ -209,64 +136,6 @@ Item {
                 }
             }
 
-//            Button{
-//                width: 100
-//                height: 100
-//                style: ButtonStyle {
-//                    background: Rectangle {
-//                        border.width: 2
-//                        border.color: "#063e79"
-//                        radius: 10
-//                        gradient: Gradient {
-//                            GradientStop { position: 0 ; color: "#2589f4" }
-//                            GradientStop { position: 1 ; color: "#0b6fda" }
-//                        }
-
-//                    }
-//                    label: Text {
-//                        renderType: Text.NativeRendering
-//                        verticalAlignment: Text.AlignVCenter
-//                        horizontalAlignment: Text.AlignHCenter
-//                        font.family: "Helvetica"
-//                        font.pointSize: 20
-//                        color: "black"
-//                        text:"On"
-//                    }
-
-//                }
-//                onClicked: {
-//                    soundEffects.volume = 1.0;
-//                }
-//            }
-
-//            Button{
-//                width: 100
-//                height: 100
-//                style: ButtonStyle {
-//                    background: Rectangle {
-//                        border.width: 2
-//                        border.color: "#063e79"
-//                        radius: 10
-//                        gradient: Gradient {
-//                            GradientStop { position: 0 ; color: "#2589f4" }
-//                            GradientStop { position: 1 ; color: "#0b6fda" }
-//                        }
-//                    }
-//                    label: Text {
-//                        renderType: Text.NativeRendering
-//                        verticalAlignment: Text.AlignVCenter
-//                        horizontalAlignment: Text.AlignHCenter
-//                        font.family: "Helvetica"
-//                        font.pointSize: 20
-//                        color: "black"
-//                        text:"Off"
-//                    }
-
-//                }
-//                onClicked: {
-//                    soundEffects.volume = 0.0;
-//                }
-//            }
         }
     }
     Button{
