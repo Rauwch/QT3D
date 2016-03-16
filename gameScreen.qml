@@ -130,7 +130,7 @@ Item {
         id: counter
         text: "aantal kliks: " + numClicks
         anchors.right: parent.right
-        anchors.top: speedo.bottom
+        anchors.top: jellyGoal.bottom
         readOnly: true
         font.pixelSize: 30
     }
@@ -150,21 +150,21 @@ Item {
     }
 
     Image{
-        id:speedo
-        source: "speedo.png"
+        id: jellyGoal
+        source: "jellyGoal.png"
         anchors.right: parent.right
-    }
+        anchors.rightMargin: 10
+        scale: 1 //calculateSize()
+
+
     Image{
-        id:currentGoal
-        source: "speedGoal.png"
-        anchors.centerIn: speedo
+        id:jelly
+        source: "jelly.png"
+        anchors.right: parent.right
+        anchors.rightMargin: 50
+        scale: 1
     }
-    Image{
-        id: archer
-        source: "archerG.png"
-        anchors.centerIn: speedo
-        rotation: angleOfArrow
-    }
+
     Button{
         id:rotateCamera
         anchors.top: counter.bottom
@@ -390,9 +390,23 @@ Item {
         //button that allows for height to be edited
         Button{
             id: increaseResistor
-            width: Screen.width/15
+            width: increaseText.width + 20
             height: Screen.height/15
             text: "Increase bends!"
+
+            style: ButtonStyle {
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 25
+                    border.width: control.activeFocus ? 2 : 1
+                    border.color: "#888"
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                    }
+                }
+            }
             onClicked: {
                 //console.log("Voltage at the source before click: " + calculator.getVoltageAtSource(clickedSource));
                 //console.log("this is the source that is clicked: " + clickedSource);
@@ -425,10 +439,22 @@ Item {
 
         Button{
             id: decreaseResistor
-            width: Screen.width/15
+            width: increaseText.width + 20
             height: Screen.height/15
             text: "Decrease bends!"
-
+            style: ButtonStyle {
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 25
+                    border.width: control.activeFocus ? 2 : 1
+                    border.color: "#888"
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                    }
+                }
+            }
             onClicked: {
                 //calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
                 calculator.adjustResistance(clickedRes, -calculator.getStepOfResistor(clickedRes));
@@ -574,20 +600,12 @@ Item {
                 visible: {checkLeaderboard() && showLeaderboardEntry}
                 TextField{
                     id:myTextField
-                    width: 100
+                    width: Screen.width/3
                     placeholderText : "Geef hier je naam in"
-                    style: TextFieldStyle {
-                        textColor: "black"
-                        background: Rectangle {
-                            radius: 2
-                            implicitWidth: 100
-                            implicitHeight: 24
-                            border.color: "#333"
-                            border.width: 1
-                        }
-                    }
+
                 }
                 Button{
+                    text:"+"
                     onClicked: {
                         console.log("this is the text: " + myTextField.displayText);
                         leaderLoader.item.myLevelboard.addEntry(myTextField.displayText, getStars(), numClicks );
@@ -649,14 +667,11 @@ Item {
 
     //this are all the functions
 
-    function calculateArrow(){
+    function calculateSize(){
         var Igoal = calculator.getCurrentInGoalWire();
         var Icurrent = calculator.getGoalinGoalWire();
-        var angle;
-        console.log("Voor berekening Angle" + (Igoal-Icurrent)/(Igoal))
-        angle = ((Igoal-Icurrent)/(Icurrent))*300+90
-        angleOfArrow = angle;
-        console.log("DIT IS DE HOEK: " + angle)
+        return size = ((Igoal-Icurrent)/(Icurrent))*300
+
     }
 
     function updateAnimation(){

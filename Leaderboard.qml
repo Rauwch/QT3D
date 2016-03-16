@@ -1,8 +1,9 @@
-import QtQuick 2.0
+import QtQuick 2.5
 import QtQuick.Window 2.0
 
 import LB 1.0
 Column{
+    spacing: 5
     property Levelboard myLevelboard: Levelboard
     {
         Component.onCompleted: {
@@ -28,10 +29,12 @@ Column{
                 console.log("name: " +myLevelboard.giveName(index));
                 console.log("name: " +myLevelboard.giveStars(index));
             }
-            color:"grey"
+            color:"white"
+            border.color: "black"
+            border.width: 3
 
             Row{
-                spacing: 50
+                spacing: 5
                 Text{
                     text: myLevelboard.giveName(index)
                 }

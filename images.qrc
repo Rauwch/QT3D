@@ -21,5 +21,7 @@
         <file>resistorTexture.png</file>
         <file>goalPoleGo.png</file>
         <file>t0044_0.png</file>
+        <file>jelly.png</file>
+        <file>jellyGoal.png</file>
     </qresource>
 </RCC>

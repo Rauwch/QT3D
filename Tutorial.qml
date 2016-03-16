@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.5
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.0
 import QtQuick.Controls.Styles 1.4
@@ -16,35 +16,39 @@ Rectangle{
     height: Screen.height
     visible: {stage <= numStages}
 
+    TextMetrics {
+        id: textMetrics
+        font.family: "Arial"
+        font.pixelSize: 50
+
+    }
     Rectangle{
         id:instructionWindow
         color:"white"
-        width: Screen.width/4
-        height: Screen.height/4
+        width: Screen.width/3
+        height: instructionText.height + buttonNext.height + 30
         visible: {stage <= numStages}
 
         Component.onCompleted: {
             myGameScreen.setPopupWindowForTutorial(numberOfLevel);
             setInstructionText();
         }
-        TextArea{
+        Text{
             id:instructionText
             width: parent.width
+            wrapMode: Text.WordWrap
+            anchors.leftMargin: 3
             anchors.horizontalCenter: parent.horizontalCenter
-            readOnly: true
+            //readOnly: true
             anchors.top: parent.top
-            anchors.topMargin: instructionWindow.height/8
-            style: TextAreaStyle{
-                backgroundColor: "white"
-
-            }
+            anchors.topMargin: 20
         }
         Button{
             id:buttonNext
             visible: {stage <= numStages}
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: instructionWindow.height/8
+            anchors.top: instructionText.bottom
+            anchors.topMargin: 5
             text:"Volgende"
             onClicked: {
                 updateInstructions();
