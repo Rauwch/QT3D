@@ -64,7 +64,7 @@ Entity{
 
         calculator.solveLevel();
         console.log("before calculate arrow")
-        myGameScreen.calculateArrow();
+        //myGameScreen.calculateArrow();
         console.log("After calculate arrow");
         o.sourceFactory=Qt.createComponent("Source.qml");
         o.resistorFactory=Qt.createComponent("BentResistor.qml");
