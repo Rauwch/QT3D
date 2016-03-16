@@ -25,7 +25,7 @@ Item {
     Component.onDestruction: console.log("startscreen destroyed")
     Component.onCompleted: {
         console.log("myStartScreen wordt aangemaakt");
-        startWindow.visibility = Window.Maximized;
+        startWindow.visibility = Window.FullScreen;
 
     }
     Levels{
@@ -162,6 +162,42 @@ Item {
                     pageLoader.source = "Credits.qml";
                 }
             }
+
+            Button{
+                id:stopButton
+                text:"Stop"
+                width: buttonWidth
+                height: buttonHeight
+                style: ButtonStyle {
+                    id:styleButton
+                    background: Rectangle {
+                        //implicitWidth: 100
+                        //implicitHeight: 25
+                        border.width: control.activeFocus ? 4 : 2
+
+                        border.color: "#063e79"
+                        radius: 10
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#479af5" : "#2589f4" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#2589f4" : "#0b6fda" }
+                        }
+                    }
+                    label: Text {
+                        renderType: Text.NativeRendering
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.family: "Helvetica"
+                        font.pointSize: 20
+                        color: "black"
+                        text: control.text
+                    }
+                }
+                onClicked: {
+                    startWindow.close();
+                }
+            }
+
+
         }
         SoundEffect{
             id: soundEffects

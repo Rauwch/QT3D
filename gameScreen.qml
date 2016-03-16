@@ -70,6 +70,19 @@ Item {
             width: Screen.width/15
             height: Screen.height/15
             text:"Return"
+            style: ButtonStyle {
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 25
+                    border.width: control.activeFocus ? 2 : 1
+                    border.color: "#888"
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                    }
+                }
+            }
             onClicked: {
                 //soundEffects.source = "Bubbles.wav";
                 soundEffects.play();
@@ -87,6 +100,19 @@ Item {
             width: Screen.width/15
             height: Screen.height/15
             text:"Retry"
+            style: ButtonStyle {
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 25
+                    border.width: control.activeFocus ? 2 : 1
+                    border.color: "#888"
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                    }
+                }
+            }
             onClicked: {
                 //soundEffects.source = "Bubbles.wav";
                 soundEffects.play();
@@ -176,13 +202,38 @@ Item {
         id: textBox
         visible: showBox
         anchors.bottom: parent.bottom
-
+        spacing: 10
         //button that allows for height to be edited
         Button{
             id: increaseHeight
-            width: Screen.width/15
+            width: increaseText.width + 20
             height: Screen.height/15
-            text: "Increase height!"
+            Text{
+                anchors.centerIn: parent
+                id: increaseText
+                text: "verhoog lift"
+                renderType: Text.NativeRendering
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.family: "Helvetica"
+                font.pointSize: 20
+                color: "black"
+            }
+
+            style: ButtonStyle {
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 25
+                    border.width: control.activeFocus ? 2 : 1
+                    border.color: "#888"
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                    }
+                }
+            }
+
             onClicked: {
                 //console.log("Voltage at the source before click: " + calculator.getVoltageAtSource(clickedSource));
                 //console.log("this is the source that is clicked: " + clickedSource);
@@ -235,10 +286,32 @@ Item {
 
         Button{
             id: decreaseHeight
-            width: Screen.width/15
+            width: increaseText.width + 20
             height: Screen.height/15
-            text: "Decrease height!"
-
+            Text{
+                anchors.centerIn: parent
+                id: decreaseText
+                text: "Verlaag lift"
+                renderType: Text.NativeRendering
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.family: "Helvetica"
+                font.pointSize: 20
+                color: "black"
+            }
+            style: ButtonStyle {
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 25
+                    border.width: control.activeFocus ? 2 : 1
+                    border.color: "#888"
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                    }
+                }
+            }
             onClicked: {
                 calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
                 calculator.solveLevel();
@@ -461,87 +534,87 @@ Item {
         //            anchors.horizontalCenter: parent.horizontalCenter
         //        }
 
-            Loader
-            {
-                id:leaderLoader
-                source: "Leaderboard.qml"
-                anchors.top : theButtons.bottom
+        Loader
+        {
+            id:leaderLoader
+            source: "Leaderboard.qml"
+            anchors.top : theButtons.bottom
+            anchors.topMargin: 50
+            anchors.horizontalCenter: parent.horizontalCenter;
+
+            Row{
+                id: buttonRow
+                anchors.top:leaderLoader.item.bottom
                 anchors.topMargin: 50
-                anchors.horizontalCenter: parent.horizontalCenter;
 
-                Row{
-                    id: buttonRow
-                    anchors.top:leaderLoader.item.bottom
-                    anchors.topMargin: 50
-
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    visible: {checkLeaderboard() && showLeaderboardEntry}
-                    TextField{
-                        id:myTextField
-                        width: 100
-                        placeholderText : "Geef hier je naam in"
-                        style: TextFieldStyle {
-                            textColor: "black"
-                            background: Rectangle {
-                                radius: 2
-                                implicitWidth: 100
-                                implicitHeight: 24
-                                border.color: "#333"
-                                border.width: 1
-                            }
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: {checkLeaderboard() && showLeaderboardEntry}
+                TextField{
+                    id:myTextField
+                    width: 100
+                    placeholderText : "Geef hier je naam in"
+                    style: TextFieldStyle {
+                        textColor: "black"
+                        background: Rectangle {
+                            radius: 2
+                            implicitWidth: 100
+                            implicitHeight: 24
+                            border.color: "#333"
+                            border.width: 1
                         }
-                    }
-                    Button{
-                        onClicked: {
-                            console.log("this is the text: " + myTextField.displayText);
-                            leaderLoader.item.myLevelboard.addEntry(myTextField.displayText, getStars(), numClicks );
-                            leaderLoader.item.myLevelboard.writeLeaderBoard(myLevels.getCurrentLevel());
-                            leaderLoader.source="";
-                            leaderLoader.source="Leaderboard.qml";
-                            showLeaderboardEntry = false;
-                        }
-
                     }
                 }
+                Button{
+                    onClicked: {
+                        console.log("this is the text: " + myTextField.displayText);
+                        leaderLoader.item.myLevelboard.addEntry(myTextField.displayText, getStars(), numClicks );
+                        leaderLoader.item.myLevelboard.writeLeaderBoard(myLevels.getCurrentLevel());
+                        leaderLoader.source="";
+                        leaderLoader.source="Leaderboard.qml";
+                        showLeaderboardEntry = false;
+                    }
+
+                }
             }
+        }
 
 
 
 
-//        Row{
-//            id: buttonRow
-//            anchors.top:filler.bottom
-//            anchors.topMargin: 50
+        //        Row{
+        //            id: buttonRow
+        //            anchors.top:filler.bottom
+        //            anchors.topMargin: 50
 
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            visible: {checkLeaderboard() && showLeaderboardEntry}
-//            TextField{
-//                id:myTextField
-//                width: 100
-//                placeholderText : "Geef hier je naam in"
-//                style: TextFieldStyle {
-//                    textColor: "black"
-//                    background: Rectangle {
-//                        radius: 2
-//                        implicitWidth: 100
-//                        implicitHeight: 24
-//                        border.color: "#333"
-//                        border.width: 1
-//                    }
-//                }
-//            }
-//            Button{
-//                onClicked: {
-//                    console.log("this is the text: " + myTextField.displayText);
-//                    leaderLoader.item.myLevelboard.addEntry(myTextField.displayText, getStars(), numClicks );
-//                    leaderLoader.item.myLevelboard.writeLeaderBoard(myLevels.getCurrentLevel());
-//                    leaderLoader.source="";
-//                    leaderLoader.source="Leaderboard.qml";
-//                    showLeaderboardEntry = false;
-//                }
+        //            anchors.horizontalCenter: parent.horizontalCenter
+        //            visible: {checkLeaderboard() && showLeaderboardEntry}
+        //            TextField{
+        //                id:myTextField
+        //                width: 100
+        //                placeholderText : "Geef hier je naam in"
+        //                style: TextFieldStyle {
+        //                    textColor: "black"
+        //                    background: Rectangle {
+        //                        radius: 2
+        //                        implicitWidth: 100
+        //                        implicitHeight: 24
+        //                        border.color: "#333"
+        //                        border.width: 1
+        //                    }
+        //                }
+        //            }
+        //            Button{
+        //                onClicked: {
+        //                    console.log("this is the text: " + myTextField.displayText);
+        //                    leaderLoader.item.myLevelboard.addEntry(myTextField.displayText, getStars(), numClicks );
+        //                    leaderLoader.item.myLevelboard.writeLeaderBoard(myLevels.getCurrentLevel());
+        //                    leaderLoader.source="";
+        //                    leaderLoader.source="Leaderboard.qml";
+        //                    showLeaderboardEntry = false;
+        //                }
 
-//            }
-//        }
+        //            }
+        //        }
 
 
 
