@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Window 2.0
+import QtQuick.Controls.Styles 1.4
 Rectangle{
     id: screenWindow
     property int stage: 0
@@ -26,18 +27,24 @@ Rectangle{
             myGameScreen.setPopupWindowForTutorial(numberOfLevel);
             setInstructionText();
         }
-        Text{
+        TextArea{
             id:instructionText
+            width: parent.width
             anchors.horizontalCenter: parent.horizontalCenter
+            readOnly: true
             anchors.top: parent.top
-            anchors.topMargin: offset
+            anchors.topMargin: instructionWindow.height/8
+            style: TextAreaStyle{
+                backgroundColor: "white"
+
+            }
         }
         Button{
             id:buttonNext
             visible: {stage <= numStages}
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: offset
+            anchors.bottomMargin: instructionWindow.height/8
             text:"Volgende"
             onClicked: {
                 updateInstructions();
@@ -103,7 +110,7 @@ Rectangle{
         case(0):
             stage++;
             instructionWindow.anchors.leftMargin = 100;
-            instructionText.text = "STAP 1/3\nDeze rode paal toont het doel van het spel aan.\nde kwallen hebben jou hulp nodig om op deze hoogte te kunnen zwemmen";
+            instructionText.text = "STAP 1/3\nDeze rode paal toont het doel van het spel aan.de kwallen hebben jou hulp nodig om op deze hoogte te kunnen zwemmen";
             break;
         case(1):
             stage++;
