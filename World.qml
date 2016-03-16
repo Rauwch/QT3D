@@ -56,6 +56,7 @@ Entity {
         viewCenter: Qt.vector3d( 50.0, 0.0, 0.0 )
 
     }
+
     OceanBox{
         id:background
         cameraPosition: myCamera.position

@@ -171,30 +171,53 @@ Item {
         anchors.horizontalCenter: counter.horizontalCenter
         onClicked:
         {
-            animation.start()
+            world.changeCamera();
+            //world.
+            //animation.start()
 
         }
     }
 
-    PropertyAnimation{
-        id: animation
-        target: world
-        property: "cameraAngle"
-        from: world.cameraAngle
-        to: world.cameraAngle+ 0.00001
-        duration: 10000
+//    PropertyAnimation{
+//        id: animation
+//        target: world
+//        property: "cameraAngle"
+//        from: 0
+//        to: 5/50
+//        duration: 10000/2
 
-    }
+//    }
 
-    //    NumberAnimation
-    //    {
-    //        id: animation
-    //        target: world
-    //        property: "cameraAngle"
-    //        from: world.cameraAngle
-    //        to: world.cameraAngle+1
-    //        duration: 1000
-    //    }
+        PropertyAnimation{
+            id: animation
+            target: world
+            property: "cameraAngle"
+            from: 0
+            to: Math.PI
+            duration: 10000/2
+
+        }
+//        PropertyAnimation{
+//            id: animation
+//            target: world.mainCamera
+//            property: "position"
+//            from: Qt.vector3d(50*Math.sin(0*Math.PI/180)+3*5,10,50*Math.cos(0*Math.PI/180)-3*5)
+
+//            to: Qt.vector3d(50*Math.sin(180*Math.PI/180)+3*5,10,50*Math.cos(180*Math.PI/180)-3*5)
+
+//            duration: 10000/2
+
+//        }
+
+//        NumberAnimation
+//        {
+//            id: animation
+//            target: world
+//            property: "cameraAngle"
+//            from: world.cameraAngle
+//            to: 90
+//            duration: 1000
+//        }
 
 
     //2d box where setting can be edited
