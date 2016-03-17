@@ -141,15 +141,15 @@ Item {
     Image{
         id:jellyGoal
         source: "jellyGoal.png"
-        anchors.right: myGameScreen.right
-        anchors.rightMargin: 50
+        //        anchors.right: myGameScreen.right
+        //        anchors.rightMargin: 50
         scale: 1
     }
 
     Image{
         id:jelly
         source: "jelly.png"
-        anchors.right: myGameScreen.right
+        //        anchors.right: myGameScreen.right
 
     }
 
@@ -583,20 +583,68 @@ Item {
         var Igoal = calculator.getGoalinGoalWire();
         var size;
         size = Icurrent/Igoal;
+        if(Icurrent > Igoal){
+            size=(Icurrent-((Icurrent-Igoal)/4*3))/Igoal;
+        }
+
         //jelly.scale = size;
         console.log("Icurrent = " + Icurrent + " Igoal = " + Igoal + "   SIZe " + size);
         jelly.height = jellyPixelHeight*size;
         jelly.width = jellyPixelWidth * size;
-        jelly.anchors.right = undefined;
-        jelly.anchors.right = myGameScreen.right;
-        //jellyGoal.anchors.horizontalCenter = jelly.anchors.horizontalCenter;
-        //jellyGoal.anchors.horizontalCenterOffset = jelly.width/2;
+        updateJellyAnchors();
+        //        jelly.anchors.right = undefined;
+        //        jelly.anchors.right = myGameScreen.right;
+    }
+    function updateJellyAnchors(){
+        //jellygoal is bigger than twice the jelly
+        if(jellyGoal.width >= 2*jelly.width){
+            jellyGoal.anchors.right = myGameScreen.right;
+            jelly.anchors.right = myGameScreen.right;
+
+            jellyGoal.anchors.rightMargin = 0;
+            jelly.anchors.rightMargin = 0;
+
+            jelly.anchors.top=undefined;
+            jellyGoal.anchors.bottom=undefined;
+            jellyGoal.anchors.top=myGameScreen.top;
+            jelly.anchors.bottom=jellyGoal.bottom;
+
+        }
+
+        //jellygoal is bigger than the jelly
+        else if(jellyGoal.width >= jelly.width){
+            jellyGoal.anchors.right = myGameScreen.right;
+            jellyGoal.anchors.rightMargin = (jelly.width - jellyGoal.width/2);
+            jelly.anchors.right = myGameScreen.right;
+
+            jelly.anchors.rightMargin = 0;
+
+            jelly.anchors.top=undefined;
+            jellyGoal.anchors.bottom=undefined;
+            jellyGoal.anchors.top=myGameScreen.top;
+            jelly.anchors.bottom=jellyGoal.bottom;
+        }
+
+        else if(jellyGoal.width <= jelly.width){
+            jellyGoal.anchors.right = myGameScreen.right;
+            jellyGoal.anchors.rightMargin = (jelly.width - jellyGoal.width/2);
+            jelly.anchors.right = myGameScreen.right;
+
+            jelly.anchors.rightMargin = 0;
+
+            jellyGoal.anchors.top=undefined;
+            jelly.anchors.bottom=undefined;
+            jelly.anchors.top=myGameScreen.top;
+            jellyGoal.anchors.bottom=jelly.bottom;
+        }
+
 
     }
 
     function initializeJellies(){
         jellyPixelHeight = jelly.paintedHeight;
         jellyPixelWidth = jelly.paintedWidth;
+        updateJellyAnchors();
     }
 
     function setPopupWindowForTutorial(tutorialLevel){
