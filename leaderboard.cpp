@@ -7,7 +7,7 @@ Leaderboard::Leaderboard(QObject *parent) : QObject(parent)
 
 void Leaderboard::readLeaderboard(int level)
 {
-    qDebug() << "INSIDE READ LEADER BOARD";
+    //qDebug() << "INSIDE READ LEADER BOARD";
     QFile * file = new QFile(QDir::currentPath() + "/leaderboard"+QString::number(level)+ ".txt");
     vector <QString> rowVector(3);
     int row = 0;
@@ -20,7 +20,7 @@ void Leaderboard::readLeaderboard(int level)
             QString line = in.readLine();
             if (!line.isEmpty()&&!line.isNull()){
                 QStringList list=line.split(" ");
-                qDebug()<< "this is the line: " <<line;
+                //qDebug()<< "this is the line: " <<line;
                 levelboard.push_back(rowVector);
                 for(int col = 0; col < 3; col++){
                     levelboard[row][col] = list.at(col);
@@ -40,21 +40,21 @@ void Leaderboard::readLeaderboard(int level)
         qDebug() << "Unable to open file";
     }
     amountOfEntries = row;
-    qDebug() << "rownums: " << row;
-    qDebug() << "lowest entry: " << lowestEntry;
+    //qDebug() << "rownums: " << row;
+    //qDebug() << "lowest entry: " << lowestEntry;
     file->close();
 }
 
 void Leaderboard::addEntry(QString name, int stars, int clicks)
 {
-    qDebug() << "in add entry";
+    //qDebug() << "in add entry";
     int checkClicks = 0;
     int i = 0;
     while(clicks >= checkClicks)
     {
         if(levelboard.size() == 0)
             break;
-        qDebug() << "clicks: " << clicks << " checkClicks "<<  checkClicks;
+        //qDebug() << "clicks: " << clicks << " checkClicks "<<  checkClicks;
         if(i >= levelboard.size())
         {
             i++;
@@ -64,13 +64,13 @@ void Leaderboard::addEntry(QString name, int stars, int clicks)
         checkClicks = levelboard[i][2].toInt();
 
         i++;
-         qDebug() << "in while";
+         //qDebug() << "in while";
     }
-    qDebug() << " after a while";
+    //qDebug() << " after a while";
     if(levelboard.size() != 0)
         i--;
     vector <QString> rowVector(3);
-     qDebug() << "before insert";
+     //qDebug() << "before insert";
     levelboard.insert(levelboard.begin()+i,rowVector);
     levelboard[i][0] = name;
     levelboard[i][1] =  QString::number(stars);
@@ -97,7 +97,7 @@ void Leaderboard::writeLeaderBoard(int level)
         for(int j = 0; j < 3; j++)
         {
             output << levelboard[i][j] << " " ;
-            qDebug() << levelboard[i][j] << " ";
+            //qDebug() << levelboard[i][j] << " ";
         }
         output << endl;
 

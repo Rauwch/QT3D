@@ -19,12 +19,12 @@ Entity{
 
     components: [somesh,sotrans]
     QQ2.Component.onCompleted: {
-        console.log("pole x y z: " + x + " " + y + " " + z);
+        //console.log("pole x y z: " + x + " " + y + " " + z);
 
     }
     function setGreen(){
         theMaterial.diffuse = "goalPoleGo.png";
-        console.log("GREEN");
+        //console.log("GREEN");
         cubeTop.setGreen();
         cubeBottom.setGreen();
 
@@ -32,7 +32,7 @@ Entity{
     }
     function setRed(){
         theMaterial.diffuse = "goalPole.png";
-        console.log("RED");
+        //console.log("RED");
         cubeTop.setRed();
         cubeBottom.setRed();
     }

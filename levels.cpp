@@ -14,7 +14,7 @@ Levels::Levels(QObject *parent) : QObject(parent)
 void Levels::getLevelAmount()
 {
     QString path = QDir::currentPath() + "/levels.txt";
-    qDebug() << path;
+    //qDebug() << path;
     QFile * newFile = new QFile(path);
     QFile * file = new QFile(":/assets/Levels/levels.txt");
     bool fileExists = newFile->exists();
@@ -23,7 +23,7 @@ void Levels::getLevelAmount()
     // qDebug() << "print newFIle" << newFile;
     if(file->open(QIODevice::ReadOnly| QIODevice::Text))
     {
-        qDebug()<< "open file";
+        //qDebug()<< "open file";
     }
     QTextStream in(file);
     if(newFile->open(QIODevice::ReadWrite | QIODevice::Text))
@@ -39,11 +39,11 @@ void Levels::getLevelAmount()
                 //create leaderboardFiles
                 row++;
                 QString leaderPath= QDir::currentPath() + "/leaderboard"+QString::number(row)+ ".txt";
-                qDebug() << " PATH:  " << leaderPath;
+                //qDebug() << " PATH:  " << leaderPath;
                 QFile * leaderBoard = new QFile(leaderPath);
                 if(leaderBoard->open(QIODevice::ReadWrite| QIODevice::Text))
                 {
-                    qDebug()<< "open file";
+                    //qDebug()<< "open file";
                 }
                 leaderBoard->close();
             }
@@ -69,7 +69,7 @@ void Levels::getLevelAmount()
 
     }
     amountOfLevels = row;
-    qDebug() << "rownums: " << row;
+    //qDebug() << "rownums: " << row;
     file->close();
     newFile->close();
 
@@ -105,7 +105,7 @@ void Levels::refreshTextFile()
         for(int j = 0; j < 2; j++)
         {
             output << levelArray[i][j] << " " ;
-            qDebug() << levelArray[i][j] << " ";
+            //qDebug() << levelArray[i][j] << " ";
         }
         output << endl;
 

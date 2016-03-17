@@ -29,8 +29,6 @@ Entity{
     QQ2.Component.onCompleted: {
         if(clickable)
             createBal();
-        else
-            console.log("Er wordt geen bal aangemaakt")
     }
     //    Entity{
     //        components: [objectPicker,clickableBal]

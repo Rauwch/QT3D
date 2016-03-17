@@ -20,7 +20,7 @@ Entity{
 
     components: [somesh,sotrans]
     QQ2.Component.onCompleted: {
-        console.log("pole x y z: " + x + " " + y + " " + z);
+        //console.log("pole x y z: " + x + " " + y + " " + z);
     }
 
     Entity{

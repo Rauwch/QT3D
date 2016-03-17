@@ -39,7 +39,7 @@ void Calc::solveLevel()
     }
 
     setCurrentsOfWires();
-    qDebug() << "END OF SOLVE LEVEL";
+    //qDebug() << "END OF SOLVE LEVEL";
 }
 
 void Calc::storeCurrentGoals()
@@ -50,11 +50,11 @@ void Calc::storeCurrentGoals()
         {
             currentGoals.push_back(wires.at(i));
             wires.at(i)->setGoalValue(wires.at(i)->getCurrent());
-            qDebug() << "this is the starting current: " << wires.at(i)->getCurrent();
+            //qDebug() << "this is the starting current: " << wires.at(i)->getCurrent();
         }
 
     }
-    qDebug() << "this is the amount of current Goals " << currentGoals.size();
+    //qDebug() << "this is the amount of current Goals " << currentGoals.size();
 }
 
 
@@ -84,7 +84,7 @@ void Calc::readFile(QString s)
                         case's':
                             for (int i=2;i<line.length();i++){
                                 if(line.at(i).toLower().toLatin1()=='j'){ //TODO check if index is too big necessary?
-                                    qDebug()<<"start of file, found correct sj start";
+                                    //qDebug()<<"start of file, found correct sj start";
                                 }
                             }
                             break;
@@ -160,11 +160,11 @@ void Calc::updateSources()
 {
     for(unsigned int i= 0; i < sources.size(); i++)
     {
-        qDebug() <<"sourcers ervoor " << sources.at(i)->getValue();
+        //qDebug() <<"sourcers ervoor " << sources.at(i)->getValue();
         if(sources.at(i)->getInitialValue() != 0)
         {
             sources.at(i)->setValue(sources.at(i)->getInitialValue());
-            qDebug() <<"sourcers erna " <<sources.at(i)->getValue();
+            //qDebug() <<"sourcers erna " <<sources.at(i)->getValue();
 
         }
     }
@@ -175,11 +175,11 @@ void Calc::updateResistors()
 
     for( unsigned int i= 0; i < resistors.size(); i++)
     {
-        qDebug() << "resistors ervoor "<< resistors.at(i)->getValue();
+        //qDebug() << "resistors ervoor "<< resistors.at(i)->getValue();
         if(resistors.at(i)->getInitialValue() != 0)
         {
             resistors.at(i)->setValue(resistors.at(i)->getInitialValue());
-            qDebug() << "resistors erna "<< resistors.at(i)->getValue();
+            //qDebug() << "resistors erna "<< resistors.at(i)->getValue();
         }
     }
 
@@ -263,7 +263,7 @@ void Calc::process_source_line(QString &lijn)
 
     lijn.replace("v","",Qt::CaseSensitivity::CaseInsensitive); //remove v
     QStringList list=lijn.split(" ",QString::SkipEmptyParts);
-    qDebug() << list;
+    //qDebug() << list;
     int x=list.at(5).toInt();
     int y=list.at(6).toInt();
     int angle=list.at(7).toInt();
@@ -280,15 +280,15 @@ void Calc::process_source_line(QString &lijn)
         qDebug() << "Wrong entry for variable";
     }
     int initial = list.at(9).toInt();
-    qDebug() << "this is the initiale " << initial;
+    //qDebug() << "this is the initiale " << initial;
 
     int step = list.at(10).toInt();
-    qDebug() << "this is the step size " << step;
+    //qDebug() << "this is the step size " << step;
     int nodep=list.at(1).toInt();
     int nodem=list.at(2).toInt();
     float v=list.at(3).toFloat();
     auto s =std::make_shared<Source>(v,nodep,nodem,x,y,angle,step, variable,initial);
-    qDebug() << "ADDED a SOURCE TO THE SOURCE LIST";
+    //qDebug() << "ADDED a SOURCE TO THE SOURCE LIST";
     sources.push_back(s);
 
 
@@ -296,7 +296,7 @@ void Calc::process_source_line(QString &lijn)
 
 void Calc::process_goal_line(QString &lijn)
 {
-    qDebug() << "reading a new goal line" ;
+    //qDebug() << "reading a new goal line" ;
     lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
     lijn.replace("g","",Qt::CaseSensitivity::CaseInsensitive); //remove g
     QStringList list=lijn.split(" ");
@@ -312,7 +312,7 @@ void Calc::process_goal_line(QString &lijn)
 
 void Calc::process_click_line(QString &lijn)
 {
-    qDebug() << "reading a new click line" ;
+    //qDebug() << "reading a new click line" ;
     lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
     lijn.replace("c","",Qt::CaseSensitivity::CaseInsensitive); //remove c
     QStringList list=lijn.split(" ");
@@ -335,16 +335,16 @@ bool Calc::checkGoals()
         goalVoltage = goals.at(i)->getVoltage();
         goalNode = goals.at(i)->getNode();
         currentVoltage = voltageAtNode(goalNode);
-        qDebug()  <<"this is the current voltage: " << currentVoltage << " and the goalVoltage: " << goalVoltage;
+        //qDebug()  <<"this is the current voltage: " << currentVoltage << " and the goalVoltage: " << goalVoltage;
         if(goalVoltage != currentVoltage)
         {
             allGoals = false;
-            qDebug() << "FALSE goalV " << goalVoltage << "currentV " << currentVoltage;
+            //qDebug() << "FALSE goalV " << goalVoltage << "currentV " << currentVoltage;
             goals.at(i)->setMatch(false);
         }
         else
         {
-            qDebug() << "TRUE goalV " << goalVoltage << "currentV " << currentVoltage;
+            //qDebug() << "TRUE goalV " << goalVoltage << "currentV " << currentVoltage;
 
             goals.at(i)->setMatch(true);
         }
@@ -352,7 +352,7 @@ bool Calc::checkGoals()
 
     for(unsigned int i = 0; i <currentGoals.size();i++)
     {
-        qDebug() << "currentCurrent is: " <<(float) currentGoals.at(i)->getCurrent() << "  goalCurrent is:  " << (float) currentGoals.at(i)->getGoalValue() ;
+        //qDebug() << "currentCurrent is: " <<(float) currentGoals.at(i)->getCurrent() << "  goalCurrent is:  " << (float) currentGoals.at(i)->getGoalValue() ;
         if(currentGoals.at(i)->getCurrent()!= currentGoals.at(i)->getGoalValue())
         {
             allGoals = false;

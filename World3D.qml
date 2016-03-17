@@ -152,7 +152,7 @@ Entity {
     }
 
     QQ2.Component.onCompleted: {
-        console.log(" X position: " + mainCamera.position.x + " Z Position: " + mainCamera.position.z );
+        //console.log(" X position: " + mainCamera.position.x + " Z Position: " + mainCamera.position.z );
     }
 
     function destroyCamera(){

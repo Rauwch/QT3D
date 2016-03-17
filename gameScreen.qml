@@ -328,7 +328,7 @@ Item {
                 }
 
                 calculateArrow();
-                console.log("The angle is: " + angleOfArrow);
+                //console.log("The angle is: " + angleOfArrow);
                 //                myLinker.height = myLinker.height + 1;
                 //                myLinker.speed = myLinker.speed + 500;
                 //                speedupdate(myLinker.speed);
@@ -447,7 +447,7 @@ Item {
                 world.generator.updateLevel();
                 calculateArrow();
                 numClicks = numClicks + 1;
-                console.log("The angle is: " + angleOfArrow);
+                //console.log("The angle is: " + angleOfArrow);
                 popupWindow.visible = calculator.checkGoals();
                 if(calculator.checkGoals())
                 {
@@ -474,7 +474,7 @@ Item {
             onClicked: {
                 //calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
                 calculator.adjustResistance(clickedRes, -calculator.getStepOfResistor(clickedRes));
-                console.log("step: " + (-calculator.getStepOfResistor(clickedRes)));
+                //console.log("step: " + (-calculator.getStepOfResistor(clickedRes)));
                 numClicks = numClicks + 1;
                 world.generator.decreaseRes();
                 calculator.solveLevel();
@@ -631,7 +631,7 @@ Item {
                 }
                 Button{
                     onClicked: {
-                        console.log("this is the text: " + myTextField.displayText);
+                        //console.log("this is the text: " + myTextField.displayText);
                         leaderLoader.item.myLevelboard.addEntry(myTextField.displayText, getStars(), numClicks );
                         leaderLoader.item.myLevelboard.writeLeaderBoard(myLevels.getCurrentLevel());
                         leaderLoader.source="";
@@ -695,10 +695,10 @@ Item {
         var Igoal = calculator.getCurrentInGoalWire();
         var Icurrent = calculator.getGoalinGoalWire();
         var angle;
-        console.log("Voor berekening Angle" + (Igoal-Icurrent)/(Igoal))
+        //console.log("Voor berekening Angle" + (Igoal-Icurrent)/(Igoal))
         angle = ((Igoal-Icurrent)/(Icurrent))*300+90
         angleOfArrow = angle;
-        console.log("DIT IS DE HOEK: " + angle)
+        //console.log("DIT IS DE HOEK: " + angle)
     }
 
     function updateAnimation(){

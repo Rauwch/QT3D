@@ -24,7 +24,7 @@ Item {
             //width: Screen.width/3
             //height: Screen.height/4
             Component.onCompleted: {
-                console.log("musicbool : " + myStartScreen.musicBool);
+               // console.log("musicbool : " + myStartScreen.musicBool);
 //                theSwitch.checked = myStartScreen.musicBool;
 //                if(backgroundMusic.playing())
 //                    theSwitch.checked = true;

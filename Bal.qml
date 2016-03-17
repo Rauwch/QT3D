@@ -37,7 +37,6 @@ Entity{
     property ObjectPicker objectPicker: ObjectPicker {
 
         onClicked: {
-            console.log("clicked on a THESOURCE");
             myGameScreen.updateTutorial();
             myGameScreen.showBox = !myGameScreen.showBox;
             myGameScreen.clickedSource = sourceNr;

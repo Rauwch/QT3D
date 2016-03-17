@@ -46,16 +46,12 @@ Entity{
         makeBends();
         if(clickable)
             createBal();
-        else
-            console.log("no clickable bal")
     }
 
     function printBends(){
-        console.log("inside printBends");
-        console.log("num Bends: " + numBends);
-        for(var i=0; i<numBends; i++){
-            console.log(" s " + bends[i].s + " l " + bends[i].l +" x " + bends[i].x +" y " + bends[i].y +" z " + bends[i].z +" a " + bends[i].a +" OA " + bends[i].orientationAngle);
-        }
+//        for(var i=0; i<numBends; i++){
+//            console.log(" s " + bends[i].s + " l " + bends[i].l +" x " + bends[i].x +" y " + bends[i].y +" z " + bends[i].z +" a " + bends[i].a +" OA " + bends[i].orientationAngle);
+//        }
     }
 
     function deleteBends(){

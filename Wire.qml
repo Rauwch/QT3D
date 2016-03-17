@@ -106,7 +106,7 @@ Entity{
 
     }
     function printeSize(){
-        console.log("this is the size of E: " + eSize)
+        //console.log("this is the size of E: " + eSize)
         electrons[0].printS();
     }
 

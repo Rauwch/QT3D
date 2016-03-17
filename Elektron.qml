@@ -35,7 +35,7 @@ Entity{
 
 
     function printS(){
-        console.log("DE GROTE VAN S:  "+ s);
+        //console.log("DE GROTE VAN S:  "+ s);
     }
 
     Mesh{
