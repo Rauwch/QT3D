@@ -59,14 +59,11 @@ Entity{
     }
 
 
-    function buildLevel(){
-
-
+    function buildLevel()
+    {
         calculator.solveLevel();
-
-        //console.log("before calculate arrow")
-        myGameScreen.calculateArrow();
-        //console.log("After calculate arrow");
+        myGameScreen.initializeJellies()
+        myGameScreen.calculateSize();
         o.sourceFactory=Qt.createComponent("Source.qml");
         o.resistorFactory=Qt.createComponent("BentResistor.qml");
         o.wireFactory=Qt.createComponent("Wire.qml");

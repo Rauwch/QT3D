@@ -22,12 +22,14 @@ Item {
     property int speedLevel
     property int numClicks: 0
     property bool playingAnimation: false
-
+    property int jellyPixelHeight
+    property int jellyPixelWidth
     property string archerSource
     property int clickedSource
     property int clickedRes
 
     property int angleOfArrow: 0
+    property var jellySize: 0
     //signal returner()
     //signal sizeupdate()
     anchors.fill: parent
@@ -35,7 +37,6 @@ Item {
 
     Component.onCompleted: {
         console.log("GameScreen wordt aangemaakt");
-        //calculateArrow();
         if(myLevels.getCurrentLevel() <= 4){
             setPopupWindowForTutorial(myLevels.getCurrentLevel());
             tutorialScreen.numberOfLevel = myLevels.getCurrentLevel();
@@ -44,7 +45,6 @@ Item {
         else{
             tutorialScreen.visible = false;
         }
-
     }
 
 
@@ -53,10 +53,6 @@ Item {
         anchors.fill: parent
         focus: true
         aspects: "input"
-
-        //        TestWorld{
-        //            id: world
-        //        }
 
         World3D{
             id: world
@@ -131,51 +127,36 @@ Item {
         id: counter
         text: "aantal kliks: " + numClicks
         anchors.right: parent.right
-        anchors.top: speedo.bottom
+        anchors.top: jellyGoal.bottom
         readOnly: true
         font.pixelSize: 30
     }
-    //    Button{
-    //        anchors.bottomMargin: 100//tutorialScreen.yVal
-    //        anchors.leftMargin: 100//tutorialScreen.xVal
-    //    }
 
     Tutorial{
         id: tutorialScreen
         anchors.left: parent.left
         anchors.bottom: parent.bottom
-
-    }
-    function updateTutorial(){
-        tutorialScreen.checkBallclicked();
     }
 
     Image{
-        id:speedo
-        source: "speedo.png"
-        anchors.right: parent.right
+        id:jellyGoal
+        source: "jellyGoal.png"
+        anchors.right: myGameScreen.right
+        anchors.rightMargin: 50
+        scale: 1
     }
+
     Image{
-        id:currentGoal
-        source: "speedGoal.png"
-        anchors.centerIn: speedo
+        id:jelly
+        source: "jelly.png"
+        anchors.right: myGameScreen.right
+
     }
-    Image{
-        id: archer
-        source: "archerG.png"
-        anchors.centerIn: speedo
-        rotation: angleOfArrow
-    }
+
     Button{
         id:rotateCamera
         anchors.top: counter.bottom
         anchors.horizontalCenter: counter.horizontalCenter
-
-
-        //        onClicked:{
-
-
-        //        }
         onPressedChanged: {
             if(playingAnimation){
                 playingAnimation=false;
@@ -184,83 +165,9 @@ Item {
             else{
                 playingAnimation=true;
                 world.changeCamera();
-
             }
         }
-
-        //world.
-        //animation.start();
-        //world.cameraAngle += Math.PI/2;
-
-
     }
-
-    //    PropertyAnimation{
-    //        id: animation
-    //        target: world
-    //        property: "cameraAngle"
-    //        from: 0
-    //        to: 5/50
-    //        duration: 10000/2
-
-    //    }
-    //        function animate(){
-    //            //        animation.start();
-    //            world.changeCamera();
-    //            //        entireAnimation.running = true;
-    //        }
-    //    ParallelAnimation{
-    //        id: entireAnimation
-    //        PropertyAnimation{
-    //            id: animation2
-    //            target: world.mainCamera
-    //            property: "viewCenter"
-    //            from: Qt.vector3d(15 , 10.0, -15)
-    //            to: Qt.vector3d(15 , 10.0, -15)
-    //            duration: 10000/4
-
-    //        }
-    //        PropertyAnimation{
-    //            id: animation3
-    //            target: world.mainCamera
-    //            property: "upVector"
-    //            from: Qt.vector3d( 0.0, 1.0, 0.0 )
-    //            to: Qt.vector3d( 0.0, 1.0, 0.0 )
-    //            duration: 10000/4
-
-    //        }
-    //        PropertyAnimation{
-    //            id: animation
-    //            target: world
-    //            property: "cameraAngle"
-    //            from: world.cameraAngle
-    //            to: world.cameraAngle+Math.PI/2
-    //            duration: 10000/4
-
-    //        }
-    //    }
-    //        PropertyAnimation{
-    //            id: animation
-    //            target: world.mainCamera
-    //            property: "position"
-    //            from: Qt.vector3d(50*Math.sin(0*Math.PI/180)+3*5,10,50*Math.cos(0*Math.PI/180)-3*5)
-
-    //            to: Qt.vector3d(50*Math.sin(180*Math.PI/180)+3*5,10,50*Math.cos(180*Math.PI/180)-3*5)
-
-    //            duration: 10000/2
-
-    //        }
-
-    //        NumberAnimation
-    //        {
-    //            id: animation
-    //            target: world
-    //            property: "cameraAngle"
-    //            from: world.cameraAngle
-    //            to: 90
-    //            duration: 1000
-    //        }
-
 
     //2d box where setting can be edited
     Column{
@@ -284,7 +191,6 @@ Item {
                 font.pointSize: 20
                 color: "black"
             }
-
             style: ButtonStyle {
                 background: Rectangle {
                     implicitWidth: 100
@@ -298,7 +204,6 @@ Item {
                     }
                 }
             }
-
             onClicked: {
                 //console.log("Voltage at the source before click: " + calculator.getVoltageAtSource(clickedSource));
                 //console.log("this is the source that is clicked: " + clickedSource);
@@ -324,28 +229,8 @@ Item {
                 if(world.generator.sources[0].heightIntensity >= 1){
                     decreaseHeight.visible = true;
                     increaseHeight.parent.anchors.bottomMargin = 0;
-
                 }
-
-                calculateArrow();
-                //console.log("The angle is: " + angleOfArrow);
-                //                myLinker.height = myLinker.height + 1;
-                //                myLinker.speed = myLinker.speed + 500;
-                //                speedupdate(myLinker.speed);
-                //                speedoMeter = speedoMeter + 45/2;
-                //                numClicks = numClicks + 1;
-                //                updateAnimation();
-                //                if((myLinker.speed - 500) <= 0){
-                //                    decreaseHeight.visible = false;
-                //                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
-
-                //                }
-                //                else{
-                //                    decreaseHeight.visible = true;
-                //                    increaseHeight.parent.anchors.bottomMargin = 0;
-
-                //                }
-
+                calculateSize();
             }
         }
 
@@ -383,7 +268,7 @@ Item {
                 world.generator.decreaseVolt();
 
                 world.generator.updateLevel();
-                calculateArrow();
+                calculateSize();
                 numClicks = numClicks + 1;
                 popupWindow.visible = calculator.checkGoals();
                 world.generator.updateGoalPoles();
@@ -445,7 +330,7 @@ Item {
                 //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
                 //world.generator.buildLevel();
                 world.generator.updateLevel();
-                calculateArrow();
+                calculateSize();
                 numClicks = numClicks + 1;
                 //console.log("The angle is: " + angleOfArrow);
                 popupWindow.visible = calculator.checkGoals();
@@ -479,7 +364,7 @@ Item {
                 world.generator.decreaseRes();
                 calculator.solveLevel();
                 world.generator.updateLevel();
-                calculateArrow();
+                calculateSize();
                 popupWindow.visible = calculator.checkGoals();
                 if(calculator.checkGoals())
                 {
@@ -691,25 +576,29 @@ Item {
 
     //this are all the functions
 
-    function calculateArrow(){
-        var Igoal = calculator.getCurrentInGoalWire();
-        var Icurrent = calculator.getGoalinGoalWire();
-        var angle;
-        //console.log("Voor berekening Angle" + (Igoal-Icurrent)/(Igoal))
-        angle = ((Igoal-Icurrent)/(Icurrent))*300+90
-        angleOfArrow = angle;
-        //console.log("DIT IS DE HOEK: " + angle)
+
+
+    function calculateSize(){
+        var Icurrent = calculator.getCurrentInGoalWire();
+        var Igoal = calculator.getGoalinGoalWire();
+        var size;
+        size = Icurrent/Igoal;
+        //jelly.scale = size;
+        console.log("Icurrent = " + Icurrent + " Igoal = " + Igoal + "   SIZe " + size);
+        jelly.height = jellyPixelHeight*size;
+        jelly.width = jellyPixelWidth * size;
+        jelly.anchors.right = undefined;
+        jelly.anchors.right = myGameScreen.right;
+        //jellyGoal.anchors.horizontalCenter = jelly.anchors.horizontalCenter;
+        //jellyGoal.anchors.horizontalCenterOffset = jelly.width/2;
+
     }
 
-    function updateAnimation(){
-        //        world.checkMatch();
-        //        archerSource = world.theArchSource;
-        //        if(world.lvlCompleted){
-        //            popupWindow.visible= true;
-        //            continueBtn.visible= (myLevels.getCurrentLevel() < myLevels.amountOfLevels);
-        //            myLevels.setAmountOfStars(numClicks);
-        //        }
+    function initializeJellies(){
+        jellyPixelHeight = jelly.paintedHeight;
+        jellyPixelWidth = jelly.paintedWidth;
     }
+
     function setPopupWindowForTutorial(tutorialLevel){
         popupWindow.setText(tutorialLevel);
     }
@@ -720,7 +609,6 @@ Item {
         {
             return true;
         }
-
         else if(leaderLoader.item.myLevelboard.getLowestEntry() > numClicks)
         {
             return true;
@@ -739,6 +627,9 @@ Item {
             return 1;
     }
 
+    function updateTutorial(){
+        tutorialScreen.checkBallclicked();
+    }
 
 
 
