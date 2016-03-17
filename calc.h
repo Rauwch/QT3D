@@ -102,6 +102,7 @@ public:
     //Methodes for reading files
     std::vector<std::shared_ptr<Wire> > process_wire_line(QString& lijn);//TODO remove return type and push_back wires in global wires var
     void process_resistor_line(QString &lijn);
+    void Calc::process_switch_line(QString &lijn);
     void process_source_line(QString &lijn);
     void process_goal_line(QString &lijn);
     void process_click_line(QString &lijn);

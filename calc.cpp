@@ -5,7 +5,7 @@
 #include <QPoint>
 #include "Eigen/Dense"
 #include <QStandardPaths>
-
+//#include <limits>
 
 using namespace Eigen;
 Calc::Calc()
