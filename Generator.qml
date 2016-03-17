@@ -63,6 +63,7 @@ Entity{
 
 
         calculator.solveLevel();
+
         //console.log("before calculate arrow")
         myGameScreen.calculateArrow();
         //console.log("After calculate arrow");
