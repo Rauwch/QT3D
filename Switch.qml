@@ -60,7 +60,7 @@ Entity{
         Transform{
             id:trans
             //translation: Qt.vector3d(0, 0.5, 0)
-            translation: Qt.vector3d(x, y,z)
+            translation: Qt.vector3d(x - length/2 , y,z)
             rotation: fromAxisAndAngle(Qt.vector3d(0, 0, 1), 90)
         }
         property Material material: DiffuseMapMaterial {

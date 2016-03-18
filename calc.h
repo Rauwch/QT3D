@@ -124,8 +124,6 @@ public:
 
 
     //switches
-
-
     Q_INVOKABLE void setCurrentsOfResistorsAndSwitches();
     Q_INVOKABLE void setCurrentsOfStrayWires();
 

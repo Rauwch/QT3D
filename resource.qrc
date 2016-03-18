@@ -8,5 +8,6 @@
         <file>assets/Leaderboards/level1.txt</file>
         <file>assets/Leaderboards/level2.txt</file>
         <file>assets/Leaderboards/level3.txt</file>
+        <file>assets/Levels/inputfile_5.sj</file>
     </qresource>
 </RCC>

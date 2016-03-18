@@ -34,8 +34,9 @@ Entity{
 
 
     QQ2.Component.onCompleted: {
-        //console.log("this is the current level: " + myLevels.getCurrentLevel() );
+        console.log("this is the current level: " + myLevels.getCurrentLevel() );
         calculator.readFile(":/assets/Levels/inputfile_" + myLevels.getCurrentLevel() + ".sj");
+        console.log("read in level");
         initializeBendsArray();
         initializeLevel();
         calculator.updateResistors();
@@ -44,8 +45,9 @@ Entity{
     }
 
     function initializeLevel(){
+        console.log("INSIDE INITIALIZE LEVEL")
         calculator.solveLevel();
-        //console.log("INSIDE INITIALIZE LEVEL")
+        console.log("INSIDE INITIALIZE LEVEL")
         for( var i =0;i < calculator.getNumberOfGoals();i++)
         {
             //console.log("amount of goals " + calculator.getNumberOfGoals());
@@ -64,8 +66,10 @@ Entity{
     function buildLevel()
     {
         calculator.solveLevel();
-        myGameScreen.initializeJellies()
+        myGameScreen.initializeJellies();
+        console.log("before calculate size");
         myGameScreen.calculateSize();
+        console.log("before factories");
         o.sourceFactory=Qt.createComponent("Source.qml");
         o.resistorFactory=Qt.createComponent("BentResistor.qml");
         o.wireFactory=Qt.createComponent("Wire.qml");
@@ -163,7 +167,7 @@ Entity{
             console.log("maxVolt: " + maxVolt);
             mySwitch = o.switchFactory.createObject(null,{"switchNr": i,
                                                         "x": calculator.getXCoordOfSwitch(i)*root.sf,
-                                                        "z": calculator.getYCoordOfSwitch(i)*root.sf,
+                                                        "z": -calculator.getYCoordOfSwitch(i)*root.sf,
                                                         "y": maxVolt,
                                                         "orientationAngle": 90*(calculator.getAngleOfSwitch(i)-1)
                                                     });

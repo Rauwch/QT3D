@@ -26,13 +26,19 @@ void Calc::solveLevel()
         nodes.push_back(r->getNode1());
         nodes.push_back(r->getNode2());
     }
+    for(auto s:switches){
+        nodes.push_back(s->getNode1());
+        nodes.push_back(s->getNode2());
+    }
 
     nodes.sort();
     nodes.unique();
     sol=computeNetwork(nodes.size());
     //functie om sources, wires en resistors opnieuw te vullen
     correctAngles();
-    setCurrentsOfResistors();
+    //setCurrentsOfResistors();
+    setCurrentsOfResistorsAndSwitches();
+    //setCurrentsOfStrayWires();
 
     for(auto w:wires){
         w->setCurrent(std::numeric_limits<float>::infinity());
@@ -62,16 +68,18 @@ void Calc::storeCurrentGoals()
 
 void Calc::readFile(QString s)
 {
-
+    qDebug()<< "begin readFile";
     //TODO Checken of een file volledig juist is
     fileName = s;
     QFile * file = new QFile(s);
     if (file->open(QIODevice::ReadOnly| QIODevice::Text))
     {
         QTextStream in(file);
+
         while (!in.atEnd())
         {
             QString line = in.readLine();
+            //qDebug()<< line;
             if (!line.isEmpty()&&!line.isNull()){
 
                 switch (line.at(0).toLower().toLatin1()) //to check first character
@@ -100,7 +108,6 @@ void Calc::readFile(QString s)
 
                         case 'w':
                             if(line.length()>2){
-
                                 auto wir=process_wire_line(line);
                                 wires.insert(std::end(wires), std::begin(wir), std::end(wir));
                             }
@@ -153,8 +160,6 @@ void Calc::readFile(QString s)
                     break;
                 }
             }
-
-
         }
         file->close();
     }
@@ -194,6 +199,8 @@ void Calc::updateResistors()
 
 std::vector<std::shared_ptr<Wire> > Calc::process_wire_line(QString &lijn)
 {
+    qDebug()<< " processing a new wire" ;
+        qDebug()<< lijn;
     std::vector<std::shared_ptr<Wire>> wir;
     lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
     lijn.replace("w","",Qt::CaseSensitivity::CaseInsensitive); //remove w
@@ -272,6 +279,7 @@ void Calc::process_switch_line(QString &lijn)
     int node1=list.at(3).toInt();
     int node2=list.at(4).toInt();
     auto sw =std::make_shared<Switch>(node1,node2,x,y,angle);
+    qDebug()<< "x: " << x <<  "  y: " << y <<  "  angle: " << angle <<  "  node1: " << node1 <<  "  node2: " << node2;
     switches.push_back(sw);
 
 }
@@ -283,7 +291,7 @@ void Calc::process_source_line(QString &lijn)
 
     lijn.replace("v","",Qt::CaseSensitivity::CaseInsensitive); //remove v
     QStringList list=lijn.split(" ",QString::SkipEmptyParts);
-    //qDebug() << list;
+    qDebug() << list;
     int x=list.at(5).toInt();
     int y=list.at(6).toInt();
     int angle=list.at(7).toInt();
