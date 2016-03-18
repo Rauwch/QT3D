@@ -62,7 +62,7 @@ Entity{
                 var m = Qt.matrix4x4()
                 m.rotate(a,(Qt.vector3d(0, 0, 1)));
                 m.scale(1);
-                return m
+                return m;
             }
             scale3D: Qt.vector3d(0.005*s,l,0.005*s)
         }

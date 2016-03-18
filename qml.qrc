@@ -33,5 +33,7 @@
         <file>ResistorBal.qml</file>
         <file>Tutorial.qml</file>
         <file>Leaderboard.qml</file>
+        <file>Switch.qml</file>
+        <file>BalSwitch.qml</file>
     </qresource>
 </RCC>

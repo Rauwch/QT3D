@@ -1,11 +1,19 @@
 #ifndef SWITCH_H
 #define SWITCH_H
+#include "resistor.h"
 
 
-class Switch
+class Switch : public Resistor
 {
 public:
-    Switch();
+    Switch(int np, int nm, int x, int y, int ang);
+    void toggleSwitch();
+    bool getUp() const;
+
+    void setUp(bool value);
+
+private:
+    bool up;
 };
 
 #endif // SWITCH_H

@@ -123,33 +123,33 @@ Entity {
         id: light
 
     }
-    Bal{
-        xVal: 5*5
-        yVal: 0
-        zVal : -1*5
-    }
-    //good
-    Bal{
-        xVal: 1*5
-        yVal: 0
-        zVal : -1*5
-    }
-    Bal{
-        xVal: 5*5
-        yVal: 0
-        zVal : -5*5
-    }
-    //good
-    Bal{
-        xVal: 1*5
-        yVal: 0
-        zVal : -5*5
-    }
-    Bal{
-        xVal: 3*5
-        yVal: 0
-        zVal : -3*5
-    }
+//    Bal{
+//        xVal: 5*5
+//        yVal: 0
+//        zVal : -1*5
+//    }
+//    //good
+//    Bal{
+//        xVal: 1*5
+//        yVal: 0
+//        zVal : -1*5
+//    }
+//    Bal{
+//        xVal: 5*5
+//        yVal: 0
+//        zVal : -5*5
+//    }
+//    //good
+//    Bal{
+//        xVal: 1*5
+//        yVal: 0
+//        zVal : -5*5
+//    }
+//    Bal{
+//        xVal: 3*5
+//        yVal: 0
+//        zVal : -3*5
+//    }
 
     QQ2.Component.onCompleted: {
         //console.log(" X position: " + mainCamera.position.x + " Z Position: " + mainCamera.position.z );
@@ -212,45 +212,5 @@ Entity {
     GroundPlane{
         id: myGroundPlane
     }
-
-
-
-
-
-
-
-
-
-
-    //    SphereMesh {
-    //        id: sphereMesh
-    //    }
-
-    //    Entity {
-    //        id: sphere1
-
-    //        property Material material: PhongMaterial {
-    //            ambient: sphere1.objectPicker1.containsMouse ? "blue" : "red"
-    //        }
-
-    //        property Transform transform: Transform {
-    //            scale: 5
-    //            translation: Qt.vector3d(0, 0, 0)
-    //        }
-
-    //        property ObjectPicker objectPicker1: ObjectPicker {
-    //            hoverEnabled: true
-
-    //            onPressed: sphere1.material.diffuse = "white"
-    //            onReleased: sphere1.material.diffuse = "red"
-
-    //            onClicked: {
-    //                console.log("Clicked Sphere 1");
-
-    //            }
-    //        }
-
-    //        components: [sphereMesh, material, transform, objectPicker1]
-    //    }
 
 }

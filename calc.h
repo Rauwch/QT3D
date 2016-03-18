@@ -5,6 +5,7 @@
 #include <QFile>
 #include "resistor.h"
 #include "source.h"
+#include "switch.h"
 #include "component.h"
 #include <QDebug>
 #include <QString>
@@ -102,7 +103,7 @@ public:
     //Methodes for reading files
     std::vector<std::shared_ptr<Wire> > process_wire_line(QString& lijn);//TODO remove return type and push_back wires in global wires var
     void process_resistor_line(QString &lijn);
-    void Calc::process_switch_line(QString &lijn);
+    void process_switch_line(QString &lijn);
     void process_source_line(QString &lijn);
     void process_goal_line(QString &lijn);
     void process_click_line(QString &lijn);
@@ -122,10 +123,22 @@ public:
     Q_INVOKABLE float getRealSin(float angle){return sin(angle/57.2958);}
 
 
+    //switches
 
+
+    Q_INVOKABLE void setCurrentsOfResistorsAndSwitches();
+    Q_INVOKABLE void setCurrentsOfStrayWires();
+
+    Q_INVOKABLE int getNumberOfSwitches(){return switches.size();}
+    Q_INVOKABLE int getAngleOfSwitch(int sw){return switches.at(sw)->getAngle();}
+    Q_INVOKABLE int getXCoordOfSwitch(int sw){return switches.at(sw)->getXCoord();}
+    Q_INVOKABLE int getYCoordOfSwitch(int sw){return switches.at(sw)->getYCoord();}
+    Q_INVOKABLE int node1AtSwitch(int sw){return switches.at(sw)->getNode1();}
+    Q_INVOKABLE int node2AtSwitch(int sw){return switches.at(sw)->getNode2();}
 
     Q_INVOKABLE int getTwoStar() const;
     Q_INVOKABLE int getThreeStar() const;
+
 
 private:
     int twoStar;
@@ -137,6 +150,7 @@ private:
     std::vector<float> sol;
     std::vector<std::shared_ptr<Source>> sources;
     std::vector<std::shared_ptr<Resistor>> resistors;
+    std::vector<std::shared_ptr<Switch>> switches;
     std::vector<std::shared_ptr<Wire>> wires;
     std::vector<std::shared_ptr<GoalVoltage>> goals;
     std::vector<std::shared_ptr<Wire>> currentGoals;

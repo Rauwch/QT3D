@@ -16,6 +16,7 @@ Entity{
     property var wires: []
     property var poles: []
     property var goals: []
+    property var switches:[]
     property var bendValues: []
 
     QQ2.QtObject{
@@ -28,6 +29,7 @@ Entity{
         property var wireFactory
         property var poleFactory
         property var goalFactory
+        property var switchFactory
     }
 
 
@@ -69,6 +71,7 @@ Entity{
         o.wireFactory=Qt.createComponent("Wire.qml");
         o.poleFactory=Qt.createComponent("Pole.qml");
         o.goalFactory= Qt.createComponent("GoalPole.qml");
+        o.switchFactory= Qt.createComponent("Switch.qml");
 
 
         //create goals
@@ -147,6 +150,27 @@ Entity{
 
 
             //console.log("Current trough resistor: ", i ,calculator.getCurrentofResistor(i));
+
+        }
+        // create switches
+        for(i = 0; i < calculator.getNumberOfSwitches(); i++)
+        {
+            console.log("building a switch");
+            maxVolt = Math.max(calculator.voltageAtNode(calculator.node1AtSwitch(i)),calculator.voltageAtNode(calculator.node2AtSwitch(i)));
+            var mySwitch;
+
+            console.log("switch x: " + calculator.getXCoordOfSwitch(i) + " y: " + calculator.getYCoordOfSwitch(i))
+            console.log("maxVolt: " + maxVolt);
+            mySwitch = o.switchFactory.createObject(null,{"switchNr": i,
+                                                        "x": calculator.getXCoordOfSwitch(i)*root.sf,
+                                                        "z": calculator.getYCoordOfSwitch(i)*root.sf,
+                                                        "y": maxVolt,
+                                                        "orientationAngle": 90*(calculator.getAngleOfSwitch(i)-1)
+                                                    });
+            //console.log("after creating a switch");
+            //mySwitch.createBal();
+            mySwitch.parent=root.parent;
+            root.switches[i]=mySwitch;
 
         }
         //console.log("After build resistors");
@@ -235,6 +259,8 @@ Entity{
             goalPole.parent=root.parent;
             root.goals[i]=goalPole;
         }
+
+
     }
     function updateGoalPoles(){
         for(var i = 0; i<goals.length; i++){

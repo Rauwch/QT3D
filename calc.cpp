@@ -82,9 +82,13 @@ void Calc::readFile(QString s)
                         switch(line.at(1).toLower().toLatin1()){
 
                         case's':
-                            for (int i=2;i<line.length();i++){
-                                if(line.at(i).toLower().toLatin1()=='j'){ //TODO check if index is too big necessary?
-                                    //qDebug()<<"start of file, found correct sj start";
+                            if(line.at(2).toLower().toLatin1()=='w' && line.length()>4)
+                                process_switch_line(line);
+                            else{
+                                for (int i=2;i<line.length();i++){
+                                    if(line.at(i).toLower().toLatin1()=='j'){ //TODO check if index is too big necessary?
+                                        qDebug()<<"start of file, found correct sj start";
+                                    }
                                 }
                             }
                             break;
@@ -253,6 +257,22 @@ void Calc::process_resistor_line(QString &lijn)
     float v=list.at(3).toFloat();
     auto r =std::make_shared<Resistor>(v,node1,node2,x,y,angle,variable,initial,step);
     resistors.push_back(r);
+
+}
+
+void Calc::process_switch_line(QString &lijn)
+{
+    lijn.replace("*sw","",Qt::CaseSensitivity::CaseInsensitive); //remove *sw
+    QStringList list=lijn.split(" ",QString::SkipEmptyParts);
+
+    qDebug()<< " adding a switch";
+    int x=list.at(1).toInt();
+    int y=list.at(2).toInt();
+    int angle=list.at(0).toInt();
+    int node1=list.at(3).toInt();
+    int node2=list.at(4).toInt();
+    auto sw =std::make_shared<Switch>(node1,node2,x,y,angle);
+    switches.push_back(sw);
 
 }
 
@@ -616,6 +636,20 @@ void Calc::setCurrentsOfResistors()
 
 }
 
+void Calc::setCurrentsOfResistorsAndSwitches()
+{
+    for(auto r : resistors){
+        r->setCurrent(std::abs(voltageAtNode(r->getNode1())-voltageAtNode(r->getNode2()))/r->getValue());
+    }
+    for(auto sw : switches){
+        if(!sw->getUp())
+            sw->setCurrent(std::abs(voltageAtNode(sw->getNode1())-voltageAtNode(sw->getNode2()))/sw->getValue());
+        else
+            sw->setCurrent(0);
+    }
+
+}
+
 void Calc::setCurrentsOfWires()
 {
 
@@ -880,7 +914,80 @@ void Calc::setCurrentsOfWires()
 
 }
 
+void Calc::setCurrentsOfStrayWires(){
 
+    //TODO testen of nog altijd juist
+
+    //Zolang er er nog een weerstand met oneindigestromen is, in while blijven
+    bool inf = true;
+    while(inf){
+
+        inf = false;
+
+        //Check alle draden waar nog geen stroom aan toegekend is
+        for(auto w:wires){
+            if(std::isinf(w->getCurrent())){
+                QPoint pos(w->getXCoord(),w->getYCoord());
+                float curr = 0;
+
+                //Tel de stromen op van alle andere verbonde draden
+                for (auto wire:wires){
+                    if(wire!=w){
+                        int xp = wire->getXCoord();
+                        int yp = wire->getYCoord();
+                        int l = wire->getLength();
+                        switch (wire->getAngle()) {
+
+                        case 1:
+                            if(pos==QPoint(xp,yp) ){
+                                curr += wire->getCurrent();
+                            }
+                            else if(pos == QPoint(xp+l,yp)){
+                                curr -= wire->getCurrent();
+                            }
+
+                            break;
+                        case 2:
+                            if(pos==QPoint(xp,yp)){
+                                curr += wire->getCurrent();
+                            }
+                            else if ( pos== QPoint(xp,yp+l)){
+                                curr -= wire->getCurrent();
+                            }
+
+                            break;
+                        case 3:
+                            if(pos==QPoint(xp,yp)){
+                                curr += wire->getCurrent();
+                            }
+                            else if ( pos== QPoint(xp-l,yp)){
+                                curr -= wire->getCurrent();
+                            }
+
+
+                            break;
+                        case 4:
+                            if(pos==QPoint(xp,yp)){
+                                curr += wire->getCurrent();
+                            }
+                            else if ( pos== QPoint(xp,yp-l)){
+                                curr -= wire->getCurrent();
+                            }
+
+                            break;
+                        default:
+                            break;
+                        }
+                    }
+                }
+
+                w->setCurrent(-curr);
+                if(std::isinf(w->getCurrent()))
+                    inf=true; //Blijf in lus
+            }
+        }
+    }
+}
 
 
 std::vector<float> Calc::computeNetwork(int  nrOfNodes)
@@ -908,7 +1015,7 @@ std::vector<float> Calc::computeNetwork(int  nrOfNodes)
     e<<MatrixXf::Zero(m,1);
     //Fill matrix for G
 
-    // TODO make list of nodes and loop trough
+    //Resistors
     for(auto res:resistors){
 
         for (int i=1;i<=nrOfNodes;i++){
@@ -919,6 +1026,20 @@ std::vector<float> Calc::computeNetwork(int  nrOfNodes)
         if(res->getNode1()!=0&&res->getNode2()!=0){
             g(res->getNode1()-1,res->getNode2()-1)+= (-1/res->getValue());
             g(res->getNode2()-1,res->getNode1()-1)+= (-1/res->getValue());
+        }
+
+    }
+    //Switches
+    for(auto sw:switches){
+
+        for (int i=1;i<=nrOfNodes;i++){
+            if(sw->getNode1()==i||sw->getNode2()==i){
+                g(i-1,i-1)+=(1/(sw->getValue()));
+            }
+        }
+        if(sw->getNode1()!=0&&sw->getNode2()!=0){
+            g(sw->getNode1()-1,sw->getNode2()-1)+= (-1/sw->getValue());
+            g(sw->getNode2()-1,sw->getNode1()-1)+= (-1/sw->getValue());
         }
 
     }
@@ -977,12 +1098,7 @@ std::vector<float> Calc::computeNetwork(int  nrOfNodes)
         sources.at(i)->setCurrent(x(i+nrOfNodes));
     }
 
-
     return solu;
-
-
-
-
 }
 
 
