@@ -111,14 +111,14 @@ Rectangle{
         switch(stage){
         case(0):
             stage++;
-            instructionWindow.anchors.bottomMargin = Screen.height*4/5;
+            instructionWindow.anchors.bottomMargin = (Screen.height*9/10 - instructionWindow.height/2);
             instructionWindow.anchors.leftMargin = Screen.width/2 - instructionWindow.width/2;
             instructionText.text = "<h3>STAP 1/3</h3><br></br>Deze <b>paarse paal</b> toont het <b>doel</b> van het spel aan.<br></br>De kwallen hebben jouw hulp nodig om op deze hoogte te kunnen zwemmen.";
             break;
         case(1):
             stage++;
             instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
-            instructionWindow.anchors.leftMargin = 100;
+            instructionWindow.anchors.rightMargin = Screen.width/6 - instructionWindow.width/2;
             instructionText.text = "<h3>STAP 2/3</h3><br></br>De <b>grijze paal</b> is de <b>kwallenlift</b>.<br></br><u>Klik op de bol</u> om de hoogte te veranderen";
             buttonNext.visible = false;
 
