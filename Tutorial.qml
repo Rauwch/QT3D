@@ -23,10 +23,18 @@ Rectangle{
     }
     Rectangle{
         id:instructionWindow
-        color:"white"
-        width: Screen.width/3
-        height: instructionText.height + buttonNext.height + 30
+        color: "#FFFFFF"
+        width: instructionText.paintedWidth + 50
+        height: instructionText.paintedHeight + buttonNext.height + 50
+
+        border.width: 4
+        border.color: "black"
+        radius: 10
         visible: {stage <= numStages}
+        gradient: Gradient {
+            GradientStop { position: 0 ; color: "#D3D3D3" }
+            GradientStop { position: 1 ; color: "#FFFFFF" }
+        }
 
         Component.onCompleted: {
             myGameScreen.setPopupWindowForTutorial(numberOfLevel);
@@ -34,12 +42,12 @@ Rectangle{
         }
         Text{
             id:instructionText
-            width: parent.width
-            wrapMode: Text.WordWrap
-            anchors.leftMargin: 3
+            //anchors.leftMargin: 3
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: 20
+            font.family: "Helvetica"
+            font.pointSize: 15
         }
         Button{
             id:buttonNext
@@ -47,7 +55,22 @@ Rectangle{
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: instructionText.bottom
             anchors.topMargin: 5
-            text:"Volgende"
+            style: ButtonStyle {
+                label: Text {
+                    text:"Volgende"
+                    font.family: "Helvetica"
+                    font.pointSize: 15
+                }
+                background: Rectangle {
+                    border.width: 2
+                    border.color: "black"
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: "#D3D3D3" }
+                        GradientStop { position: 1 ; color: "#FFFFFF" }
+                    }
+                }
+            }
             onClicked: {
                 updateInstructions();
             }

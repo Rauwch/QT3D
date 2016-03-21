@@ -106,18 +106,18 @@ Entity {
         }
     }
 
-    Camera {
-        id: mainCamera2
-        projectionType: CameraLens.PerspectiveProjection
-        fieldOfView: 45
-        aspectRatio: 16 / 9
-        viewCenter: Qt.vector3d(15 , 10.0, -15)
-        upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
-        //            nearPlane : 0.1
-        //            farPlane : 1000.0
-        position: Qt.vector3d(zoomlevel*Math.sin(cameraAngle+Math.PI)+x, zoomlevel, -zoomlevel*Math.cos(cameraAngle+Math.PI)-z)
+//    Camera {
+//        id: mainCamera2
+//        projectionType: CameraLens.PerspectiveProjection
+//        fieldOfView: 45
+//        aspectRatio: 16 / 9
+//        viewCenter: Qt.vector3d(15 , 10.0, -15)
+//        upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
+//        //            nearPlane : 0.1
+//        //            farPlane : 1000.0
+//        position: Qt.vector3d(zoomlevel*Math.sin(cameraAngle+Math.PI)+x, zoomlevel, -zoomlevel*Math.cos(cameraAngle+Math.PI)-z)
 
-    }
+//    }
 
     Light{
         id: light
@@ -184,9 +184,11 @@ Entity {
 
 
 
-    Configuration {
-        controlledCamera: mainCamera
-    }
+
+//    Configuration {
+//        id: camConfig
+//        controlledCamera: mainCamera
+//    }
 
     components: FrameGraph {
         ForwardRenderer {
@@ -209,9 +211,9 @@ Entity {
         cameraPosition: mainCamera.position
     }
 
-//    GroundPlane{
-//        id: myGroundPlane
+    GroundPlane{
+        id: myGroundPlane
 
-//    }
+    }
 
 }
