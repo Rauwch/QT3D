@@ -69,6 +69,10 @@ Item {
 
     Row{
         anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 10
+        anchors.topMargin: 10
+        spacing: 10
         Button{
 
             id: returnButton
@@ -110,19 +114,25 @@ Item {
             id: retryButton
             width: Screen.width/15
             height: width
-            text:"Retry"
             style: ButtonStyle {
                 background: Rectangle {
-                    implicitWidth: 100
-                    implicitHeight: 25
-                    border.width: control.activeFocus ? 2 : 1
-                    border.color: "#888"
+                    //implicitWidth: 100
+                    //implicitHeight: 25
+                    border.width: 2
+                    border.color: "black"
                     radius: width*0.5
                     gradient: Gradient {
-                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        GradientStop { position: 0 ; color: Qt.rgba(243/255,103/255,170/255,1) }
+                        GradientStop { position: 1 ; color: Qt.rgba(255/255,177/255,214/255,1) }
                     }
                 }
+            }
+
+            Image{
+                source: "retry.png"
+                height: parent.height/2
+                width: parent.width/2
+                anchors.centerIn: parent
             }
             onClicked: {
                 //soundEffects.source = "Bubbles.wav";
@@ -166,23 +176,32 @@ Item {
 
     Button{
         id:rotateCamera
-        anchors.top: counter.bottom
-        anchors.horizontalCenter: counter.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 10
+        anchors.right: parent.right
+        anchors.rightMargin: 10
         width: Screen.width/15
         height: Screen.height/15
-        text:"Rotate Camera"
         style: ButtonStyle {
             background: Rectangle {
+                //implicitWidth: 100
+                //implicitHeight: 25
                 border.width: 2
-                border.color: "#063e79"
-                radius: 10
+                border.color: "black"
+                radius: 5
                 gradient: Gradient {
-                    GradientStop { position: 0 ; color: "#2589f4" }
-                    GradientStop { position: 1 ; color: "#0b6fda" }
+                    GradientStop { position: 0 ; color: Qt.rgba(243/255,103/255,170/255,1) }
+                    GradientStop { position: 1 ; color: Qt.rgba(255/255,177/255,214/255,1) }
                 }
             }
-
         }
+        Image{
+            source: "rotateCamera.png"
+            height: parent.height*2/3
+            width: parent.width*2/3
+            anchors.centerIn: parent
+        }
+
         onPressedChanged: {
             if(playingAnimation){
                 playingAnimation=false;

@@ -24,5 +24,9 @@
         <file>jelly.png</file>
         <file>jellyGoal.png</file>
         <file>backArrow.png</file>
+        <file>t0115_0.png</file>
+        <file>Switch.jpg</file>
+        <file>retry.png</file>
+        <file>rotateCamera.png</file>
     </qresource>
 </RCC>

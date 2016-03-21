@@ -131,7 +131,7 @@ Entity{
         }
             property Material material: DiffuseMapMaterial {
                 id: theMaterial
-                diffuse: "poleTexture.png"
+                diffuse: "Switch.jpg"
                 ambient: Qt.rgba( 1, 1, 1, 1.0 )
                 specular: Qt.rgba( 1, 1, 1, 1.0 )
                 shininess: 0

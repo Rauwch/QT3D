@@ -20,45 +20,45 @@ Entity{
     property real orientationAngle: 0 //Hoek volgens y as, bepaald door plaatsing weerstand
 
 
-    QQ2.Behavior on s{
-        QQ2.NumberAnimation{
-            duration: 1000
-            easing.type: "InOutQuad"
-        }
-    }
+//    QQ2.Behavior on s{
+//        QQ2.NumberAnimation{
+//            duration: 1000
+//            easing.type: "InOutQuad"
+//        }
+//    }
 
-    QQ2.Behavior on a{
-        QQ2.NumberAnimation{
-            duration: 1000
-            easing.type: "InOutQuad"
-        }
-    }
-    QQ2.Behavior on l{
-        QQ2.NumberAnimation{
-            duration: 1000
-            easing.type: "InOutQuad"
-        }
-    }
+//    QQ2.Behavior on a{
+//        QQ2.NumberAnimation{
+//            duration: 1000
+//            easing.type: "InOutQuad"
+//        }
+//    }
+//    QQ2.Behavior on l{
+//        QQ2.NumberAnimation{
+//            duration: 1000
+//            easing.type: "InOutQuad"
+//        }
+//    }
 
-    QQ2.Behavior on y{
-        QQ2.NumberAnimation{
-            duration: 1000
-            easing.type: "InOutQuad"
-        }
-    }
+//    QQ2.Behavior on y{
+//        QQ2.NumberAnimation{
+//            duration: 1000
+//            easing.type: "InOutQuad"
+//        }
+//    }
 
-    QQ2.Behavior on x{
-        QQ2.NumberAnimation{
-            duration: 1000
-            easing.type: "InOutQuad"
-        }
-    }
-    QQ2.Behavior on z{
-        QQ2.NumberAnimation{
-            duration: 1000
-            easing.type: "InOutQuad"
-        }
-    }
+//    QQ2.Behavior on x{
+//        QQ2.NumberAnimation{
+//            duration: 1000
+//            easing.type: "InOutQuad"
+//        }
+//    }
+//    QQ2.Behavior on z{
+//        QQ2.NumberAnimation{
+//            duration: 1000
+//            easing.type: "InOutQuad"
+//        }
+//    }
 
     components: [finmesh,fintrans]//,objectPicker]
 
