@@ -24,8 +24,8 @@ Rectangle{
     Rectangle{
         id:instructionWindow
         color: "#FFFFFF"
-        width: instructionText.paintedWidth + 50
-        height: instructionText.paintedHeight + buttonNext.height + 50
+        width: (instructionText.paintedWidth + 40)
+        height: (instructionText.paintedHeight + buttonNext.height + 30)
 
         border.width: 4
         border.color: "black"
@@ -47,7 +47,7 @@ Rectangle{
             anchors.top: parent.top
             anchors.topMargin: 20
             font.family: "Helvetica"
-            font.pointSize: 15
+            font.pointSize: 12
         }
         Button{
             id:buttonNext
@@ -80,10 +80,11 @@ Rectangle{
     function setInstructionText(){
         switch(numberOfLevel){
         case(1):
-            instructionWindow.anchors.left = screenWindow.left;
-            instructionWindow.anchors.bottom = screenWindow.bottom;
-            instructionWindow.anchors.leftMargin = (Screen.width/2 - instructionWindow.width/2);
-            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
+            instructionWindow.anchors.centerIn = screenWindow;
+//            instructionWindow.anchors.left = screenWindow.left;
+//            instructionWindow.anchors.bottom = screenWindow.bottom;
+//            instructionWindow.anchors.leftMargin = (Screen.width/2- instructionWindow.width/2);
+//            instructionWindow.anchors.bottomMargin = (Screen.height/2 -(instructionText.paintedWidth + 50)/2);
             instructionText.text = "Welcome to the first tutorial!";
             break;
         case(2):
@@ -129,13 +130,22 @@ Rectangle{
             break;
         }
     }
-    function updateInstructionsLvlOne(){
+    function unAnchors(){
+        instructionWindow.anchors.centerIn = undefined;
+        instructionWindow.anchors.left = undefined;
+        instructionWindow.anchors.top = undefined;
+        instructionWindow.anchors.bottom = undefined;
+        instructionWindow.anchors.right = undefined;
+    }
 
+    function updateInstructionsLvlOne(){
         switch(stage){
         case(0):
             stage++;
-            instructionWindow.anchors.bottomMargin = (Screen.height*9/10 - instructionWindow.height/2);
-            instructionWindow.anchors.leftMargin = Screen.width/2 - instructionWindow.width/2;
+            unAnchors();
+            instructionWindow.anchors.horizontalCenter = screenWindow.horizontalCenter;
+            instructionWindow.anchors.top = screenWindow.top;
+            instructionWindow.anchors.topMargin = Screen.height/20
             instructionText.text = "<h3>STAP 1/3</h3><br></br>Deze <b>paarse paal</b> toont het <b>doel</b> van het spel aan.<br></br>De kwallen hebben jouw hulp nodig om op deze hoogte te kunnen zwemmen.";
             break;
         case(1):
