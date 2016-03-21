@@ -199,8 +199,8 @@ void Calc::updateResistors()
 
 std::vector<std::shared_ptr<Wire> > Calc::process_wire_line(QString &lijn)
 {
-    qDebug()<< " processing a new wire" ;
-        qDebug()<< lijn;
+    //qDebug()<< " processing a new wire" ;
+        //qDebug()<< lijn;
     std::vector<std::shared_ptr<Wire>> wir;
     lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
     lijn.replace("w","",Qt::CaseSensitivity::CaseInsensitive); //remove w

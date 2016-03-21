@@ -49,6 +49,13 @@ Entity{
             return 0.02;
         }
     }
+    QQ2.Behavior on y{
+        QQ2.NumberAnimation{
+            duration: 1000
+            easing.type: "InOutQuad"
+        }
+    }
+
 
     Entity{
         id:finmesh

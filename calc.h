@@ -123,16 +123,18 @@ public:
     Q_INVOKABLE float getRealSin(float angle){return sin(angle/57.2958);}
 
 
-    //switches
+
     Q_INVOKABLE void setCurrentsOfResistorsAndSwitches();
     Q_INVOKABLE void setCurrentsOfStrayWires();
 
+    //switches
     Q_INVOKABLE int getNumberOfSwitches(){return switches.size();}
     Q_INVOKABLE int getAngleOfSwitch(int sw){return switches.at(sw)->getAngle();}
     Q_INVOKABLE int getXCoordOfSwitch(int sw){return switches.at(sw)->getXCoord();}
     Q_INVOKABLE int getYCoordOfSwitch(int sw){return switches.at(sw)->getYCoord();}
     Q_INVOKABLE int node1AtSwitch(int sw){return switches.at(sw)->getNode1();}
     Q_INVOKABLE int node2AtSwitch(int sw){return switches.at(sw)->getNode2();}
+    Q_INVOKABLE void toggleSwitch(int sw){ switches.at(sw)->toggleSwitch();}
 
     Q_INVOKABLE int getTwoStar() const;
     Q_INVOKABLE int getThreeStar() const;

@@ -161,6 +161,7 @@ Entity{
         {
             console.log("building a switch");
             maxVolt = Math.max(calculator.voltageAtNode(calculator.node1AtSwitch(i)),calculator.voltageAtNode(calculator.node2AtSwitch(i)));
+            minVolt = Math.min(calculator.voltageAtNode(calculator.node1AtSwitch(i)),calculator.voltageAtNode(calculator.node2AtSwitch(i)));
             var mySwitch;
 
             console.log("switch x: " + calculator.getXCoordOfSwitch(i) + " y: " + calculator.getYCoordOfSwitch(i))
@@ -168,7 +169,8 @@ Entity{
             mySwitch = o.switchFactory.createObject(null,{"switchNr": i,
                                                         "x": calculator.getXCoordOfSwitch(i)*root.sf,
                                                         "z": -calculator.getYCoordOfSwitch(i)*root.sf,
-                                                        "y": maxVolt,
+                                                        "yMax": maxVolt,
+                                                        "yMin": minVolt,
                                                         "orientationAngle": 90*(calculator.getAngleOfSwitch(i)-1)
                                                     });
             //console.log("after creating a switch");
@@ -307,16 +309,18 @@ Entity{
 
     }
 
+
     //update level function
     function updateLevel(){
         //console.log("inside update level");
         //console.log("grote van sources: " + sources.length);
         for( var i= 0; i <sources.length; i++)
         {
+
             sources[i].s = calculator.getVoltageAtSource(i);
             sources[i].y = calculator.voltageAtNode(calculator.nodeMAtSource(i));
             sources[i].eSize = calculator.getCurrentofWire(i)
-            sources[i].updateBal();;
+            //sources[i].updateBal();
         }
 
         for( i= 0; i <resistors.length; i++)
@@ -341,7 +345,7 @@ Entity{
             resistors[i].y = minVolt;
             resistors[i].updateBends();
             resistors[i].printBends();
-            resistors[i].deleteBends();
+            //resistors[i].deleteBends();
 
 
         }
@@ -364,6 +368,17 @@ Entity{
         {
             poles[i].y = calculator.voltageAtNode(poles[i].nodeOfWire);
         }
+
+        for( i = 0; i < switches.length; i++)
+        {
+            maxVolt = Math.max(calculator.voltageAtNode(calculator.node1AtSwitch(i)),calculator.voltageAtNode(calculator.node2AtSwitch(i)));
+            minVolt = Math.min(calculator.voltageAtNode(calculator.node1AtSwitch(i)),calculator.voltageAtNode(calculator.node2AtSwitch(i)));
+
+            switches[i].yMax =maxVolt;
+            switches[i].yMin =minVolt;
+        }
+
+
 
 
 

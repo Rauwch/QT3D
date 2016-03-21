@@ -13,10 +13,16 @@ Entity{
     property real y: 0
     property real z: 0
     property bool clickable: false
-    property var clickableBal
+    //property var clickableBal
     property var eSize: 7
     property real heightIntensity: 2
 
+    QQ2.Behavior on s{
+        QQ2.NumberAnimation{
+            duration: 1000
+            easing.type: "InOutQuad"
+        }
+    }
 
     QQ2.QtObject{
 
@@ -26,9 +32,11 @@ Entity{
         property var balFactory
     }
 
+
+
     QQ2.Component.onCompleted: {
-        if(clickable)
-            createBal();
+        if(!clickable)
+            clickableBal.destroy();
     }
     //    Entity{
     //        components: [objectPicker,clickableBal]
@@ -42,29 +50,32 @@ Entity{
     //        }
     //    }
 
-    function updateBal(){
-        if(clickable){
-            clickableBal.yVal = source.y + source.s;
-        }
+
+    Bal{
+        id: clickableBal
+        xVal: x
+        yVal: y + s;
+        zVal: z
+        sourceNr: source.sourceNr
+
     }
 
-    function createBal() {
+    //    function createBal() {
 
-        o.balFactory = Qt.createComponent("Bal.qml");
-        source.clickableBal = o.balFactory.createObject(source,{"xVal": source.x,"yVal":  source.y + (source.s), "zVal": source.z, "sourceNr": source.sourceNr});
+    //        o.balFactory = Qt.createComponent("Bal.qml");
+    //        source.clickableBal = o.balFactory.createObject(source,{"xVal": source.x,"yVal":  source.y + (source.s), "zVal": source.z, "sourceNr": source.sourceNr});
 
-        if (o.balFactory === null) {
-            // Error Handling
-            console.log("Error creating object");
-        }
-    }
+    //        if (o.balFactory === null) {
+    //            // Error Handling
+    //            console.log("Error creating object");
+    //        }
+    //    }
 
 
     Entity{
         components: [somesh,sotrans]
 
         Entity{
-            //            //Basismodel bron
             id:somesh
             components: [cmesh,trans,material]
 
@@ -93,14 +104,6 @@ Entity{
                 specular: Qt.rgba( 1, 1, 1, 1.0 )
                 shininess: 0
             }
-
-            //            PhongMaterial {
-            //                id:mat
-            //                diffuse: "red"
-            //                ambient: "red"
-            //                specular: "blue"
-            //                shininess: 0.2
-            //            }
         }
 
         Transform{
@@ -109,9 +112,9 @@ Entity{
             scale3D : Qt.vector3d(1, (1*s) , 1)
 
         }
-
-
     }
+
+
 }
 
 

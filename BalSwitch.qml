@@ -16,7 +16,7 @@ Entity{
     components: [mesh,bolTrans,objectPicker,material]
     SphereMesh{
         id:mesh
-        radius: 1.75
+        radius: 1.5
     }
 
     //do we use this still?
@@ -41,10 +41,7 @@ Entity{
     property ObjectPicker objectPicker: ObjectPicker {
 
         onClicked: {
-//            myGameScreen.updateTutorial();
-//            myGameScreen.showBox = !myGameScreen.showBox;
-//            myGameScreen.clickedSource = sourceNr;
-//            myGameScreen.showRes = false;
+            myGameScreen.toggleSwitch(switchNr);
         }
     }
 

@@ -209,8 +209,9 @@ Entity {
         cameraPosition: mainCamera.position
     }
 
-    GroundPlane{
-        id: myGroundPlane
-    }
+//    GroundPlane{
+//        id: myGroundPlane
+
+//    }
 
 }

@@ -17,6 +17,12 @@ Entity{
 
     property int nodeOfWire: 0
 
+    QQ2.Behavior on y{
+        QQ2.NumberAnimation{
+            duration: 1000
+            easing.type: "InOutQuad"
+        }
+    }
 
     components: [somesh,sotrans]
     QQ2.Component.onCompleted: {
@@ -47,6 +53,7 @@ Entity{
             shininess: 0
         }
     }
+
 
     Transform{
         id:sotrans

@@ -31,6 +31,8 @@ Entity{
     property bool clickable: false
     property var resistorNr
 
+
+
     Calculator{
         id: localCalc
     }
@@ -50,7 +52,7 @@ Entity{
 
     function printBends(){
 //        for(var i=0; i<numBends; i++){
-//            console.log(" s " + bends[i].s + " l " + bends[i].l +" x " + bends[i].x +" y " + bends[i].y +" z " + bends[i].z +" a " + bends[i].a +" OA " + bends[i].orientationAngle);
+//            console.log("i " + i +" s " + bends[i].s + " l " + bends[i].l +" x " + bends[i].x +" y " + bends[i].y +" z " + bends[i].z +" a " + bends[i].a +" OA " + bends[i].orientationAngle);
 //        }
     }
 
@@ -63,11 +65,13 @@ Entity{
     function updateBends(){
         for(var i=0; i<numBends; i++){
             if(i%2 == 0){
+                console.log("updatgin even resistor" + i);
                 bends[i].a = ((theBentResistor.a)+localVar);
                 bends[i].y = theBentResistor.y + (localCalc.calcSin(theBentResistor.l,theBentResistor.a-90)*(i/numBends));
                 bends[i].z = (theBentResistor.z + (-(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(theBentResistor.l,theBentResistor.a-90)*(i/numBends))));
             }
             else{
+                console.log("updating uneven resistor" + i);
                 bends[i].a = ((theBentResistor.a)-localVar);
                 bends[i].y = theBentResistor.bends[i-1].y + localCalc.calcSin(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90);
                 bends[i].z = (theBentResistor.bends[i-1].z + (-(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90))));
@@ -91,7 +95,7 @@ Entity{
                                                       "a":(theBentResistor.a+localVar),
                                                       "orientationAngle":theBentResistor.orientationAngle});
             }
-            else{
+            else {
                 bend = o.bendFactory.createObject(null,{"s": theBentResistor.s,
                                                       "l":localCalc.calcLength(theBentResistor.l/numBends,localVar),
                                                       "x":theBentResistor.x,

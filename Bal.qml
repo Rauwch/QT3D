@@ -26,6 +26,7 @@ Entity{
         objectPicker.clicked.connect(hasbeenclicked);
     }
 
+
     Transform{
         id:bolTrans
         translation: Qt.vector3d(xVal,yVal,zVal)

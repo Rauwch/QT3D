@@ -14,13 +14,54 @@ Entity{
     property real y: 0
     property real z: 0
 
+
     //Variable voor hoek.
     property real a: 90 //Hoek volgens z as,bepaald door spanning over weerstand
     property real orientationAngle: 0 //Hoek volgens y as, bepaald door plaatsing weerstand
 
-        components: [finmesh,fintrans]//,objectPicker]
 
-//    components: [tilted1]
+    QQ2.Behavior on s{
+        QQ2.NumberAnimation{
+            duration: 1000
+            easing.type: "InOutQuad"
+        }
+    }
+
+    QQ2.Behavior on a{
+        QQ2.NumberAnimation{
+            duration: 1000
+            easing.type: "InOutQuad"
+        }
+    }
+    QQ2.Behavior on l{
+        QQ2.NumberAnimation{
+            duration: 1000
+            easing.type: "InOutQuad"
+        }
+    }
+
+    QQ2.Behavior on y{
+        QQ2.NumberAnimation{
+            duration: 1000
+            easing.type: "InOutQuad"
+        }
+    }
+
+    QQ2.Behavior on x{
+        QQ2.NumberAnimation{
+            duration: 1000
+            easing.type: "InOutQuad"
+        }
+    }
+    QQ2.Behavior on z{
+        QQ2.NumberAnimation{
+            duration: 1000
+            easing.type: "InOutQuad"
+        }
+    }
+
+    components: [finmesh,fintrans]//,objectPicker]
+
 
     Entity{
         //Weerstand met juiste waardes, zonder plaatsing
@@ -67,36 +108,36 @@ Entity{
             scale3D: Qt.vector3d(0.005*s,l,0.005*s)
         }
     }
-//    Entity{
-//        id:tilted1
-//        components: [finmesh,fintrans]
-//    }
-//    Entity{
-//        id:tilted2
-//        components: [finmesh,fintrans2]
-//    }
+    //    Entity{
+    //        id:tilted1
+    //        components: [finmesh,fintrans]
+    //    }
+    //    Entity{
+    //        id:tilted2
+    //        components: [finmesh,fintrans2]
+    //    }
 
     Transform{
         id:fintrans
         rotation: fromAxisAndAngle(Qt.vector3d(0,1,0),orientationAngle)
         translation: (Qt.vector3d(x, y, z))
     }
-//    Transform{
-//        id:fintrans
-//        rotation: fromAxisAndAngle(Qt.vector3d(0,1,0),orientationAngle-45)
-//        translation: (Qt.vector3d(x, y, z))
-//    }
+    //    Transform{
+    //        id:fintrans
+    //        rotation: fromAxisAndAngle(Qt.vector3d(0,1,0),orientationAngle-45)
+    //        translation: (Qt.vector3d(x, y, z))
+    //    }
 
 
-//    property ObjectPicker objectPicker: ObjectPicker {
-//        hoverEnabled: true;
-//        onEntered: console.log("hover")
-//        onExited: console.log("exit hover")
-//        onClicked: {
-//            console.log("clicked on a resistor");
-//            myGameScreen.showBox = !myGameScreen.showBox;
-//        }
-//    }
+    //    property ObjectPicker objectPicker: ObjectPicker {
+    //        hoverEnabled: true;
+    //        onEntered: console.log("hover")
+    //        onExited: console.log("exit hover")
+    //        onClicked: {
+    //            console.log("clicked on a resistor");
+    //            myGameScreen.showBox = !myGameScreen.showBox;
+    //        }
+    //    }
 
 }
 

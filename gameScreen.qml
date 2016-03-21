@@ -48,8 +48,8 @@ Item {
         }
     }
 
-    Calculator{
-        id: calculator
+    property Calculator calculator: Calculator{
+
     }
 
     Scene3D{
@@ -600,7 +600,13 @@ Item {
 
     //this are all the functions
 
+    function toggleSwitch(switchNr)
+    {
+        calculator.toggleSwitch(switchNr);
+        calculator.solveLevel();
+        world.generator.updateLevel()
 
+    }
 
     function calculateSize(){
         var Icurrent = calculator.getCurrentInGoalWire();

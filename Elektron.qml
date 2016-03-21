@@ -33,7 +33,12 @@ Entity{
 
     components: [electronMesh,trans,theMaterial]
 
-
+    QQ2.Behavior on s{
+        QQ2.NumberAnimation{
+            duration: 1000
+            easing.type: "InOutQuad"
+        }
+    }
 
     function printS(){
         //console.log("DE GROTE VAN S:  "+ s);

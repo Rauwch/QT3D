@@ -8,8 +8,8 @@ class Switch : public Resistor
 public:
     Switch(int np, int nm, int x, int y, int ang);
     void toggleSwitch();
-    bool getUp() const;
 
+    bool getUp() const;
     void setUp(bool value);
 
 private:
