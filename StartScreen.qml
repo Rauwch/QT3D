@@ -166,7 +166,7 @@ Item {
 
             Button{
                 id:stopButton
-                text:"Quit Game"
+                text:"Quit"
                 width: buttonWidth
                 height: buttonHeight
                 style: ButtonStyle {

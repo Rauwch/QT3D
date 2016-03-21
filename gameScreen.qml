@@ -40,9 +40,11 @@ Item {
             setPopupWindowForTutorial(myLevels.getCurrentLevel());
             tutorialScreen.numberOfLevel = myLevels.getCurrentLevel();
             tutorialScreen.visible = true;
+            rotateCamera.visible = false;
         }
         else{
             tutorialScreen.visible = false;
+            rotateCamera.visible = true;
         }
     }
 
@@ -56,9 +58,9 @@ Item {
         focus: true
         aspects: "input"
 
-//        TestWorld{
-//            id: world
-//        }
+        //        TestWorld{
+        //            id: world
+        //        }
 
         World3D{
             id: world
@@ -73,7 +75,7 @@ Item {
             width: Screen.width/15
             height: width
             //text:"Return"
-            style: ButtonStyle {                
+            style: ButtonStyle {
                 background: Rectangle {
                     //implicitWidth: 100
                     //implicitHeight: 25
@@ -415,10 +417,19 @@ Item {
         function setText(tutorialLevel){
             switch(tutorialLevel){
             case(1):
-                congratsText.text = "Thank you for completing the first tutorial!";
+                congratsText.text = "Completed the first tutorial!";
+                break;
+            case(2):
+                congratsText.text = "Completed the second tutorial!";
+                break;
+            case(3):
+                congratsText.text = "Completed the third tutorial!";
+                break;
+            case(4):
+                congratsText.text = "Completed the fourth tutorial!";
                 break;
             default:
-                congratsText.text = "Congratulations!\nYou have successfully completed the level!";
+                congratsText.text = "Level Cleared!";
 
             }
         }
@@ -659,13 +670,31 @@ Item {
         jellyGoal.width = jellyGoal.paintedWidth*4/5;
         jellyPixelHeight = jellyGoal.height;
         jellyPixelWidth = jellyGoal.width;
-//        jellyPixelHeight = jelly.paintedHeight;
-//        jellyPixelWidth = jelly.paintedWidth;
+        //        jellyPixelHeight = jelly.paintedHeight;
+        //        jellyPixelWidth = jelly.paintedWidth;
         updateJellyAnchors();
     }
 
     function setPopupWindowForTutorial(tutorialLevel){
         popupWindow.setText(tutorialLevel);
+        switch(tutorialLevel){
+        case(1):
+            world.cameraAngle = 5*Math.PI/4;
+            break;
+
+        case(2):
+            world.cameraAngle = 5*Math.PI/4;
+            break;
+
+        case(3):
+            world.cameraAngle = 5*Math.PI/4;
+            break;
+
+        case(4):
+            world.cameraAngle = 5*Math.PI/4;
+            break;
+
+        }
     }
 
     function checkLeaderboard()

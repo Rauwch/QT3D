@@ -10,7 +10,6 @@ Rectangle{
     property bool ballExplained: false
     property int numberOfLevel: 1
     property QtObject test
-    // color:"white"
     color: "transparent"
     width: Screen.width
     height: Screen.height
@@ -39,7 +38,6 @@ Rectangle{
             wrapMode: Text.WordWrap
             anchors.leftMargin: 3
             anchors.horizontalCenter: parent.horizontalCenter
-            //readOnly: true
             anchors.top: parent.top
             anchors.topMargin: 20
         }
@@ -77,14 +75,14 @@ Rectangle{
             instructionWindow.anchors.bottom = screenWindow.bottom;
             instructionWindow.anchors.rightMargin = (Screen.width/2 - instructionWindow.width/2);
             instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
-            instructionText.text = "Welcome to the third tutorial";
+            instructionText.text = "Welcome to the third tutorial!";
             break;
         case(4):
             instructionWindow.anchors.right = screenWindow.right;
             instructionWindow.anchors.bottom = screenWindow.bottom;
             instructionWindow.anchors.rightMargin = (Screen.width/2 - instructionWindow.width/2);
             instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
-            instructionText.text = "Welcome to the fourth tutorial";
+            instructionText.text = "Welcome to the fourth tutorial!";
             break;
         }
     }
@@ -113,14 +111,17 @@ Rectangle{
         switch(stage){
         case(0):
             stage++;
-            instructionWindow.anchors.leftMargin = 100;
-            instructionText.text = "STAP 1/3\nDeze rode paal toont het doel van het spel aan.de kwallen hebben jou hulp nodig om op deze hoogte te kunnen zwemmen";
+            instructionWindow.anchors.bottomMargin = Screen.height*4/5;
+            instructionWindow.anchors.leftMargin = Screen.width/2 - instructionWindow.width/2;
+            instructionText.text = "<h3>STAP 1/3</h3><br></br>Deze <b>paarse paal</b> toont het <b>doel</b> van het spel aan.<br></br>De kwallen hebben jouw hulp nodig om op deze hoogte te kunnen zwemmen.";
             break;
         case(1):
             stage++;
+            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
             instructionWindow.anchors.leftMargin = 100;
-            instructionText.text = "STAP 2/3\nDe grijze paal is de kwallenlift.\nklik op de bol om de hoogte te veranderen";
+            instructionText.text = "<h3>STAP 2/3</h3><br></br>De <b>grijze paal</b> is de <b>kwallenlift</b>.<br></br><u>Klik op de bol</u> om de hoogte te veranderen";
             buttonNext.visible = false;
+
             break;
         case(numStages):
             if(ballExplained){
@@ -138,18 +139,21 @@ Rectangle{
         switch(stage){
         case(0):
             stage++;
-            instructionWindow.anchors.leftMargin = 100;
-            instructionText.text = "STAP 1/4\nDeze dikke gele lijn toont aan welke kwallen jou hulp nodig hebben\n";
+            instructionWindow.anchors.leftMargin = Screen.width*3/5 - instructionWindow.width/2;
+            instructionWindow.anchors.bottomMargin = Screen.height*2/3;
+            instructionText.text = "<h3>STAP 1/4</h3>Deze dikke <b>gele lijn</b> toont aan welke kwallen jou hulp nodig hebben.";
             break;
         case(1):
             stage++;
-            instructionWindow.anchors.leftMargin = 100;
-            instructionText.text = "STAP 2/4\nDe grootte van de kwallen en hun doel staan hier aangeduid.\n";
+            instructionWindow.anchors.leftMargin = Screen.width*3/5 - instructionWindow.width/2;
+            instructionWindow.anchors.bottomMargin = (Screen.height*9/10 - instructionWindow.height/2);
+            instructionText.text = "<h3>STAP 2/4</h3>De grootte van de <b>roze kwallen</b> en hun <b>grijs doel</b> staan hier aangeduid.";
             break;
         case(2):
             stage++;
             instructionWindow.anchors.leftMargin = 100;
-            instructionText.text = "STAP 3/4\nJe kan de grootte van de kwallen aanpassen door de lift van hoogte te veranderen\nKlik op de bol van de lift en probeer het zelf";
+            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
+            instructionText.text = "<h3>STAP 3/4</h3>Je kan de <b>grootte van de kwallen</b> aanpassen door de <b>hoogte van de lift</b> te veranderen.<br></br><u>Klik op de bol</u> van de lift en probeer het zelf.";
             buttonNext.visible = false;
             break;
         case(numStages):
@@ -169,18 +173,19 @@ Rectangle{
         switch(stage){
         case(0):
             stage++;
-            instructionWindow.anchors.rightMargin = 150;
-            instructionText.text = "STAP 1/4\nDeze inktvis toont aan hoe groot hij moet worden";
+            instructionWindow.anchors.rightMargin = Screen.width*2/5 - instructionWindow.width/2;
+            instructionWindow.anchors.bottomMargin = (Screen.height*9/10 - instructionWindow.height/2);
+            instructionText.text = "<h3>STAP 1/4</h3>Deze kwal toont dus aan hoe groot hij moet worden.";
             break;
         case(1):
             stage++;
-            instructionWindow.anchors.rightMargin = 150;
-            instructionText.text = "STAP 2/4\nInktvissen gaan door de paarse buizen naar beneden";
+            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
+            instructionWindow.anchors.rightMargin =  Screen.width*1/5 - instructionWindow.width/2;
+            instructionText.text = "<h3>STAP 2/4</h3>Kwallen gaan door de paarse buizen naar beneden<br></br>Hoe <b>scherper de bochten</b>, hoe <b>kleiner de kwallen</b> moeten zijn om erdoor te kunnen.";
             break;
         case(2):
             stage++;
-            instructionWindow.anchors.rightMargin = 150;
-            instructionText.text = "STAP 3/4\nKlik op de bal om de scherpte van de bochten aan te passen";
+            instructionText.text = "<h3>STAP 3/4</h3><u>Klik op de bal</u> om de scherpte van de bochten aan te passen.";
             buttonNext.visible = false;
             break;
         case(numStages):
@@ -200,18 +205,19 @@ Rectangle{
         switch(stage){
         case(0):
             stage++;
-            instructionWindow.anchors.rightMargin = 150;
-            instructionText.text = "STAP 1/4\nVanboven zien we wat er gebeurt als een inktvis zijn pad in 2 deelt\nDe grote inktvis wordt gesplitst in twee kleinere inktvissen";
+            instructionWindow.anchors.rightMargin = Screen.width*2/5 - instructionWindow.width/2;
+            instructionWindow.anchors.bottomMargin = (Screen.height*9/10 - instructionWindow.height/2);
+            instructionText.text = "<h3>STAP 1/4</h3>Vanboven zien we wat er gebeurt als een kwal zijn pad in 2 deelt<br></br>De grote kwal wordt <b>gesplitst in twee kleinere kwallen</b>.";
             break;
         case(1):
             stage++;
-            instructionWindow.anchors.rightMargin = 150;
-            instructionText.text = "STAP 2/4\nVanonder zien we wat er gebeurt als de paden van 2 inktvissen bij elkaar komen\nDe twee kleine inktvissen maken samen één grote inktvis";
+            instructionWindow.anchors.rightMargin = Screen.width*5/6 - instructionWindow.width/2;
+            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
+            instructionText.text = "<h3>STAP 2/4</h3>Vanonder zien we wat er gebeurt als de paden van 2 kwallen bij elkaar komen<br></br>De twee kleine kwallen <b>maken samen één grote kwal</b>.";
             break;
         case(2):
             stage++;
-            instructionWindow.anchors.rightMargin = 150;
-            instructionText.text = "STAP 3/4\nKijk nu wat er gebeurt als je de scherpte van de bochten aanpast";
+            instructionText.text = "<h3>STAP 3/4</h3>Kijk nu wat er gebeurt als je de scherpte van de bochten aanpast";
             buttonNext.visible = false;
             break;
         case(numStages):
@@ -234,25 +240,25 @@ Rectangle{
                     ballExplained = true;
                     instructionWindow.anchors.leftMargin = 100;
                     instructionWindow.anchors.bottomMargin = 150;
-                    instructionText.text = "STAP 3/3\nHeel goed! \nKlik op de knoppen om de hoogte te matchen";
+                    instructionText.text = "<h3>STAP 3/3</h3>Heel goed! <br></br>Klik op de knoppen om de hoogte te matchen.";
                     break;
                 case(2):
                     ballExplained = true;
                     instructionWindow.anchors.rightMargin = Screen.width - instructionWindow.width - 100;
                     instructionWindow.anchors.bottomMargin = 150;
-                    instructionText.text = "STAP 4/4\nHeel goed! \nKlik op de knoppen om de hoogte aan te passen";
+                    instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br>Klik op de knoppen om de hoogte aan te passen.";
                     break;
                 case(3):
                     ballExplained = true;
                     instructionWindow.anchors.rightMargin = Screen.width - instructionWindow.width - 100;
                     instructionWindow.anchors.bottomMargin = 150;
-                    instructionText.text = "STAP 4/4\nHeel goed! \nKlik op de knoppen om de bochten aan te passen";
+                    instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br>Klik op de knoppen om de bochten aan te passen.";
                     break;
                 case(4):
                     ballExplained = true;
                     instructionWindow.anchors.rightMargin = Screen.width - instructionWindow.width - 100;
                     instructionWindow.anchors.bottomMargin = 150;
-                    instructionText.text = "STAP 4/4\nHeel goed! \nProbeer nu de inktvissen op de dikke lijn de juiste grootte te geven";
+                    instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br>Probeer nu de inktvissen op de dikke lijn de juiste grootte te geven.";
                     break;
                 }
 
