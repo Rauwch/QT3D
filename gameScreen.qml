@@ -65,26 +65,32 @@ Item {
         }
     }
 
-    Column{
+    Row{
         anchors.left: parent.left
         Button{
 
             id: returnButton
             width: Screen.width/15
-            height: Screen.height/15
-            text:"Return"
-            style: ButtonStyle {
+            height: width
+            //text:"Return"
+            style: ButtonStyle {                
                 background: Rectangle {
-                    implicitWidth: 100
-                    implicitHeight: 25
-                    border.width: control.activeFocus ? 2 : 1
-                    border.color: "#888"
-                    radius: 4
+                    //implicitWidth: 100
+                    //implicitHeight: 25
+                    border.width: 2
+                    border.color: "black"
+                    radius: width*0.5
                     gradient: Gradient {
-                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        GradientStop { position: 0 ; color: Qt.rgba(243/255,103/255,170/255,1) }
+                        GradientStop { position: 1 ; color: Qt.rgba(255/255,177/255,214/255,1) }
                     }
                 }
+            }
+            Image{
+                source: "backArrow.png"
+                height: parent.height/2
+                width: parent.width/2
+                anchors.centerIn: parent
             }
             onClicked: {
                 //soundEffects.source = "Bubbles.wav";
@@ -101,7 +107,7 @@ Item {
 
             id: retryButton
             width: Screen.width/15
-            height: Screen.height/15
+            height: width
             text:"Retry"
             style: ButtonStyle {
                 background: Rectangle {
@@ -109,7 +115,7 @@ Item {
                     implicitHeight: 25
                     border.width: control.activeFocus ? 2 : 1
                     border.color: "#888"
-                    radius: 4
+                    radius: width*0.5
                     gradient: Gradient {
                         GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
                         GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
@@ -160,6 +166,21 @@ Item {
         id:rotateCamera
         anchors.top: counter.bottom
         anchors.horizontalCenter: counter.horizontalCenter
+        width: Screen.width/15
+        height: Screen.height/15
+        text:"Rotate Camera"
+        style: ButtonStyle {
+            background: Rectangle {
+                border.width: 2
+                border.color: "#063e79"
+                radius: 10
+                gradient: Gradient {
+                    GradientStop { position: 0 ; color: "#2589f4" }
+                    GradientStop { position: 1 ; color: "#0b6fda" }
+                }
+            }
+
+        }
         onPressedChanged: {
             if(playingAnimation){
                 playingAnimation=false;

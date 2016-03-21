@@ -23,5 +23,6 @@
         <file>t0044_0.png</file>
         <file>jelly.png</file>
         <file>jellyGoal.png</file>
+        <file>backArrow.png</file>
     </qresource>
 </RCC>
