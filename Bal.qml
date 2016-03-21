@@ -1,3 +1,7 @@
+/*
+  ball for Sources that makes them clickable
+  */
+
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 import Qt3D.Input 2.0
@@ -16,6 +20,7 @@ Entity{
         radius: 1.75
     }
 
+    //do we use this still?
     signal hasbeenclicked()
     QQ2.Component.onCompleted: {
         objectPicker.clicked.connect(hasbeenclicked);
@@ -38,14 +43,15 @@ Entity{
 
         onClicked: {
             myGameScreen.updateTutorial();
+            //make text boxes (dis)appear on clicking the ball
             myGameScreen.showBox = !myGameScreen.showBox;
             myGameScreen.clickedSource = sourceNr;
+            //make sure you can't change resistor and source at the same time
             myGameScreen.showRes = false;
         }
     }
-
+    //makes it look clickable
     QQ2.SequentialAnimation{
-
 
         running: true
         loops: QQ2.Animation.Infinite

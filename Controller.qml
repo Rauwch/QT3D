@@ -10,7 +10,7 @@ Entity{
     property int amountNodes: 4
     property bool running: false
     property var electronFactory
-    property var amountOfElectrons: 10
+    property int amountOfElectrons: 10
     QQ2.Component.onCompleted: {
         electronFactory = Qt.createComponent("Electron.qml");
         for(var i= 0; i< amountOfElectrons; i++ )

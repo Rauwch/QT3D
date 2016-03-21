@@ -30,8 +30,7 @@ Item {
 
     property int angleOfArrow: 0
     property var jellySize: 0
-    //signal returner()
-    //signal sizeupdate()
+
     anchors.fill: parent
     Component.onDestruction: console.log("gamescreen destroyed")
 
@@ -47,13 +46,15 @@ Item {
         }
     }
 
+    Calculator{
+        id: calculator
+    }
 
     Scene3D{
         id: ourScene3D
         anchors.fill: parent
         focus: true
         aspects: "input"
-
 
 //        TestWorld{
 //            id: world
@@ -146,15 +147,12 @@ Item {
     Image{
         id:jellyGoal
         source: "jellyGoal.png"
-        //        anchors.right: myGameScreen.right
-        //        anchors.rightMargin: 50
         scale: 1
     }
 
     Image{
         id:jelly
         source: "jelly.png"
-        //        anchors.right: myGameScreen.right
 
     }
 
@@ -387,17 +385,6 @@ Item {
 
         }
     }
-    Calculator{
-        id: calculator
-    }
-
-
-    //    Linker{
-    //        id: myLinker
-    //        speed: 2000
-    //    }
-
-
 
     Rectangle{
         id: popupWindow

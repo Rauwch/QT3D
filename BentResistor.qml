@@ -59,6 +59,7 @@ Entity{
         updateBal();
     }
 
+    //solving the positioning of the parts of the resistor using trigonemtry
     function updateBends(){
         for(var i=0; i<numBends; i++){
             if(i%2 == 0){
@@ -74,6 +75,7 @@ Entity{
             bends[i].l = localCalc.calcLength(theBentResistor.l/numBends,localVar);
         }
     }
+
 
     function makeBends(){
         o.bendFactory= Qt.createComponent("Resistor.qml");
@@ -100,6 +102,7 @@ Entity{
             }
             bend.parent=theBentResistor.parent;
             theBentResistor.bends[i]=bend;
+            //at the end, set xtest, ytest, ztest to get the proper positioning of the clickable ball
             if(i == numBends-1){
                 xtest = theBentResistor.bends[i].x;
                 ytest = theBentResistor.y + (localCalc.calcSin(theBentResistor.l,theBentResistor.a-90));

@@ -1,3 +1,7 @@
+/*
+  this is used for the GoalPole, to clearly indicate its top and bottom (the flat squares)
+  */
+
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 import Qt3D.Input 2.0
@@ -26,10 +30,7 @@ Entity{
             specular: Qt.rgba( 1, 1, 1, 1.0 )
             shininess: 0
         }
-        //    Transform{
-        //        id:cubeTrans
-        //        translation: Qt.vector3d(0, 0.5, 0)
-        //    }
+
     }
     Transform{
         id:theCubeTrans
