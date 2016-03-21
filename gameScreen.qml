@@ -576,7 +576,7 @@ Item {
         var size;
         size = Icurrent/Igoal;
         if(Icurrent > Igoal){
-            size=(Icurrent-((Icurrent-Igoal)/4*3))/Igoal;
+            size=(Icurrent-((Icurrent-Igoal)/6*5))/Igoal;
         }
 
         //jelly.scale = size;
@@ -634,8 +634,12 @@ Item {
     }
 
     function initializeJellies(){
-        jellyPixelHeight = jelly.paintedHeight;
-        jellyPixelWidth = jelly.paintedWidth;
+        jellyGoal.height = jellyGoal.paintedHeight*4/5;
+        jellyGoal.width = jellyGoal.paintedWidth*4/5;
+        jellyPixelHeight = jellyGoal.height;
+        jellyPixelWidth = jellyGoal.width;
+//        jellyPixelHeight = jelly.paintedHeight;
+//        jellyPixelWidth = jelly.paintedWidth;
         updateJellyAnchors();
     }
 
