@@ -7,6 +7,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Window 2.0
 import QtQuick.Scene3D 2.0
 import QtQuick.Controls.Styles 1.4
+
 import Link 1.0
 import Lvl 1.0
 import Calc 1.0
@@ -536,7 +537,7 @@ Item {
             id:congratsText
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top : parent.top
-            anchors.topMargin: Screen.height/12
+            anchors.topMargin: Screen.height/15
             text: "Proficiat!\nJe hebt het level uitgespeeld!"
             font.pixelSize: 50
         }
@@ -552,7 +553,6 @@ Item {
                 model: 0
                 delegate:
                     Image{
-
                     source: "starfish.png";
                     width: Screen.width/15;
                     height: width;
@@ -567,10 +567,84 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: Screen.width/20
             Button{
+                width: Screen.width/15
+                height: width
+                style: ButtonStyle {
+                    background: Rectangle {
+                        //implicitWidth: 100
+                        //implicitHeight: 25
+                        border.width: 2
+                        border.color: "black"
+                        radius: width*0.5
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: Qt.rgba(243/255,103/255,170/255,1) }
+                            GradientStop { position: 1 ; color: Qt.rgba(255/255,177/255,214/255,1) }
+                        }
+                    }
+                }
+                Image{
+                    source: "retry.png"
+                    height: parent.height/2
+                    width: parent.width/2
+                    anchors.centerIn: parent
+                }
+
+                onClicked: {
+                    //soundEffects.source = "Bubbles.wav";
+                    soundEffects.play();
+                    world.destroyCamera();
+                    pageLoader.source = "";
+                    pageLoader.source = "GameScreen.qml";
+                    console.log("world is destroyed");
+                }
+            }
+
+            Button{
+                text: "Select level"
+                width: Screen.width/15
+                height: width
+                style: ButtonStyle {
+                    background: Rectangle {
+                        //implicitWidth: 100
+                        //implicitHeight: 25
+                        border.width: 2
+                        border.color: "black"
+                        radius: width*0.5
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: Qt.rgba(243/255,103/255,170/255,1) }
+                            GradientStop { position: 1 ; color: Qt.rgba(255/255,177/255,214/255,1) }
+                        }
+                    }
+                }
+
+                onClicked: {
+                    //soundEffects.source = "Bubbles.wav";
+                    soundEffects.play();
+                    world.destroyCamera();
+                    pageLoader.source = "LevelScreen.qml";
+                    console.log("world is destroyed");
+                }
+
+            }
+
+            Button{
                 id: continueBtn
-                height: Screen.height/10
-                width: popupWindow.width/4
                 text: "Continue"
+                width: Screen.width/15
+                height: width
+                style: ButtonStyle {
+                    background: Rectangle {
+                        //implicitWidth: 100
+                        //implicitHeight: 25
+                        border.width: 2
+                        border.color: "black"
+                        radius: width*0.5
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: Qt.rgba(243/255,103/255,170/255,1) }
+                            GradientStop { position: 1 ; color: Qt.rgba(255/255,177/255,214/255,1) }
+                        }
+                    }
+                }
                 onClicked: {
                     //soundEffects.source = "Bubbles.wav";
                     soundEffects.play();
@@ -582,32 +656,7 @@ Item {
                     console.log("world is destroyed");
                 }
             }
-            Button{
-                height: Screen.height/10
-                width: popupWindow.width/4
-                text: "Select level"
-                onClicked: {
-                    //soundEffects.source = "Bubbles.wav";
-                    soundEffects.play();
-                    world.destroyCamera();
-                    pageLoader.source = "LevelScreen.qml";
-                    console.log("world is destroyed");
-                }
 
-            }
-            Button{
-                height: Screen.height/10
-                width: popupWindow.width/4
-                text: "Restart level"
-                onClicked: {
-                    //soundEffects.source = "Bubbles.wav";
-                    soundEffects.play();
-                    world.destroyCamera();
-                    pageLoader.source = "";
-                    pageLoader.source = "GameScreen.qml";
-                    console.log("world is destroyed");
-                }
-            }
         }
 
         Loader
@@ -616,21 +665,24 @@ Item {
             source: "Leaderboard.qml"
             anchors.top : starRow.bottom
             anchors.topMargin: 50
-            anchors.horizontalCenter: parent.horizontalCenter;
+            //width: popupWindow.width*2/3
+            anchors.horizontalCenter: popupWindow.horizontalCenter;
 
             Row{
                 id: buttonRow
                 anchors.top:leaderLoader.item.bottom
-                anchors.topMargin: 50
+                anchors.topMargin: 10
 
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: {checkLeaderboard() && showLeaderboardEntry}
                 TextField{
                     id:myTextField
-                    width: 100
+                    width: popupWindow.width/2
+                    height: Screen.height/12
                     placeholderText : "Geef hier je naam in"
+                    font.family: "Helvetica"
+                    font.pointSize: 20
                     style: TextFieldStyle {
-                        textColor: "black"
                         background: Rectangle {
                             radius: 2
                             implicitWidth: 100
@@ -640,7 +692,11 @@ Item {
                         }
                     }
                 }
+
                 Button{
+                    text:"Bevestig"
+                    width:Screen.height/12
+                    height:Screen.height/12
                     onClicked: {
                         //console.log("this is the text: " + myTextField.displayText);
                         leaderLoader.item.myLevelboard.addEntry(myTextField.displayText, getStars(), numClicks );
