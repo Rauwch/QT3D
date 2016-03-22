@@ -41,7 +41,13 @@ Entity{
     property ObjectPicker objectPicker: ObjectPicker {
 
         onClicked: {
-            myGameScreen.toggleSwitch(switchNr);
+            myGameScreen.clickedSwitch = switchNr;
+            myGameScreen.showSwitch = !myGameScreen.showSwitch;
+
+            myGameScreen.showRes = false;
+            myGameScreen.showBox = false;
+
+            //myGameScreen.toggleSwitch(switchNr);
         }
     }
 
