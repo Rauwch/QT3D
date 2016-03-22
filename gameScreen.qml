@@ -66,6 +66,20 @@ Item {
             id: world
         }
     }
+    Button{
+        id:alpha
+        width: Screen.width;
+        height: Screen.height;
+        visible: false;
+        style: ButtonStyle {
+            background: Rectangle {
+                color: "black"
+                opacity: 0.7
+            }
+        }
+    }
+
+
 
     Row{
         anchors.left: parent.left
@@ -261,7 +275,10 @@ Item {
                 //sizeupdate();
                 world.generator.updateLevel();
                 numClicks = numClicks + 1;
-                popupWindow.visible = calculator.checkGoals();
+
+                if(calculator.checkGoals())
+                    myTimer.start();
+                //popupWindow.visible = calculator.checkGoals();
                 world.generator.updateGoalPoles();
                 if(calculator.checkGoals())
                 {
@@ -315,7 +332,8 @@ Item {
                 world.generator.updateLevel();
                 calculateSize();
                 numClicks = numClicks + 1;
-                popupWindow.visible = calculator.checkGoals();
+                if(calculator.checkGoals())
+                    myTimer.start();
                 world.generator.updateGoalPoles();
                 if(calculator.checkGoals())
                 {
@@ -378,7 +396,8 @@ Item {
                 calculateSize();
                 numClicks = numClicks + 1;
                 //console.log("The angle is: " + angleOfArrow);
-                popupWindow.visible = calculator.checkGoals();
+                if(calculator.checkGoals())
+                    myTimer.start();
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
@@ -410,7 +429,8 @@ Item {
                 calculator.solveLevel();
                 world.generator.updateLevel();
                 calculateSize();
-                popupWindow.visible = calculator.checkGoals();
+                if(calculator.checkGoals())
+                    myTimer.start();
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
@@ -428,10 +448,13 @@ Item {
         }
     }
 
+
+
     Rectangle{
         id: popupWindow
         height: Screen.height
-        width: Screen.width
+        width: Screen.width/2
+        anchors.horizontalCenter: parent.horizontalCenter
         visible: false
         function setText(tutorialLevel){
             switch(tutorialLevel){
@@ -452,26 +475,54 @@ Item {
 
             }
         }
-
+        Timer {
+            id:myTimer
+            interval: 1000; running: false; repeat: false
+            onTriggered: {
+                hideElements()
+                popupWindow.visible = true;
+                alpha.visible= true;
+                starRepeater.model = getStars();
+            }
+        }
         Text{
             id:congratsText
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top : parent.top
             anchors.topMargin: Screen.height/12
-            text: "Congratulations!\nYou have successfully completed the level!"
-            font.pixelSize: 60
+            text: "Proficiat!\nJe hebt het level uitgespeeld!"
+            font.pixelSize: 50
+        }
+
+        Row{
+            id:starRow
+            anchors.top: congratsText.bottom;
+            anchors.topMargin: 10
+            anchors.horizontalCenter: parent.horizontalCenter
+            Repeater{
+                id: starRepeater
+                // this is the index from the button assigned by the top repeater
+                model: 0
+                delegate:
+                    Image{
+
+                    source: "starfish.png";
+                    width: Screen.width/15;
+                    height: width;
+                }
+            }
         }
 
         Row{
             id: theButtons
-            anchors.top : congratsText.bottom
-            anchors.topMargin:  50
+            anchors.bottom: popupWindow.bottom
+            anchors.bottomMargin: Screen.height/12
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: Screen.width/20
             Button{
                 id: continueBtn
                 height: Screen.height/10
-                width: Screen.width/5
+                width: popupWindow.width/4
                 text: "Continue"
                 onClicked: {
                     //soundEffects.source = "Bubbles.wav";
@@ -486,7 +537,7 @@ Item {
             }
             Button{
                 height: Screen.height/10
-                width: Screen.width/5
+                width: popupWindow.width/4
                 text: "Select level"
                 onClicked: {
                     //soundEffects.source = "Bubbles.wav";
@@ -499,7 +550,7 @@ Item {
             }
             Button{
                 height: Screen.height/10
-                width: Screen.width/5
+                width: popupWindow.width/4
                 text: "Restart level"
                 onClicked: {
                     //soundEffects.source = "Bubbles.wav";
@@ -512,26 +563,11 @@ Item {
             }
         }
 
-
-        //        Leaderboard{
-        //            id: theLeaderboard
-        //            Component.onCompleted: {
-        //                console.log(" lowest entry: " + theLeaderboard.myLevelboard.getLowestEntry())
-        //            }
-
-        //            //            anchors.top: theButtons.bottom;
-        //            //            anchors.horizontalCenter: popupWindow.Center
-        //            //            anchors.topMargin: 50
-        //            anchors.top : theButtons.bottom
-        //            anchors.topMargin: 50
-        //            anchors.horizontalCenter: parent.horizontalCenter
-        //        }
-
         Loader
         {
             id:leaderLoader
             source: "Leaderboard.qml"
-            anchors.top : theButtons.bottom
+            anchors.top : starRow.bottom
             anchors.topMargin: 50
             anchors.horizontalCenter: parent.horizontalCenter;
 
@@ -566,56 +602,11 @@ Item {
                         leaderLoader.source="Leaderboard.qml";
                         showLeaderboardEntry = false;
                     }
-
                 }
             }
         }
-
-
-
-
-        //        Row{
-        //            id: buttonRow
-        //            anchors.top:filler.bottom
-        //            anchors.topMargin: 50
-
-        //            anchors.horizontalCenter: parent.horizontalCenter
-        //            visible: {checkLeaderboard() && showLeaderboardEntry}
-        //            TextField{
-        //                id:myTextField
-        //                width: 100
-        //                placeholderText : "Geef hier je naam in"
-        //                style: TextFieldStyle {
-        //                    textColor: "black"
-        //                    background: Rectangle {
-        //                        radius: 2
-        //                        implicitWidth: 100
-        //                        implicitHeight: 24
-        //                        border.color: "#333"
-        //                        border.width: 1
-        //                    }
-        //                }
-        //            }
-        //            Button{
-        //                onClicked: {
-        //                    console.log("this is the text: " + myTextField.displayText);
-        //                    leaderLoader.item.myLevelboard.addEntry(myTextField.displayText, getStars(), numClicks );
-        //                    leaderLoader.item.myLevelboard.writeLeaderBoard(myLevels.getCurrentLevel());
-        //                    leaderLoader.source="";
-        //                    leaderLoader.source="Leaderboard.qml";
-        //                    showLeaderboardEntry = false;
-        //                }
-
-        //            }
-        //        }
-
-
-
-
-
-
-
     }
+
 
     //this are all the functions
 
@@ -720,6 +711,17 @@ Item {
             break;
 
         }
+    }
+    function hideElements(){
+        retryButton.visible = false;
+        returnButton.visible = false;
+        resistorBox.visible = false;
+        textBox.visible = false;
+        jelly.visible = false;
+        jellyGoal.visible = false;
+        rotateCamera.visible = false;
+        counter.visible = false;
+
     }
 
     function checkLeaderboard()
