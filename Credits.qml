@@ -22,7 +22,8 @@ Item {
         Text{
             id:creditsText
             anchors.centerIn: parent
-            text: "Developers:\n\nAnton \"The Bugwhisperer\" Rauws\nJan \"Qt-pie\" van Thillo"
+            //text: "Developers:\n\nAnton \"The Bugwhisperer\" Rauws\nJan \"Qt-pie\" van Thillo"
+            text: "Ontwikkelaars:\n\nAnton Rauws\nJan van Thillo"
             font.pointSize: 20
 
         }

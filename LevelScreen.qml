@@ -55,7 +55,8 @@ Item {
 
                     }
                     if(index <= 3){
-                        levelText.text= "Tutorial " + (index+1);
+                        //levelText.text= "Tutorial " + (index+1);
+                        levelText.text= "Oefening " + (index+1);
                     }
                 }
 

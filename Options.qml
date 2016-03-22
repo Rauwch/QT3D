@@ -21,27 +21,13 @@ Item {
         Row{
             id:musicButtons
             spacing: 20
-            //width: Screen.width/3
-            //height: Screen.height/4
             Component.onCompleted: {
-               // console.log("musicbool : " + myStartScreen.musicBool);
-//                theSwitch.checked = myStartScreen.musicBool;
-//                if(backgroundMusic.playing())
-//                    theSwitch.checked = true;
-                    //theSwitch.on = true;
-            }
 
-//            Switch{
-//                id: theSwitch
-//                //checked: allOptions.parent.musicBool
-//                property bool on: false
-//                visible: false
-//            }
+            }
 
             Rectangle {
                 width: Screen.width/6
                 height: 100
-                //anchors.centerIn: parent
                 border.width:  2
                 border.color: "#063e79"
                 radius: 10
@@ -51,7 +37,8 @@ Item {
                 }
                 Text{
                     anchors.centerIn: parent
-                    text: "Background Music"
+                    //text: "Background Music"
+                    text: "Muziek"
                     renderType: Text.NativeRendering
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
@@ -105,7 +92,8 @@ Item {
                     GradientStop { position: 1 ; color: "#0b6fda" }
                 }
                 Text{
-                    text: "Sound Effects"
+                    //text: "Sound Effects"
+                    text: "Geluid"
                     anchors.centerIn: parent
                     renderType: Text.NativeRendering
                     verticalAlignment: Text.AlignVCenter

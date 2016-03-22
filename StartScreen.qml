@@ -94,7 +94,8 @@ Item {
 
             Button{
                 id:optionsButton
-                text:"Options"
+                //text:"Options"
+                text:"Opties"
                 width: buttonWidth
                 height: buttonHeight
                 style: ButtonStyle {
@@ -129,7 +130,8 @@ Item {
             }
             Button{
                 id:creditsButton
-                text:"Credits"
+                //text:"Credits"
+                text:"Ontwikkelaars"
                 width: buttonWidth
                 height: buttonHeight
                 style: ButtonStyle {
@@ -166,7 +168,8 @@ Item {
 
             Button{
                 id:stopButton
-                text:"Quit"
+                //text:"Quit"
+                text:"Afsluiten"
                 width: buttonWidth
                 height: buttonHeight
                 style: ButtonStyle {

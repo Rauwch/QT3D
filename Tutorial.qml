@@ -37,7 +37,6 @@ Rectangle{
         }
 
         Component.onCompleted: {
-            myGameScreen.setPopupWindowForTutorial(numberOfLevel);
             setInstructionText();
         }
         Text{
@@ -81,19 +80,23 @@ Rectangle{
         switch(numberOfLevel){
         case(1):
             instructionWindow.anchors.centerIn = screenWindow;
-            instructionText.text = "Welcome to the first tutorial!";
+            //instructionText.text = "Welcome to the first tutorial!";
+            instructionText.text = "Welkom bij de 1ste oefening!";
             break;
         case(2):
             instructionWindow.anchors.centerIn = screenWindow;
-            instructionText.text = "Welcome to the second tutorial!";
+            //instructionText.text = "Welcome to the second tutorial!";
+            instructionText.text = "Welkom bij de 2de oefening!";
             break;
         case(3):
             instructionWindow.anchors.centerIn = screenWindow;
-            instructionText.text = "Welcome to the third tutorial!";
+            //instructionText.text = "Welcome to the third tutorial!";
+            instructionText.text = "Welkom bij de 3de oefening!";
             break;
         case(4):
             instructionWindow.anchors.centerIn = screenWindow;
-            instructionText.text = "Welcome to the fourth tutorial!";
+            //instructionText.text = "Welcome to the fourth tutorial!";
+            instructionText.text = "Welkom bij de 4de oefening!";
             break;
         }
     }
@@ -317,6 +320,9 @@ Rectangle{
 
             }
         }
+    }
+    function setTextInvis(){
+        instructionWindow.visible=false;
     }
 }
 

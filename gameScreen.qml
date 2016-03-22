@@ -36,8 +36,9 @@ Item {
 
     Component.onCompleted: {
         console.log("GameScreen wordt aangemaakt");
+        setPopupWindowForTutorial(myLevels.getCurrentLevel());
+
         if(myLevels.getCurrentLevel() <= 4){
-            setPopupWindowForTutorial(myLevels.getCurrentLevel());
             tutorialScreen.numberOfLevel = myLevels.getCurrentLevel();
             tutorialScreen.visible = true;
             rotateCamera.visible = false;
@@ -490,7 +491,29 @@ Item {
         }
     }
 
-
+    function setText(tutorialLevel){
+        switch(tutorialLevel){
+        case(1):
+            //congratsText.text = "Completed the first tutorial!";
+            congratsText.text = "1ste oefening voltooid!";
+            break;
+        case(2):
+            //congratsText.text = "Completed the second tutorial!";
+            congratsText.text = "2de oefening voltooid!";
+            break;
+        case(3):
+            //congratsText.text = "Completed the third tutorial!";
+            congratsText.text = "3de oefening voltooid!";
+            break;
+        case(4):
+            //congratsText.text = "Completed the fourth tutorial!";
+            congratsText.text = "4de oefening voltooid!";
+            break;
+        default:
+            congratsText.text = "Level Cleared!";
+            break;
+        }
+    }
 
     Rectangle{
         id: popupWindow
@@ -498,25 +521,7 @@ Item {
         width: Screen.width/2
         anchors.horizontalCenter: parent.horizontalCenter
         visible: false
-        function setText(tutorialLevel){
-            switch(tutorialLevel){
-            case(1):
-                congratsText.text = "Completed the first tutorial!";
-                break;
-            case(2):
-                congratsText.text = "Completed the second tutorial!";
-                break;
-            case(3):
-                congratsText.text = "Completed the third tutorial!";
-                break;
-            case(4):
-                congratsText.text = "Completed the fourth tutorial!";
-                break;
-            default:
-                congratsText.text = "Level Cleared!";
 
-            }
-        }
         Timer {
             id:myTimer
             interval: 1000; running: false; repeat: false
@@ -743,7 +748,7 @@ Item {
     }
 
     function setPopupWindowForTutorial(tutorialLevel){
-        popupWindow.setText(tutorialLevel);
+        setText(tutorialLevel);
         switch(tutorialLevel){
         case(1):
             world.cameraAngle = 5*Math.PI/4;
@@ -760,6 +765,9 @@ Item {
         case(4):
             world.cameraAngle = 5*Math.PI/4;
             break;
+        default:
+            world.cameraAngle = 5*Math.PI/4;
+            break;
 
         }
     }
@@ -772,6 +780,7 @@ Item {
         jellyGoal.visible = false;
         rotateCamera.visible = false;
         counter.visible = false;
+        tutorialScreen.setTextInvis();
 
     }
 
