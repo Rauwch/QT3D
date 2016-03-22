@@ -139,7 +139,7 @@ Rectangle{
             instructionWindow.anchors.horizontalCenter = screenWindow.horizontalCenter;
             instructionWindow.anchors.top = screenWindow.top;
             instructionWindow.anchors.topMargin = Screen.height/20
-            instructionText.text = "<h3>STAP 1/3</h3><br></br>Deze <b>paarse paal</b> toont het <b>doel</b> van het spel aan.<br></br>De kwallen hebben jouw hulp nodig om op deze hoogte te kunnen zwemmen.";
+            instructionText.text = "<h3>STAP 1/3</h3><br></br>Deze <b>paarse paal</b> toont het <b>doel</b> van het spel aan.<br></br>De kwallen hebben jouw hulp nodig om op deze <b>hoogte</b> te kunnen zwemmen.";
             break;
         case(1):
             stage++;
@@ -177,7 +177,7 @@ Rectangle{
             stage++;
             instructionWindow.anchors.topMargin = Screen.height/20
             instructionWindow.anchors.horizontalCenterOffset = Screen.width/10
-            instructionText.text = "<h3>STAP 2/4</h3>De grootte van de <b>roze kwallen</b> en hun <b>grijs doel</b> staan hier aangeduid.";
+            instructionText.text = "<h3>STAP 2/4</h3>Deze kwallen moeten even groot worden als de <b>grijze kwal</b>.";
             break;
         case(2):
             stage++;
@@ -210,7 +210,7 @@ Rectangle{
             instructionWindow.anchors.top = screenWindow.top;
             instructionWindow.anchors.topMargin = Screen.height/20;
             instructionWindow.anchors.horizontalCenterOffset = Screen.width/8;
-            instructionText.text = "<h3>STAP 1/4</h3>Deze <b>grijze kwal</b> toont dus <b>het doel</b> aan.";
+            instructionText.text = "<h3>STAP 1/4</h3>Deze <b>grijze kwal</b> toont dus de <b>gewenste grootte</b>.";
             break;
         case(1):
             stage++;
@@ -287,7 +287,7 @@ Rectangle{
                     instructionWindow.anchors.bottomMargin = Screen.width/10;
                     instructionWindow.anchors.left = screenWindow.left;
                     instructionWindow.anchors.leftMargin = Screen.width/20;
-                    instructionText.text = "<h3>STAP 3/3</h3>Heel goed! <br></br>Klik op de knoppen om de hoogte te matchen.";
+                    instructionText.text = "<h3>STAP 3/3</h3>Heel goed! <br></br><u>Klik op de knoppen</u> om de hoogte aan te passen.";
                     break;
                 case(2):
                     buttonNext.visible = false;
@@ -297,7 +297,7 @@ Rectangle{
                     instructionWindow.anchors.bottomMargin = Screen.width/10;
                     instructionWindow.anchors.left = screenWindow.left;
                     instructionWindow.anchors.leftMargin = Screen.width/20;
-                    instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br>Klik op de knoppen om de hoogte aan te passen.";
+                    instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br><u>Klik op de knoppen</u> om de hoogte aan te passen.";
                     break;
                 case(3):
                     buttonNext.visible = false;
@@ -307,7 +307,7 @@ Rectangle{
                     instructionWindow.anchors.bottomMargin = Screen.width/10;
                     instructionWindow.anchors.left = screenWindow.left;
                     instructionWindow.anchors.leftMargin = Screen.width/20;
-                    instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br>Klik op de knoppen om de bochten aan te passen.";
+                    instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br><u>Klik op de knoppen</u> om de bochten aan te passen.";
                     break;
                 case(4):
                     buttonNext.visible = false;
@@ -317,7 +317,7 @@ Rectangle{
                     instructionWindow.anchors.bottomMargin = Screen.width/10;
                     instructionWindow.anchors.left = screenWindow.left;
                     instructionWindow.anchors.leftMargin = Screen.width/20;
-                    instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br>Probeer nu de inktvissen op de <br></br>dikke lijn de juiste grootte te geven.";
+                    instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br>Probeer nu de inktvissen op de <br></br>gele lijn de juiste grootte te geven.";
                     break;
                 }
 

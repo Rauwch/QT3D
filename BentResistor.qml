@@ -21,6 +21,7 @@ Entity{
     property real localVar: 50
     property real bendIntensity: 2
     property real numBends: 10
+    property real flatLength
 
     property var bends: []
 
@@ -65,23 +66,30 @@ Entity{
     function updateBends(){
         for(var i=0; i<numBends; i++){
             if(i%2 == 0){
-                console.log("updatgin even resistor" + i);
                 bends[i].a = ((theBentResistor.a)+localVar);
                 bends[i].y = theBentResistor.y + (localCalc.calcSin(theBentResistor.l,theBentResistor.a-90)*(i/numBends));
                 bends[i].z = (theBentResistor.z + (-(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(theBentResistor.l,theBentResistor.a-90)*(i/numBends))));
             }
             else{
-                console.log("updating uneven resistor" + i);
                 bends[i].a = ((theBentResistor.a)-localVar);
                 bends[i].y = theBentResistor.bends[i-1].y + localCalc.calcSin(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90);
                 bends[i].z = (theBentResistor.bends[i-1].z + (-(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90))));
             }
             bends[i].l = localCalc.calcLength(theBentResistor.l/numBends,localVar);
+            if(theBentResistor.a == 90){
+                if(i==0){
+                    bends[i].z = (theBentResistor.z );
+                    bends[i].a = ((theBentResistor.a));
+                    bends[i].y = theBentResistor.y;
+                    bends[i].l = -flatLength;
+
+                }
+            }
         }
     }
 
-
     function makeBends(){
+        flatLength = theBentResistor.l * localCalc.getRealCos(theBentResistor.a-90);
         o.bendFactory= Qt.createComponent("Resistor.qml");
         for(var i=0; i<numBends; i++){
             var bend;

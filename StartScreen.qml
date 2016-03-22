@@ -25,8 +25,8 @@ Item {
     Component.onDestruction: console.log("startscreen destroyed")
     Component.onCompleted: {
         console.log("myStartScreen wordt aangemaakt");
-        startWindow.visibility = Window.FullScreen;
-        //startWindow.visibility = Window.Maximized;
+        //startWindow.visibility = Window.FullScreen;
+        startWindow.visibility = Window.Maximized;
 
     }
     Levels{

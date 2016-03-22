@@ -121,6 +121,8 @@ public:
     Q_INVOKABLE float calcCos(float length, float angle){return (length*(cos(angle/57.2958)));}
     Q_INVOKABLE float calcLength(float length, float angle){return (length/(cos(angle/57.2958)));}
     Q_INVOKABLE float getRealSin(float angle){return sin(angle/57.2958);}
+    Q_INVOKABLE float getRealCos(float angle){return cos(angle/57.2958);}
+
 
 
 
