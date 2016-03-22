@@ -67,6 +67,7 @@ Entity{
     {
         calculator.solveLevel();
         myGameScreen.initializeJellies();
+        myGameScreen.setVisibilityJellies();
         console.log("before calculate size");
         myGameScreen.calculateSize();
         console.log("before factories");

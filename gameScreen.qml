@@ -376,17 +376,37 @@ Item {
         id: resistorBox
         visible: showRes
         anchors.bottom: parent.bottom
-
+        spacing: 10
         //button that allows for height to be edited
         Button{
             id: increaseResistor
-            width: Screen.width/15
+            width: increaseResText.width + 20
             height: Screen.height/15
-            text: "Increase bends!"
+            Text{
+                anchors.centerIn: parent
+                id: increaseResText
+                text: "Vergroot bochten"
+                renderType: Text.NativeRendering
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.family: "Helvetica"
+                font.pointSize: 20
+                color: "black"
+            }
+            style: ButtonStyle {
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 25
+                    border.width: control.activeFocus ? 2 : 1
+                    border.color: "#888"
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                    }
+                }
+            }
             onClicked: {
-                //console.log("Voltage at the source before click: " + calculator.getVoltageAtSource(clickedSource));
-                //console.log("this is the source that is clicked: " + clickedSource);
-                //calculator.adjustVoltageAtSource(clickedSource,calculator.getStepOfSource(clickedSource));
                 calculator.adjustResistance(clickedRes, calculator.getStepOfResistor(clickedRes));
                 world.generator.increaseRes();
                 calculator.solveLevel();
@@ -416,10 +436,32 @@ Item {
 
         Button{
             id: decreaseResistor
-            width: Screen.width/15
+            width: increaseResText.width+20
             height: Screen.height/15
-            text: "Decrease bends!"
-
+            Text{
+                anchors.centerIn: parent
+                id: decreaseResText
+                text: "Verklein bochten"
+                renderType: Text.NativeRendering
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.family: "Helvetica"
+                font.pointSize: 20
+                color: "black"
+            }
+            style: ButtonStyle {
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 25
+                    border.width: control.activeFocus ? 2 : 1
+                    border.color: "#888"
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                    }
+                }
+            }
             onClicked: {
                 //calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
                 calculator.adjustResistance(clickedRes, -calculator.getStepOfResistor(clickedRes));
@@ -677,10 +719,7 @@ Item {
             jelly.anchors.top=myGameScreen.top;
             jellyGoal.anchors.bottom=jelly.bottom;
         }
-
-
     }
-
     function initializeJellies(){
         jellyGoal.height = jellyGoal.paintedHeight*4/5;
         jellyGoal.width = jellyGoal.paintedWidth*4/5;
@@ -689,6 +728,18 @@ Item {
         //        jellyPixelHeight = jelly.paintedHeight;
         //        jellyPixelWidth = jelly.paintedWidth;
         updateJellyAnchors();
+    }
+
+    function setVisibilityJellies(){
+        if(calculator.getCurrentInGoalWire() === 0){
+            jelly.visible = false;
+            jellyGoal.visible = false;
+
+        }
+        else{
+            jelly.visible = true;
+            jellyGoal.visible = true;
+        }
     }
 
     function setPopupWindowForTutorial(tutorialLevel){

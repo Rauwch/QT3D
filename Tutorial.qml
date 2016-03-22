@@ -214,12 +214,12 @@ Rectangle{
             unAnchors();
             instructionWindow.anchors.verticalCenter = screenWindow.verticalCenter;
             instructionWindow.anchors.right = screenWindow.right;
-            instructionWindow.anchors.rightMargin = Screen.width/20;
-            instructionText.text = "<h3>STAP 2/4</h3>Kwallen gaan door de paarse buizen naar beneden.<br></br>Hoe <b>scherper de bochten</b>, <br>hoe <b>kleiner de kwallen</b> moeten zijn om erdoor te kunnen.";
+            instructionWindow.anchors.rightMargin = Screen.width/10;
+            instructionText.text = "<h3>STAP 2/4</h3>Kwallen gaan door de<br></br>paarse buizen naar beneden.<br></br>Hoe <b>scherper de bochten</b>, <br>hoe <b>kleiner de kwallen</b> moeten <br></br>zijn om erdoor te kunnen.";
             break;
         case(2):
             stage++;
-            instructionText.text = "<h3>STAP 3/4</h3><u>Klik op de bal</u> om de scherpte van de bochten aan te passen.";
+            instructionText.text = "<h3>STAP 3/4</h3><u>Klik op de bal</u> om de scherpte<br></br>van de bochten aan te passen.";
             buttonNext.visible = false;
             break;
         case(numStages):
