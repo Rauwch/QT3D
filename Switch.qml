@@ -36,6 +36,11 @@ Entity{
         }
     }
 
+    QQ2.NumberAnimation{
+
+    }
+
+
 
     BalSwitch{
         id:bal1

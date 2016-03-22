@@ -29,11 +29,8 @@ Item {
     property string archerSource
     property int clickedSource
     property int clickedRes
-<<<<<<< HEAD
     property int highScore: 0
-=======
     property int clickedSwitch
->>>>>>> origin/master
 
     property int angleOfArrow: 0
     property var jellySize: 0
