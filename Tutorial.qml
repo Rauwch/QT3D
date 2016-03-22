@@ -280,6 +280,7 @@ Rectangle{
             if(myGameScreen.clickedSource != null){
                 switch(numberOfLevel){
                 case(1):
+                    buttonNext.visible = false;
                     ballExplained = true;
                     unAnchors();
                     instructionWindow.anchors.bottom = screenWindow.bottom;
@@ -289,6 +290,7 @@ Rectangle{
                     instructionText.text = "<h3>STAP 3/3</h3>Heel goed! <br></br>Klik op de knoppen om de hoogte te matchen.";
                     break;
                 case(2):
+                    buttonNext.visible = false;
                     ballExplained = true;
                     unAnchors();
                     instructionWindow.anchors.bottom = screenWindow.bottom;
@@ -298,6 +300,7 @@ Rectangle{
                     instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br>Klik op de knoppen om de hoogte aan te passen.";
                     break;
                 case(3):
+                    buttonNext.visible = false;
                     ballExplained = true;
                     unAnchors();
                     instructionWindow.anchors.bottom = screenWindow.bottom;
@@ -307,6 +310,7 @@ Rectangle{
                     instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br>Klik op de knoppen om de bochten aan te passen.";
                     break;
                 case(4):
+                    buttonNext.visible = false;
                     ballExplained = true;
                     unAnchors();
                     instructionWindow.anchors.bottom = screenWindow.bottom;
