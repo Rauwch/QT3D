@@ -29,11 +29,15 @@ public:
     Q_INVOKABLE int getLowestEntry() const;
     Q_INVOKABLE void setLowestEntry(int value);
 
+    Q_INVOKABLE int getHighScore() const;
+    Q_INVOKABLE void setHighScore(int value);
+
 private:
     QString filename;
     vector< vector <QString>> levelboard;
     int amountOfEntries;
     int lowestEntry;
+    int highScore;
 };
 
 #endif // LEADERBOARD_H

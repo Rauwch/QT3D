@@ -39,6 +39,10 @@ void Leaderboard::readLeaderboard(int level)
 
         qDebug() << "Unable to open file";
     }
+    if(levelboard.size()!=0)
+    {
+     setHighScore((levelboard[0][2]).toInt());
+    }
     amountOfEntries = row;
     //qDebug() << "rownums: " << row;
     //qDebug() << "lowest entry: " << lowestEntry;
@@ -146,4 +150,14 @@ int Leaderboard::getLowestEntry() const
 void Leaderboard::setLowestEntry(int value)
 {
     lowestEntry = value;
+}
+
+int Leaderboard::getHighScore() const
+{
+    return highScore;
+}
+
+void Leaderboard::setHighScore(int value)
+{
+    highScore = value;
 }

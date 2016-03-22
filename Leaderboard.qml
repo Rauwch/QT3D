@@ -3,11 +3,12 @@ import QtQuick.Window 2.0
 
 import LB 1.0
 Column{
+    id: leaderColumn
     spacing: 10
     property Levelboard myLevelboard: Levelboard
     {
         Component.onCompleted: {
-
+            myGameScreen.setHighScore(myLevelboard.getHighScore());
             console.log("Levelboard on complete " + myLevelboard.getAmountOfEntries());
         }
     }

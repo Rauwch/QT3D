@@ -29,6 +29,7 @@ Item {
     property string archerSource
     property int clickedSource
     property int clickedRes
+    property int highScore: 0
 
     property int angleOfArrow: 0
     property var jellySize: 0
@@ -174,11 +175,12 @@ Item {
     }
     TextField{
         id: counterHighScore
-        text: "Highscore: " + numClicks
+        text: "Highscore: " + highScore
         anchors.horizontalCenter: myGameScreen.horizontalCenter
         anchors.bottom: counter.top
         readOnly: true
         font.pixelSize: 30
+        //Component.onCompleted: console.log("this is the highscore: " + leaderLoader.item.leaderColumn.myLevelboard.getHighScore())
     }
 
     Tutorial{
@@ -999,6 +1001,11 @@ Item {
             return 2;
         else
             return 1;
+    }
+
+    function setHighScore( score)
+    {
+        highScore = score;
     }
 
     function updateTutorial(){
