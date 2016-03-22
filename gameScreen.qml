@@ -17,6 +17,7 @@ Item {
     id: myGameScreen
     property bool showBox
     property bool showRes
+    property bool showSwitch
     property bool showTutorial: true
     property bool showLeaderboardEntry: true
     property real speedoMeter: 0
@@ -166,8 +167,16 @@ Item {
     TextField{
         id: counter
         text: "aantal kliks: " + numClicks
-        anchors.right: parent.right
-        anchors.top: jellyGoal.bottom
+        anchors.horizontalCenter: myGameScreen.horizontalCenter
+        anchors.bottom: myGameScreen.bottom
+        readOnly: true
+        font.pixelSize: 30
+    }
+    TextField{
+        id: counterHighScore
+        text: "Highscore: " + numClicks
+        anchors.horizontalCenter: myGameScreen.horizontalCenter
+        anchors.bottom: counter.top
         readOnly: true
         font.pixelSize: 30
     }
@@ -244,7 +253,7 @@ Item {
             Text{
                 anchors.centerIn: parent
                 id: increaseText
-                text: "verhoog lift"
+                text: "Open"
                 renderType: Text.NativeRendering
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
@@ -305,7 +314,7 @@ Item {
             Text{
                 anchors.centerIn: parent
                 id: decreaseText
-                text: "Verlaag lift"
+                text: "Sluit"
                 renderType: Text.NativeRendering
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
@@ -443,6 +452,120 @@ Item {
             Text{
                 anchors.centerIn: parent
                 id: decreaseResText
+                text: "Verklein bochten"
+                renderType: Text.NativeRendering
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.family: "Helvetica"
+                font.pointSize: 20
+                color: "black"
+            }
+            style: ButtonStyle {
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 25
+                    border.width: control.activeFocus ? 2 : 1
+                    border.color: "#888"
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                    }
+                }
+            }
+            onClicked: {
+                //calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
+                calculator.adjustResistance(clickedRes, -calculator.getStepOfResistor(clickedRes));
+                //console.log("step: " + (-calculator.getStepOfResistor(clickedRes)));
+                numClicks = numClicks + 1;
+                world.generator.decreaseRes();
+                calculator.solveLevel();
+                world.generator.updateLevel();
+                calculateSize();
+                if(calculator.checkGoals())
+                    myTimer.start();
+                if(calculator.checkGoals())
+                {
+                    myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+                }
+                if(world.generator.resistors[0].bendIntensity <= 0){
+                    increaseResistor.parent.anchors.bottomMargin = Screen.height/15;
+                    visible = false;
+
+                }
+                if(world.generator.resistors[0].bendIntensity <= 3){
+                    increaseResistor.visible = true;
+                }
+            }
+
+        }
+    }
+    Column{
+        id: switchBox
+        visible: showSwitch
+        anchors.bottom: parent.bottom
+        spacing: 10
+        //button that allows for height to be edited
+        Button{
+            id: openSwitch
+            width: openSwitchText.width + 20
+            height: Screen.height/15
+            Text{
+                anchors.centerIn: parent
+                id: openSwitchText
+                text: "Vergroot bochten"
+                renderType: Text.NativeRendering
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.family: "Helvetica"
+                font.pointSize: 20
+                color: "black"
+            }
+            style: ButtonStyle {
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 25
+                    border.width: control.activeFocus ? 2 : 1
+                    border.color: "#888"
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                    }
+                }
+            }
+            onClicked: {
+                calculator.adjustResistance(clickedRes, calculator.getStepOfResistor(clickedRes));
+                world.generator.increaseRes();
+                calculator.solveLevel();
+                world.generator.updateLevel();
+                calculateSize();
+                numClicks = numClicks + 1;
+                if(calculator.checkGoals())
+                    myTimer.start();
+                if(calculator.checkGoals())
+                {
+                    myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+
+                }
+                if(world.generator.resistors[0].bendIntensity >= 4){
+                    visible = false;
+                }
+                if(world.generator.resistors[0].bendIntensity >= 1){
+                    decreaseResistor.visible = true;
+                    increaseResistor.parent.anchors.bottomMargin = 0;
+
+                }
+            }
+        }
+
+        Button{
+            id: closeSwitch
+            width: openSwitchText.width+20
+            height: Screen.height/15
+            Text{
+                anchors.centerIn: parent
+                id: closeSwitchText
                 text: "Verklein bochten"
                 renderType: Text.NativeRendering
                 verticalAlignment: Text.AlignVCenter
@@ -717,7 +840,7 @@ Item {
     {
         calculator.toggleSwitch(switchNr);
         calculator.solveLevel();
-        world.generator.updateLevel()
+        world.generator.updateLevel();
 
     }
 
