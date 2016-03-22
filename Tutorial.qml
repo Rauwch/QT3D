@@ -81,10 +81,6 @@ Rectangle{
         switch(numberOfLevel){
         case(1):
             instructionWindow.anchors.centerIn = screenWindow;
-//            instructionWindow.anchors.left = screenWindow.left;
-//            instructionWindow.anchors.bottom = screenWindow.bottom;
-//            instructionWindow.anchors.leftMargin = (Screen.width/2- instructionWindow.width/2);
-//            instructionWindow.anchors.bottomMargin = (Screen.height/2 -(instructionText.paintedWidth + 50)/2);
             instructionText.text = "Welcome to the first tutorial!";
             break;
         case(2):
@@ -136,6 +132,9 @@ Rectangle{
         instructionWindow.anchors.top = undefined;
         instructionWindow.anchors.bottom = undefined;
         instructionWindow.anchors.right = undefined;
+        instructionWindow.anchors.verticalCenter = undefined;
+        instructionWindow.anchors.horizontalCenter = undefined;
+
     }
 
     function updateInstructionsLvlOne(){
@@ -150,8 +149,10 @@ Rectangle{
             break;
         case(1):
             stage++;
-            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
-            instructionWindow.anchors.rightMargin = Screen.width/6 - instructionWindow.width/2;
+            unAnchors();
+            instructionWindow.anchors.verticalCenter = screenWindow.verticalCenter;
+            instructionWindow.anchors.left = screenWindow.left;
+            instructionWindow.anchors.leftMargin = Screen.width/20;
             instructionText.text = "<h3>STAP 2/3</h3><br></br>De <b>grijze paal</b> is de <b>kwallenlift</b>.<br></br><u>Klik op de bol</u> om de hoogte te veranderen";
             buttonNext.visible = false;
 
@@ -271,8 +272,11 @@ Rectangle{
                 switch(numberOfLevel){
                 case(1):
                     ballExplained = true;
-                    instructionWindow.anchors.leftMargin = 100;
-                    instructionWindow.anchors.bottomMargin = 150;
+                    unAnchors();
+                    instructionWindow.anchors.bottom = screenWindow.bottom;
+                    instructionWindow.anchors.bottomMargin = Screen.width/10;
+                    instructionWindow.anchors.left = screenWindow.left;
+                    instructionWindow.anchors.leftMargin = Screen.width/20;
                     instructionText.text = "<h3>STAP 3/3</h3>Heel goed! <br></br>Klik op de knoppen om de hoogte te matchen.";
                     break;
                 case(2):
