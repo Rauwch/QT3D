@@ -84,24 +84,15 @@ Rectangle{
             instructionText.text = "Welcome to the first tutorial!";
             break;
         case(2):
-            instructionWindow.anchors.left = screenWindow.left;
-            instructionWindow.anchors.bottom = screenWindow.bottom;
-            instructionWindow.anchors.leftMargin = (Screen.width/2 - instructionWindow.width/2);
-            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
+            instructionWindow.anchors.centerIn = screenWindow;
             instructionText.text = "Welcome to the second tutorial!";
             break;
         case(3):
-            instructionWindow.anchors.right = screenWindow.right;
-            instructionWindow.anchors.bottom = screenWindow.bottom;
-            instructionWindow.anchors.rightMargin = (Screen.width/2 - instructionWindow.width/2);
-            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
+            instructionWindow.anchors.centerIn = screenWindow;
             instructionText.text = "Welcome to the third tutorial!";
             break;
         case(4):
-            instructionWindow.anchors.right = screenWindow.right;
-            instructionWindow.anchors.bottom = screenWindow.bottom;
-            instructionWindow.anchors.rightMargin = (Screen.width/2 - instructionWindow.width/2);
-            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
+            instructionWindow.anchors.centerIn = screenWindow;
             instructionText.text = "Welcome to the fourth tutorial!";
             break;
         }
@@ -173,21 +164,25 @@ Rectangle{
         switch(stage){
         case(0):
             stage++;
-            instructionWindow.anchors.leftMargin = Screen.width*3/5 - instructionWindow.width/2;
-            instructionWindow.anchors.bottomMargin = Screen.height*2/3;
-            instructionText.text = "<h3>STAP 1/4</h3>Deze dikke <b>gele lijn</b> toont aan welke kwallen jou hulp nodig hebben.";
+            unAnchors();
+            instructionWindow.anchors.horizontalCenter = screenWindow.horizontalCenter;
+            instructionWindow.anchors.top = screenWindow.top;
+            instructionWindow.anchors.topMargin = Screen.height/5
+            instructionText.text = "<h3>STAP 1/4</h3>Deze dikke <b>gele lijn</b> toont aan welke kwallen jouw hulp nodig hebben.";
             break;
         case(1):
             stage++;
-            instructionWindow.anchors.leftMargin = Screen.width*3/5 - instructionWindow.width/2;
-            instructionWindow.anchors.bottomMargin = (Screen.height*9/10 - instructionWindow.height/2);
+            instructionWindow.anchors.topMargin = Screen.height/20
+            instructionWindow.anchors.horizontalCenterOffset = Screen.width/10
             instructionText.text = "<h3>STAP 2/4</h3>De grootte van de <b>roze kwallen</b> en hun <b>grijs doel</b> staan hier aangeduid.";
             break;
         case(2):
             stage++;
-            instructionWindow.anchors.leftMargin = 100;
-            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
-            instructionText.text = "<h3>STAP 3/4</h3>Je kan de <b>grootte van de kwallen</b> aanpassen door de <b>hoogte van de lift</b> te veranderen.<br></br><u>Klik op de bol</u> van de lift en probeer het zelf.";
+            unAnchors();
+            instructionWindow.anchors.verticalCenter = screenWindow.verticalCenter;
+            instructionWindow.anchors.left = screenWindow.left;
+            instructionWindow.anchors.leftMargin = Screen.width/20;
+            instructionText.text = "<h3>STAP 3/4</h3>Je kan de <b>grootte van de kwallen</b> aanpassen <br></br>door de <b>hoogte van de lift</b> te veranderen.<br></br><u>Klik op de bol</u> van de lift en probeer het zelf.";
             buttonNext.visible = false;
             break;
         case(numStages):
@@ -207,15 +202,20 @@ Rectangle{
         switch(stage){
         case(0):
             stage++;
-            instructionWindow.anchors.rightMargin = Screen.width*2/5 - instructionWindow.width/2;
-            instructionWindow.anchors.bottomMargin = (Screen.height*9/10 - instructionWindow.height/2);
-            instructionText.text = "<h3>STAP 1/4</h3>Deze kwal toont dus aan hoe groot hij moet worden.";
+            unAnchors();
+            instructionWindow.anchors.horizontalCenter = screenWindow.horizontalCenter;
+            instructionWindow.anchors.top = screenWindow.top;
+            instructionWindow.anchors.topMargin = Screen.height/20;
+            instructionWindow.anchors.horizontalCenterOffset = Screen.width/8;
+            instructionText.text = "<h3>STAP 1/4</h3>Deze <b>grijze kwal</b> toont dus <b>het doel</b> aan.";
             break;
         case(1):
             stage++;
-            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
-            instructionWindow.anchors.rightMargin =  Screen.width*1/5 - instructionWindow.width/2;
-            instructionText.text = "<h3>STAP 2/4</h3>Kwallen gaan door de paarse buizen naar beneden<br></br>Hoe <b>scherper de bochten</b>, hoe <b>kleiner de kwallen</b> moeten zijn om erdoor te kunnen.";
+            unAnchors();
+            instructionWindow.anchors.verticalCenter = screenWindow.verticalCenter;
+            instructionWindow.anchors.right = screenWindow.right;
+            instructionWindow.anchors.rightMargin = Screen.width/20;
+            instructionText.text = "<h3>STAP 2/4</h3>Kwallen gaan door de paarse buizen naar beneden.<br></br>Hoe <b>scherper de bochten</b>, <br>hoe <b>kleiner de kwallen</b> moeten zijn om erdoor te kunnen.";
             break;
         case(2):
             stage++;
@@ -239,19 +239,25 @@ Rectangle{
         switch(stage){
         case(0):
             stage++;
-            instructionWindow.anchors.rightMargin = Screen.width*2/5 - instructionWindow.width/2;
-            instructionWindow.anchors.bottomMargin = (Screen.height*9/10 - instructionWindow.height/2);
-            instructionText.text = "<h3>STAP 1/4</h3>Vanboven zien we wat er gebeurt als een kwal zijn pad in 2 deelt<br></br>De grote kwal wordt <b>gesplitst in twee kleinere kwallen</b>.";
+            unAnchors();
+            instructionWindow.anchors.horizontalCenter = screenWindow.horizontalCenter;
+            instructionWindow.anchors.horizontalCenterOffset = Screen.width/8;
+            instructionWindow.anchors.top = screenWindow.top;
+            instructionWindow.anchors.topMargin = Screen.height/10;
+            instructionText.text = "<h3>STAP 1/4</h3><b>Een grote kwal</b> kan splitsen<br></br> in <b>twee kleinere kwallen</b>.";
             break;
         case(1):
             stage++;
-            instructionWindow.anchors.rightMargin = Screen.width*5/6 - instructionWindow.width/2;
-            instructionWindow.anchors.bottomMargin = (Screen.height/2 - instructionWindow.height/2);
-            instructionText.text = "<h3>STAP 2/4</h3>Vanonder zien we wat er gebeurt als de paden van 2 kwallen bij elkaar komen<br></br>De twee kleine kwallen <b>maken samen één grote kwal</b>.";
+            unAnchors();
+            instructionWindow.anchors.bottom = screenWindow.bottom;
+            instructionWindow.anchors.bottomMargin = Screen.height/15;
+            instructionWindow.anchors.left = screenWindow.left;
+            instructionWindow.anchors.leftMargin = Screen.width/8;
+            instructionText.text = "<h3>STAP 2/4</h3><b>Twee kleinere kwallen</b> kunnen samenvoegen<br></br> tot <b>een grote kwal</b>.";
             break;
         case(2):
             stage++;
-            instructionText.text = "<h3>STAP 3/4</h3>Kijk nu wat er gebeurt als je de scherpte van de bochten aanpast";
+            instructionText.text = "<h3>STAP 3/4</h3>Kijk nu wat er gebeurt als je <br></br>de scherpte van de bochten aanpast.";
             buttonNext.visible = false;
             break;
         case(numStages):
@@ -281,21 +287,30 @@ Rectangle{
                     break;
                 case(2):
                     ballExplained = true;
-                    instructionWindow.anchors.rightMargin = Screen.width - instructionWindow.width - 100;
-                    instructionWindow.anchors.bottomMargin = 150;
+                    unAnchors();
+                    instructionWindow.anchors.bottom = screenWindow.bottom;
+                    instructionWindow.anchors.bottomMargin = Screen.width/10;
+                    instructionWindow.anchors.left = screenWindow.left;
+                    instructionWindow.anchors.leftMargin = Screen.width/20;
                     instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br>Klik op de knoppen om de hoogte aan te passen.";
                     break;
                 case(3):
                     ballExplained = true;
-                    instructionWindow.anchors.rightMargin = Screen.width - instructionWindow.width - 100;
-                    instructionWindow.anchors.bottomMargin = 150;
+                    unAnchors();
+                    instructionWindow.anchors.bottom = screenWindow.bottom;
+                    instructionWindow.anchors.bottomMargin = Screen.width/10;
+                    instructionWindow.anchors.left = screenWindow.left;
+                    instructionWindow.anchors.leftMargin = Screen.width/20;
                     instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br>Klik op de knoppen om de bochten aan te passen.";
                     break;
                 case(4):
                     ballExplained = true;
-                    instructionWindow.anchors.rightMargin = Screen.width - instructionWindow.width - 100;
-                    instructionWindow.anchors.bottomMargin = 150;
-                    instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br>Probeer nu de inktvissen op de dikke lijn de juiste grootte te geven.";
+                    unAnchors();
+                    instructionWindow.anchors.bottom = screenWindow.bottom;
+                    instructionWindow.anchors.bottomMargin = Screen.width/10;
+                    instructionWindow.anchors.left = screenWindow.left;
+                    instructionWindow.anchors.leftMargin = Screen.width/20;
+                    instructionText.text = "<h3>STAP 4/4</h3>Heel goed! <br></br>Probeer nu de inktvissen op de <br></br>dikke lijn de juiste grootte te geven.";
                     break;
                 }
 
