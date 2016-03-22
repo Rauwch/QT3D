@@ -146,7 +146,7 @@ Item {
             }
 
             Image{
-                source: "retry.png"
+                source: "retry2.png"
                 height: parent.height/2
                 width: parent.width/2
                 anchors.centerIn: parent
@@ -706,7 +706,7 @@ Item {
                     }
                 }
                 Image{
-                    source: "retry.png"
+                    source: "retry2.png"
                     height: parent.height/2
                     width: parent.width/2
                     anchors.centerIn: parent
@@ -723,7 +723,7 @@ Item {
             }
 
             Button{
-                text: "Select level"
+
                 width: Screen.width/15
                 height: width
                 style: ButtonStyle {
@@ -748,11 +748,18 @@ Item {
                     console.log("world is destroyed");
                 }
 
+                Image{
+                    source: "levels.png"
+                    height: parent.height/2
+                    width: parent.width/2
+                    anchors.centerIn: parent
+                }
+
             }
 
             Button{
                 id: continueBtn
-                text: "Continue"
+                //text: "Continue"
                 width: Screen.width/15
                 height: width
                 style: ButtonStyle {
@@ -777,6 +784,13 @@ Item {
                     pageLoader.source = "GameScreen.qml";
 
                     console.log("world is destroyed");
+                }
+
+                Image{
+                    source: "continue.png"
+                    height: parent.height/2
+                    width: parent.width/2
+                    anchors.centerIn: parent
                 }
             }
 
@@ -990,9 +1004,6 @@ Item {
     function updateTutorial(){
         tutorialScreen.checkBallclicked();
     }
-
-
-
 }
 
 

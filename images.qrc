@@ -28,5 +28,8 @@
         <file>Switch.jpg</file>
         <file>retry.png</file>
         <file>rotateCamera.png</file>
+        <file>continue.png</file>
+        <file>levels.png</file>
+        <file>retry2.png</file>
     </qresource>
 </RCC>
