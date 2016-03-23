@@ -15,7 +15,7 @@ Entity{
     property real orientationAngle: 0
     //    property var clickableBals:[]
     property var clickableBals
-
+    property var rotationAngle: 180
     property int length: 5
 
 
@@ -37,7 +37,12 @@ Entity{
     }
 
     QQ2.NumberAnimation{
-
+        id:switchIt
+        target:theSwitch
+        property: "rotationAngle"
+        from: 180
+        to:90
+        duration: 1000
     }
 
 
@@ -48,39 +53,40 @@ Entity{
         yVal: theSwitch.yMax
         zVal: theSwitch.z
         switchNr: switchNr
+
     }
-    BalSwitch{
-        id:bal2
-        xVal: {
+//    BalSwitch{
+//        id:bal2
+//        xVal: {
 
-            switch (theSwitch.orientationAngle){
-            case(0):
-                x + length;
-                break;
-            case(180):
-                x - length;
-                break;
-            default:
-                x
-            }
-        }
-        yVal: yMin
+//            switch (theSwitch.orientationAngle){
+//            case(0):
+//                x + length;
+//                break;
+//            case(180):
+//                x - length;
+//                break;
+//            default:
+//                x
+//            }
+//        }
+//        yVal: yMin
 
-        zVal:{
-            switch(orientationAngle){
-            case(90):
-                z - length;
-                break;
-            case(270):
-                z + length;
-                break;
+//        zVal:{
+//            switch(orientationAngle){
+//            case(90):
+//                z - length;
+//                break;
+//            case(270):
+//                z + length;
+//                break;
 
-            default:
-                z
-            }
-        }
-        switchNr: switchNr
-    }
+//            default:
+//                z
+//            }
+//        }
+//        switchNr: switchNr
+//    }
 
 
 
@@ -102,13 +108,16 @@ Entity{
             translation:{
                 switch(orientationAngle){
                 case(0):
-                    Qt.vector3d(x + length/2 , yMax,z)
+                    Qt.vector3d(Math.cos(theSwitch.rotationAngle*180/Math.PI)*length+x,Math.sin(theSwitch.rotationAngle*180/Math.PI)*length+ymax, z)
+                    //Qt.vector3d(x + length/2 , yMax,z)
                     break;
                 case(90):
                     Qt.vector3d(x, yMax,z - length/2)
                     break;
                 case(180):
-                    Qt.vector3d(x - length/2 , yMax,z)
+
+                    Qt.vector3d(-Math.cos(theSwitch.rotationAngle*180/Math.PI)*length/2 + x,Math.sin(theSwitch.rotationAngle*180/Math.PI)*length/2+yMax, z)
+                    //Qt.vector3d(x - length/2 , yMax,z)
                     break;
                 case(270):
                     Qt.vector3d(x, yMax,z + length/2)
@@ -123,33 +132,37 @@ Entity{
                 switch(orientationAngle){
                 case 0:
                 case 180:
-                    fromAxisAndAngle(Qt.vector3d(0, 0, 1), 90)
+                    fromAxisAndAngle(Qt.vector3d(0, 0, 1), -90 + rotationAngle)
                     break;
                 case 90:
                 case 270:
-                    fromAxisAndAngle(Qt.vector3d(0, 1, 1), 90)
+                    fromAxisAndAngle(Qt.vector3d(0, 1, 1), rotationAngle)
                 }
 
             }
 
 
         }
-            property Material material: DiffuseMapMaterial {
-                id: theMaterial
-                diffuse: "Switch.jpg"
-                ambient: Qt.rgba( 1, 1, 1, 1.0 )
-                specular: Qt.rgba( 1, 1, 1, 1.0 )
-                shininess: 0
-            }
+        property Material material: DiffuseMapMaterial {
+            id: theMaterial
+            diffuse: "Switch.jpg"
+            ambient: Qt.rgba( 1, 1, 1, 1.0 )
+            specular: Qt.rgba( 1, 1, 1, 1.0 )
+            shininess: 0
         }
-
-        function updateBal(){
-
-            bal2.yVal = yMin;
-        }
-
-
     }
+
+    function updateBal(){
+
+        bal2.yVal = yMin;
+    }
+
+    function rotateSwitch(){
+        switchIt.start();
+    }
+
+
+}
 
 
 

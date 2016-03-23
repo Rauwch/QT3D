@@ -375,6 +375,8 @@ Entity{
 
             switches[i].yMax =maxVolt;
             switches[i].yMin =minVolt;
+
+            switches[i].rotateSwitch();
         }
 
 

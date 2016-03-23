@@ -3,6 +3,7 @@
 Leaderboard::Leaderboard(QObject *parent) : QObject(parent)
 {
     this->setLowestEntry(0);
+    this->setHighScore(0);
 }
 
 void Leaderboard::readLeaderboard(int level)
