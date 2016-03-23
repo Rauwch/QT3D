@@ -343,11 +343,9 @@ Entity{
             resistors[i].z = -calculator.getYCoordOfResistor(i)*root.sf;
             resistors[i].y = minVolt;
             resistors[i].updateBends();
-            resistors[i].printBends();
-            //resistors[i].deleteBends();
-
-
+            resistors[i].storeBends();
         }
+
         //console.log("groote van wires: " + wires.length)
         for(  i= 0; i <wires.length; i++)
         {
@@ -390,6 +388,7 @@ Entity{
             switches[i].yMax =maxVolt;
             switches[i].yMin =minVolt;
             switches[i].rotateSwitch();
+            //switches[i].updateBal();
         }
 
 

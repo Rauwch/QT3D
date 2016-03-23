@@ -42,58 +42,9 @@ Entity{
     property var ytest
     property var ztest
 
-    property var lnew
-    property var snew
-    property var ynew
-    property var znew
-
-    property var lprev
-    property var sprev
-    property var yprev
-    property var zprev
     property bool clickable: false
     property var resistorNr
 
-    QQ2.ParallelAnimation{
-        id: bentAnimation
-        running: false
-        QQ2.PropertyAnimation{
-            id: part1
-            target: theBentResistor
-            easing.type: "InOutQuad"
-            property: "l"
-            from: lprev
-            to: lnew
-            duration: 1000
-        }
-        QQ2.PropertyAnimation{
-            id: part2
-            target: theBentResistor
-            easing.type: "InOutQuad"
-            property: "s"
-            from: sprev
-            to: snew
-            duration: 1000
-        }
-        QQ2.PropertyAnimation{
-            id: part3
-            target: theBentResistor
-            easing.type: "InOutQuad"
-            property: "y"
-            from: yprev
-            to: ynew
-            duration: 1000
-        }
-        QQ2.PropertyAnimation{
-            id: part4
-            target: theBentResistor
-            easing.type: "InOutQuad"
-            property: "z"
-            from: zprev
-            to: znew
-            duration: 1000
-        }
-    }
     Calculator{
         id: localCalc
     }
@@ -113,28 +64,18 @@ Entity{
 
     }
 
-    function printBends(){
+    function storeBends(){
         for(var i=0; i<numBends; i++){
 
-            lprev = oldbends[i].l;
-            sprev = oldbends[i].s;
-            yprev = oldbends[i].y;
-            zprev = oldbends[i].z;
-            lnew = bends[i].l;
-            snew = bends[i].s;
-            ynew = bends[i].y;
-            znew = bends[i].z;
-            console.log("NEW NEW NEW I " + i);
-            console.log("lprev " + lprev);
-            console.log("lnew " + lnew);
-            console.log("sprev " + sprev);
-            console.log("snew " + snew);
-            console.log("yprev " + yprev);
-            console.log("ynew " + ynew);
-            console.log("zprev " + zprev);
-            console.log("znew " + znew);
-            bentAnimation.running = true;
-
+            bends[i].lprev = oldbends[i].l;
+            bends[i].aprev = oldbends[i].a;
+            bends[i].yprev = oldbends[i].y;
+            bends[i].zprev = oldbends[i].z;
+            bends[i].lnew = bends[i].l;
+            bends[i].anew = bends[i].a;
+            bends[i].ynew = bends[i].y;
+            bends[i].znew = bends[i].z;
+            bends[i].activateAnimation();
         }
     }
 
@@ -144,15 +85,10 @@ Entity{
     }
     function updateOldBends(){
         for(var i=0; i<numBends; i++){
-            var lola = bends[i].a;
-            oldbends[i].a = lola;
-            var loly = bends[i].y;
-            oldbends[i].y = loly;
-            var lolz = bends[i].z;
-            oldbends[i].z = lolz;
-            var loll = bends[i].l;
-            oldbends[i].l = loll;
-
+            oldbends[i].a = bends[i].a;
+            oldbends[i].y = bends[i].y;
+            oldbends[i].z = bends[i].z;
+            oldbends[i].l  = bends[i].l;
         }
     }
 
@@ -171,8 +107,6 @@ Entity{
             }
             else{
                 bends[i].a = ((theBentResistor.a)-localVar);
-                //bends[i].y = theBentResistor.bends[i-1].y + localCalc.calcSin(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90);
-                //bends[i].z = (theBentResistor.bends[i-1].z + (-(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90))));
                 bends[i].y = localy + localCalc.calcSin(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90);
                 bends[i].z = localz + (-(localCalc.getRealSin(theBentResistor.orientationAngle))*(localCalc.calcCos(localCalc.calcLength(theBentResistor.l/numBends,localVar),theBentResistor.a+localVar-90)));
                 bends[i].l = localCalc.calcLength(theBentResistor.l/numBends,localVar);
@@ -184,11 +118,8 @@ Entity{
                     bends[i].a = ((theBentResistor.a));
                     bends[i].y = theBentResistor.y;
                     bends[i].l = -flatLength;
-
                 }
             }
-
-
         }
     }
 

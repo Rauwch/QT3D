@@ -14,50 +14,64 @@ Entity{
     property real y: 0
     property real z: 0
 
+    property var lnew
+    property var anew
+    property var ynew
+    property var znew
+
+    property var lprev
+    property var aprev
+    property var yprev
+    property var zprev
 
     //Variable voor hoek.
     property real a: 90 //Hoek volgens z as,bepaald door spanning over weerstand
     property real orientationAngle: 0 //Hoek volgens y as, bepaald door plaatsing weerstand
 
-//    QQ2.Behavior on s{
-//        QQ2.NumberAnimation{
-//            duration: 1000
+    QQ2.ParallelAnimation{
+        id: bentAnimation
+        running: false
+        QQ2.PropertyAnimation{
+            id: part1
+            target: node
+            easing.type: "InOutQuad"
+            property: "l"
+            from: lprev
+            to: lnew
+            duration: 1000
+        }
+//        QQ2.PropertyAnimation{
+//            id: part2
+//            target: node
 //            easing.type: "InOutQuad"
+//            property: "a"
+//            from: aprev
+//            to: anew
+//            duration: 1000
 //        }
-//    }
+        QQ2.PropertyAnimation{
+            id: part3
+            target: node
+            easing.type: "InOutQuad"
+            property: "y"
+            from: yprev
+            to: ynew
+            duration: 1000
+        }
+        QQ2.PropertyAnimation{
+            id: part4
+            target: node
+            easing.type: "InOutQuad"
+            property: "z"
+            from: zprev
+            to: znew
+            duration: 1000
+        }
+    }
 
-//    QQ2.Behavior on a{
-//        QQ2.NumberAnimation{
-//            duration: 1000
-//            easing.type: "InOutQuad"
-//        }
-//    }
-//    QQ2.Behavior on l{
-//        QQ2.NumberAnimation{
-//            duration: 1000
-//            easing.type: "InOutQuad"
-//        }
-//    }
-
-//    QQ2.Behavior on y{
-//        QQ2.NumberAnimation{
-//            duration: 1000
-//            easing.type: "InOutQuad"
-//        }
-//    }
-
-//    QQ2.Behavior on x{
-//        QQ2.NumberAnimation{
-//            duration: 1000
-//            easing.type: "InOutQuad"
-//        }
-//    }
-//    QQ2.Behavior on z{
-//        QQ2.NumberAnimation{
-//            duration: 1000
-//            easing.type: "InOutQuad"
-//        }
-//    }
+    function activateAnimation(){
+        bentAnimation.running = true;
+    }
 
     components: [finmesh,fintrans]//,objectPicker]
 

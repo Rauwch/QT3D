@@ -20,10 +20,10 @@ Entity{
     }
 
     //do we use this still?
-    signal hasbeenclicked()
-    QQ2.Component.onCompleted: {
-        objectPicker.clicked.connect(hasbeenclicked);
-    }
+//    signal hasbeenclicked()
+//    QQ2.Component.onCompleted: {
+//        objectPicker.clicked.connect(hasbeenclicked);
+//    }
 
     Transform{
         id:bolTrans

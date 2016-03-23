@@ -829,10 +829,12 @@ Item {
     function calculateSize(){
         var Icurrent = calculator.getCurrentInGoalWire();
         var Igoal = calculator.getGoalinGoalWire();
-        var size;
-        size = Icurrent/Igoal;
-        if(Icurrent > Igoal){
-            size=(Icurrent-((Icurrent-Igoal)/6*5))/Igoal;
+        var size = 0;
+        if(Igoal !== 0){
+            size = Icurrent/Igoal;
+            if(Icurrent > Igoal){
+                size=(Icurrent-((Icurrent-Igoal)/6*5))/Igoal;
+            }
         }
 
         //jelly.scale = size;
