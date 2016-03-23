@@ -20,6 +20,8 @@ Item {
     property bool showSwitch
     property bool showTutorial: true
     property bool showLeaderboardEntry: true
+    property bool checkBoard: false
+
     property real speedoMeter: 0
     property int speedLevel
     property int numClicks: 0
@@ -310,6 +312,7 @@ Item {
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+                    checkLeaderboard()
 
                 }
                 if(world.generator.sources[0].heightIntensity >= 4){
@@ -365,7 +368,7 @@ Item {
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-
+                    checkLeaderboard()
                 }
                 if(world.generator.sources[0].heightIntensity <= 0){
                     increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
@@ -449,7 +452,7 @@ Item {
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-
+                    checkLeaderboard()
                 }
                 if(world.generator.resistors[0].bendIntensity >= 4){
                     visible = false;
@@ -505,6 +508,8 @@ Item {
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+                    checkLeaderboard()
+
                 }
                 if(world.generator.resistors[0].bendIntensity <= 0){
                     increaseResistor.parent.anchors.bottomMargin = Screen.height/15;
@@ -564,7 +569,7 @@ Item {
                 if(calculator.checkGoals())
                 {
                     myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-
+                    checkLeaderboard()
                 }
             }
         }
@@ -613,7 +618,7 @@ Item {
 
         Timer {
             id:myTimer
-            interval: 2000; running: false; repeat: false
+            interval: 1500; running: false; repeat: false
             onTriggered: {
                 hideElements()
                 popupWindow.visible = true;
@@ -778,6 +783,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 visible: {checkLeaderboard() && showLeaderboardEntry}
+
                 TextField{
                     id:myTextField
 
@@ -964,15 +970,19 @@ Item {
 
     function checkLeaderboard()
     {
-        console.log(" amount of leaderboard entries: " +leaderLoader.item.myLevelboard.getAmountOfEntries())
+        //console.log(" amount of leaderboard entries: " +leaderLoader.item.myLevelboard.getAmountOfEntries())
         if(leaderLoader.item.myLevelboard.getAmountOfEntries()< 5)
         {
+            //checkBoard = true;
             return true;
+
         }
         else if(leaderLoader.item.myLevelboard.getLowestEntry() > numClicks)
         {
+            //checkBoard = true;
             return true;
         }
+        //checkBoard = false;
         return false;
     }
 
