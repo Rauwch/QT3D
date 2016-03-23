@@ -70,7 +70,7 @@ Entity {
     }
     QQ2.ParallelAnimation{
         id: entireAnimation
-        alwaysRunToEnd: false
+        alwaysRunToEnd: true
         //        QQ2.PropertyAnimation{
         //            alwaysRunToEnd: false
         //            loops: QQ2.Animation.Infinite

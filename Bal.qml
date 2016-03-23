@@ -49,6 +49,7 @@ Entity{
             myGameScreen.clickedSource = sourceNr;
             //make sure you can't change resistor and source at the same time
             myGameScreen.showRes = false;
+            myGameScreen.showSwitch = false;
         }
     }
     //makes it look clickable

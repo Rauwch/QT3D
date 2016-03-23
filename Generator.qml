@@ -19,6 +19,8 @@ Entity{
     property var switches:[]
     property var bendValues: []
 
+    property bool switchClicked: false
+
     QQ2.QtObject{
 
         id:o
@@ -170,8 +172,7 @@ Entity{
                                                         "z": -calculator.getYCoordOfSwitch(i)*root.sf,
                                                         "yMax": maxVolt,
                                                         "yMin": minVolt,
-                                                        "orientationAngle": 90*(calculator.getAngleOfSwitch(i)-1)
-                                                    });
+                                                        "orientationAngle": 90*(calculator.getAngleOfSwitch(i)-1)});
             //console.log("after creating a switch");
             //mySwitch.createBal();
             mySwitch.parent=root.parent;
@@ -387,7 +388,9 @@ Entity{
 
             switches[i].yMax =maxVolt;
             switches[i].yMin =minVolt;
-            switches[i].rotateSwitch();
+            if(!switchClicked){
+                switches[i].rotateSwitch();
+            }
             //switches[i].updateBal();
         }
 

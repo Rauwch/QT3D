@@ -44,6 +44,7 @@ Entity{
     QQ2.ParallelAnimation{
         id: switchAnimation
         running: false
+        alwaysRunToEnd: true
         QQ2.PropertyAnimation{
             id: part1
             target: theSwitch
@@ -113,38 +114,38 @@ Entity{
         switchNr: switchNr
 
     }
-        BalSwitch{
-            id:bal2
-            xVal: {
+    BalSwitch{
+        id:bal2
+        xVal: {
 
-                switch (theSwitch.orientationAngle){
-                case(0):
-                    x + length;
-                    break;
-                case(180):
-                    x - length;
-                    break;
-                default:
-                    x
-                }
+            switch (theSwitch.orientationAngle){
+            case(0):
+                x + length;
+                break;
+            case(180):
+                x - length;
+                break;
+            default:
+                x
             }
-            yVal: janSecondy
-
-            zVal:{
-                switch(orientationAngle){
-                case(90):
-                    z - length;
-                    break;
-                case(270):
-                    z + length;
-                    break;
-
-                default:
-                    z
-                }
-            }
-            switchNr: switchNr
         }
+        yVal: janSecondy
+
+        zVal:{
+            switch(orientationAngle){
+            case(90):
+                z - length;
+                break;
+            case(270):
+                z + length;
+                break;
+
+            default:
+                z
+            }
+        }
+        switchNr: switchNr
+    }
 
 
 
@@ -166,34 +167,34 @@ Entity{
             translation:{
                 Qt.vector3d(x- length/2 + janx , yMax +jany,z)
 
-//                switch(orientationAngle){
-//                case(0):
-//                    console.log("JAN case0");
-//                    //Qt.vector3d(Math.cos(theSwitch.rotationAngle*180/Math.PI)*length+x,Math.sin(theSwitch.rotationAngle*180/Math.PI)*length+ymax, z)
-//                    //Qt.vector3d(x + length/2 , yMax,z)
-//                    Qt.vector3d(x + length/2 , yMax,z)
+                //                switch(orientationAngle){
+                //                case(0):
+                //                    console.log("JAN case0");
+                //                    //Qt.vector3d(Math.cos(theSwitch.rotationAngle*180/Math.PI)*length+x,Math.sin(theSwitch.rotationAngle*180/Math.PI)*length+ymax, z)
+                //                    //Qt.vector3d(x + length/2 , yMax,z)
+                //                    Qt.vector3d(x + length/2 , yMax,z)
 
-//                    break;
-//                case(90):
-//                    console.log("JAN case1");
+                //                    break;
+                //                case(90):
+                //                    console.log("JAN case1");
 
-//                    Qt.vector3d(x, yMax,z - length/2)
-//                    break;
-//                case(180):
-//                    console.log("JAN case2");
+                //                    Qt.vector3d(x, yMax,z - length/2)
+                //                    break;
+                //                case(180):
+                //                    console.log("JAN case2");
 
-//                    //Qt.vector3d(-Math.cos(theSwitch.rotationAngle*180/Math.PI)*length/2 + x,Math.sin(theSwitch.rotationAngle*180/Math.PI)*length/2+yMax, z)
-//                    //Qt.vector3d(x - length/2 , yMax,z)
-//                    Qt.vector3d(x , yMax + length/2,z)
-//                    break;
-//                case(270):
-//                    console.log("JAN case3");
+                //                    //Qt.vector3d(-Math.cos(theSwitch.rotationAngle*180/Math.PI)*length/2 + x,Math.sin(theSwitch.rotationAngle*180/Math.PI)*length/2+yMax, z)
+                //                    //Qt.vector3d(x - length/2 , yMax,z)
+                //                    Qt.vector3d(x , yMax + length/2,z)
+                //                    break;
+                //                case(270):
+                //                    console.log("JAN case3");
 
-//                    Qt.vector3d(x, yMax,z + length/2)
-//                    break;
-//                default:
+                //                    Qt.vector3d(x, yMax,z + length/2)
+                //                    break;
+                //                default:
 
-//                }
+                //                }
             }
 
 
@@ -223,62 +224,65 @@ Entity{
         }
     }
 
-//    function updateBal(){
+    //    function updateBal(){
 
-//        bal2.yVal = janSecondy;
-//    }
+    //        bal2.yVal = janSecondy;
+    //    }
 
     function rotateSwitch(){
-        if(switchIsOpen){
-            console.log("JAN first loop");
-            janOldx = length/2;
-            janOldy = length/2;
-            janOldAngle = -90;
+        console.log("inside rotateswitch");
 
-            janNewx = 0;
-            janNewy = 0;
-            janNewAngle = 0;
+        if(bal1.isChanging === true || bal2.isChanging === true){
+            if(switchIsOpen){
+                console.log("JAN first loop");
+                janOldx = length/2;
+                janOldy = length/2;
+                janOldAngle = -90;
 
-            janOldSecondy = 0;
-             janNewSecondy = yMax;
-//            janOldx = 0;
-//            janOldy = 0;
-//            janOldAngle = 0;
+                janNewx = 0;
+                janNewy = 0;
+                janNewAngle = 0;
 
-//            janNewx = -length/2;
-//            janNewy = -length/2;
-//            janNewAngle = 90;
+                janOldSecondy = 0;
+                janNewSecondy = yMax;
+                //            janOldx = 0;
+                //            janOldy = 0;
+                //            janOldAngle = 0;
+
+                //            janNewx = -length/2;
+                //            janNewy = -length/2;
+                //            janNewAngle = 90;
+            }
+            else{
+                console.log("JAN second loop");
+
+                janOldx = 0;
+                janOldy = 0;
+                janOldAngle = 0;
+
+                janNewx = length/2;
+                janNewy = length/2;
+                janNewAngle = -90;
+
+                janOldSecondy = yMax;
+                janNewSecondy = 0;
+                //            janOldx = -length/2;
+                //            janOldy = -length/2;
+                //            janOldAngle = 90;
+
+                //            janNewx = 0;
+                //            janNewy = 0;
+                //            janNewAngle = 0;
+            }
+
+            //        oldRotationAngle = 180;
+            //        rotationAngle = 90;
+            //update();
+            switchAnimation.running = true;
+            switchIsOpen = !switchIsOpen;
+            //switchIt.start();
         }
-        else{
-            console.log("JAN second loop");
-
-            janOldx = 0;
-            janOldy = 0;
-            janOldAngle = 0;
-
-            janNewx = length/2;
-            janNewy = length/2;
-            janNewAngle = -90;
-
-            janOldSecondy = yMax;
-             janNewSecondy = 0;
-//            janOldx = -length/2;
-//            janOldy = -length/2;
-//            janOldAngle = 90;
-
-//            janNewx = 0;
-//            janNewy = 0;
-//            janNewAngle = 0;
-        }
-
-        //        oldRotationAngle = 180;
-        //        rotationAngle = 90;
-        //updateBal();
-        switchAnimation.running = true;
-        switchIsOpen = !switchIsOpen;
-        //switchIt.start();
     }
-
 
 }
 

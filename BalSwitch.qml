@@ -13,6 +13,7 @@ Entity{
     property real zVal: 0
     property real switchNr
     property real breath
+    property bool isChanging: false
     components: [mesh,bolTrans,objectPicker,material]
     SphereMesh{
         id:mesh
@@ -20,10 +21,10 @@ Entity{
     }
 
     //do we use this still?
-//    signal hasbeenclicked()
-//    QQ2.Component.onCompleted: {
-//        objectPicker.clicked.connect(hasbeenclicked);
-//    }
+    //    signal hasbeenclicked()
+    //    QQ2.Component.onCompleted: {
+    //        objectPicker.clicked.connect(hasbeenclicked);
+    //    }
 
     Transform{
         id:bolTrans
@@ -46,6 +47,9 @@ Entity{
 
             myGameScreen.showRes = false;
             myGameScreen.showBox = false;
+
+            isChanging = !isChanging;
+            //myGameScreen.switchClicked = !myGameScreen.switchClicked;
 
             //myGameScreen.toggleSwitch(switchNr);
         }

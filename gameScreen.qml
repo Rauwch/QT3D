@@ -292,6 +292,7 @@ Item {
                 //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
                 //world.generator.buildLevel();
                 //sizeupdate();
+                world.generator.switchClicked = false;
                 world.generator.updateLevel();
                 numClicks = numClicks + 1;
 
@@ -347,7 +348,7 @@ Item {
                 calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
                 calculator.solveLevel();
                 world.generator.decreaseVolt();
-
+                world.generator.switchClicked = false;
                 world.generator.updateLevel();
                 calculateSize();
                 numClicks = numClicks + 1;
@@ -431,6 +432,7 @@ Item {
                 calculator.solveLevel();
                 //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
                 //world.generator.buildLevel();
+                world.generator.switchClicked = false;
                 world.generator.updateLevel();
                 calculateSize();
                 numClicks = numClicks + 1;
@@ -488,6 +490,7 @@ Item {
                 numClicks = numClicks + 1;
                 world.generator.decreaseRes();
                 calculator.solveLevel();
+                world.generator.switchClicked = false;
                 world.generator.updateLevel();
                 calculateSize();
                 if(calculator.checkGoals())
@@ -544,6 +547,7 @@ Item {
                 }
             }
             onClicked: {
+                world.generator.switchClicked = !world.generator.switchClicked;
                 toggleSwitch();
                 numClicks = numClicks + 1;
                 if(calculator.checkGoals())

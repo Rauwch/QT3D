@@ -139,7 +139,7 @@ Rectangle{
             instructionWindow.anchors.horizontalCenter = screenWindow.horizontalCenter;
             instructionWindow.anchors.top = screenWindow.top;
             instructionWindow.anchors.topMargin = Screen.height/20
-            instructionText.text = "<h3>STAP 1/3</h3><br></br>Deze <b>paarse paal</b> toont het <b>doel</b> van het spel aan.<br></br>De kwallen hebben jouw hulp nodig om op deze <b>hoogte</b> te kunnen zwemmen.";
+            instructionText.text = "<h3>STAP 1/3</h3><br></br>Deze <b>rode paal</b> toont het <b>doel</b> van het spel aan.<br></br>De kwallen hebben jouw hulp nodig om op deze <b>hoogte</b> te kunnen zwemmen.";
             break;
         case(1):
             stage++;
@@ -171,7 +171,7 @@ Rectangle{
             instructionWindow.anchors.horizontalCenter = screenWindow.horizontalCenter;
             instructionWindow.anchors.top = screenWindow.top;
             instructionWindow.anchors.topMargin = Screen.height/5
-            instructionText.text = "<h3>STAP 1/4</h3>Deze dikke <b>gele lijn</b> toont aan welke kwallen jouw hulp nodig hebben.";
+            instructionText.text = "<h3>STAP 1/4</h3>Deze dikke <b>rode lijn</b> toont aan welke kwallen jouw hulp nodig hebben.";
             break;
         case(1):
             stage++;
