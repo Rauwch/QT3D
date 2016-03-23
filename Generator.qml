@@ -389,9 +389,14 @@ Entity{
 
             switches[i].yMax =maxVolt;
             switches[i].yMin =minVolt;
-            if(!switchClicked){
-                switches[i].rotateSwitch();
-            }
+            if(switches[i].switchIsOpen)
+                switches[i].yCenter = switches[i].yMax + switches[i].length/2
+            else
+                switches[i].yCenter = switches[i].yMax
+
+//            if(switchClicked){
+//                switches[i].rotateSwitch();
+//            }
             //switches[i].updateBal();
         }
 
@@ -399,6 +404,17 @@ Entity{
 
 
 
+    }
+
+    //rotate switch
+
+    function  toRotateSwitch(switchNr)
+    {
+
+        if(switches[switchNr].switchIsOpen)
+            switches[switchNr].closeRotate();
+        else
+            switches[switchNr].openRotate();
     }
 
 

@@ -13,13 +13,20 @@ Entity{
     property real zVal: 0
     property real switchNr
     property real breath
-    property bool isChanging: false
+    //property bool isChanging: false
     components: [mesh,bolTrans,objectPicker,material]
     SphereMesh{
         id:mesh
         radius: 1.5
     }
 
+
+    QQ2.Behavior on yVal{
+        QQ2.NumberAnimation{
+            duration: 1000
+            easing.type: "InOutQuad"
+        }
+    }
     //do we use this still?
     //    signal hasbeenclicked()
     //    QQ2.Component.onCompleted: {
@@ -48,7 +55,7 @@ Entity{
             myGameScreen.showRes = false;
             myGameScreen.showBox = false;
 
-            isChanging = !isChanging;
+            //isChanging = !isChanging;
             //myGameScreen.switchClicked = !myGameScreen.switchClicked;
 
             //myGameScreen.toggleSwitch(switchNr);

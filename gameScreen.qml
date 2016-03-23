@@ -554,8 +554,10 @@ Item {
                 }
             }
             onClicked: {
-                world.generator.switchClicked = !world.generator.switchClicked;
+                //world.generator.switchClicked = !world.generator.switchClicked;
+
                 toggleSwitch();
+
                 numClicks = numClicks + 1;
                 if(calculator.checkGoals())
                     myTimer.start();
@@ -832,6 +834,7 @@ Item {
         }
 
         calculator.toggleSwitch(clickedSwitch);
+        world.generator.toRotateSwitch(clickedSwitch);
         calculator.solveLevel();
         world.generator.updateLevel();
 
