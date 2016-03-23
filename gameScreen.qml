@@ -555,62 +555,6 @@ Item {
                 }
             }
         }
-
-//        Button{
-//            id: closeSwitch
-//            width: openSwitchText.width+20
-//            height: Screen.height/15
-//            Text{
-//                anchors.centerIn: parent
-//                id: closeSwitchText
-//                text: " Sluit Brug "
-//                renderType: Text.NativeRendering
-//                verticalAlignment: Text.AlignVCenter
-//                horizontalAlignment: Text.AlignHCenter
-//                font.family: "Helvetica"
-//                font.pointSize: 20
-//                color: "black"
-//            }
-//            style: ButtonStyle {
-//                background: Rectangle {
-//                    implicitWidth: 100
-//                    implicitHeight: 25
-//                    border.width: control.activeFocus ? 2 : 1
-//                    border.color: "#888"
-//                    radius: 4
-//                    gradient: Gradient {
-//                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-//                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
-//                    }
-//                }
-//            }
-//            onClicked: {
-//                toggleSwitch();
-//                //                //calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
-//                //                calculator.adjustResistance(clickedRes, -calculator.getStepOfResistor(clickedRes));
-//                //                //console.log("step: " + (-calculator.getStepOfResistor(clickedRes)));
-//                //                numClicks = numClicks + 1;
-//                //                world.generator.decreaseRes();
-//                //                calculator.solveLevel();
-//                //                world.generator.updateLevel();
-//                //                calculateSize();
-//                //                if(calculator.checkGoals())
-//                //                    myTimer.start();
-//                //                if(calculator.checkGoals())
-//                //                {
-//                //                    myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-//                //                }
-//                //                if(world.generator.resistors[0].bendIntensity <= 0){
-//                //                    increaseResistor.parent.anchors.bottomMargin = Screen.height/15;
-//                //                    visible = false;
-
-//                //                }
-//                //                if(world.generator.resistors[0].bendIntensity <= 3){
-//                //                    increaseResistor.visible = true;
-//                //                }
-//            }
-
-//        }
     }
 
     function setText(tutorialLevel){
@@ -643,6 +587,16 @@ Item {
         width: Screen.width/2
         anchors.horizontalCenter: parent.horizontalCenter
         visible: false
+
+        Image
+        {
+            id: background
+            anchors.centerIn: parent
+            width: Screen.width/2
+            height: Screen.height
+            fillMode: Image.PreserveAspectCrop
+            source: "bikiniBottom.jpg"
+        }
 
         Timer {
             id:myTimer
@@ -797,21 +751,23 @@ Item {
         Loader
         {
             id:leaderLoader
-            source: "Leaderboard.qml"
+
             anchors.top : starRow.bottom
             anchors.topMargin: 50
-            //width: popupWindow.width*2/3
             anchors.horizontalCenter: popupWindow.horizontalCenter;
 
+            source: "Leaderboard.qml"
             Row{
                 id: buttonRow
+
                 anchors.top:leaderLoader.item.bottom
                 anchors.topMargin: 10
-
                 anchors.horizontalCenter: parent.horizontalCenter
+
                 visible: {checkLeaderboard() && showLeaderboardEntry}
                 TextField{
                     id:myTextField
+
                     width: popupWindow.width/2
                     height: Screen.height/12
                     placeholderText : "Geef hier je naam in"
@@ -829,7 +785,7 @@ Item {
                 }
 
                 Button{
-                    text:"Bevestig"
+
                     width:Screen.height/12
                     height:Screen.height/12
                     onClicked: {
@@ -840,7 +796,14 @@ Item {
                         leaderLoader.source="Leaderboard.qml";
                         showLeaderboardEntry = false;
                     }
+                    Image{
+                        anchors.centerIn: parent
+                        source: "confirm.png"
+                        height: parent.height*2/3
+                        width: height
+                    }
                 }
+
             }
         }
     }
@@ -984,6 +947,7 @@ Item {
 
     function checkLeaderboard()
     {
+        console.log(" amount of leaderboard entries: " +leaderLoader.item.myLevelboard.getAmountOfEntries())
         if(leaderLoader.item.myLevelboard.getAmountOfEntries()< 5)
         {
             return true;

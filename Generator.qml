@@ -352,6 +352,17 @@ Entity{
         for(  i= 0; i <wires.length; i++)
         {
             wires[i].y = calculator.voltageAtNode(calculator.getNodeOfWire(i));
+            if(wires[i].isGoal)
+            {
+                var Icurrent = calculator.getCurrentInGoalWire();
+                var Igoal = calculator.getGoalinGoalWire();
+                if(Icurrent === Igoal)
+                {
+                    wires[i].match = true;
+                    wires[i].toColor();
+                }
+            }
+
             //console.log("Current through goals wire: " + calculator.getCurrentofWire(i) + "Voltage at node " );
             wires[i].eSize = calculator.getCurrentofWire(i)*1000;
             //console.log("AMOUNT OF ELECTRONS FROM A WIRE" + wires[i].electrons.length)
@@ -359,9 +370,12 @@ Entity{
             {
                 //console.log("amount of electrons ");
                 wires[i].electrons[j].s = calculator.getCurrentofWire(i);
+
             }
 
-            wires[i].printeSize();
+
+
+            //wires[i].printeSize();
         }
         for( i = 0; i < poles.length; i++)
         {
@@ -375,7 +389,6 @@ Entity{
 
             switches[i].yMax =maxVolt;
             switches[i].yMin =minVolt;
-
             switches[i].rotateSwitch();
         }
 

@@ -39,9 +39,9 @@ Item {
         visible:  true
         Image{
             id: bikiniImg
-            source: "bikiniBottom.jpg"
-            visible: backgroundVisible
             anchors.fill: parent
+            fillMode: Image.PreserveAspectCrop
+            source: "bikiniBottom.jpg"
         }
 
 
@@ -231,13 +231,13 @@ Item {
     }
 
 
-//    property var splashWindow: Splash {
-//        onTimeout: {
-//            startWindow.visible = true;
-//            startWindow.visibility = Window.Maximized
-//        }
+    //    property var splashWindow: Splash {
+    //        onTimeout: {
+    //            startWindow.visible = true;
+    //            startWindow.visibility = Window.Maximized
+    //        }
 
 
-//    }
+    //    }
 }
 

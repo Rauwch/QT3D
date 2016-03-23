@@ -22,24 +22,21 @@ Entity{
     //global scale factor
     property real sf:1
     property bool isGoal
-   // property string colorWire
-//    property color colorGoal: "yellow"
-//    property color colorNotGoal: "red"
+    property bool match;
     //list of electrons
     property var electrons: []
     components: [finmesh,fintrans]
 
-//    QQ2.Component.onCompleted: {
-//        if(isGoal)
-//                colorWire = red;
-//        else
-//                colorWire = blue;
-//    }
+
     function toColor(){
         if(isGoal){
-             return "yellow";}
+            if(!match)
+                 return "goalPole.png";
+            else
+                return "goalPoleGo.png"
+        }
         else{
-            return "ghostwhite";}
+            return "wire.png";}
     }
     function toRadius(){
         if(isGoal){
@@ -71,7 +68,7 @@ Entity{
 //                else
 //                    components: [mesh, trans,mat]
 //            }
-            components: [mesh, trans,mat]
+            components: [mesh, trans,theMaterial]
 
             CylinderMesh {
                 id:mesh
@@ -83,19 +80,12 @@ Entity{
                 translation: Qt.vector3d(0,-0.5*l,0)
             }
 
-            PhongMaterial {
-                id:mat
+            property Material material: DiffuseMapMaterial {
+                id: theMaterial
                 diffuse: toColor()
-                ambient: toColor()
-                specular: toColor()
+                ambient: Qt.rgba( 1, 1, 1, 1.0 )
+                specular: Qt.rgba( 1, 1, 1, 1.0 )
                 shininess: 0
-            }
-            PhongMaterial {
-                id:matGoal
-                diffuse: "red"
-                ambient: "yellow"
-                specular: "yellow"
-                shininess: 0.2
             }
 
         }

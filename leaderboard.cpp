@@ -52,8 +52,8 @@ void Leaderboard::readLeaderboard(int level)
 
 void Leaderboard::addEntry(QString name, int stars, int clicks)
 {
-    //qDebug() << "in add entry";
     int checkClicks = 0;
+
     //added unsigned to int to get rid of Warning
     unsigned int i = 0;
     while(clicks >= checkClicks)
@@ -82,6 +82,13 @@ void Leaderboard::addEntry(QString name, int stars, int clicks)
     levelboard[i][1] =  QString::number(stars);
     levelboard[i][2] =  QString::number(clicks);
     amountOfEntries++;
+    if(amountOfEntries > 5)
+    {
+        levelboard.pop_back();
+        amountOfEntries--;
+    }
+
+
 }
 
 void Leaderboard::writeLeaderBoard(int level)

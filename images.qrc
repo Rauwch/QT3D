@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>qtLogo.jpg</file>
         <file>Qt-logo-medium.png</file>
-        <file>yellowstar.png</file>
         <file>lock.png</file>
         <file>arrow.png</file>
         <file>speedo.png</file>
@@ -31,5 +30,7 @@
         <file>continue.png</file>
         <file>levels.png</file>
         <file>retry2.png</file>
+        <file>confirm.png</file>
+        <file>wire.png</file>
     </qresource>
 </RCC>
