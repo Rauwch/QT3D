@@ -345,6 +345,7 @@ Entity{
             resistors[i].y = minVolt;
             resistors[i].updateBends();
             resistors[i].storeBends();
+            resistors[i].updateBal();
         }
 
         //console.log("groote van wires: " + wires.length)

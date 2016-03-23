@@ -44,13 +44,20 @@ Item {
 
         if(myLevels.getCurrentLevel() <= 4){
             tutorialScreen.numberOfLevel = myLevels.getCurrentLevel();
-            tutorialScreen.visible = true;
+            //tutorialScreen.visible = true;
+            tutTimer.start();
             rotateCamera.visible = false;
         }
         else{
-            tutorialScreen.visible = false;
+            //tutorialScreen.visible = false;
             rotateCamera.visible = true;
         }
+    }
+
+
+    property Timer tutTimer: Timer{
+        interval: 2000; running: false; repeat: false
+        onTriggered: tutorialScreen.visible = true;
     }
 
     property Calculator calculator: Calculator{
@@ -604,7 +611,7 @@ Item {
 
         Timer {
             id:myTimer
-            interval: 1000; running: false; repeat: false
+            interval: 2000; running: false; repeat: false
             onTriggered: {
                 hideElements()
                 popupWindow.visible = true;
@@ -947,6 +954,7 @@ Item {
         jellyGoal.visible = false;
         rotateCamera.visible = false;
         counter.visible = false;
+        switchBox.visible = false;
         tutorialScreen.setTextInvis();
 
     }

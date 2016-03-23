@@ -16,6 +16,12 @@ Entity{
         id:mesh
         radius: 1.75
     }
+    QQ2.Behavior on yVal{
+        QQ2.NumberAnimation{
+            duration: 1000
+            easing.type: "InOutQuad"
+        }
+    }
 
     Transform{
         id:bolTrans

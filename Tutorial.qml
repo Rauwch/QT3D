@@ -13,7 +13,9 @@ Rectangle{
     color: "transparent"
     width: Screen.width
     height: Screen.height
-    visible: {stage <= numStages}
+    visible: false
+    //visible: {stage <= numStages}
+
 
     TextMetrics {
         id: textMetrics
