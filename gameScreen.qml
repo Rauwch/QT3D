@@ -181,7 +181,12 @@ Item {
         anchors.bottom: counter.top
         readOnly: true
         font.pixelSize: 30
-        //Component.onCompleted: console.log("this is the highscore: " + leaderLoader.item.leaderColumn.myLevelboard.getHighScore())
+        Component.onCompleted:
+        {
+            if(highScore == 0){
+                text = "Highscore: /"
+            }
+        }
     }
 
     Tutorial{

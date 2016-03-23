@@ -5,8 +5,10 @@
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 
+
 Entity {
     id: root
+    property vector3d planeHeight: Qt.vector3d(50,0,0)
 
     PlaneMesh {
         id: groundMesh
@@ -17,7 +19,7 @@ Entity {
 
     Transform {
         id: groundTransform
-        translation: Qt.vector3d(50,0,0)
+        translation: planeHeight
     }
 
     property Material material: DiffuseMapMaterial {

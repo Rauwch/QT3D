@@ -63,25 +63,25 @@ Entity {
         //mainCamera.position = Qt.vector3d(50*Math.sin(cameraAngle+Math.PI/2)+3*5,40,50*Math.cos(cameraAngle+Math.PI/2)-3*5);
 
         //        cameraAngle += Math.PI/20;
-//        mainCamera.viewCenter= Qt.vector3d(15 , 10.0, -15);
-//        mainCamera.upVector= Qt.vector3d( 0.0, 1.0, 0.0 );
+        //        mainCamera.viewCenter= Qt.vector3d(15 , 10.0, -15);
+        //        mainCamera.upVector= Qt.vector3d( 0.0, 1.0, 0.0 );
         entireAnimation.running = true;
 
     }
     QQ2.ParallelAnimation{
         id: entireAnimation
         alwaysRunToEnd: false
-//        QQ2.PropertyAnimation{
-//            alwaysRunToEnd: false
-//            loops: QQ2.Animation.Infinite
-//            id: animation2
-//            target: mainCamera
-//            property: "viewCenter"
-//            from: Qt.vector3d(15 , 10.0, -15)
-//            to: Qt.vector3d(15 , 10.0, -15)
-//            duration: 10000/2
+        //        QQ2.PropertyAnimation{
+        //            alwaysRunToEnd: false
+        //            loops: QQ2.Animation.Infinite
+        //            id: animation2
+        //            target: mainCamera
+        //            property: "viewCenter"
+        //            from: Qt.vector3d(15 , 10.0, -15)
+        //            to: Qt.vector3d(15 , 10.0, -15)
+        //            duration: 10000/2
 
-//        }
+        //        }
         QQ2.PropertyAnimation{
             id: animation3
             loops: QQ2.Animation.Infinite
@@ -105,53 +105,78 @@ Entity {
 
         }
     }
+    QQ2.ParallelAnimation{
+        id: startUpAnimation
+        running: false
 
-//    Camera {
-//        id: mainCamera2
-//        projectionType: CameraLens.PerspectiveProjection
-//        fieldOfView: 45
-//        aspectRatio: 16 / 9
-//        viewCenter: Qt.vector3d(15 , 10.0, -15)
-//        upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
-//        //            nearPlane : 0.1
-//        //            farPlane : 1000.0
-//        position: Qt.vector3d(zoomlevel*Math.sin(cameraAngle+Math.PI)+x, zoomlevel, -zoomlevel*Math.cos(cameraAngle+Math.PI)-z)
+        QQ2.PropertyAnimation{
+            id: startUpCam
+            alwaysRunToEnd: false
+            target: mainCamera
+            easing.type: "InOutQuad"
+            property: "position"
+            from: Qt.vector3d(50*Math.sin(cameraAngle)+3*5,70,50*Math.cos(cameraAngle)-3*5)
+            to: Qt.vector3d(50*Math.sin(cameraAngle)+3*5,40,50*Math.cos(cameraAngle)-3*5)
+            duration: 10000/5
+        }
+        QQ2.PropertyAnimation{
+            id: startUpGroundplane
+            alwaysRunToEnd: false
+            target: myGroundPlane
+            easing.type: "InOutQuad"
+            property: "planeHeight"
+            from: Qt.vector3d(50,30,0)
+            to: Qt.vector3d(50,0,0)
+            duration: 10000/5
+        }
+    }
+    //    Camera {
+    //        id: mainCamera2
+    //        projectionType: CameraLens.PerspectiveProjection
+    //        fieldOfView: 45
+    //        aspectRatio: 16 / 9
+    //        viewCenter: Qt.vector3d(15 , 10.0, -15)
+    //        upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
+    //        //            nearPlane : 0.1
+    //        //            farPlane : 1000.0
+    //        position: Qt.vector3d(zoomlevel*Math.sin(cameraAngle+Math.PI)+x, zoomlevel, -zoomlevel*Math.cos(cameraAngle+Math.PI)-z)
 
-//    }
+    //    }
 
     Light{
         id: light
 
     }
-//    Bal{
-//        xVal: 5*5
-//        yVal: 0
-//        zVal : -1*5
-//    }
-//    //good
-//    Bal{
-//        xVal: 1*5
-//        yVal: 0
-//        zVal : -1*5
-//    }
-//    Bal{
-//        xVal: 5*5
-//        yVal: 0
-//        zVal : -5*5
-//    }
-//    //good
-//    Bal{
-//        xVal: 1*5
-//        yVal: 0
-//        zVal : -5*5
-//    }
-//    Bal{
-//        xVal: 3*5
-//        yVal: 0
-//        zVal : -3*5
-//    }
+    //    Bal{
+    //        xVal: 5*5
+    //        yVal: 0
+    //        zVal : -1*5
+    //    }
+    //    //good
+    //    Bal{
+    //        xVal: 1*5
+    //        yVal: 0
+    //        zVal : -1*5
+    //    }
+    //    Bal{
+    //        xVal: 5*5
+    //        yVal: 0
+    //        zVal : -5*5
+    //    }
+    //    //good
+    //    Bal{
+    //        xVal: 1*5
+    //        yVal: 0
+    //        zVal : -5*5
+    //    }
+    //    Bal{
+    //        xVal: 3*5
+    //        yVal: 0
+    //        zVal : -3*5
+    //    }
 
     QQ2.Component.onCompleted: {
+        startUpAnimation.running= true;
         //console.log(" X position: " + mainCamera.position.x + " Z Position: " + mainCamera.position.z );
     }
 
@@ -185,10 +210,10 @@ Entity {
 
 
 
-//    Configuration {
-//        id: camConfig
-//        controlledCamera: mainCamera
-//    }
+    //    Configuration {
+    //        id: camConfig
+    //        controlledCamera: mainCamera
+    //    }
 
     components: FrameGraph {
         ForwardRenderer {

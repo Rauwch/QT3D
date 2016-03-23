@@ -19,7 +19,6 @@ Entity{
     property real a: 90 //Hoek volgens z as,bepaald door spanning over weerstand
     property real orientationAngle: 0 //Hoek volgens y as, bepaald door plaatsing weerstand
 
-
 //    QQ2.Behavior on s{
 //        QQ2.NumberAnimation{
 //            duration: 1000

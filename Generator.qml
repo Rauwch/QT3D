@@ -137,8 +137,6 @@ Entity{
             //Lengte van de weerstand
             var length = Math.abs(((maxVolt-minVolt))/Math.cos(angle));
 
-
-
             var resistor = o.resistorFactory.createObject(null,{"a":(angle*180/Math.PI),
                                                               "resistorNr": i,
                                                               "l":length,
@@ -152,11 +150,11 @@ Entity{
             resistor.parent=root.parent;
             root.resistors[i]=resistor;
             root.resistors[i].makeBends();
-
-
-            //console.log("Current trough resistor: ", i ,calculator.getCurrentofResistor(i));
-
         }
+
+        //console.log("Current trough resistor: ", i ,calculator.getCurrentofResistor(i));
+
+
         // create switches
         for(i = 0; i < calculator.getNumberOfSwitches(); i++)
         {
@@ -337,7 +335,7 @@ Entity{
 
             //Lengte van de weerstand
             var length = Math.abs(((maxVolt-minVolt))/Math.cos(angle));
-
+            resistors[i].updateOldBends();
             resistors[i].a = angle*180/Math.PI;
             resistors[i].l = length;
             resistors[i].s = calculator.resistanceAtResistor(i);
