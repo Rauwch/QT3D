@@ -7,9 +7,6 @@
 #include <QStandardPaths>
 #include <QScreen>
 #include <QGuiApplication>
-#include <QDebug>
-
-
 //#include <limits>
 
 using namespace Eigen;
@@ -17,17 +14,7 @@ Calc::Calc()
 {
 
 }
-QString Orientation(Qt::ScreenOrientation orientation)
-{
-    switch (orientation) {
-        case Qt::PrimaryOrientation           : return "Primary";
-        case Qt::LandscapeOrientation         : return "Landscape";
-        case Qt::PortraitOrientation          : return "Portrait";
-        case Qt::InvertedLandscapeOrientation : return "Inverted landscape";
-        case Qt::InvertedPortraitOrientation  : return "Inverted portrait";
-        default                               : return "Unknown";
-    }
-}
+
 void Calc::solveLevel()
 {
     std::list<int> nodes;
@@ -360,8 +347,8 @@ void Calc::process_click_line(QString &lijn)
     lijn.replace("c","",Qt::CaseSensitivity::CaseInsensitive); //remove c
     QStringList list=lijn.split(" ");
 
-    twoStar = list.at(0).toInt();
-    threeStar = list.at(1).toInt();
+    twoStar = list.at(1).toInt();
+    threeStar = list.at(0).toInt();
 }
 // Comparing ints to round of the floats
 bool Calc::checkGoals()
@@ -387,7 +374,7 @@ bool Calc::checkGoals()
         }
         else
         {
-            //qDebug() << "TRUE goalV " << goalVoltage << "currentV " << currentVoltage;
+            qDebug() << "TRUE goalV " << goalVoltage << "currentV " << currentVoltage;
 
             goals.at(i)->setMatch(true);
         }
@@ -435,43 +422,6 @@ int Calc::getThreeStar() const
 {
     return threeStar;
 }
-
-int Calc::getPhysicalScreenWidth()
-{
-    foreach (QScreen *screen, QGuiApplication::screens()) {
-         return screen->physicalSize().width();
-    }
-    return 0;
-}
-
-void Calc::printScreenInfo()
-{
-    qDebug() << "Number of screens:" << QGuiApplication::screens().size();
-
-    qDebug() << "Primary screen:" << QGuiApplication::primaryScreen()->name();
-
-    foreach (QScreen *screen, QGuiApplication::screens()) {
-        qDebug() << "Information for screen:" << screen->name();
-        qDebug() << "  Available geometry:" << screen->availableGeometry().x() << screen->availableGeometry().y() << screen->availableGeometry().width() << "x" << screen->availableGeometry().height();
-        qDebug() << "  Available size:" << screen->availableSize().width() << "x" << screen->availableSize().height();
-        qDebug() << "  Available virtual geometry:" << screen->availableVirtualGeometry().x() << screen->availableVirtualGeometry().y() << screen->availableVirtualGeometry().width() << "x" << screen->availableVirtualGeometry().height();
-        qDebug() << "  Available virtual size:" << screen->availableVirtualSize().width() << "x" << screen->availableVirtualSize().height();
-        qDebug() << "  Depth:" << screen->depth() << "bits";
-        qDebug() << "  Geometry:" << screen->geometry().x() << screen->geometry().y() << screen->geometry().width() << "x" << screen->geometry().height();
-        qDebug() << "  Logical DPI:" << screen->logicalDotsPerInch();
-        qDebug() << "  Logical DPI X:" << screen->logicalDotsPerInchX();
-        qDebug() << "  Logical DPI Y:" << screen->logicalDotsPerInchY();
-        qDebug() << "  Orientation:" << Orientation(screen->orientation());
-        qDebug() << "  Physical DPI:" << screen->physicalDotsPerInch();
-        qDebug() << "  Physical DPI X:" << screen->physicalDotsPerInchX();
-        qDebug() << "  Physical DPI Y:" << screen->physicalDotsPerInchY();
-        qDebug() << "  Physical size:" << screen->physicalSize().width() << "x" << screen->physicalSize().height() << "mm";
-        qDebug() << "  Primary orientation:" << Orientation(screen->primaryOrientation());
-        qDebug() << "  Refresh rate:" << screen->refreshRate() << "Hz";
-        qDebug() << "  Size:" << screen->size().width() << "x" << screen->size().height();
-        qDebug() << "  Virtual geometry:" << screen->virtualGeometry().x() << screen->virtualGeometry().y() << screen->virtualGeometry().width() << "x" << screen->virtualGeometry().height();
-        qDebug() << "  Virtual size:" << screen->virtualSize().width() << "x" << screen->virtualSize().height();
-    }}
 
 
 //Functie om hoek te corrigeren TODO proberen verkleinen
@@ -1162,6 +1112,55 @@ std::vector<float> Calc::computeNetwork(int  nrOfNodes)
 
     return solu;
 }
+
+int Calc::getPhysicalScreenWidth()
+{
+    foreach (QScreen *screen, QGuiApplication::screens()) {
+         return screen->physicalSize().width();
+    }
+    return 0;
+}
+
+QString Orientation(Qt::ScreenOrientation orientation)
+{
+    switch (orientation) {
+        case Qt::PrimaryOrientation           : return "Primary";
+        case Qt::LandscapeOrientation         : return "Landscape";
+        case Qt::PortraitOrientation          : return "Portrait";
+        case Qt::InvertedLandscapeOrientation : return "Inverted landscape";
+        case Qt::InvertedPortraitOrientation  : return "Inverted portrait";
+        default                               : return "Unknown";
+    }
+}
+
+void Calc::printScreenInfo()
+{
+    qDebug() << "Number of screens:" << QGuiApplication::screens().size();
+
+    qDebug() << "Primary screen:" << QGuiApplication::primaryScreen()->name();
+
+    foreach (QScreen *screen, QGuiApplication::screens()) {
+        qDebug() << "Information for screen:" << screen->name();
+        qDebug() << "  Available geometry:" << screen->availableGeometry().x() << screen->availableGeometry().y() << screen->availableGeometry().width() << "x" << screen->availableGeometry().height();
+        qDebug() << "  Available size:" << screen->availableSize().width() << "x" << screen->availableSize().height();
+        qDebug() << "  Available virtual geometry:" << screen->availableVirtualGeometry().x() << screen->availableVirtualGeometry().y() << screen->availableVirtualGeometry().width() << "x" << screen->availableVirtualGeometry().height();
+        qDebug() << "  Available virtual size:" << screen->availableVirtualSize().width() << "x" << screen->availableVirtualSize().height();
+        qDebug() << "  Depth:" << screen->depth() << "bits";
+        qDebug() << "  Geometry:" << screen->geometry().x() << screen->geometry().y() << screen->geometry().width() << "x" << screen->geometry().height();
+        qDebug() << "  Logical DPI:" << screen->logicalDotsPerInch();
+        qDebug() << "  Logical DPI X:" << screen->logicalDotsPerInchX();
+        qDebug() << "  Logical DPI Y:" << screen->logicalDotsPerInchY();
+        qDebug() << "  Orientation:" << Orientation(screen->orientation());
+        qDebug() << "  Physical DPI:" << screen->physicalDotsPerInch();
+        qDebug() << "  Physical DPI X:" << screen->physicalDotsPerInchX();
+        qDebug() << "  Physical DPI Y:" << screen->physicalDotsPerInchY();
+        qDebug() << "  Physical size:" << screen->physicalSize().width() << "x" << screen->physicalSize().height() << "mm";
+        qDebug() << "  Primary orientation:" << Orientation(screen->primaryOrientation());
+        qDebug() << "  Refresh rate:" << screen->refreshRate() << "Hz";
+        qDebug() << "  Size:" << screen->size().width() << "x" << screen->size().height();
+        qDebug() << "  Virtual geometry:" << screen->virtualGeometry().x() << screen->virtualGeometry().y() << screen->virtualGeometry().width() << "x" << screen->virtualGeometry().height();
+        qDebug() << "  Virtual size:" << screen->virtualSize().width() << "x" << screen->virtualSize().height();
+    }}
 
 
 

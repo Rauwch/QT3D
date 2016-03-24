@@ -8,7 +8,6 @@ import QtQuick.Window 2.0
 import QtQuick.Scene3D 2.0
 import QtQuick.Controls.Styles 1.4
 
-
 import Link 1.0
 import Lvl 1.0
 import Calc 1.0
@@ -22,75 +21,66 @@ Item {
     property bool showTutorial: true
     property bool showLeaderboardEntry: true
     property bool checkBoard: false
-
-    property real speedoMeter: 0
-    property int speedLevel
-    property int numClicks: 0
     property bool playingAnimation: false
+
+
+
     property int jellyPixelHeight
     property int jellyPixelWidth
-    property string archerSource
+    property int jellySize: 0
+
     property int clickedSource
     property int clickedRes
-    property int highScore: 0
     property int clickedSwitch
-
-    property int angleOfArrow: 0
-    property var jellySize: 0
-
-    //was helvetica
-    property string fontfam: "Arial"
-    property int fontSize: 20
+    property int numClicks: 0
+    property int highScore: 0
 
     anchors.fill: parent
-    Component.onDestruction: console.log("gamescreen destroyed")
 
     Component.onCompleted: {
-        //calculator.printScreenInfo();
-
         console.log("GameScreen wordt aangemaakt");
         setPopupWindowForTutorial(myLevels.getCurrentLevel());
 
         if(myLevels.getCurrentLevel() <= 4){
             tutorialScreen.numberOfLevel = myLevels.getCurrentLevel();
-            //tutorialScreen.visible = true;
             tutTimer.start();
             rotateCamera.visible = false;
         }
-        else{
-            //tutorialScreen.visible = false;
+        else
+        {
             rotateCamera.visible = true;
         }
     }
+    Component.onDestruction: console.log("gamescreen destroyed")
 
 
     property Timer tutTimer: Timer{
-        interval: 2000; running: false; repeat: false
-        onTriggered: tutorialScreen.visible = true;
+        interval: 2000
+        running: false
+        repeat: false
+        onTriggered: tutorialScreen.visible = true
     }
 
     property Calculator calculator: Calculator{
 
     }
 
+    /* put the 3D worl in the GameScreen */
     Scene3D{
         id: ourScene3D
         anchors.fill: parent
         focus: true
         aspects: "input"
 
-        //        TestWorld{
-        //            id: world
-        //        }
-
         World3D{
             id: world
         }
     }
+
+    /* makes the background blackish when you finish a level */
     Button{
         id:alpha
-        width: Screen.width;
-        height: Screen.height;
+        anchors.fill: parent
         visible: false;
         style: ButtonStyle {
             background: Rectangle {
@@ -99,8 +89,6 @@ Item {
             }
         }
     }
-
-
 
     Row{
         anchors.left: parent.left
@@ -113,11 +101,9 @@ Item {
             id: returnButton
             width: Screen.width/15
             height: width
-            //text:"Return"
             style: ButtonStyle {
                 background: Rectangle {
-                    //implicitWidth: 100
-                    //implicitHeight: 25
+
                     border.width: 2
                     border.color: "black"
                     radius: width*0.5
@@ -134,10 +120,9 @@ Item {
                 anchors.centerIn: parent
             }
             onClicked: {
-                //soundEffects.source = "Bubbles.wav";
                 soundEffects.play();
                 //need this destroy first to not crash program
-                world.destroyCamera();
+                //world.destroyCamera();
                 pageLoader.source = "";
                 pageLoader.source = "LevelScreen.qml";
                 console.log("world is destroyed");
@@ -170,39 +155,42 @@ Item {
                 anchors.centerIn: parent
             }
             onClicked: {
-                //soundEffects.source = "Bubbles.wav";
                 soundEffects.play();
                 //need this destroy first to not crash program
-                world.destroyCamera();
-                //ourScene3D.destroy();
+                //world.destroyCamera();
+                console.log("world is destroyed");
                 pageLoader.source = "";
                 pageLoader.source = "GameScreen.qml";
-                console.log("world is destroyed");
+
             }
 
         }
     }
     TextField{
         id: counter
-        text: "aantal kliks: " + numClicks
+
         anchors.horizontalCenter: myGameScreen.horizontalCenter
         anchors.bottom: myGameScreen.bottom
+
+        text: "aantal kliks: " + numClicks
         readOnly: true
         font.pixelSize: 30
     }
     TextField{
         id: counterHighScore
-        text: "Highscore: " + highScore
-        anchors.horizontalCenter: myGameScreen.horizontalCenter
-        anchors.bottom: counter.top
-        readOnly: true
-        font.pixelSize: 30
+
         Component.onCompleted:
         {
-            if(highScore == 0){
+            if(highScore == 0)
                 text = "Highscore: /"
-            }
         }
+        anchors.horizontalCenter: myGameScreen.horizontalCenter
+        anchors.bottom: counter.top
+
+        text: "Highscore: " + highScore
+        readOnly: true
+        font.pixelSize: 30
+
     }
 
     Tutorial{
@@ -214,27 +202,25 @@ Item {
     Image{
         id:jellyGoal
         source: "jellyGoal.png"
-        scale: 1
     }
 
     Image{
         id:jelly
         source: "jelly.png"
-
     }
 
     Button{
         id:rotateCamera
+
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10
         anchors.right: parent.right
         anchors.rightMargin: 10
+
         width: Screen.width/15
         height: Screen.height/15
         style: ButtonStyle {
             background: Rectangle {
-                //implicitWidth: 100
-                //implicitHeight: 25
                 border.width: 2
                 border.color: "black"
                 radius: 5
@@ -245,10 +231,11 @@ Item {
             }
         }
         Image{
+            anchors.centerIn: parent
+
             source: "rotateCamera.png"
             height: parent.height*2/3
             width: parent.width*2/3
-            anchors.centerIn: parent
         }
 
         onPressedChanged: {
@@ -263,26 +250,26 @@ Item {
         }
     }
 
-    //2d box where setting can be edited
+    /* increase and decrease the height of a source */
     Column{
         id: textBox
-        visible: showBox
         anchors.bottom: parent.bottom
+        visible: showBox
         spacing: 10
-        //button that allows for height to be edited
+        /* increase height button */
         Button{
             id: increaseHeight
             width: increaseText.width + 20
             height: Screen.height/15
             Text{
-                anchors.centerIn: parent
                 id: increaseText
+                anchors.centerIn: parent
                 text: "Verhoog Lift"
                 renderType: Text.NativeRendering
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
-                font.family: fontfam
-                font.pointSize: fontSize
+                font.family: "Helvetica"
+                font.pointSize: 20
                 color: "black"
             }
             style: ButtonStyle {
@@ -298,39 +285,7 @@ Item {
                     }
                 }
             }
-            onClicked: {
-                //console.log("Voltage at the source before click: " + calculator.getVoltageAtSource(clickedSource));
-                //console.log("this is the source that is clicked: " + clickedSource);
-                calculator.adjustVoltageAtSource(clickedSource,calculator.getStepOfSource(clickedSource));
-                calculator.solveLevel();
-                world.generator.increaseVolt();
-
-                //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
-                //world.generator.buildLevel();
-                //sizeupdate();
-                world.generator.switchClicked = false;
-                world.generator.updateLevel();
-                numClicks = numClicks + 1;
-
-                if(calculator.checkGoals())
-                    myTimer.start();
-                //popupWindow.visible = calculator.checkGoals();
-                world.generator.updateGoalPoles();
-                if(calculator.checkGoals())
-                {
-                    myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-                    checkLeaderboard()
-
-                }
-                if(world.generator.sources[0].heightIntensity >= 4){
-                    visible = false;
-                }
-                if(world.generator.sources[0].heightIntensity >= 1){
-                    decreaseHeight.visible = true;
-                    increaseHeight.parent.anchors.bottomMargin = 0;
-                }
-                calculateSize();
-            }
+            onClicked: increaseSourceButton();
         }
 
         Button{
@@ -344,8 +299,8 @@ Item {
                 renderType: Text.NativeRendering
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
-                font.family: fontfam
-                font.pointSize: fontSize
+                font.family: "Helvetica"
+                font.pointSize: 20
                 color: "black"
             }
             style: ButtonStyle {
@@ -361,60 +316,16 @@ Item {
                     }
                 }
             }
-            onClicked: {
-                calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
-                calculator.solveLevel();
-                world.generator.decreaseVolt();
-                world.generator.switchClicked = false;
-                world.generator.updateLevel();
-                calculateSize();
-                numClicks = numClicks + 1;
-                if(calculator.checkGoals())
-                    myTimer.start();
-                world.generator.updateGoalPoles();
-                if(calculator.checkGoals())
-                {
-                    myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-                    checkLeaderboard()
-                }
-                if(world.generator.sources[0].heightIntensity <= 0){
-                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
-                    visible = false;
-
-                }
-                if(world.generator.sources[0].heightIntensity <= 3){
-                    increaseHeight.visible = true;
-                }
-
-                //                myLinker.height = myLinker.height - 1;
-                //                myLinker.speed = myLinker.speed - 500;
-                //                speedupdate(myLinker.speed);
-                //                speedoMeter = speedoMeter - 45/2;
-                //                numClicks = numClicks + 1;
-                //                updateAnimation();
-                //                if((myLinker.speed - 500) <= 0){
-                //                    visible = false;
-                //                    increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
-
-                //                }
-                //                else{
-                //                    visible = true;
-                //                    increaseHeight.parent.anchors.bottomMargin = 0;
-
-
-                //                }
-
-            }
-
+            onClicked: decreaseSourceButton();
         }
     }
 
     Column{
         id: resistorBox
-        visible: showRes
         anchors.bottom: parent.bottom
+        visible: showRes
         spacing: 10
-        //button that allows for height to be edited
+        /* increase the value of the resistor */
         Button{
             id: increaseResistor
             width: increaseResText.width + 20
@@ -426,8 +337,8 @@ Item {
                 renderType: Text.NativeRendering
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
-                font.family: fontfam
-                font.pointSize: fontSize
+                font.family: "Helvetica"
+                font.pointSize: 20
                 color: "black"
             }
             style: ButtonStyle {
@@ -443,33 +354,7 @@ Item {
                     }
                 }
             }
-            onClicked: {
-                calculator.adjustResistance(clickedRes, calculator.getStepOfResistor(clickedRes));
-                world.generator.increaseRes();
-                calculator.solveLevel();
-                //console.log("Voltage at the source after click: " + calculator.getVoltageAtSource(clickedSource));
-                //world.generator.buildLevel();
-                world.generator.switchClicked = false;
-                world.generator.updateLevel();
-                calculateSize();
-                numClicks = numClicks + 1;
-                //console.log("The angle is: " + angleOfArrow);
-                if(calculator.checkGoals())
-                    myTimer.start();
-                if(calculator.checkGoals())
-                {
-                    myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-                    checkLeaderboard()
-                }
-                if(world.generator.resistors[0].bendIntensity >= 4){
-                    visible = false;
-                }
-                if(world.generator.resistors[0].bendIntensity >= 1){
-                    decreaseResistor.visible = true;
-                    increaseResistor.parent.anchors.bottomMargin = 0;
-
-                }
-            }
+            onClicked: increaseResistorButton();
         }
 
         Button{
@@ -477,14 +362,14 @@ Item {
             width: increaseResText.width+20
             height: Screen.height/15
             Text{
-                anchors.centerIn: parent
                 id: decreaseResText
+                anchors.centerIn: parent
                 text: "Verklein bochten"
                 renderType: Text.NativeRendering
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
-                font.family: fontfam
-                font.pointSize: fontSize
+                font.family: "Helvetica"
+                font.pointSize: 20
                 color: "black"
             }
             style: ButtonStyle {
@@ -500,117 +385,53 @@ Item {
                     }
                 }
             }
-            onClicked: {
-                //calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
-                calculator.adjustResistance(clickedRes, -calculator.getStepOfResistor(clickedRes));
-                //console.log("step: " + (-calculator.getStepOfResistor(clickedRes)));
-                numClicks = numClicks + 1;
-                world.generator.decreaseRes();
-                calculator.solveLevel();
-                world.generator.switchClicked = false;
-                world.generator.updateLevel();
-                calculateSize();
-                if(calculator.checkGoals())
-                    myTimer.start();
-                if(calculator.checkGoals())
-                {
-                    myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-                    checkLeaderboard()
-
-                }
-                if(world.generator.resistors[0].bendIntensity <= 0){
-                    increaseResistor.parent.anchors.bottomMargin = Screen.height/15;
-                    visible = false;
-
-                }
-                if(world.generator.resistors[0].bendIntensity <= 3){
-                    increaseResistor.visible = true;
-                }
-            }
-
+            onClicked: decreaseResistorButton();
         }
     }
 
-    Column{
-        id: switchBox
-        visible: showSwitch
+
+
+
+    /* toggle switch */
+    Button{
+        id: changeSwitch
         anchors.bottom: parent.bottom
-        spacing: 10
-        //button that allows for height to be edited
-        Button{
-            id: changeSwitch
-            width: changeSwitchText.width + 20
-            height: Screen.height/15
-            Text{
-                anchors.centerIn: parent
-                id: changeSwitchText
-                text: " Open Brug "
-                renderType: Text.NativeRendering
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.family: fontfam
-                font.pointSize: fontSize
-                color: "black"
-            }
-            style: ButtonStyle {
-                background: Rectangle {
-                    implicitWidth: 100
-                    implicitHeight: 25
-                    border.width: control.activeFocus ? 2 : 1
-                    border.color: "#888"
-                    radius: 4
-                    gradient: Gradient {
-                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
-                    }
-                }
-            }
-            onClicked: {
-                //world.generator.switchClicked = !world.generator.switchClicked;
-
-                toggleSwitch();
-
-                numClicks = numClicks + 1;
-                if(calculator.checkGoals())
-                    myTimer.start();
-                if(calculator.checkGoals())
-                {
-                    myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-                    checkLeaderboard()
+        width: changeSwitchText.width + 20
+        height: Screen.height/15
+        visible: showSwitch
+        Text{
+            id: changeSwitchText
+            anchors.centerIn: parent
+            text: " Open Brug "
+            renderType: Text.NativeRendering
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.family: "Helvetica"
+            font.pointSize: 20
+            color: "black"
+        }
+        style: ButtonStyle {
+            background: Rectangle {
+                implicitWidth: 100
+                implicitHeight: 25
+                border.width: control.activeFocus ? 2 : 1
+                border.color: "#888"
+                radius: 4
+                gradient: Gradient {
+                    GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                    GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
                 }
             }
         }
+        onClicked: toggleSwitch();
     }
 
-    function setText(tutorialLevel){
-        switch(tutorialLevel){
-        case(1):
-            //congratsText.text = "Completed the first tutorial!";
-            congratsText.text = "1ste oefening voltooid!";
-            break;
-        case(2):
-            //congratsText.text = "Completed the second tutorial!";
-            congratsText.text = "2de oefening voltooid!";
-            break;
-        case(3):
-            //congratsText.text = "Completed the third tutorial!";
-            congratsText.text = "3de oefening voltooid!";
-            break;
-        case(4):
-            //congratsText.text = "Completed the fourth tutorial!";
-            congratsText.text = "4de oefening voltooid!";
-            break;
-        default:
-            congratsText.text = "Level Cleared!";
-            break;
-        }
-    }
 
     Rectangle{
         id: popupWindow
+        anchors.horizontalCenter: parent.horizontalCenter
         height: Screen.height
         width: Screen.width/2
-        anchors.horizontalCenter: parent.horizontalCenter
         visible: false
 
         Image
@@ -627,7 +448,6 @@ Item {
             id:myTimer
             interval: 1500; running: false; repeat: false
             onTriggered: {
-                hideElements()
                 popupWindow.visible = true;
                 alpha.visible= true;
                 starRepeater.model = getStars();
@@ -700,13 +520,10 @@ Item {
             }
 
             Button{
-
                 width: Screen.width/15
                 height: width
                 style: ButtonStyle {
                     background: Rectangle {
-                        //implicitWidth: 100
-                        //implicitHeight: 25
                         border.width: 2
                         border.color: "black"
                         radius: width*0.5
@@ -718,9 +535,9 @@ Item {
                 }
 
                 onClicked: {
-                    //soundEffects.source = "Bubbles.wav";
+
                     soundEffects.play();
-                    world.destroyCamera();
+                    //world.destroyCamera();
                     pageLoader.source = "LevelScreen.qml";
                     console.log("world is destroyed");
                 }
@@ -736,13 +553,10 @@ Item {
 
             Button{
                 id: continueBtn
-                //text: "Continue"
                 width: Screen.width/15
                 height: width
                 style: ButtonStyle {
                     background: Rectangle {
-                        //implicitWidth: 100
-                        //implicitHeight: 25
                         border.width: 2
                         border.color: "black"
                         radius: width*0.5
@@ -753,14 +567,11 @@ Item {
                     }
                 }
                 onClicked: {
-                    //soundEffects.source = "Bubbles.wav";
                     soundEffects.play();
                     myLevels.setCurrentLevel(myLevels.getCurrentLevel()+1);
                     world.destroyCamera();
                     pageLoader.source = "";
                     pageLoader.source = "GameScreen.qml";
-
-                    console.log("world is destroyed");
                 }
 
                 Image{
@@ -770,7 +581,6 @@ Item {
                     anchors.centerIn: parent
                 }
             }
-
         }
 
         Loader
@@ -797,8 +607,8 @@ Item {
                     width: popupWindow.width/2
                     height: Screen.height/12
                     placeholderText : "Geef hier je naam in"
-                    font.family: fontfam
-                    font.pointSize: fontSize
+                    font.family: "Helvetica"
+                    font.pointSize: 20
                     style: TextFieldStyle {
                         background: Rectangle {
                             radius: 2
@@ -815,7 +625,6 @@ Item {
                     width:Screen.height/12
                     height:Screen.height/12
                     onClicked: {
-                        //console.log("this is the text: " + myTextField.displayText);
                         leaderLoader.item.myLevelboard.addEntry(myTextField.displayText, getStars(), numClicks );
                         leaderLoader.item.myLevelboard.writeLeaderBoard(myLevels.getCurrentLevel());
                         leaderLoader.source="";
@@ -829,16 +638,16 @@ Item {
                         width: height
                     }
                 }
-
             }
         }
     }
 
 
     //this are all the functions
-
     function toggleSwitch()
     {
+        numClicks++;
+
         if(changeSwitchText.text === " Open Brug "){
             changeSwitchText.text = " Sluit Brug ";
         }
@@ -849,10 +658,16 @@ Item {
         calculator.toggleSwitch(clickedSwitch);
         world.generator.toRotateSwitch(clickedSwitch);
         calculator.solveLevel();
+        if(calculator.checkGoals())
+        {
+            hideElements()
+            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+            checkLeaderboard()
+            myTimer.start();
+        }
         world.generator.updateLevel();
-
     }
-
+    /* Represents the goal current and the present current by the size of the jellyfishes */
     function calculateSize(){
         var Icurrent = calculator.getCurrentInGoalWire();
         var Igoal = calculator.getGoalinGoalWire();
@@ -863,14 +678,9 @@ Item {
                 size=(Icurrent-((Icurrent-Igoal)/6*5))/Igoal;
             }
         }
-
-        //jelly.scale = size;
-        console.log("Icurrent = " + Icurrent + " Igoal = " + Igoal + "   SIZe " + size);
         jelly.height = jellyPixelHeight*size;
         jelly.width = jellyPixelWidth * size;
         updateJellyAnchors();
-        //        jelly.anchors.right = undefined;
-        //        jelly.anchors.right = myGameScreen.right;
     }
     function updateJellyAnchors(){
         //jellygoal is bigger than twice the jelly
@@ -915,16 +725,17 @@ Item {
             jellyGoal.anchors.bottom=jelly.bottom;
         }
     }
+
+    /* set the goalJelly and the jelly in the right corner of the screen */
     function initializeJellies(){
         jellyGoal.height = jellyGoal.paintedHeight*4/5;
         jellyGoal.width = jellyGoal.paintedWidth*4/5;
         jellyPixelHeight = jellyGoal.height;
         jellyPixelWidth = jellyGoal.width;
-        //        jellyPixelHeight = jelly.paintedHeight;
-        //        jellyPixelWidth = jelly.paintedWidth;
         updateJellyAnchors();
     }
 
+    /* If the level has a current goal, the Jelly and Goal Jelly are shown */
     function setVisibilityJellies(){
         if(calculator.getCurrentInGoalWire() === 0){
             jelly.visible = false;
@@ -937,29 +748,10 @@ Item {
         }
     }
 
-    function setPopupWindowForTutorial(tutorialLevel){
+    function setPopupWindowForTutorial(tutorialLevel)
+    {
         setText(tutorialLevel);
-        switch(tutorialLevel){
-        case(1):
-            world.cameraAngle = 5*Math.PI/4;
-            break;
-
-        case(2):
-            world.cameraAngle = 5*Math.PI/4;
-            break;
-
-        case(3):
-            world.cameraAngle = 5*Math.PI/4;
-            break;
-
-        case(4):
-            world.cameraAngle = 5*Math.PI/4;
-            break;
-        default:
-            world.cameraAngle = 5*Math.PI/4;
-            break;
-
-        }
+        world.cameraAngle = 5*Math.PI/4;
     }
     function hideElements(){
         retryButton.visible = false;
@@ -970,57 +762,164 @@ Item {
         jellyGoal.visible = false;
         rotateCamera.visible = false;
         counter.visible = false;
-        switchBox.visible = false;
+        changeSwitch.visible = false;
         tutorialScreen.setTextInvis();
 
     }
-
+    /* function returns if the textfield to enter a new entry in the leaderLoader, should be shown */
     function checkLeaderboard()
     {
-        //console.log(" amount of leaderboard entries: " +leaderLoader.item.myLevelboard.getAmountOfEntries())
         if(leaderLoader.item.myLevelboard.getAmountOfEntries()< 5)
         {
-            //checkBoard = true;
             return true;
-
         }
         else if(leaderLoader.item.myLevelboard.getLowestEntry() > numClicks)
         {
-            //checkBoard = true;
             return true;
         }
-        //checkBoard = false;
         return false;
     }
 
+    /* function returns the amount stars earned */
     function getStars()
     {
-        if(calculator.getThreeStar() >=  numClicks)
+        console.log(" 3star" + calculator.getThreeStar() + " 2star " + calculator.getTwoStar() + " numClicks " + numClicks)
+        if(calculator.getThreeStar() >=  numClicks){
+            console.log("return 3 stars");
             return 3;
-
-        else if(calculator.getTwoStar() >= numClicks)
+        }
+        else if(calculator.getTwoStar() >= numClicks){
+            console.log("return 2 stars");
             return 2;
+        }
         else
             return 1;
     }
 
-    function setHighScore( score)
-    {
-        highScore = score;
-    }
 
     function updateTutorial(){
         tutorialScreen.checkBallclicked();
     }
-    function getPhysicalScreenWidth(){
-        if( calculator.getPhysicalScreenWidth() === 0){
-            console.log("ERROR: physical screen width is equal to 0")
+
+    function increaseSourceButton()
+    {
+        calculator.adjustVoltageAtSource(clickedSource,calculator.getStepOfSource(clickedSource));
+        calculator.solveLevel();
+        world.generator.increaseVolt(clickedSource);
+        numClicks++;
+
+        if(calculator.checkGoals()){
+            hideElements()
+            myTimer.start();
+            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+            checkLeaderboard();
         }
-        return calculator.getPhysicalScreenWidth();
+        if(world.generator.sources[clickedSource].heightIntensity >= 4){
+            increaseHeight.visible = false;
+        }
+        if(world.generator.sources[clickedSource].heightIntensity >= 1){
+            decreaseHeight.visible = true;
+            increaseHeight.parent.anchors.bottomMargin = 0;
+        }
+        calculateSize();
+        world.generator.updateLevel();
     }
 
+    function decreaseSourceButton(){
+        calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
+        calculator.solveLevel();
+        world.generator.decreaseVolt(clickedSource);
+        numClicks++;
 
+        if(calculator.checkGoals())
+        {
+            hideElements()
+            myTimer.start();
+            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+            checkLeaderboard();
+        }
+        if(world.generator.sources[0].heightIntensity <= 0){
+            increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
+            decreaseHeight.visible = false;
 
+        }
+        if(world.generator.sources[0].heightIntensity <= 3){
+            increaseHeight.visible = true;
+        }
+        calculateSize();
+        world.generator.updateLevel()
+    }
+
+    function increaseResistorButton(){
+        calculator.adjustResistance(clickedRes, calculator.getStepOfResistor(clickedRes));
+        world.generator.increaseRes(clickedRes);
+        calculator.solveLevel();
+        world.generator.updateLevel();
+        calculateSize();
+        numClicks++;
+        if(calculator.checkGoals())
+        {
+            hideElements()
+            myTimer.start();
+            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+            checkLeaderboard()
+        }
+        if(world.generator.resistors[0].bendIntensity >= 4){
+            increaseResistor.visible = false;
+        }
+        if(world.generator.resistors[0].bendIntensity >= 1){
+            decreaseResistor.visible = true;
+            increaseResistor.parent.anchors.bottomMargin = 0;
+        }
+    }
+
+    function decreaseResistorButton(){
+        calculator.adjustResistance(clickedRes, -calculator.getStepOfResistor(clickedRes));
+        numClicks++;
+        world.generator.decreaseRes(clickedRes);
+        calculator.solveLevel();
+        world.generator.updateLevel();
+        calculateSize();
+
+        if(calculator.checkGoals())
+        {
+            hideElements()
+            myTimer.start();
+            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+            checkLeaderboard()
+        }
+        if(world.generator.resistors[0].bendIntensity <= 0){
+            increaseResistor.parent.anchors.bottomMargin = Screen.height/15;
+            visible = false;
+        }
+        if(world.generator.resistors[0].bendIntensity <= 3){
+            increaseResistor.visible = true;
+        }
+    }
+
+    function setText(tutorialLevel){
+        switch(tutorialLevel){
+        case(1):
+            //congratsText.text = "Completed the first tutorial!";
+            congratsText.text = "1ste oefening voltooid!";
+            break;
+        case(2):
+            //congratsText.text = "Completed the second tutorial!";
+            congratsText.text = "2de oefening voltooid!";
+            break;
+        case(3):
+            //congratsText.text = "Completed the third tutorial!";
+            congratsText.text = "3de oefening voltooid!";
+            break;
+        case(4):
+            //congratsText.text = "Completed the fourth tutorial!";
+            congratsText.text = "4de oefening voltooid!";
+            break;
+        default:
+            congratsText.text = "Level Cleared!";
+            break;
+        }
+    }
 }
 
 
