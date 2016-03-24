@@ -920,6 +920,12 @@ Item {
             break;
         }
     }
+    function getPhysicalScreenWidth(){
+        if( calculator.getPhysicalScreenWidth() === 0){
+            console.log("ERROR: physical screen width is equal to 0")
+        }
+        return calculator.getPhysicalScreenWidth();
+    }
 }
 
 

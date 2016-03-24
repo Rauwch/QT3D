@@ -8,7 +8,7 @@ Column{
     property Levelboard myLevelboard: Levelboard
     {
     Component.onCompleted: {
-        myGameScreen.setHighScore(myLevelboard.getHighScore());
+        myGameScreen.highScore = myLevelboard.getHighScore();
         console.log("Levelboard on complete " + myLevelboard.getAmountOfEntries());
     }
 }

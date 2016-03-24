@@ -1131,6 +1131,7 @@ QString Orientation(Qt::ScreenOrientation orientation)
         case Qt::InvertedPortraitOrientation  : return "Inverted portrait";
         default                               : return "Unknown";
     }
+
 }
 
 void Calc::printScreenInfo()
