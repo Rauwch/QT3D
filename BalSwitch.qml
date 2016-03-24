@@ -15,28 +15,22 @@ Entity{
     property real breath
     //property bool isChanging: false
     components: [mesh,bolTrans,objectPicker,material]
-    SphereMesh{
+    SphereMesh
+    {
         id:mesh
         radius: 1.5
     }
 
-
     QQ2.Behavior on yVal{
         QQ2.NumberAnimation{
-            duration: 1000
-            easing.type: "InOutQuad"
+            duration: 500
+            easing.type: "InOutSine"
         }
     }
-    //do we use this still?
-    //    signal hasbeenclicked()
-    //    QQ2.Component.onCompleted: {
-    //        objectPicker.clicked.connect(hasbeenclicked);
-    //    }
 
     Transform{
         id:bolTrans
         translation: Qt.vector3d(xVal,yVal,zVal)
-
     }
     property Material material: DiffuseMapMaterial {
         id: theMaterial
@@ -47,28 +41,18 @@ Entity{
     }
 
     property ObjectPicker objectPicker: ObjectPicker {
-
         onClicked: {
             myGameScreen.clickedSwitch = switchNr;
             myGameScreen.showSwitch = !myGameScreen.showSwitch;
-
             myGameScreen.showRes = false;
             myGameScreen.showBox = false;
-
-            //isChanging = !isChanging;
-            //myGameScreen.switchClicked = !myGameScreen.switchClicked;
-
-            //myGameScreen.toggleSwitch(switchNr);
         }
     }
 
     QQ2.SequentialAnimation{
-
-
         running: true
         loops: QQ2.Animation.Infinite
         QQ2.NumberAnimation {
-
             target: switchBol
             property: "breath"
             duration: 1000
@@ -76,15 +60,11 @@ Entity{
             to: 0.5
         }
         QQ2.NumberAnimation {
-
             target: switchBol
             property: "breath"
             duration: 1000
             from: 0.5
             to: 1
         }
-
     }
-
-
 }

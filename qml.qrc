@@ -1,22 +1,14 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>AdsMaterial.qml</file>
         <file>GroundPlane.qml</file>
-        <file>World.qml</file>
-        <file>Electron.qml</file>
-        <file>Controller.qml</file>
         <file>StartScreen.qml</file>
-        <file>Splash.qml</file>
         <file>GameScreen.qml</file>
         <file>Credits.qml</file>
         <file>LoadingScreen.qml</file>
         <file>LevelScreen.qml</file>
         <file>Options.qml</file>
         <file>OceanBox.qml</file>
-        <file>AlphaMaterial.qml</file>
-        <file>phongalpha.frag</file>
-        <file>phongalpha.vert</file>
         <file>World3D.qml</file>
         <file>Wire.qml</file>
         <file>Source.qml</file>
@@ -29,7 +21,6 @@
         <file>Cube.qml</file>
         <file>Bal.qml</file>
         <file>BentResistor.qml</file>
-        <file>Light.qml</file>
         <file>ResistorBal.qml</file>
         <file>Tutorial.qml</file>
         <file>Leaderboard.qml</file>

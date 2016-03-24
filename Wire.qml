@@ -48,8 +48,8 @@ Entity{
     }
     QQ2.Behavior on y{
         QQ2.NumberAnimation{
-            duration: 1000
-            easing.type: "InOutQuad"
+            duration: 500
+            easing.type: Easing.InOutSine
         }
     }
 

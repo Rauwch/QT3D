@@ -5,7 +5,6 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     window.cpp \
-    linker.cpp \
     levels.cpp \
     wire.cpp \
     source.cpp \
@@ -32,7 +31,6 @@ include(deployment.pri)
 
 HEADERS += \
     window.h \
-    linker.h \
     levels.h \
     wire.h \
     source.h \

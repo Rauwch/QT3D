@@ -19,15 +19,13 @@ Entity{
 
     QQ2.Behavior on y{
         QQ2.NumberAnimation{
-            duration: 1000
-            easing.type: "InOutQuad"
+            duration: 500
+            easing.type: "InOutSine"
         }
     }
 
     components: [somesh,sotrans]
-    QQ2.Component.onCompleted: {
-        //console.log("pole x y z: " + x + " " + y + " " + z);
-    }
+
 
     Entity{
         id:somesh

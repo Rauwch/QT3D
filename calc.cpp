@@ -1,5 +1,5 @@
 #include "calc.h"
-#include <iostream>
+#include<math.h>
 #include <vector>
 #include <QTextStream>
 #include <QPoint>
@@ -38,16 +38,14 @@ void Calc::solveLevel()
     sol=computeNetwork(nodes.size());
     //functie om sources, wires en resistors opnieuw te vullen
     correctAngles();
-    //setCurrentsOfResistors();
     setCurrentsOfResistorsAndSwitches();
-    //setCurrentsOfStrayWires();
+    //
 
     for(auto w:wires){
         w->setCurrent(std::numeric_limits<float>::infinity());
     }
-
     setCurrentsOfWires();
-    //qDebug() << "END OF SOLVE LEVEL";
+    setCurrentsOfStrayWires();
 }
 
 void Calc::storeCurrentGoals()
@@ -58,11 +56,8 @@ void Calc::storeCurrentGoals()
         {
             currentGoals.push_back(wires.at(i));
             wires.at(i)->setGoalValue(wires.at(i)->getCurrent());
-            //qDebug() << "this is the starting current: " << wires.at(i)->getCurrent();
         }
-
     }
-    //qDebug() << "this is the amount of current Goals " << currentGoals.size();
 }
 
 
@@ -70,18 +65,15 @@ void Calc::storeCurrentGoals()
 
 void Calc::readFile(QString s)
 {
-    qDebug()<< "begin readFile";
-    //TODO Checken of een file volledig juist is
     fileName = s;
     QFile * file = new QFile(s);
+    QString line;
     if (file->open(QIODevice::ReadOnly| QIODevice::Text))
     {
         QTextStream in(file);
-
         while (!in.atEnd())
         {
-            QString line = in.readLine();
-            //qDebug()<< line;
+            line = in.readLine();
             if (!line.isEmpty()&&!line.isNull()){
 
                 switch (line.at(0).toLower().toLatin1()) //to check first character
@@ -119,10 +111,6 @@ void Calc::readFile(QString s)
                             process_click_line(line);
                             break;
                         case '/':
-                            if(line.length()>2){
-                                //qDebug()<<line;
-                                //#ingnore
-                            }
 
                             break;
 
@@ -134,27 +122,24 @@ void Calc::readFile(QString s)
 
 
                 case '\n':
-                    //just continue
-                    //qDebug()<<"read a newline char"<<"\n ";
+
                     break;
 
                 case ' ':
-                    //just continue
-                    // qDebug()<<"read a space"<<"\n ";
+
                     break;
 
                 case 'r':
-                    //do for resistor
+                    /* process for resistor*/
                     process_resistor_line(line);
                     break;
 
                 case 'v':
-                    //do for source
+                    /* process for source */
                     process_source_line(line);
                     break;
 
                 case '.':
-                    // do for end
                     break;
 
                 default :
@@ -163,34 +148,28 @@ void Calc::readFile(QString s)
                 }
             }
         }
-        file->close();
     }
+    file->close();
 }
-
+/* change the  source goal value to the initial value */
 void Calc::updateSources()
 {
     for(unsigned int i= 0; i < sources.size(); i++)
     {
-        //qDebug() <<"sourcers ervoor " << sources.at(i)->getValue();
         if(sources.at(i)->getInitialValue() != 0)
         {
             sources.at(i)->setValue(sources.at(i)->getInitialValue());
-            //qDebug() <<"sourcers erna " <<sources.at(i)->getValue();
-
         }
     }
 }
-
+/* change the  resistor goal value to the initial value */
 void Calc::updateResistors()
 {
-
     for( unsigned int i= 0; i < resistors.size(); i++)
     {
-        //qDebug() << "resistors ervoor "<< resistors.at(i)->getValue();
         if(resistors.at(i)->getInitialValue() != 0)
         {
             resistors.at(i)->setValue(resistors.at(i)->getInitialValue());
-            //qDebug() << "resistors erna "<< resistors.at(i)->getValue();
         }
     }
 
@@ -201,46 +180,36 @@ void Calc::updateResistors()
 
 std::vector<std::shared_ptr<Wire> > Calc::process_wire_line(QString &lijn)
 {
-    //qDebug()<< " processing a new wire" ;
-    //qDebug()<< lijn;
     std::vector<std::shared_ptr<Wire>> wir;
+    QStringList list, wireParams;
+    int x, y, angle, length;
+    bool isGoal;
     lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
     lijn.replace("w","",Qt::CaseSensitivity::CaseInsensitive); //remove w
 
-    QStringList list=lijn.split(",");
+    list=lijn.split(",");
     for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
         QString current = *it;
-        QStringList wireParams=current.split(" ",QString::SkipEmptyParts);
-        int x=wireParams.at(1).toInt();
-        int y=wireParams.at(2).toInt();
-        int angle=wireParams.at(0).toInt();
-        int length=wireParams.at(4).toInt();
-        bool isGoal;
+        wireParams=current.split(" ",QString::SkipEmptyParts);
+        x=wireParams.at(1).toInt();
+        y=wireParams.at(2).toInt();
+        angle=wireParams.at(0).toInt();
+        length=wireParams.at(4).toInt();
         if(wireParams.at(5).toInt() == 1)
-        {
             isGoal = true;
-        }
         else if(wireParams.at(5).toInt() == 0)
-        {
             isGoal = false;
-        }
         else
-        {
             qDebug() << "Wrong entry for variable";
-        }
         int node=wireParams.at(3).toInt();
         auto w =std::make_shared<Wire>(x,y,angle,length,node,isGoal);
         wir.push_back(w);
-        //TODO check if input is correct!!
-
     }
-
     return wir;
 }
 
 void Calc::process_resistor_line(QString &lijn)
-{
-
+{ 
     lijn.replace("r","",Qt::CaseSensitivity::CaseInsensitive); //remove r
     QStringList list=lijn.split(" ",QString::SkipEmptyParts);
 
@@ -266,72 +235,59 @@ void Calc::process_resistor_line(QString &lijn)
     float v=list.at(3).toFloat();
     auto r =std::make_shared<Resistor>(v,node1,node2,x,y,angle,variable,initial,step);
     resistors.push_back(r);
-
 }
 
 void Calc::process_switch_line(QString &lijn)
 {
     lijn.replace("*sw","",Qt::CaseSensitivity::CaseInsensitive); //remove *sw
     QStringList list=lijn.split(" ",QString::SkipEmptyParts);
-
-    qDebug()<< " adding a switch";
     int x=list.at(1).toInt();
     int y=list.at(2).toInt();
     int angle=list.at(0).toInt();
     int node1=list.at(3).toInt();
     int node2=list.at(4).toInt();
     auto sw =std::make_shared<Switch>(node1,node2,x,y,angle);
-    qDebug()<< "x: " << x <<  "  y: " << y <<  "  angle: " << angle <<  "  node1: " << node1 <<  "  node2: " << node2;
     switches.push_back(sw);
-
 }
 
 
 
 void Calc::process_source_line(QString &lijn)
-{
-
+{ 
+    int initial;
     lijn.replace("v","",Qt::CaseSensitivity::CaseInsensitive); //remove v
     QStringList list=lijn.split(" ",QString::SkipEmptyParts);
-    qDebug() << list;
     int x=list.at(5).toInt();
     int y=list.at(6).toInt();
     int angle=list.at(7).toInt();
+     float v=list.at(3).toFloat();
     bool variable;
     if(list.at(8).toInt() == 1)
     {
         variable = true;
+        initial = list.at(9).toInt();
     }
     else if(list.at(8).toInt() == 0)
     {
         variable = false;
+        initial = v;
     }
     else{
         qDebug() << "Wrong entry for variable";
     }
-    int initial = list.at(9).toInt();
-    //qDebug() << "this is the initiale " << initial;
 
     int step = list.at(10).toInt();
-    //qDebug() << "this is the step size " << step;
     int nodep=list.at(1).toInt();
     int nodem=list.at(2).toInt();
-    float v=list.at(3).toFloat();
     auto s =std::make_shared<Source>(v,nodep,nodem,x,y,angle,step, variable,initial);
-    //qDebug() << "ADDED a SOURCE TO THE SOURCE LIST";
     sources.push_back(s);
-
-
 }
 
 void Calc::process_goal_line(QString &lijn)
 {
-    //qDebug() << "reading a new goal line" ;
     lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
     lijn.replace("g","",Qt::CaseSensitivity::CaseInsensitive); //remove g
     QStringList list=lijn.split(" ");
-
-
     int x = list.at(0).toInt();
     int y = list.at(1).toInt();
     int node = list.at(2).toInt();
@@ -342,7 +298,6 @@ void Calc::process_goal_line(QString &lijn)
 
 void Calc::process_click_line(QString &lijn)
 {
-    //qDebug() << "reading a new click line" ;
     lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
     lijn.replace("c","",Qt::CaseSensitivity::CaseInsensitive); //remove c
     QStringList list=lijn.split(" ");
@@ -350,23 +305,22 @@ void Calc::process_click_line(QString &lijn)
     twoStar = list.at(1).toInt();
     threeStar = list.at(0).toInt();
 }
-// Comparing ints to round of the floats
 bool Calc::checkGoals()
 {
-
     bool allGoals = true;
-    int goalVoltage;
+    float goalVoltage;
     int goalNode;
-    int currentVoltage;
+    float currentVoltage;
 
     for(unsigned int i = 0; i < goals.size();i++)
     {
-
         goalVoltage = goals.at(i)->getVoltage();
         goalNode = goals.at(i)->getNode();
         currentVoltage = voltageAtNode(goalNode);
-        //qDebug()  <<"this is the current voltage: " << currentVoltage << " and the goalVoltage: " << goalVoltage;
-        if(goalVoltage != currentVoltage)
+
+        //qDebug()  <<"this is the current voltage: " << QString::number(currentVoltage, 'f', 6) << " and the goalVoltage: " << QString::number(goalVoltage,'f', 6);
+        /* small difference produced an error  ( tiny winy error)*/
+        if(round(goalVoltage*1000)/1000 != round(currentVoltage*1000)/1000)
         {
             allGoals = false;
             //qDebug() << "FALSE goalV " << goalVoltage << "currentV " << currentVoltage;
@@ -374,8 +328,7 @@ bool Calc::checkGoals()
         }
         else
         {
-            qDebug() << "TRUE goalV " << goalVoltage << "currentV " << currentVoltage;
-
+            //qDebug() << "TRUE goalV " << goalVoltage << "currentV " << currentVoltage;
             goals.at(i)->setMatch(true);
         }
     }
@@ -393,25 +346,9 @@ bool Calc::checkGoals()
             currentGoals.at(i)->setMatch(true);
         }
     }
-
-    if(allGoals)
-    {
-
-    }
-
     return allGoals;
 }
 
-int Calc::calculateAngle()
-{
-    float Igoal = getCurrentInGoalWire();
-    float Icurrent = getGoalinGoalWire();
-    int angle=0;
-    if(Igoal != 0){
-        angle = (Igoal-Icurrent)/(Igoal)+90;
-    }
-    return angle;
-}
 
 int Calc::getTwoStar() const
 {
@@ -663,8 +600,7 @@ void Calc::setCurrentsOfResistorsAndSwitches()
 }
 
 void Calc::setCurrentsOfWires()
-{
-
+{  
     for(auto r : resistors){
 
         int nodemin,nodemax;
@@ -1116,7 +1052,7 @@ std::vector<float> Calc::computeNetwork(int  nrOfNodes)
 int Calc::getPhysicalScreenWidth()
 {
     foreach (QScreen *screen, QGuiApplication::screens()) {
-         return screen->physicalSize().width();
+        return screen->physicalSize().width();
     }
     return 0;
 }
@@ -1124,12 +1060,12 @@ int Calc::getPhysicalScreenWidth()
 QString Orientation(Qt::ScreenOrientation orientation)
 {
     switch (orientation) {
-        case Qt::PrimaryOrientation           : return "Primary";
-        case Qt::LandscapeOrientation         : return "Landscape";
-        case Qt::PortraitOrientation          : return "Portrait";
-        case Qt::InvertedLandscapeOrientation : return "Inverted landscape";
-        case Qt::InvertedPortraitOrientation  : return "Inverted portrait";
-        default                               : return "Unknown";
+    case Qt::PrimaryOrientation           : return "Primary";
+    case Qt::LandscapeOrientation         : return "Landscape";
+    case Qt::PortraitOrientation          : return "Portrait";
+    case Qt::InvertedLandscapeOrientation : return "Inverted landscape";
+    case Qt::InvertedPortraitOrientation  : return "Inverted portrait";
+    default                               : return "Unknown";
     }
 
 }

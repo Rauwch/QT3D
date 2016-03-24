@@ -46,25 +46,18 @@
 #include <QQuickView>
 #include <QOpenGLContext>
 
-#include "linker.h"
 #include "levels.h"
 #include "calc.h"
 #include "leaderboard.h"
 using namespace std;
 
 
-
-
 int main(int argc, char* argv[])
 {
-
-    //Calc* c=new Calc();
-
     QGuiApplication app(argc, argv);
     foreach (QScreen * screen, QGuiApplication::screens())
         screen->setOrientationUpdateMask(Qt::LandscapeOrientation | Qt::PortraitOrientation |
                                          Qt::InvertedLandscapeOrientation | Qt::InvertedPortraitOrientation);
-    qmlRegisterType<Linker>("Link",1,0,"Linker");
     qmlRegisterType<Calc>("Calc",1,0,"Calculator");
     qmlRegisterType<Levels>("Lvl",1,0,"Levels");
     qmlRegisterType<Leaderboard>("LB",1,0,"Levelboard");

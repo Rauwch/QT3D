@@ -3,7 +3,7 @@
   */
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
-import Qt3D.Logic 2.0
+//import Qt3D.Logic 2.0
 import QtQuick 2.2 as QQ2
 
 Entity{
@@ -35,13 +35,9 @@ Entity{
 
     QQ2.Behavior on s{
         QQ2.NumberAnimation{
-            duration: 1000
-            easing.type: "InOutQuad"
+            duration: 500
+            easing.type: "InOutSine"
         }
-    }
-
-    function printS(){
-        //console.log("DE GROTE VAN S:  "+ s);
     }
 
     Mesh{
@@ -49,7 +45,7 @@ Entity{
         source: "Jelly/OBJ/Jellyfish.obj"
     }
 
-        property Material material: DiffuseMapMaterial {
+    property Material material: DiffuseMapMaterial {
         id: theMaterial
         diffuse: "Jelly/Textures/Jellyfish.png"
         ambient: Qt.rgba( 1, 1, 1, 1.0 )
@@ -62,23 +58,11 @@ Entity{
         id:trans
         translation: (Qt.vector3d(x, y, z))
         scale: s*2
-        //scale: 0.5
     }
-    PhongMaterial {
-        id:mat
-        diffuse: "darkblue"
-        ambient: "darkblue"
-        specular: "darkblue"
-        shininess: 0.2
-    }
-
     QQ2.SequentialAnimation{
-
-
         running: true
         loops: QQ2.Animation.Infinite
         QQ2.NumberAnimation {
-
             target: electron
             property: "x"
             duration: electron.dur*Math.abs(xbegin-xend)
@@ -86,13 +70,11 @@ Entity{
             to: electron.xend
         }
         QQ2.NumberAnimation {
-
             target: electron
             property: "x"
             duration: electron.dur*Math.abs(xstart-xbegin)
             from: electron.xstart
             to: electron.xbegin
         }
-
     }
 }

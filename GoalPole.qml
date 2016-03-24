@@ -7,35 +7,15 @@ import QtQuick 2.2 as QQ2
 Entity{
     id:goalPole
 
-    //property real s: 1 //Grote van bron, bepaald door spanning
-
-
     //Positie variablen
     property real x: 0
     property real y: 0
     property real z: 0
 
 
-
     components: [somesh,sotrans]
-    QQ2.Component.onCompleted: {
-        //console.log("pole x y z: " + x + " " + y + " " + z);
-
-    }
-    function setGreen(){
-        theMaterial.diffuse = "goalPoleGo.png";
-        //console.log("GREEN");
-        cubeTop.setGreen();
-        cubeBottom.setGreen();
 
 
-    }
-    function setRed(){
-        theMaterial.diffuse = "goalPole.png";
-        //console.log("RED");
-        cubeTop.setRed();
-        cubeBottom.setRed();
-    }
     Entity{
         id:somesh
         components: [mesh,trans,material]
@@ -59,20 +39,12 @@ Entity{
             specular: Qt.rgba( 1, 1, 1, 1.0 )
             shininess: 0
         }
-
-        AlphaMaterial{
-            id: ourAlphaMaterial
-        }
     }
-
 
     Transform{
         id:sotrans
         translation: Qt.vector3d(x, 0, z)
-        //scale3D : Qt.vector3d(2, 1*s, 2)
         scale3D : Qt.vector3d(1, 1*y, 1)
-
-
     }
 
     Cube{
@@ -88,7 +60,15 @@ Entity{
         zVal: goalPole.z
     }
 
-
-
+    function setGreen(){
+        theMaterial.diffuse = "goalPoleGo.png";
+        cubeTop.setGreen();
+        cubeBottom.setGreen();
+    }
+    function setRed(){
+        theMaterial.diffuse = "goalPole.png";
+        cubeTop.setRed();
+        cubeBottom.setRed();
+    }
 
 }

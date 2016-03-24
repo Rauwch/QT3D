@@ -6,73 +6,74 @@
 Levels::Levels(QObject *parent) : QObject(parent)
 {
     getLevelAmount();
-    printArray();
+
 
 }
-
 
 void Levels::getLevelAmount()
 {
     QString path = QDir::currentPath() + "/levels.txt";
-    //qDebug() << path;
     QFile * newFile = new QFile(path);
     QFile * file = new QFile(":/assets/Levels/levels.txt");
+    QTextStream stream(newFile);
+    QString line;
+    QStringList list;
+    /* boolean gets set if the newFile already exists*/
     bool fileExists = newFile->exists();
     vector <int> rowVector(2);
     int row = 0;
-    // qDebug() << "print newFIle" << newFile;
-    if(file->open(QIODevice::ReadOnly| QIODevice::Text))
+    if(!file->open(QIODevice::ReadOnly| QIODevice::Text))
     {
-        //qDebug()<< "open file";
+        qDebug()<< file->errorString();
+        return;
     }
-    QTextStream in(file);
+
+
     if(newFile->open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        //als de file nog niet bestaat
-        QTextStream stream(newFile);
+        /*write all the content of file in newFile*/
         if(!fileExists){
+            QTextStream in(file);
+            QString leaderPath;
+            QFile * leaderBoard;
             while (!in.atEnd())
             {
-                QString line = in.readLine();
+                line = in.readLine();
                 stream << line;
                 stream << endl;
-                //create leaderboardFiles
+
                 row++;
-                QString leaderPath= QDir::currentPath() + "/leaderboard"+QString::number(row)+ ".txt";
-                //qDebug() << " PATH:  " << leaderPath;
-                QFile * leaderBoard = new QFile(leaderPath);
-                if(leaderBoard->open(QIODevice::ReadWrite| QIODevice::Text))
+                /* create leaderboard file for each level */
+                leaderPath= QDir::currentPath() + "/leaderboard"+QString::number(row)+ ".txt";
+                leaderBoard->setFileName(leaderPath);
+                /* opening a file that doesn't exist yet will creat this file */
+                if(!leaderBoard->open(QIODevice::ReadWrite| QIODevice::Text))
                 {
-                    //qDebug()<< "open file";
+                    qDebug()<< leaderBoard->errorString();
+                    return;
                 }
                 leaderBoard->close();
             }
         }
         stream.seek(0);
         row = 0;
+        /*add the content of newFile to the levelArray*/
         while (!stream.atEnd())
         {
-
-            QString line = stream.readLine();
+            line = stream.readLine();
             if (!line.isEmpty()&&!line.isNull()){
-                //qDebug() << "add level";
-                QStringList list=line.split(" ");
-
+                list=line.split(" ");
                 levelArray.push_back(rowVector);
                 for(int col = 0; col < 2; col++){
                     levelArray[row][col] = list.at(col).toInt();
                 }
                 row++;
             }
-
         }
-
     }
     amountOfLevels = row;
-    //qDebug() << "rownums: " << row;
     file->close();
     newFile->close();
-
 }
 
 void Levels::printArray()
@@ -81,50 +82,43 @@ void Levels::printArray()
     {
         for(int j = 0; j < 4; j++)
         {
-            //qDebug() <<  (unsigned int) (levelArray[i][j]) ;
+            qDebug() <<  (unsigned int) (levelArray[i][j]) ;
         }
     }
 }
 
 void Levels::refreshTextFile()
 {
-    //qDebug() << "Inside refreshTextFile";
     QString path = QDir::currentPath() + "/levels.txt";
     QFile * file = new QFile(path);
+    QTextStream output(file);
+    /*Opening a file with the to write will clear the content of that file */
     if (!file->open(QIODevice::WriteOnly | QIODevice::Text))
     {
         qDebug() << file->errorString();
         return;
     }
 
-    QTextStream output(file);
-
     for(int i = 0; i <amountOfLevels; i++)
     {
-        //qDebug() <<"Writing to textfile";
+
         for(int j = 0; j < 2; j++)
         {
             output << levelArray[i][j] << " " ;
-            //qDebug() << levelArray[i][j] << " ";
         }
         output << endl;
-
     }
-
-
 }
 
 int Levels::getAmountOfStars(int level) const
 {
-    int nrStars = 0;
-    nrStars = levelArray[level][1];
-    return nrStars;
+    return levelArray[level][1];
 }
 
 void Levels::setAmountOfStars(int numClicks, int twoStar, int threeStar)
 {
+    /*levels go form 1-... and the level array goes from 0-... */
     int currentIndex = currentLevel - 1;
-
     if(numClicks <= threeStar){
         levelArray[currentIndex][1] = 3;
     }

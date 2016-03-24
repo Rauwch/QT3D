@@ -8,9 +8,9 @@ import QtQuick.Controls.Styles 1.4
 
 Item {
     Rectangle {
+        anchors.centerIn: parent
         width: Screen.width/3
         height: Screen.height/4
-        anchors.centerIn: parent
         border.width:  2
         border.color: "#063e79"
         radius: 10
@@ -25,7 +25,6 @@ Item {
             //text: "Developers:\n\nAnton \"The Bugwhisperer\" Rauws\nJan \"Qt-pie\" van Thillo"
             text: "Ontwikkelaars:\n\nAnton Rauws\nJan van Thillo"
             font.pointSize: 20
-
         }
     }
     Button{
@@ -43,7 +42,6 @@ Item {
                     GradientStop { position: 1 ; color: "#0b6fda" }
                 }
             }
-
         }
         Image{
             source: "backIcon.png"
@@ -52,12 +50,10 @@ Item {
             anchors.centerIn: parent
         }
         onClicked: {
-            //soundEffects.source = "Bubbles.wav";
             soundEffects.play();
             theColumn.visible= true;
             pageLoader.source = "";
         }
-
     }
 }
 

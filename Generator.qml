@@ -312,8 +312,6 @@ Entity{
             else
                 switches[i].yCenter = switches[i].yMax
         }
-
-        updateGoalPoles();
     }
 
 

@@ -110,7 +110,6 @@ public:
 
     //Check all the goals
     Q_INVOKABLE bool checkGoals();
-    Q_INVOKABLE int calculateAngle();
 
 
     //angle calculations for resistor bends

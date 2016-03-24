@@ -173,7 +173,6 @@ Item {
                 width: buttonWidth
                 height: buttonHeight
                 style: ButtonStyle {
-                    id:styleButton
                     background: Rectangle {
                         //implicitWidth: 100
                         //implicitHeight: 25
@@ -200,8 +199,6 @@ Item {
                     startWindow.close();
                 }
             }
-
-
         }
         SoundEffect{
             id: soundEffects
@@ -229,15 +226,5 @@ Item {
             loops: Audio.Infinite
         }
     }
-
-
-    //    property var splashWindow: Splash {
-    //        onTimeout: {
-    //            startWindow.visible = true;
-    //            startWindow.visibility = Window.Maximized
-    //        }
-
-
-    //    }
 }
 

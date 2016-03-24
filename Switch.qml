@@ -41,93 +41,30 @@ Entity{
     QQ2.Behavior on xCenter{
         QQ2.NumberAnimation{
             alwaysRunToEnd: true
-            duration: 1000
-            easing.type: "InOutQuad"
+            duration: 500
+            easing.type: "InOutSine"
         }
     }
 
     QQ2.Behavior on yCenter{
         QQ2.NumberAnimation{
             alwaysRunToEnd: true
-            duration: 1000
-            easing.type: "InOutQuad"
+            duration: 500
+            easing.type: "InOutSine"
         }
     }
 
     QQ2.Behavior on rotationAngle{
         QQ2.NumberAnimation{
             alwaysRunToEnd: true
-            duration: 1000
-            easing.type: "InOutQuad"
+            duration: 500
+            easing.type: "InOutSine"
         }
     }
 
     QQ2.Component.onCompleted: {
 
     }
-    //    QQ2.ParallelAnimation{
-    //        id: switchAnimation
-    //        running: false
-    //        alwaysRunToEnd: true
-    //        QQ2.PropertyAnimation{
-    //            id: part1
-    //            target: theSwitch
-    //            easing.type: "InOutQuad"
-    //            property: "janAngle"
-    //            from: janOldAngle
-    //            to: janNewAngle
-    //            duration: 1000
-    //        }
-    //        QQ2.PropertyAnimation{
-    //            id: part2
-    //            target: theSwitch
-    //            easing.type: "InOutQuad"
-    //            property: "janx"
-    //            from: janOldx
-    //            to: janNewx
-    //            duration: 1000
-    //        }
-    //        QQ2.PropertyAnimation{
-    //            id: part3
-    //            target: theSwitch
-    //            easing.type: "InOutQuad"
-    //            property: "jany"
-    //            from: janOldy
-    //            to: janNewy
-    //            duration: 1000
-    //        }
-    //        QQ2.PropertyAnimation{
-    //            id: part4
-    //            target: theSwitch
-    //            easing.type: "InOutQuad"
-    //            property: "janSecondy"
-    //            from: janOldSecondy
-    //            to: janNewSecondy
-    //            duration: 1000
-    //        }
-
-//    QQ2.Behavior on yMax{
-//        QQ2.NumberAnimation{
-//            duration: 1000
-//            easing.type: "InOutQuad"
-//        }
-//    }
-//    QQ2.Behavior on yMin{
-//        QQ2.NumberAnimation{
-//            duration: 1000
-//            easing.type: "InOutQuad"
-//        }
-//    }
-
-//    QQ2.NumberAnimation{
-//        id:switchIt
-//        target:theSwitch
-//        property: "rotationAngle"
-//        from: 180
-//        to:90
-//        duration: 1000
-//    }
-
 
 
 BalSwitch{

@@ -30,14 +30,11 @@ Entity{
             specular: Qt.rgba( 1, 1, 1, 1.0 )
             shininess: 0
         }
-
     }
     Transform{
         id:theCubeTrans
         translation.y: yVal
         scale3D : Qt.vector3d(5, 0.02, 5)
-
-
     }
     function setRed(){
         theMaterial.diffuse = "t0017_0.png";

@@ -36,16 +36,16 @@ Entity{
         QQ2.PropertyAnimation{
             id: part1
             target: node
-            easing.type: "InOutQuad"
+            easing.type: "InOutSine"
             property: "l"
             from: lprev
             to: lnew
-            duration: 1000
+            duration: 500
         }
 //        QQ2.PropertyAnimation{
 //            id: part2
 //            target: node
-//            easing.type: "InOutQuad"
+//            easing.type: "InOutSine"
 //            property: "a"
 //            from: aprev
 //            to: anew
@@ -54,20 +54,20 @@ Entity{
         QQ2.PropertyAnimation{
             id: part3
             target: node
-            easing.type: "InOutQuad"
+            easing.type: "InOutSine"
             property: "y"
             from: yprev
             to: ynew
-            duration: 1000
+            duration: 500
         }
         QQ2.PropertyAnimation{
             id: part4
             target: node
-            easing.type: "InOutQuad"
+            easing.type: "InOutSine"
             property: "z"
             from: zprev
             to: znew
-            duration: 1000
+            duration: 500
         }
         onStopped: {
             l = lnew;

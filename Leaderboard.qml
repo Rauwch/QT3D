@@ -9,7 +9,6 @@ Column{
     {
     Component.onCompleted: {
         myGameScreen.highScore = myLevelboard.getHighScore();
-        console.log("Levelboard on complete " + myLevelboard.getAmountOfEntries());
     }
 }
 
@@ -17,7 +16,6 @@ Repeater{
     model:
     {
         myLevelboard.readLeaderboard(myLevels.getCurrentLevel());
-        console.log("repeater value: "+ myLevelboard.getAmountOfEntries());
         myLevelboard.getAmountOfEntries();
     }
     delegate:
@@ -25,13 +23,6 @@ Repeater{
         id:container
         width: Screen.width/2*(4/5)
         height: Screen.height/14
-
-        Component.onCompleted: {
-            console.log("created levelboard entry");
-            console.log("name: " +myLevelboard.giveName(index));
-            console.log("name: " +myLevelboard.giveStars(index));
-        }
-
 
         border.color: "black"
         border.width: 2
@@ -63,7 +54,7 @@ Repeater{
             anchors.verticalCenter: parent.verticalCenter
             Repeater{
                 id: starRepeater
-                // this is the index from the button assigned by the top repeater
+                /* this is the index from the button assigned by the top repeater*/
                 model: myLevelboard.giveStars(index)
                 delegate:
                     Image{

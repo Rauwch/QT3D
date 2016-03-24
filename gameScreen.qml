@@ -3,12 +3,11 @@
   this includes all buttons/ indicators that show up during the game
 */
 import QtQuick 2.2
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.4
 import QtQuick.Window 2.0
 import QtQuick.Scene3D 2.0
 import QtQuick.Controls.Styles 1.4
 
-import Link 1.0
 import Lvl 1.0
 import Calc 1.0
 
@@ -609,6 +608,7 @@ Item {
                     placeholderText : "Geef hier je naam in"
                     font.family: "Helvetica"
                     font.pointSize: 20
+                    maximumLength: 10
                     style: TextFieldStyle {
                         background: Rectangle {
                             radius: 2
@@ -658,6 +658,7 @@ Item {
         calculator.toggleSwitch(clickedSwitch);
         world.generator.toRotateSwitch(clickedSwitch);
         calculator.solveLevel();
+        world.generator.updateGoalPoles();
         if(calculator.checkGoals())
         {
             hideElements()
@@ -665,6 +666,7 @@ Item {
             checkLeaderboard()
             myTimer.start();
         }
+
         world.generator.updateLevel();
     }
     /* Represents the goal current and the present current by the size of the jellyfishes */
@@ -782,21 +784,16 @@ Item {
 
     /* function returns the amount stars earned */
     function getStars()
-    {
-        console.log(" 3star" + calculator.getThreeStar() + " 2star " + calculator.getTwoStar() + " numClicks " + numClicks)
+    {       
         if(calculator.getThreeStar() >=  numClicks){
-            console.log("return 3 stars");
             return 3;
         }
         else if(calculator.getTwoStar() >= numClicks){
-            console.log("return 2 stars");
             return 2;
         }
         else
             return 1;
     }
-
-
     function updateTutorial(){
         tutorialScreen.checkBallclicked();
     }
@@ -807,13 +804,14 @@ Item {
         calculator.solveLevel();
         world.generator.increaseVolt(clickedSource);
         numClicks++;
-
         if(calculator.checkGoals()){
-            hideElements()
+            hideElements();
             myTimer.start();
             myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
             checkLeaderboard();
         }
+        world.generator.updateGoalPoles();
+        world.generator.updateLevel();
         if(world.generator.sources[clickedSource].heightIntensity >= 4){
             increaseHeight.visible = false;
         }
@@ -822,7 +820,7 @@ Item {
             increaseHeight.parent.anchors.bottomMargin = 0;
         }
         calculateSize();
-        world.generator.updateLevel();
+
     }
 
     function decreaseSourceButton(){
@@ -833,11 +831,13 @@ Item {
 
         if(calculator.checkGoals())
         {
-            hideElements()
+            hideElements();
             myTimer.start();
             myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
             checkLeaderboard();
         }
+        world.generator.updateGoalPoles();
+        world.generator.updateLevel();
         if(world.generator.sources[0].heightIntensity <= 0){
             increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
             decreaseHeight.visible = false;
@@ -847,14 +847,13 @@ Item {
             increaseHeight.visible = true;
         }
         calculateSize();
-        world.generator.updateLevel()
+
     }
 
     function increaseResistorButton(){
         calculator.adjustResistance(clickedRes, calculator.getStepOfResistor(clickedRes));
         world.generator.increaseRes(clickedRes);
         calculator.solveLevel();
-        world.generator.updateLevel();
         calculateSize();
         numClicks++;
         if(calculator.checkGoals())
@@ -864,6 +863,7 @@ Item {
             myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
             checkLeaderboard()
         }
+        world.generator.updateLevel();
         if(world.generator.resistors[0].bendIntensity >= 4){
             increaseResistor.visible = false;
         }
@@ -871,6 +871,7 @@ Item {
             decreaseResistor.visible = true;
             increaseResistor.parent.anchors.bottomMargin = 0;
         }
+
     }
 
     function decreaseResistorButton(){
@@ -878,7 +879,6 @@ Item {
         numClicks++;
         world.generator.decreaseRes(clickedRes);
         calculator.solveLevel();
-        world.generator.updateLevel();
         calculateSize();
 
         if(calculator.checkGoals())
@@ -888,13 +888,15 @@ Item {
             myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
             checkLeaderboard()
         }
+        world.generator.updateLevel();
         if(world.generator.resistors[0].bendIntensity <= 0){
             increaseResistor.parent.anchors.bottomMargin = Screen.height/15;
-            visible = false;
+            decreaseResistor.visible = false;
         }
         if(world.generator.resistors[0].bendIntensity <= 3){
             increaseResistor.visible = true;
         }
+
     }
 
     function setText(tutorialLevel){

@@ -20,13 +20,6 @@ Entity{
         radius: 1.75
     }
 
-    //do we use this still?
-    signal hasbeenclicked()
-    QQ2.Component.onCompleted: {
-        objectPicker.clicked.connect(hasbeenclicked);
-    }
-
-
     Transform{
         id:bolTrans
         translation: Qt.vector3d(xVal,yVal,zVal)
@@ -44,15 +37,15 @@ Entity{
 
         onClicked: {
             myGameScreen.updateTutorial();
-            //make text boxes (dis)appear on clicking the ball
+            /*make text boxes (dis)appear on clicking the ball*/
             myGameScreen.showBox = !myGameScreen.showBox;
             myGameScreen.clickedSource = sourceNr;
-            //make sure you can't change resistor and source at the same time
+            /*make sure you can't change resistor and source at the same time*/
             myGameScreen.showRes = false;
             myGameScreen.showSwitch = false;
         }
     }
-    //makes it look clickable
+    /* makes it look clickable */
     QQ2.SequentialAnimation{
 
         running: true
@@ -73,8 +66,5 @@ Entity{
             from: 0.5
             to: 1
         }
-
     }
-
-
 }

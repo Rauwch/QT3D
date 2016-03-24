@@ -8,75 +8,61 @@ Leaderboard::Leaderboard(QObject *parent) : QObject(parent)
 
 void Leaderboard::readLeaderboard(int level)
 {
-    //qDebug() << "INSIDE READ LEADER BOARD";
     QFile * file = new QFile(QDir::currentPath() + "/leaderboard"+QString::number(level)+ ".txt");
     vector <QString> rowVector(3);
+    QString line;
+    QStringList list;
     int row = 0;
-    //fstream myfile (path);
     if(file->open(QIODevice::ReadOnly| QIODevice::Text))
     {
         QTextStream in(file);
         while (!in.atEnd())
         {
-            QString line = in.readLine();
+            line = in.readLine();
             if (!line.isEmpty()&&!line.isNull()){
-                QStringList list=line.split(" ");
-                //qDebug()<< "this is the line: " <<line;
+                list=line.split(" ");
                 levelboard.push_back(rowVector);
                 for(int col = 0; col < 3; col++){
                     levelboard[row][col] = list.at(col);
                     if(list.at(2).toInt() > lowestEntry)
                     {
-                            lowestEntry = list.at(2).toInt();
+                        lowestEntry = list.at(2).toInt();
                     }
                 }
                 row++;
             }
-
         }
-
     }
-    else{
+    else
+        qDebug() << file->errorString();
 
-        qDebug() << "Unable to open file";
-    }
     if(levelboard.size()!=0)
-    {
-     setHighScore((levelboard[0][2]).toInt());
-    }
+        setHighScore((levelboard[0][2]).toInt());
+
     amountOfEntries = row;
-    //qDebug() << "rownums: " << row;
-    //qDebug() << "lowest entry: " << lowestEntry;
     file->close();
 }
 
 void Leaderboard::addEntry(QString name, int stars, int clicks)
 {
     int checkClicks = 0;
-
-    //added unsigned to int to get rid of Warning
     unsigned int i = 0;
+    vector <QString> rowVector(3);
     while(clicks >= checkClicks)
     {
         if(levelboard.size() == 0)
             break;
-        //qDebug() << "clicks: " << clicks << " checkClicks "<<  checkClicks;
         if(i >= levelboard.size())
         {
             i++;
+            qDebug() << "i is groter dan size";
             break;
-
         }
         checkClicks = levelboard[i][2].toInt();
-
         i++;
-         //qDebug() << "in while";
     }
-    //qDebug() << " after a while";
     if(levelboard.size() != 0)
         i--;
-    vector <QString> rowVector(3);
-     //qDebug() << "before insert";
     levelboard.insert(levelboard.begin()+i,rowVector);
     levelboard[i][0] = name;
     levelboard[i][1] =  QString::number(stars);
@@ -87,13 +73,10 @@ void Leaderboard::addEntry(QString name, int stars, int clicks)
         levelboard.pop_back();
         amountOfEntries--;
     }
-
-
 }
 
 void Leaderboard::writeLeaderBoard(int level)
 {
-    //qDebug() << "Inside refreshTextFile";
     QString path = QDir::currentPath() + "/leaderboard"+ QString::number(level)  +".txt";
     QFile * file = new QFile(path);
     if (!file->open(QIODevice::WriteOnly | QIODevice::Text))
@@ -101,21 +84,17 @@ void Leaderboard::writeLeaderBoard(int level)
         qDebug() << file->errorString();
         return;
     }
-
     QTextStream output(file);
 
     for(int i = 0; i <amountOfEntries; i++)
     {
-        //qDebug() <<"Writing to textfile";
         for(int j = 0; j < 3; j++)
         {
             output << levelboard[i][j] << " " ;
-            //qDebug() << levelboard[i][j] << " ";
         }
         output << endl;
-
     }
- file->close();
+    file->close();
 }
 
 QString Leaderboard::giveName(int index)
