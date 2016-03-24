@@ -31,6 +31,8 @@ Entity{
     QQ2.ParallelAnimation{
         id: bentAnimation
         running: false
+        loops: 1
+        alwaysRunToEnd: true
         QQ2.PropertyAnimation{
             id: part1
             target: node
@@ -66,6 +68,11 @@ Entity{
             from: zprev
             to: znew
             duration: 1000
+        }
+        onStopped: {
+            l = lnew;
+            y = ynew;
+            z = znew;
         }
     }
 
