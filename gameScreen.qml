@@ -8,6 +8,7 @@ import QtQuick.Window 2.0
 import QtQuick.Scene3D 2.0
 import QtQuick.Controls.Styles 1.4
 
+
 import Link 1.0
 import Lvl 1.0
 import Calc 1.0
@@ -37,10 +38,16 @@ Item {
     property int angleOfArrow: 0
     property var jellySize: 0
 
+    //was helvetica
+    property string fontfam: "Arial"
+    property int fontSize: 20
+
     anchors.fill: parent
     Component.onDestruction: console.log("gamescreen destroyed")
 
     Component.onCompleted: {
+        //calculator.printScreenInfo();
+
         console.log("GameScreen wordt aangemaakt");
         setPopupWindowForTutorial(myLevels.getCurrentLevel());
 
@@ -274,8 +281,8 @@ Item {
                 renderType: Text.NativeRendering
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
-                font.family: "Helvetica"
-                font.pointSize: 20
+                font.family: fontfam
+                font.pointSize: fontSize
                 color: "black"
             }
             style: ButtonStyle {
@@ -337,8 +344,8 @@ Item {
                 renderType: Text.NativeRendering
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
-                font.family: "Helvetica"
-                font.pointSize: 20
+                font.family: fontfam
+                font.pointSize: fontSize
                 color: "black"
             }
             style: ButtonStyle {
@@ -419,8 +426,8 @@ Item {
                 renderType: Text.NativeRendering
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
-                font.family: "Helvetica"
-                font.pointSize: 20
+                font.family: fontfam
+                font.pointSize: fontSize
                 color: "black"
             }
             style: ButtonStyle {
@@ -476,8 +483,8 @@ Item {
                 renderType: Text.NativeRendering
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
-                font.family: "Helvetica"
-                font.pointSize: 20
+                font.family: fontfam
+                font.pointSize: fontSize
                 color: "black"
             }
             style: ButtonStyle {
@@ -541,8 +548,8 @@ Item {
                 renderType: Text.NativeRendering
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
-                font.family: "Helvetica"
-                font.pointSize: 20
+                font.family: fontfam
+                font.pointSize: fontSize
                 color: "black"
             }
             style: ButtonStyle {
@@ -790,8 +797,8 @@ Item {
                     width: popupWindow.width/2
                     height: Screen.height/12
                     placeholderText : "Geef hier je naam in"
-                    font.family: "Helvetica"
-                    font.pointSize: 20
+                    font.family: fontfam
+                    font.pointSize: fontSize
                     style: TextFieldStyle {
                         background: Rectangle {
                             radius: 2
@@ -1005,6 +1012,15 @@ Item {
     function updateTutorial(){
         tutorialScreen.checkBallclicked();
     }
+    function getPhysicalScreenWidth(){
+        if( calculator.getPhysicalScreenWidth() === 0){
+            console.log("ERROR: physical screen width is equal to 0")
+        }
+        return calculator.getPhysicalScreenWidth();
+    }
+
+
+
 }
 
 

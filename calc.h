@@ -141,6 +141,9 @@ public:
     Q_INVOKABLE int getTwoStar() const;
     Q_INVOKABLE int getThreeStar() const;
 
+    Q_INVOKABLE int getPhysicalScreenWidth();
+    Q_INVOKABLE void printScreenInfo();
+
 
 private:
     int twoStar;
