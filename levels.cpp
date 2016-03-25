@@ -24,28 +24,28 @@ void Levels::getLevelAmount()
     int row = 0;
     if(!file->open(QIODevice::ReadOnly| QIODevice::Text))
     {
-        qDebug()<< file->errorString();
+        qDebug()<< "error opening levels";
         return;
     }
-
 
     if(newFile->open(QIODevice::ReadWrite | QIODevice::Text))
     {
         /*write all the content of file in newFile*/
         if(!fileExists){
+            qDebug()<< "inside file exist";
             QTextStream in(file);
             QString leaderPath;
-            QFile * leaderBoard;
+
             while (!in.atEnd())
             {
                 line = in.readLine();
                 stream << line;
                 stream << endl;
-
+                qDebug()<< line;
                 row++;
                 /* create leaderboard file for each level */
                 leaderPath= QDir::currentPath() + "/leaderboard"+QString::number(row)+ ".txt";
-                leaderBoard->setFileName(leaderPath);
+                QFile * leaderBoard = new QFile(leaderPath);
                 /* opening a file that doesn't exist yet will creat this file */
                 if(!leaderBoard->open(QIODevice::ReadWrite| QIODevice::Text))
                 {
@@ -54,6 +54,7 @@ void Levels::getLevelAmount()
                 }
                 leaderBoard->close();
             }
+            qDebug() << "after while";
         }
         stream.seek(0);
         row = 0;
@@ -66,12 +67,16 @@ void Levels::getLevelAmount()
                 levelArray.push_back(rowVector);
                 for(int col = 0; col < 2; col++){
                     levelArray[row][col] = list.at(col).toInt();
+                    qDebug() << list.at(col);
                 }
+                qDebug() << "row " << row;
                 row++;
             }
         }
     }
+
     amountOfLevels = row;
+        qDebug()<< "amount of levels: " << amountOfLevels;
     file->close();
     newFile->close();
 }

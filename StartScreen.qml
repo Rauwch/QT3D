@@ -25,6 +25,7 @@ Item {
     Component.onDestruction: console.log("startscreen destroyed")
     Component.onCompleted: {
         console.log("myStartScreen wordt aangemaakt");
+                startWindow.visibility = Window.Maximized
     }
     Levels{
         id:myLevels
@@ -34,8 +35,6 @@ Item {
         color: palette.window
         title: "Jellyfields"
         visible:  true
-        visibility: Window.FullScreen
-        //visibility: Window.Maximized
         Image{
             id: bikiniImg
             anchors.fill: parent
