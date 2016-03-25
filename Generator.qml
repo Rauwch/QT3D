@@ -219,11 +219,11 @@ Entity{
 
     function increaseRes(resNr){
         resistors[resNr].bendIntensity = resistors[resNr].bendIntensity + 1;
-        resistors[resNr].localVar = bendValues[resistors[resNr].bendIntensity];
+        resistors[resNr].angleOfBends = bendValues[resistors[resNr].bendIntensity];
     }
     function decreaseRes(resNr){
         resistors[resNr].bendIntensity = resistors[resNr].bendIntensity - 1;
-        resistors[resNr].localVar = bendValues[resistors[resNr].bendIntensity];
+        resistors[resNr].angleOfBends = bendValues[resistors[resNr].bendIntensity];
     }
     function increaseVolt(sourceNr){
         sources[sourceNr].heightIntensity = sources[sourceNr].heightIntensity + 1;

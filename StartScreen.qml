@@ -35,7 +35,7 @@ Item {
 
     property var startWindow: Window {
         color: palette.window
-        title: "Octupus Gayhem"
+        title: "Jellyfields"
         visible:  true
         Image{
             id: bikiniImg
@@ -79,11 +79,8 @@ Item {
                 }
 
                 onClicked: {
-                    //game.visible = true;
-                    //soundEffects.source = "Bubbles.wav";
                     soundEffects.play() ;
                     theColumn.visible = false;
-                    //startscreen doesn't get deleted because it wasn't created by the pageloader
                     pageLoader.source = "LevelScreen.qml";
 
 
@@ -101,8 +98,6 @@ Item {
                 style: ButtonStyle {
                     id:styleButton
                     background: Rectangle {
-                        //implicitWidth: 100
-                        //implicitHeight: 25
                         border.width: control.activeFocus ? 4 : 2
                         border.color: "#063e79"
                         radius: 10
@@ -122,7 +117,6 @@ Item {
                     }
                 }
                 onClicked: {
-                    //soundEffects.source = "Bubbles.wav";
                     soundEffects.play();
                     theColumn.visible = false;
                     pageLoader.source = "Options.qml";
@@ -137,8 +131,6 @@ Item {
                 style: ButtonStyle {
                     id:styleButton
                     background: Rectangle {
-                        //implicitWidth: 100
-                        //implicitHeight: 25
                         border.width: control.activeFocus ? 4 : 2
 
                         border.color: "#063e79"
@@ -159,7 +151,6 @@ Item {
                     }
                 }
                 onClicked: {
-                    //soundEffects.source = "Bubbles.wav";
                     soundEffects.play();
                     theColumn.visible = false;
                     pageLoader.source = "Credits.qml";
@@ -174,10 +165,7 @@ Item {
                 height: buttonHeight
                 style: ButtonStyle {
                     background: Rectangle {
-                        //implicitWidth: 100
-                        //implicitHeight: 25
                         border.width: control.activeFocus ? 4 : 2
-
                         border.color: "#063e79"
                         radius: 10
                         gradient: Gradient {
@@ -221,7 +209,6 @@ Item {
         MediaPlayer{
             id:backgroundMusic
             source:"backgroundMusic.wav"
-            //autoPlay: true
             volume: 1
             loops: Audio.Infinite
         }

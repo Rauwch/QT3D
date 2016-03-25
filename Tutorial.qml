@@ -18,16 +18,6 @@ Rectangle{
     width: Screen.width
     height: Screen.height
     visible: false
-    //visible: {stage <= numStages}
-
-
-    //    TextMetrics {
-    //        id: textMetrics
-    //        font.family: "Arial"
-    //        font.pixelSize: 50
-
-    //    }
-
 
     Rectangle{
         id:instructionWindow
