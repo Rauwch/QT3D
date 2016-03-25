@@ -1,3 +1,4 @@
+/*  creates the leaderboard and fills it up with the data from the textfile */
 import QtQuick 2.5
 import QtQuick.Window 2.0
 

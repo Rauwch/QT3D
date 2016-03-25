@@ -1,3 +1,4 @@
+/* the poles are used to make the height difference more clear */
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 import Qt3D.Input 2.0
@@ -6,9 +7,6 @@ import QtQuick 2.2 as QQ2
 
 Entity{
     id:pole
-
-    //property real s: 1 //Grote van bron, bepaald door spanning
-
 
     //Positie variablen
     property real x: 0
@@ -20,7 +18,7 @@ Entity{
     QQ2.Behavior on y{
         QQ2.NumberAnimation{
             duration: 500
-            easing.type: "InOutSine"
+            easing.type: Easing.InOutSine
         }
     }
 
@@ -51,7 +49,6 @@ Entity{
             shininess: 0
         }
     }
-
 
     Transform{
         id:sotrans

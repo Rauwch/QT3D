@@ -1,3 +1,4 @@
+/* Is used to clearly indicate the goal voltage */
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 import Qt3D.Input 2.0
@@ -14,7 +15,6 @@ Entity{
 
 
     components: [somesh,sotrans]
-
 
     Entity{
         id:somesh

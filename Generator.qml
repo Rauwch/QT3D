@@ -2,8 +2,6 @@ import Qt3D.Core 2.0
 import Qt3D.Logic 2.0
 import QtQuick 2.3 as QQ2
 
-
-//Object dat verantwoordelijk is voor bouwen van circuits
 Entity{
     id:root
 
@@ -23,7 +21,6 @@ Entity{
 
     QQ2.QtObject{
         id:o
-
         /* all object factories */
         property var sourceFactory
         property var resistorFactory

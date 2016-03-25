@@ -1,3 +1,7 @@
+/*
+  ball for Resistors that makes them clickable
+  */
+
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 import Qt3D.Input 2.0
@@ -37,7 +41,6 @@ Entity{
     }
     property ObjectPicker objectPicker: ObjectPicker {
         onClicked: {
-            //console.log("clicked on a THERESISTOR");
             myGameScreen.updateTutorial();
             myGameScreen.showRes = !myGameScreen.showRes;
             myGameScreen.clickedRes = resistorNr;

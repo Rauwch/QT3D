@@ -24,32 +24,10 @@ Entity{
         }
     }
 
-    QQ2.QtObject{
-
-        id:o
-
-        //Variables for spawning objects
-        property var balFactory
-    }
-
-
-
     QQ2.Component.onCompleted: {
         if(!clickable)
             clickableBal.destroy();
     }
-    //    Entity{
-    //        components: [objectPicker,clickableBal]
-
-    //        property ObjectPicker objectPicker: ObjectPicker {
-    //            onClicked: {
-    //                console.log("clicked on a THESOURCE");
-    //                myGameScreen.showBox = !myGameScreen.showBox;
-    //                myGameScreen.clickedSource = sourceNr;
-    //            }
-    //        }
-    //    }
-
 
     Bal{
         id: clickableBal
@@ -59,18 +37,6 @@ Entity{
         sourceNr: source.sourceNr
 
     }
-
-    //    function createBal() {
-
-    //        o.balFactory = Qt.createComponent("Bal.qml");
-    //        source.clickableBal = o.balFactory.createObject(source,{"xVal": source.x,"yVal":  source.y + (source.s), "zVal": source.z, "sourceNr": source.sourceNr});
-
-    //        if (o.balFactory === null) {
-    //            // Error Handling
-    //            console.log("Error creating object");
-    //        }
-    //    }
-
 
     Entity{
         components: [somesh,sotrans]
