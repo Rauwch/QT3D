@@ -311,7 +311,6 @@ Entity{
         }
     }
 
-
     /* to rotate the switch */
     function  toRotateSwitch(switchNr)
     {
