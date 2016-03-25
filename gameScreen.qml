@@ -64,7 +64,7 @@ Item {
 
     }
 
-    /* put the 3D worl in the GameScreen */
+    /* put the 3D world in the GameScreen */
     Scene3D{
         id: ourScene3D
         anchors.fill: parent
