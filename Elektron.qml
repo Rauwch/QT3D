@@ -1,5 +1,5 @@
 /*
-  creates the jellyfishes and animates them
+  do we still use this?
   */
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0

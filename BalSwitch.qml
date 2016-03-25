@@ -13,19 +13,19 @@ Entity{
     property real zVal: 0
     property real switchNr
     property real breath
+    //property bool isChanging: false
     components: [mesh,bolTrans,objectPicker,material]
+    SphereMesh
+    {
+        id:mesh
+        radius: 1.5
+    }
 
     QQ2.Behavior on yVal{
         QQ2.NumberAnimation{
             duration: 500
             easing.type: "InOutSine"
         }
-    }
-
-    SphereMesh
-    {
-        id:mesh
-        radius: 1.5
     }
 
     Transform{

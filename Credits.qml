@@ -52,7 +52,6 @@ Item {
         onClicked: {
             soundEffects.play();
             theColumn.visible= true;
-            /* making the source empty will destroy the previous loaded page */
             pageLoader.source = "";
         }
     }

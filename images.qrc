@@ -1,9 +1,17 @@
 <RCC>
     <qresource prefix="/">
+        <file>qtLogo.jpg</file>
+        <file>Qt-logo-medium.png</file>
         <file>lock.png</file>
+        <file>arrow.png</file>
+        <file>speedo.png</file>
+        <file>archer.png</file>
         <file>starfish.png</file>
         <file>bikiniBottom.jpg</file>
+        <file>speedGoal.png</file>
+        <file>archerG.png</file>
         <file>backIcon.png</file>
+        <file>rockTexture.jpg</file>
         <file>sandTexture.jpg</file>
         <file>poleTexture.png</file>
         <file>postTexture.png</file>
@@ -15,7 +23,9 @@
         <file>jelly.png</file>
         <file>jellyGoal.png</file>
         <file>backArrow.png</file>
+        <file>t0115_0.png</file>
         <file>Switch.jpg</file>
+        <file>retry.png</file>
         <file>rotateCamera.png</file>
         <file>continue.png</file>
         <file>levels.png</file>
