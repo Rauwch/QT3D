@@ -15,37 +15,46 @@ Calc::Calc()
 
 }
 
-void Calc::solveLevel()
+bool Calc::solveLevel()
 {
+    //Build a list of all nodes and sort it
     std::list<int> nodes;
 
-    for(auto v:sources){
+    for(auto& v:sources){
         nodes.push_back(v->getNodem());
         nodes.push_back(v->getNodep());
     }
-    for(auto r:resistors){
+    for(auto& r:resistors){
 
         nodes.push_back(r->getNode1());
         nodes.push_back(r->getNode2());
     }
-    for(auto s:switches){
+    for(auto& s:switches){
+
         nodes.push_back(s->getNode1());
         nodes.push_back(s->getNode2());
     }
-
     nodes.sort();
     nodes.unique();
-    sol=computeNetwork(nodes.size());
-    //functie om sources, wires en resistors opnieuw te vullen
-    correctAngles();
-    setCurrentsOfResistorsAndSwitches();
-    //
 
-    for(auto w:wires){
+    //Calculate voltage of all nodes
+    sol=computeNetwork(nodes.size());
+
+    //Standardize all angles for easy calculations
+    correctAngles();
+
+    //Set currents trough all components
+    setCurrentsOfResistorsAndSwitches();
+    for(auto& w:wires){
         w->setCurrent(std::numeric_limits<float>::infinity());
     }
     setCurrentsOfWires();
-    setCurrentsOfStrayWires();
+    if(!(setCurrentsOfStrayWires()))
+        return false;
+
+
+    return true;
+
 }
 
 void Calc::storeCurrentGoals()
@@ -59,8 +68,6 @@ void Calc::storeCurrentGoals()
         }
     }
 }
-
-
 
 
 void Calc::readFile(QString s)
@@ -582,15 +589,14 @@ void Calc::setCurrentsOfResistors()
     for(auto r : resistors){
         r->setCurrent(std::abs(voltageAtNode(r->getNode1())-voltageAtNode(r->getNode2()))/r->getValue());
     }
-
 }
 
 void Calc::setCurrentsOfResistorsAndSwitches()
 {
-    for(auto r : resistors){
+    for(auto& r : resistors){
         r->setCurrent(std::abs(voltageAtNode(r->getNode1())-voltageAtNode(r->getNode2()))/r->getValue());
     }
-    for(auto sw : switches){
+    for(auto& sw : switches){
         if(!sw->getUp())
             sw->setCurrent(std::abs(voltageAtNode(sw->getNode1())-voltageAtNode(sw->getNode2()))/sw->getValue());
         else
@@ -600,20 +606,19 @@ void Calc::setCurrentsOfResistorsAndSwitches()
 }
 
 void Calc::setCurrentsOfWires()
-{  
-    for(auto r : resistors){
+{
+    //Joined vector with resistors,switches and sources
+    std::vector<std::shared_ptr<Component>> comps;
+    comps.insert(comps.end(), resistors.begin(), resistors.end());
+    comps.insert(comps.end(), switches.begin(), switches.end());
+    comps.insert(comps.end(), sources.begin(),sources.end());
+
+
+    //For every component, calculate current trough neighbours
+    for(auto& c : comps){
 
         int nodemin,nodemax;
-        if( std::max(voltageAtNode(r->getNode1()), voltageAtNode(r->getNode2())) == voltageAtNode(r->getNode1())){
-            nodemax = r->getNode1();
-            nodemin = r->getNode2();
-        }
-        else{
-            nodemax = r->getNode2();
-            nodemin = r->getNode1();
-        }
-
-        QPoint pos(r->getXCoord(),r->getYCoord());
+        QPoint pos(c->getXCoord(),c->getYCoord());
         std::shared_ptr<Wire> wTemp;
         std::shared_ptr<Wire> lastWire;
         int connectedWires = 0;
@@ -621,7 +626,29 @@ void Calc::setCurrentsOfWires()
         int node;
         int corFactor = 1;
 
-        //Ga tweemaal door loop, een keer voor maxNode eenmaal voor minNode.
+        //Pointer used for checking if component is a source. Becauce sources behave a bit different
+        std::shared_ptr<Source> s = std::dynamic_pointer_cast<Source>(c);
+
+        //Calculate max and min node
+        if (s.get()==nullptr){
+            if( std::max(voltageAtNode(c->getNode1()), voltageAtNode(c->getNode2())) == voltageAtNode(c->getNode1())){
+                nodemax = c->getNode1();
+                nodemin = c->getNode2();
+            }
+            else{
+                nodemax = c->getNode2();
+                nodemin = c->getNode1();
+            }
+        }
+        else{
+
+            nodemax = c->getNodep();
+            nodemin = c->getNodem();
+        }
+
+
+
+        //Go trough the loop twice, once for maxNode, once for minNode.
         for(int i = 0; i<2;i++){
             switch(i){
             case 0:
@@ -630,14 +657,15 @@ void Calc::setCurrentsOfWires()
 
             case 1:
                 node = nodemax;
-                corFactor = -1;
+                corFactor *= -1;
                 break;
 
             }
 
-            //Check connected elements, if only one connected: assign same current to wire)
+
+            //Connect connected elements, then assign currents
             while(!cross){
-                for(auto w : wires){
+                for(auto& w : wires){
                     if(w->getNode() == node){
                         if(w!=lastWire){
 
@@ -678,22 +706,22 @@ void Calc::setCurrentsOfWires()
                                 break;
                             default:
                                 break;
-                                //TODO catch default
                             }
                         }
                     }
                 }
-                for(auto s:sources){
-                    if(pos == QPoint(s->getXCoord(),s->getYCoord()))
-                        connectedWires+=2;
-                }
-                for(auto res:resistors){
 
-                    if(res!=r){
-                        if(res->getNode1()==node || res->getNode2()==node){
-                            int xp = res->getXCoord();
-                            int yp = res->getYCoord();
-                            switch(res->getAngle()){
+                for(auto& co:comps){
+                    if(co!=c){
+                        if(std::dynamic_pointer_cast<Source>(co)!=nullptr){
+
+                            if(pos == QPoint(co->getXCoord(),co->getYCoord()))
+                                connectedWires+=2;
+                        }
+                        else if(co->getNode1()==node || co->getNode2()==node){
+                            int xp = co->getXCoord();
+                            int yp = co->getYCoord();
+                            switch(co->getAngle()){
 
                             case 1:
                                 if(pos==QPoint(xp,yp) || pos == QPoint(xp+1,yp)){
@@ -726,10 +754,14 @@ void Calc::setCurrentsOfWires()
 
                             }
                         }
+
                     }
                 }
+
+                //Check nr of connections, if only one: assign current, and jump to the end of the wire
+                //else stop calculations for this node
                 if(connectedWires ==1){
-                    wTemp->setCurrent(r->getCurrent()*corFactor);
+                    wTemp->setCurrent(c->getCurrent()*corFactor);
                     switch(wTemp->getAngle()){
                     case 1:
                         if(wTemp->getXCoord()==pos.x())
@@ -771,114 +803,70 @@ void Calc::setCurrentsOfWires()
                     cross = true;
                 }
             }
+
+
+            //Re-adjust parameters for second loop
             cross = false;
             connectedWires = 0;
             lastWire = nullptr;
-            int angle= r->getAngle();
-            switch(angle){
-            case 1:
-                pos.setX(r->getXCoord()+1);
-                pos.setY(r->getYCoord());
-                break;
-            case 2:
-                pos.setX(r->getXCoord());
-                pos.setY(r->getYCoord()+1);
-                break;
-            case 3:
-                pos.setX(r->getXCoord()-1);
-                pos.setY(r->getYCoord());
-                break;
-            case 4:
-                pos.setX(r->getXCoord());
-                pos.setY(r->getYCoord()-1);
-                break;
+            if(s.get()==nullptr){
+                int angle= c->getAngle();
+                switch(angle){
+                case 1:
+                    pos.setX(c->getXCoord()+1);
+                    pos.setY(c->getYCoord());
+                    break;
+                case 2:
+                    pos.setX(c->getXCoord());
+                    pos.setY(c->getYCoord()+1);
+                    break;
+                case 3:
+                    pos.setX(c->getXCoord()-1);
+                    pos.setY(c->getYCoord());
+                    break;
+                case 4:
+                    pos.setX(c->getXCoord());
+                    pos.setY(c->getYCoord()-1);
+                    break;
 
-            }
-        }
-    }
-
-
-    //Draden die niet aan weerstand liggen
-
-    //Zolang er er nog een weerstand met oneindigestromen is, in while blijven
-    bool inf = true;
-    while(inf){
-
-        inf = false;
-
-        //Check alle draden waar nog geen stroom aan toegekend is
-        for(auto w:wires){
-            if(std::isinf(w->getCurrent())){
-                QPoint pos(w->getXCoord(),w->getYCoord());
-                float curr = 0;
-
-                //Tel de stromen op van alle andere verbonde draden
-                for (auto wire:wires){
-                    if(wire!=w){
-                        int xp = wire->getXCoord();
-                        int yp = wire->getYCoord();
-                        int l = wire->getLength();
-                        switch (wire->getAngle()) {
-
-                        case 1:
-                            if(pos==QPoint(xp,yp) || pos == QPoint(xp+l,yp)){
-                                curr += wire->getCurrent();
-                            }
-
-                            break;
-                        case 2:
-                            if(pos==QPoint(xp,yp) || pos== QPoint(xp,yp+l)){
-                                curr += wire->getCurrent();
-                            }
-
-                            break;
-                        case 3:
-                            if(pos == QPoint(xp,yp) ||pos == QPoint(xp-l,yp)){
-                                curr += wire->getCurrent();
-                            }
-
-
-                            break;
-                        case 4:
-                            if(pos==QPoint(xp,yp) || pos == QPoint(xp,yp-l)){
-                                curr += wire->getCurrent();
-                            }
-
-                            break;
-                        default:
-                            break;
-                        }
-
-
-                    }
                 }
-                w->setCurrent(curr);
-                if(std::isinf(w->getCurrent()))
-                    inf=true; //Blijf in lus
-
+            }
+            else{
+                pos.setX(c->getXCoord());
+                pos.setY(c->getYCoord());
             }
         }
-    }
 
+    }
 }
 
-void Calc::setCurrentsOfStrayWires(){
+bool Calc::setCurrentsOfStrayWires(){
 
-    //TODO testen of nog altijd juist
+    int timeout;
+    std::vector<std::shared_ptr<Wire>> strayWires;
+    std::vector<std::shared_ptr<Wire>> toRemove;
 
-    //Zolang er er nog een weerstand met oneindigestromen is, in while blijven
-    bool inf = true;
-    while(inf){
+    //Check for wires wich haven't got a real current value and put them in a temp vector
+    for(auto& wi:wires){
+        if(std::isinf(wi->getCurrent())){
+            strayWires.push_back(wi);
+        }
+    }
 
-        inf = false;
 
-        //Check alle draden waar nog geen stroom aan toegekend is
-        for(auto w:wires){
+    //As long as there are stray wires, stay in loop
+    while(!(strayWires.empty())){
+        timeout++;
+
+        for(auto& w:strayWires){
             if(std::isinf(w->getCurrent())){
                 QPoint pos(w->getXCoord(),w->getYCoord());
+
+
+
                 float curr = 0;
 
-                //Tel de stromen op van alle andere verbonde draden
+                //Sum up the currents of al neighbouring wires
                 for (auto wire:wires){
                     if(wire!=w){
                         int xp = wire->getXCoord();
@@ -899,7 +887,7 @@ void Calc::setCurrentsOfStrayWires(){
                             if(pos==QPoint(xp,yp)){
                                 curr += wire->getCurrent();
                             }
-                            else if ( pos== QPoint(xp,yp+l)){
+                            else if (pos== QPoint(xp,yp+l)){
                                 curr -= wire->getCurrent();
                             }
 
@@ -926,33 +914,52 @@ void Calc::setCurrentsOfStrayWires(){
                         default:
                             break;
                         }
+
+
                     }
+
                 }
 
                 w->setCurrent(-curr);
-                if(std::isinf(w->getCurrent()))
-                    inf=true; //Blijf in lus
+
+                //If current is real, push to toRemove
+                if(!(std::isinf(w->getCurrent())))
+                    toRemove.push_back(w);
+
             }
         }
+        //Remove toRemove from staywires
+        for(auto& r:toRemove){
+            strayWires.erase( std::remove( strayWires.begin(), strayWires.end(), r), strayWires.end() );
+        }
+        //If loop is stuck, return false (worst case scenario)
+        if(timeout>50)
+            return false;
     }
+
+    return true;
 }
 
 
 std::vector<float> Calc::computeNetwork(int  nrOfNodes)
 {
-    //m is nrOfSources
+    //Compute voltages for each node, done by matrix calculations. See report for more details
+
     const int m =sources.size();
-    MatrixXf g(nrOfNodes,nrOfNodes);
-    MatrixXf b(nrOfNodes,m);
-    MatrixXf c(m,nrOfNodes);
-    MatrixXf d(m,m);          //dependant sources
-    MatrixXf a((nrOfNodes+m),(nrOfNodes+m));
+    MatrixXf a((nrOfNodes+m),(nrOfNodes+m)); //Matrix with all parameters
 
-    MatrixXf z(nrOfNodes+m,1);
-    MatrixXf i(nrOfNodes,1);
-    MatrixXf e(m,1);
+    MatrixXf g(nrOfNodes,nrOfNodes); //Part of A Matrix, describes all connected passive elements
+    MatrixXf b(nrOfNodes,m);    //Part of A Matrix, describes connections of all sources
+    MatrixXf c(m,nrOfNodes);    //Part of A Matrix, transpose of B
+    MatrixXf d(m,m);          //All zeros, can be used for dependant sources
 
-    //init matrices
+    MatrixXf z(nrOfNodes+m,1); // Holds values of independant current and voltage sources
+    MatrixXf i(nrOfNodes,1);   //Part of Z matrix, holds values of current sources
+    MatrixXf e(m,1); //Part of Z matrix, holds values of voltage sources
+
+    VectorXf x; //Hold unknowm quantities. Voltages at nodes and currents trough source
+
+    //initialize matrices
     g<<MatrixXf::Zero(nrOfNodes,nrOfNodes);
     b<<MatrixXf::Zero(nrOfNodes,m);
     c<<MatrixXf::Zero(m,nrOfNodes);
@@ -961,10 +968,15 @@ std::vector<float> Calc::computeNetwork(int  nrOfNodes)
     z<<MatrixXf::Zero(nrOfNodes+m,1);
     i<<MatrixXf::Zero(nrOfNodes,1);
     e<<MatrixXf::Zero(m,1);
-    //Fill matrix for G
 
-    //Resistors
-    for(auto res:resistors){
+
+    //Joined vector with resistors and switches
+    std::vector<std::shared_ptr<Component>> swAndR;
+    swAndR.insert( swAndR.end(), resistors.begin(), resistors.end());
+    swAndR.insert( swAndR.end(), switches.begin(), switches.end());
+
+    //Fill matrix for g with Resistors and switches
+    for(auto& res:swAndR){
 
         for (int i=1;i<=nrOfNodes;i++){
             if(res->getNode1()==i||res->getNode2()==i){
@@ -977,21 +989,6 @@ std::vector<float> Calc::computeNetwork(int  nrOfNodes)
         }
 
     }
-    //Switches
-    for(auto sw:switches){
-
-        for (int i=1;i<=nrOfNodes;i++){
-            if(sw->getNode1()==i||sw->getNode2()==i){
-                g(i-1,i-1)+=(1/(sw->getValue()));
-            }
-        }
-        if(sw->getNode1()!=0&&sw->getNode2()!=0){
-            g(sw->getNode1()-1,sw->getNode2()-1)+= (-1/sw->getValue());
-            g(sw->getNode2()-1,sw->getNode1()-1)+= (-1/sw->getValue());
-        }
-
-    }
-
 
     //Fill matrix b
     for(int i=0;i<m;i++){
@@ -1018,24 +1015,28 @@ std::vector<float> Calc::computeNetwork(int  nrOfNodes)
         }
     }
 
+    //Build A Matrix
     a.resize(g.rows()+c.rows(),b.cols()+g.cols());
     a<<g,b,
-            c,d       ;
+            c,d ;
 
 
 
 
-    //fill e matrix
+    //Fill e matrix
     for(int i=0;i<m;i++){
         e(i,0)=sources.at(i)->getValue();
     }
 
-
+    //Build z Matrix
     z<<i,
             e;
 
-    VectorXf x = a.colPivHouseholderQr().solve(z);
+    //Solve for X
+    x = a.colPivHouseholderQr().solve(z);
 
+
+    //Save solutions
     std::vector<float> solu;
     solu.push_back(0);   //Add value of ground node, always 0
     for (int i=0;i<nrOfNodes-1;i++){
@@ -1046,7 +1047,12 @@ std::vector<float> Calc::computeNetwork(int  nrOfNodes)
         sources.at(i)->setCurrent(x(i+nrOfNodes));
     }
 
+
     return solu;
+
+
+
+
 }
 
 int Calc::getPhysicalScreenWidth()

@@ -23,7 +23,7 @@ public:
 
 
     //Methods invokable from QML,voor tekenen van circuit. TODO verbeteren, teveel functies voor hetzelfde
-    Q_INVOKABLE void solveLevel();
+    Q_INVOKABLE bool solveLevel();
 
     //Nodes
     Q_INVOKABLE int numberOfNodes(){return sol.size();}
@@ -126,7 +126,8 @@ public:
 
 
     Q_INVOKABLE void setCurrentsOfResistorsAndSwitches();
-    Q_INVOKABLE void setCurrentsOfStrayWires();
+    Q_INVOKABLE bool setCurrentsOfStrayWires();
+    void setCurrentsOfSwitchedWires();
 
     //switches
     Q_INVOKABLE int getNumberOfSwitches(){return switches.size();}

@@ -20,6 +20,9 @@ Item {
     Component.onCompleted: {
         console.log("mylevelscreen wordt aangemaakt");
     }
+
+
+
     Grid{
         anchors.centerIn: parent
         rows: 3
@@ -100,8 +103,10 @@ Item {
                     onClicked: {
                         //game.visible = true;
                         myLevels.setCurrentLevel(index + 1);
+
                         //soundEffects.source = "Bubbles.wav";
                         soundEffects.play();
+
                         pageLoader.source = "GameScreen.qml";
                     }
                 }
@@ -125,6 +130,9 @@ Item {
             }
         }
     }
+
+
+
     Button{
         id: theReturnButton
         width: Screen.width/15

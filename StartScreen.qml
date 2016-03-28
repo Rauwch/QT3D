@@ -27,6 +27,8 @@ Item {
         console.log("myStartScreen wordt aangemaakt");
                 startWindow.visibility = Window.Maximized
     }
+
+
     Levels{
         id:myLevels
     }
@@ -41,7 +43,6 @@ Item {
             fillMode: Image.PreserveAspectCrop
             source: "bikiniBottom.jpg"
         }
-
 
         Column{
             id: theColumn
@@ -195,7 +196,6 @@ Item {
             id: pageLoader
             anchors.fill: parent
             asynchronous: true
-            visible: status == Loader.Ready
 
         }
         property var emptySource

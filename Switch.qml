@@ -14,15 +14,17 @@ Entity{
     property real yMin: 0
     property real yCenter: yMax
     property real z: 0
+    property real zCenter: z
 
     property bool switchIsOpen: false
     /* angle depending on wire (0, 90, 180, 270)*/
     property real orientationAngle: 0
+    property real testAngle: 0
     property var clickableBals
 
     property var oldRotationAngle: 0
     /* angle for opening/closing switch */
-    property real rotationAngle: 90
+    property real rotationAngle: 0
     property int length: 5
 
     QQ2.Behavior on xCenter{
@@ -34,6 +36,13 @@ Entity{
     }
 
     QQ2.Behavior on yCenter{
+        QQ2.NumberAnimation{
+            alwaysRunToEnd: true
+            duration: 500
+            easing.type: "InOutSine"
+        }
+    }
+    QQ2.Behavior on zCenter{
         QQ2.NumberAnimation{
             alwaysRunToEnd: true
             duration: 500
@@ -92,91 +101,158 @@ Entity{
         }
         switchNr: switchNr
     }
-
     Entity{
-        //            //Basismodel bron
-        id:somesh
-        components: [mesh,trans,material]
-
-        CylinderMesh {
-            id:mesh
-            length: theSwitch.length
-            radius: 1
-        }
-
-
+        components: [toFinal, finalTrans]
         Transform{
-            id:trans
-            //translation: Qt.vector3d(0, 0.5, 0)
+            id: finalTrans
+
             translation:{
                 //                Qt.vector3d(x - length/2 + janx , yMax +jany,z)
-                Qt.vector3d(xCenter - length/2 , yCenter,z)
 
-                //                switch(orientationAngle){
-                //                case(0):
-                //                    console.log("JAN case0");
-                //                    //Qt.vector3d(Math.cos(theSwitch.rotationAngle*180/Math.PI)*length+x,Math.sin(theSwitch.rotationAngle*180/Math.PI)*length+ymax, z)
-                //                    //Qt.vector3d(x + length/2 , yMax,z)
-                //                    Qt.vector3d(x + length/2 , yMax,z)
+                switch(orientationAngle){
+                case(0):
+                    Qt.vector3d(xCenter + length/2 , yCenter,zCenter)
+                    break;
+                case(90):
+                    Qt.vector3d(xCenter, yCenter,zCenter - length/2)
+                    break;
+                case(180):
+                    Qt.vector3d(xCenter - length/2 ,yCenter,zCenter)
+                    break;
+                case(270):
+                    Qt.vector3d(xCenter, yCenter,zCenter + length/2)
+                    break;
+                default:
+                    break;
 
-                //                    break;
-                //                case(90):
-                //                    console.log("JAN case1");
-
-                //                    Qt.vector3d(x, yMax,z - length/2)
-                //                    break;
-                //                case(180):
-                //                    console.log("JAN case2");
-
-                //                    //Qt.vector3d(-Math.cos(theSwitch.rotationAngle*180/Math.PI)*length/2 + x,Math.sin(theSwitch.rotationAngle*180/Math.PI)*length/2+yMax, z)
-                //                    //Qt.vector3d(x - length/2 , yMax,z)
-                //                    Qt.vector3d(x , yMax + length/2,z)
-                //                    break;
-                //                case(270):
-                //                    console.log("JAN case3");
-
-                //                    Qt.vector3d(x, yMax,z + length/2)
-                //                    break;
-                //                default:
-
-                //                }
+                }
             }
-
-
             rotation: {
-                fromAxisAndAngle(Qt.vector3d(0, 0, 1), -180 + rotationAngle + janAngle);
 
-                //                switch(orientationAngle){
-                //                case 0:
-                //                case 180:
-                //                    fromAxisAndAngle(Qt.vector3d(0, 0, 1), -90 + rotationAngle - 90)
-                //                    break;
-                //                case 90:
-                //                case 270:
-                //                    fromAxisAndAngle(Qt.vector3d(0, 1, 1), rotationAngle - 90)
-                //                }
+                switch(orientationAngle){
+                case(0):
+                    fromAxisAndAngle(Qt.vector3d(0, 0, 1), -rotationAngle - 90)
+                    break;
+                case(90):
+                    fromAxisAndAngle(Qt.vector3d(1, 0, 0), -rotationAngle - 90)
+                    break;
+                case(180):
+                    fromAxisAndAngle(Qt.vector3d(0, 0, 1), rotationAngle - 90)
+                    break;
+                case(270):
+                    fromAxisAndAngle(Qt.vector3d(1, 0, 0),  rotationAngle - 90)
+                    break;
+                default:
+                    break;
 
+                }
+            }
+        }
+
+
+        Entity{
+            id:toFinal
+            components: [somesh,theTrans]
+
+            Transform{
+                id: theTrans
+
+                rotation: {
+                    switch(orientationAngle){
+                    case(0):
+                        fromAxisAndAngle(Qt.vector3d(0, 1, 0),0)
+                        break;
+                    case(90):
+                        fromAxisAndAngle(Qt.vector3d(0, 1, 0),90)
+                        break;
+                    case(180):
+                        fromAxisAndAngle(Qt.vector3d(0, 1, 0),0)
+                        break;
+                    case(270):
+                        fromAxisAndAngle(Qt.vector3d(0, 1, 0), 90)
+                        break;
+                    default:
+                        break;
+                    }
+                }
             }
 
+            //fromAxisAndAngle(Qt.vector3d(0, 1, 0), rotationAngle - 90)
+            Entity{
+                //            //Basismodel bron
+                id:somesh
+                components: [mesh,trans,material]
 
-        }
-        property Material material: DiffuseMapMaterial {
-            id: theMaterial
-            diffuse: "Switch.jpg"
-            ambient: Qt.rgba( 1, 1, 1, 1.0 )
-            specular: Qt.rgba( 1, 1, 1, 1.0 )
-            shininess: 0
+                CylinderMesh {
+                    id:mesh
+                    length: theSwitch.length
+                    radius: 1
+                }
+
+
+                Transform{
+                    id:trans
+                    //translation: Qt.vector3d(0, 0.5, 0)
+                    rotation: {
+                        fromAxisAndAngle(Qt.vector3d(0, 0, 1), 0)
+                    }
+                }
+                property Material material: DiffuseMapMaterial {
+                    id: theMaterial
+                    diffuse: "Switch.jpg"
+                    ambient: Qt.rgba( 1, 1, 1, 1.0 )
+                    specular: Qt.rgba( 1, 1, 1, 1.0 )
+                    shininess: 0
+                }
+            }
         }
     }
+
+
     function openRotate(){
-        theSwitch.xCenter = theSwitch.xCenter + length/2
+
+        switch(orientationAngle){
+        case(0):
+            theSwitch.xCenter = theSwitch.xCenter - length/2
+            break;
+        case(90):
+            theSwitch.zCenter = theSwitch.zCenter + length/2
+            break;
+        case(180):
+            theSwitch.xCenter = theSwitch.xCenter + length/2
+            break;
+        case(270):
+            heSwitch.zCenter = theSwitch.zCenter - length/2
+            break;
+        default:
+            break;
+
+        }
+        //theSwitch.xCenter = theSwitch.xCenter + length/2
         theSwitch.yCenter = theSwitch.yCenter + length/2
         theSwitch.rotationAngle =  theSwitch.rotationAngle - 90
         switchIsOpen =true;
     }
 
     function closeRotate(){
-        theSwitch.xCenter = theSwitch.xCenter - length/2
+        switch(orientationAngle){
+        case(0):
+            theSwitch.xCenter = theSwitch.xCenter + length/2
+            break;
+        case(90):
+            theSwitch.zCenter = theSwitch.zCenter - length/2
+            break;
+        case(180):
+            theSwitch.xCenter = theSwitch.xCenter - length/2
+            break;
+        case(270):
+            heSwitch.zCenter = theSwitch.zCenter + length/2
+            break;
+        default:
+            break;
+
+        }
+        //theSwitch.xCenter = theSwitch.xCenter - length/2
         theSwitch.yCenter = theSwitch.yCenter - length/2
         theSwitch.rotationAngle =  theSwitch.rotationAngle + 90
         switchIsOpen = false;
@@ -184,6 +260,7 @@ Entity{
 
 
 }
+
 
 
 

@@ -11,7 +11,6 @@ import QtQuick.Controls.Styles 1.4
 import Lvl 1.0
 import Calc 1.0
 
-
 Item {
     id: myGameScreen
     property bool showBox
@@ -21,9 +20,6 @@ Item {
     property bool showLeaderboardEntry: true
     property bool checkBoard: false
     property bool playingAnimation: false
-
-
-
     property int jellyPixelHeight
     property int jellyPixelWidth
     property int jellySize: 0
@@ -34,6 +30,7 @@ Item {
     property int numClicks: 0
     property int highScore: 0
 
+    signal loaded
     anchors.fill: parent
 
     Component.onCompleted: {
@@ -50,7 +47,9 @@ Item {
             rotateCamera.visible = true;
         }
     }
-    Component.onDestruction: console.log("gamescreen destroyed")
+    Component.onDestruction: {
+        console.log("gamescreen destroyed");
+    }
 
 
     property Timer tutTimer: Timer{
@@ -76,6 +75,8 @@ Item {
         }
     }
 
+
+
     /* makes the background blackish when you finish a level */
     Button{
         id:alpha
@@ -96,7 +97,6 @@ Item {
         anchors.topMargin: 10
         spacing: 10
         Button{
-
             id: returnButton
             width: Screen.width/15
             height: width
@@ -129,7 +129,6 @@ Item {
 
         }
         Button{
-
             id: retryButton
             width: Screen.width/15
             height: width
@@ -167,26 +166,24 @@ Item {
     }
     TextField{
         id: counter
-
         anchors.horizontalCenter: myGameScreen.horizontalCenter
         anchors.bottom: myGameScreen.bottom
 
-        text: "aantal kliks: " + numClicks
+        text: "aantal kliks: " + myGameScreen.numClicks
         readOnly: true
         font.pixelSize: 30
     }
     TextField{
         id: counterHighScore
-
         Component.onCompleted:
         {
-            if(highScore == 0)
+            if(myGameScreen.highScore == 0)
                 text = "Highscore: /"
         }
         anchors.horizontalCenter: myGameScreen.horizontalCenter
         anchors.bottom: counter.top
 
-        text: "Highscore: " + highScore
+        text: "Highscore: " + myGameScreen.highScore
         readOnly: true
         font.pixelSize: 30
 
@@ -253,7 +250,7 @@ Item {
     Column{
         id: textBox
         anchors.bottom: parent.bottom
-        visible: showBox
+        visible: myGameScreen.showBox
         spacing: 10
         /* increase height button */
         Button{
@@ -322,7 +319,7 @@ Item {
     Column{
         id: resistorBox
         anchors.bottom: parent.bottom
-        visible: showRes
+        visible: myGameScreen.showRes
         spacing: 10
         /* increase the value of the resistor */
         Button{
@@ -397,7 +394,7 @@ Item {
         anchors.bottom: parent.bottom
         width: changeSwitchText.width + 20
         height: Screen.height/15
-        visible: showSwitch
+        visible: myGameScreen.showSwitch
         Text{
             id: changeSwitchText
             anchors.centerIn: parent
@@ -598,7 +595,7 @@ Item {
                 anchors.topMargin: 10
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                visible: {checkLeaderboard() && showLeaderboardEntry}
+                visible: {myGameScreen.checkLeaderboard() && myGameScreen.showLeaderboardEntry}
 
                 TextField{
                     id:myTextField
@@ -642,6 +639,9 @@ Item {
         }
     }
 
+    LoadingScreen{
+        id: loading
+    }
 
     //this are all the functions
     function toggleSwitch()
@@ -768,6 +768,20 @@ Item {
         tutorialScreen.setTextInvis();
 
     }
+
+    function showElements(){
+        retryButton.visible = true;
+        returnButton.visible = true;
+        counter.visible = true;
+        counterHighScore.visible = true;
+
+//        jelly.visible = true;
+//        jellyGoal.visible = true;
+        //rotateCamera.visible = true;
+        counter.visible = true;
+        //changeSwitch.visible = true;
+
+    }
     /* function returns if the textfield to enter a new entry in the leaderLoader, should be shown */
     function checkLeaderboard()
     {
@@ -784,7 +798,7 @@ Item {
 
     /* function returns the amount stars earned */
     function getStars()
-    {       
+    {
         if(calculator.getThreeStar() >=  numClicks){
             return 3;
         }

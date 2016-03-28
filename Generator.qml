@@ -36,7 +36,7 @@ Entity{
 
     QQ2.Component.onCompleted: {
         console.log("this is the current level: " + myLevels.getCurrentLevel() );
-        calculator.readFile(":/assets/Levels/inputfile_" + myLevels.getCurrentLevel() + ".sj");
+        myGameScreen.calculator.readFile(":/assets/Levels/inputfile_" + myLevels.getCurrentLevel() + ".sj");
         initializeLevel();
         calculator.updateResistors();
         calculator.updateSources();
@@ -45,13 +45,13 @@ Entity{
 
     /* set all the values of the goals */
     function initializeLevel(){
-        calculator.solveLevel();
-        for( var i =0;i < calculator.getNumberOfGoals();i++)
+        myGameScreen.calculator.solveLevel();
+        for( var i =0;i < myGameScreen.calculator.getNumberOfGoals();i++)
         {
-            calculator.setVoltageAtGoal(i,calculator.voltageAtNode(calculator.nodeAtGoal(i)));
+            myGameScreen.calculator.setVoltageAtGoal(i,myGameScreen.calculator.voltageAtNode(myGameScreen.calculator.nodeAtGoal(i)));
         }
-        calculator.setCurrentsOfWires();
-        calculator.storeCurrentGoals();
+        myGameScreen.calculator.setCurrentsOfWires();
+        myGameScreen.calculator.storeCurrentGoals();
     }
 
     /* create the 3D world */
@@ -63,7 +63,7 @@ Entity{
         var xDif, zDif, polePosition;
 
 
-        calculator.solveLevel();
+        myGameScreen.calculator.solveLevel();
         myGameScreen.initializeJellies();
         myGameScreen.setVisibilityJellies();
         myGameScreen.calculateSize();
