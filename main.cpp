@@ -49,6 +49,7 @@
 #include "levels.h"
 #include "calc.h"
 #include "leaderboard.h"
+#include "rescalc.h"
 using namespace std;
 
 
@@ -59,6 +60,7 @@ int main(int argc, char* argv[])
         screen->setOrientationUpdateMask(Qt::LandscapeOrientation | Qt::PortraitOrientation |
                                          Qt::InvertedLandscapeOrientation | Qt::InvertedPortraitOrientation);
     qmlRegisterType<Calc>("Calc",1,0,"Calculator");
+    qmlRegisterType<ResCalc>("ResCalc",1,0,"ResCalculator");
     qmlRegisterType<Levels>("Lvl",1,0,"Levels");
     qmlRegisterType<Leaderboard>("LB",1,0,"Levelboard");
 

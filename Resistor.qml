@@ -18,11 +18,13 @@ Entity{
     property var anew
     property var ynew
     property var znew
+    property var xnew
 
     property var lprev
     property var aprev
     property var yprev
     property var zprev
+    property var xprev
 
     //Variable voor hoek.
     property real a: 90 //Hoek volgens z as,bepaald door spanning over weerstand
@@ -69,10 +71,20 @@ Entity{
             to: znew
             duration: 500
         }
+        QQ2.PropertyAnimation{
+            id: part5
+            target: node
+            easing.type: "InOutSine"
+            property: "x"
+            from: xprev
+            to: xnew
+            duration: 500
+        }
         onStopped: {
             l = lnew;
             y = ynew;
             z = znew;
+            x = xnew;
         }
     }
 

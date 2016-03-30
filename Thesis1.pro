@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     calc.cpp \
     goalvoltage.cpp \
     leaderboard.cpp \
-    switch.cpp
+    switch.cpp \
+    rescalc.cpp
 
 
 RESOURCES += qml.qrc \
@@ -39,7 +40,8 @@ HEADERS += \
     calc.h \
     goalvoltage.h \
     leaderboard.h \
-    switch.h
+    switch.h \
+    rescalc.h
 
 DISTFILES += \
     bolt.ico
