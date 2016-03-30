@@ -17,6 +17,7 @@ Item {
     property bool showRes
     property bool showSwitch
     property bool showTutorial: true
+    property bool showPopup: false
     property bool showLeaderboardEntry: true
     property bool checkBoard: false
     property bool playingAnimation: false
@@ -34,7 +35,7 @@ Item {
     anchors.fill: parent
 
     Component.onCompleted: {
-        console.log("GameScreen wordt aangemaakt");
+        console.log("GameScreen is complteded");
         setPopupWindowForTutorial(myLevels.getCurrentLevel());
 
         if(myLevels.getCurrentLevel() <= 4){
@@ -46,6 +47,8 @@ Item {
         {
             rotateCamera.visible = true;
         }
+
+
     }
     Component.onDestruction: {
         console.log("gamescreen destroyed");
@@ -60,6 +63,23 @@ Item {
     }
 
     property Calculator calculator: Calculator{
+        Component.onCompleted: {
+            console.log("calculator is completed");
+            world.generator.completed();
+        }
+    }
+
+    Timer{
+        id:delayTimer
+        interval: 500
+        repeat: false
+        onTriggered: {
+            increaseHeightAction.enabled = true;
+            decreaseHeightAction.enabled = true;
+            increaseResistorAction.enabled = true;
+            decreaseResistorAction.enabled = true;
+            changeSwitchAction.enabled =true;
+        }
 
     }
 
@@ -119,7 +139,6 @@ Item {
                 anchors.centerIn: parent
             }
             onClicked: {
-                soundEffects.play();
                 //need this destroy first to not crash program
                 //world.destroyCamera();
                 pageLoader.source = "";
@@ -153,7 +172,6 @@ Item {
                 anchors.centerIn: parent
             }
             onClicked: {
-                soundEffects.play();
                 //need this destroy first to not crash program
                 //world.destroyCamera();
                 console.log("world is destroyed");
@@ -198,11 +216,13 @@ Item {
     Image{
         id:jellyGoal
         source: "jellyGoal.png"
+
     }
 
     Image{
         id:jelly
         source: "jelly.png"
+
     }
 
     Button{
@@ -210,8 +230,8 @@ Item {
 
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10
-        anchors.right: parent.right
-        anchors.rightMargin: 10
+        anchors.left: parent.left
+        anchors.leftMargin: 10
 
         width: Screen.width/15
         height: Screen.height/15
@@ -246,6 +266,27 @@ Item {
         }
     }
 
+    Column{
+        id: sourceMenu
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        Button{
+
+        }
+        Button{
+
+        }
+        Button{
+
+        }
+        Button{
+
+        }
+        Button{
+
+        }
+    }
+
     /* increase and decrease the height of a source */
     Column{
         id: textBox
@@ -257,6 +298,9 @@ Item {
             id: increaseHeight
             width: increaseText.width + 20
             height: Screen.height/15
+            action: Action{id: increaseHeightAction; enabled: true}
+
+
             Text{
                 id: increaseText
                 anchors.centerIn: parent
@@ -288,6 +332,7 @@ Item {
             id: decreaseHeight
             width: increaseText.width + 20
             height: Screen.height/15
+            action: Action{id: decreaseHeightAction; enabled: true}
             Text{
                 anchors.centerIn: parent
                 id: decreaseText
@@ -326,6 +371,7 @@ Item {
             id: increaseResistor
             width: increaseResText.width + 20
             height: Screen.height/15
+            action: Action{id: increaseResistorAction; enabled: true}
             Text{
                 anchors.centerIn: parent
                 id: increaseResText
@@ -357,6 +403,7 @@ Item {
             id: decreaseResistor
             width: increaseResText.width+20
             height: Screen.height/15
+            action: Action{id: decreaseResistorAction; enabled: true}
             Text{
                 id: decreaseResText
                 anchors.centerIn: parent
@@ -395,6 +442,7 @@ Item {
         width: changeSwitchText.width + 20
         height: Screen.height/15
         visible: myGameScreen.showSwitch
+        action: Action{id: changeSwitchAction; enabled: true}
         Text{
             id: changeSwitchText
             anchors.centerIn: parent
@@ -428,7 +476,11 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         height: Screen.height
         width: Screen.width/2
-        visible: false
+        visible: showPopup
+        onVisibleChanged: {
+            jelly.visible = false;
+            jellyGoal.visible = false;
+        }
 
         Image
         {
@@ -444,7 +496,7 @@ Item {
             id:myTimer
             interval: 1500; running: false; repeat: false
             onTriggered: {
-                popupWindow.visible = true;
+                showPopup = true;
                 alpha.visible= true;
                 starRepeater.model = getStars();
             }
@@ -506,8 +558,6 @@ Item {
                 }
 
                 onClicked: {
-                    //soundEffects.source = "Bubbles.wav";
-                    soundEffects.play();
                     world.destroyCamera();
                     pageLoader.source = "";
                     pageLoader.source = "GameScreen.qml";
@@ -532,7 +582,6 @@ Item {
 
                 onClicked: {
 
-                    soundEffects.play();
                     //world.destroyCamera();
                     pageLoader.source = "LevelScreen.qml";
                     console.log("world is destroyed");
@@ -563,7 +612,6 @@ Item {
                     }
                 }
                 onClicked: {
-                    soundEffects.play();
                     myLevels.setCurrentLevel(myLevels.getCurrentLevel()+1);
                     world.destroyCamera();
                     pageLoader.source = "";
@@ -646,6 +694,7 @@ Item {
     //this are all the functions
     function toggleSwitch()
     {
+        changeSwitchAction.enabled= false;
         numClicks++;
 
         if(changeSwitchText.text === " Open Brug "){
@@ -659,6 +708,7 @@ Item {
         world.generator.toRotateSwitch(clickedSwitch);
         calculator.solveLevel();
         world.generator.updateGoalPoles();
+        delayTimer.start();
         if(calculator.checkGoals())
         {
             hideElements()
@@ -760,8 +810,8 @@ Item {
         returnButton.visible = false;
         resistorBox.visible = false;
         textBox.visible = false;
-        jelly.visible = false;
-        jellyGoal.visible = false;
+        //jelly.visible = false;
+        //jellyGoal.visible = false;
         rotateCamera.visible = false;
         counter.visible = false;
         changeSwitch.visible = false;
@@ -775,8 +825,8 @@ Item {
         counter.visible = true;
         counterHighScore.visible = true;
 
-//        jelly.visible = true;
-//        jellyGoal.visible = true;
+        //        jelly.visible = true;
+        //        jellyGoal.visible = true;
         //rotateCamera.visible = true;
         counter.visible = true;
         //changeSwitch.visible = true;
@@ -814,10 +864,15 @@ Item {
 
     function increaseSourceButton()
     {
+        increaseHeightAction.enabled = false;
+        decreaseHeightAction.enabled = false;
+
         calculator.adjustVoltageAtSource(clickedSource,calculator.getStepOfSource(clickedSource));
         calculator.solveLevel();
+        // deze functie zou niet meer nodig zijn
         world.generator.increaseVolt(clickedSource);
         numClicks++;
+        delayTimer.start();
         if(calculator.checkGoals()){
             hideElements();
             myTimer.start();
@@ -838,11 +893,13 @@ Item {
     }
 
     function decreaseSourceButton(){
+        decreaseHeightAction.enabled = false;
+        increaseHeightAction.enabled = false;
         calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
         calculator.solveLevel();
         world.generator.decreaseVolt(clickedSource);
         numClicks++;
-
+        delayTimer.start();
         if(calculator.checkGoals())
         {
             hideElements();
@@ -865,11 +922,14 @@ Item {
     }
 
     function increaseResistorButton(){
+        increaseResistorAction.enabled = false;
+        decreaseResistorAction.enabled = false;
         calculator.adjustResistance(clickedRes, calculator.getStepOfResistor(clickedRes));
         world.generator.increaseRes(clickedRes);
         calculator.solveLevel();
         calculateSize();
         numClicks++;
+        delayTimer.start();
         if(calculator.checkGoals())
         {
             hideElements()
@@ -889,12 +949,15 @@ Item {
     }
 
     function decreaseResistorButton(){
+        decreaseResistorAction.enabled = false;
+        increaseResistorAction.enabled = false;
+        decreaseHeightAction.enabled = false;
         calculator.adjustResistance(clickedRes, -calculator.getStepOfResistor(clickedRes));
         numClicks++;
         world.generator.decreaseRes(clickedRes);
         calculator.solveLevel();
         calculateSize();
-
+        delayTimer.start();
         if(calculator.checkGoals())
         {
             hideElements()

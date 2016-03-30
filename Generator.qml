@@ -6,7 +6,6 @@ import QtQuick 2.3 as QQ2
 //Object dat verantwoordelijk is voor bouwen van circuits
 Entity{
     id:root
-
     //size of each coordinate step
     property real sf:5
 
@@ -35,6 +34,10 @@ Entity{
 
 
     QQ2.Component.onCompleted: {
+
+    }
+    function completed() {
+        console.log("generator completed");
         console.log("this is the current level: " + myLevels.getCurrentLevel() );
         myGameScreen.calculator.readFile(":/assets/Levels/inputfile_" + myLevels.getCurrentLevel() + ".sj");
         initializeLevel();

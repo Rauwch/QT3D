@@ -110,6 +110,70 @@ void Levels::refreshTextFile()
     }
 }
 
+void Levels::resetLevels()
+{
+    QString path = QDir::currentPath() + "/levels.txt";
+    QFile * newFile = new QFile(path);
+    QFile * file = new QFile(":/assets/Levels/levels.txt");
+    QTextStream stream(newFile);
+    QString line;
+    QStringList list;
+    levelArray.clear();
+    /* boolean gets set if the newFile already exists*/
+    bool fileExists = newFile->exists();
+    vector <int> rowVector(2);
+    int row = 0;
+    if(!file->open(QIODevice::ReadOnly| QIODevice::Text))
+    {
+        qDebug()<< "error opening levels";
+        return;
+    }
+
+    if(newFile->open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        /*write all the content of file in newFile*/
+        QTextStream in(file);
+        QString leaderPath;
+
+        while (!in.atEnd())
+        {
+            line = in.readLine();
+            stream << line;
+            stream << endl;
+
+            row++;
+            /* create leaderboard file for each level */
+            leaderPath= QDir::currentPath() + "/leaderboard"+QString::number(row)+ ".txt";
+            QFile * leaderBoard = new QFile(leaderPath);
+            QTextStream leader(leaderBoard);
+            /* opening a file that doesn't exist yet will creat this file */
+            if(leaderBoard->open(QIODevice::WriteOnly | QIODevice::Text))
+            {
+              leader << endl;
+
+            }
+            leaderBoard->close();
+        }
+        stream.seek(0);
+        row = 0;
+        /*add the content of newFile to the levelArray*/
+        while (!stream.atEnd())
+        {
+            line = stream.readLine();
+            if (!line.isEmpty()&&!line.isNull()){
+                list=line.split(" ");
+                levelArray.push_back(rowVector);
+                for(int col = 0; col < 2; col++){
+                    levelArray[row][col] = list.at(col).toInt();
+                }
+                row++;
+            }
+        }
+    }
+    file->close();
+    newFile->close();
+}
+
 int Levels::getAmountOfStars(int level) const
 {
     return levelArray[level][1];

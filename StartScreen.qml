@@ -29,7 +29,7 @@ Item {
     }
 
 
-    Levels{
+    property Levels myLevels: Levels{
         id:myLevels
     }
 
@@ -78,7 +78,6 @@ Item {
                 }
 
                 onClicked: {
-                    soundEffects.play() ;
                     theColumn.visible = false;
                     pageLoader.source = "LevelScreen.qml";
 
@@ -116,7 +115,6 @@ Item {
                     }
                 }
                 onClicked: {
-                    soundEffects.play();
                     theColumn.visible = false;
                     pageLoader.source = "Options.qml";
                 }
@@ -150,7 +148,6 @@ Item {
                     }
                 }
                 onClicked: {
-                    soundEffects.play();
                     theColumn.visible = false;
                     pageLoader.source = "Credits.qml";
                 }
@@ -186,10 +183,6 @@ Item {
                     startWindow.close();
                 }
             }
-        }
-        SoundEffect{
-            id: soundEffects
-            source:"Bubbles.wav"
         }
 
         Loader{

@@ -9,8 +9,8 @@ Rectangle{
     property int offset: buttonNext.height
     property bool ballExplained: false
     property int numberOfLevel: 1
-    property int textFontSize
-    property int buttonFontSize
+    property int textFontSize: 10
+    property int buttonFontSize:10
     property int buttonHeight
     property int screenType:0 //1==tablet
     property QtObject test
@@ -23,7 +23,7 @@ Rectangle{
         id:instructionWindow
         color: "#FFFFFF"
         width: (instructionText.paintedWidth + 40)
-        height: (instructionText.paintedHeight + buttonNext.height + 30)
+        height: (instructionText.paintedHeight + buttonNext.height + 50)
 
         border.width: 4
         border.color: "black"
@@ -48,28 +48,32 @@ Rectangle{
             font.pointSize: textFontSize
         }
         Button{
+
             id:buttonNext
             visible: {stage <= numStages}
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: instructionText.bottom
-            anchors.topMargin: 5
+            anchors.topMargin: 10
             height: buttonHeight
+            width: nextText.width + 20
+            Text {
+                id:nextText
+                anchors.centerIn: parent
+                text:"Volgende"
+                verticalAlignment: Text.AlignVCenter
+                //anchors.verticalCenter: buttonNext.verticalCenter
+                font.family: "Helvetica"
+                font.pointSize: buttonFontSize
+            }
             style: ButtonStyle {
-                label: Text {
-                    text:"Volgende"
-                    verticalAlignment: Text.AlignVCenter
-                    //anchors.verticalCenter: buttonNext.verticalCenter
-                    font.family: "Helvetica"
-                    font.pointSize: buttonFontSize
-                }
                 background: Rectangle {
-                    border.width: 2
-                    border.color: "black"
-                    //anchors.verticalCenter: buttonNext.verticalCenter
-                    radius: 4
+                    border.width: control.activeFocus ? 4 : 2
+
+                    border.color: "#063e79"
+                    radius: 10
                     gradient: Gradient {
-                        GradientStop { position: 0 ; color: "#D3D3D3" }
-                        GradientStop { position: 1 ; color: "#FFFFFF" }
+                        GradientStop { position: 0 ; color: control.pressed ? "#479af5" : "#2589f4" }
+                        GradientStop { position: 1 ; color: control.pressed ? "#2589f4" : "#0b6fda" }
                     }
                 }
             }
@@ -81,7 +85,7 @@ Rectangle{
     }
     function setInstructionText(){
         var physScreenSize = myGameScreen.getPhysicalScreenWidth();
-        console.log("screensize: " + physScreenSize);
+        //console.log("screensize: " + physScreenSize);
         if(physScreenSize >= 300){
             textFontSize = 12;
             buttonFontSize = 15;
@@ -98,7 +102,7 @@ Rectangle{
             screenType = 1;
 
         }
-        console.log("fontsize " + instructionText.font.pointSize);
+        //console.log("fontsize " + instructionText.font.pointSize);
 
         switch(numberOfLevel){
         case(1):
@@ -181,7 +185,7 @@ Rectangle{
                 instructionText.text = "<strong><u>STAP 2/3</u></strong><br></br>De <b>grijze paal</b> is de <b>kwallenlift</b>.<br></br><i>Klik op de bol</i> om de <br></br>hoogte te veranderen";
             }
             buttonNext.visible = false;
-            instructionWindow.height = instructionText.paintedHeight + 30;
+            instructionWindow.height = instructionText.paintedHeight + 50;
 
             break;
         case(numStages):

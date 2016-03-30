@@ -53,15 +53,15 @@ Item {
                 checked: myStartScreen.musicBool
                 style: SwitchStyle {
                     groove: Rectangle {
-                            implicitWidth: 200
-                            implicitHeight: 100
-                            radius: 10
-                            border.width:  2
-                            border.color: "#063e79"
-                            gradient: Gradient {
-                                GradientStop { position: 0 ; color: "#2589f4" }
-                                GradientStop { position: 1 ; color: "#0b6fda" }
-                            }
+                        implicitWidth: 200
+                        implicitHeight: 100
+                        radius: 10
+                        border.width:  2
+                        border.color: "#063e79"
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: "#2589f4" }
+                            GradientStop { position: 1 ; color: "#0b6fda" }
+                        }
                     }
                 }
 
@@ -109,15 +109,15 @@ Item {
                 checked: myStartScreen.soundBool
                 style: SwitchStyle {
                     groove: Rectangle {
-                            implicitWidth: 200
-                            implicitHeight: 100
-                            radius: 10
-                            border.width:  2
-                            border.color: "#063e79"
-                            gradient: Gradient {
-                                GradientStop { position: 0 ; color: "#2589f4" }
-                                GradientStop { position: 1 ; color: "#0b6fda" }
-                            }
+                        implicitWidth: 200
+                        implicitHeight: 100
+                        radius: 10
+                        border.width:  2
+                        border.color: "#063e79"
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: "#2589f4" }
+                            GradientStop { position: 1 ; color: "#0b6fda" }
+                        }
                     }
 
                 }
@@ -125,17 +125,48 @@ Item {
                 //problem partly being that it has effect on the music (if this gets muted, so does the music)
                 onClicked:{
                     if(myStartScreen.soundBool){
-                        soundEffects.source = "";
                         myStartScreen.soundBool = false;
                     }
                     else{
-                        soundEffects.source = "Bubbles.wav";
                         myStartScreen.soundBool = true;
                     }
                 }
             }
 
         }
+
+        Button{
+            id:reset
+            text:"Reset"
+            width: Screen.width/3
+            height: 100
+            style: ButtonStyle {
+                id:styleButton
+                background: Rectangle {
+                    border.width: control.activeFocus ? 4 : 2
+
+                    border.color: "#063e79"
+                    radius: 10
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: control.pressed ? "#479af5" : "#2589f4" }
+                        GradientStop { position: 1 ; color: control.pressed ? "#2589f4" : "#0b6fda" }
+                    }
+                }
+                label: Text {
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                    text: control.text
+                }
+            }
+
+            onClicked: myStartScreen.myLevels.resetLevels();
+
+        }
+
     }
     Button{
         id: theReturnButton
@@ -160,8 +191,7 @@ Item {
             anchors.centerIn: parent
         }
         onClicked: {
-            soundEffects.source = "Bubbles.wav";
-            soundEffects.play();
+
             theColumn.visible= true;
             pageLoader.source = "";
         }

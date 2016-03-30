@@ -12,7 +12,8 @@
 using namespace Eigen;
 Calc::Calc()
 {
-
+    qDebug() << "Calculator is build";
+    qDebug() << sources.size() << resistors.size() << switches.size() << wires.size();
 }
 
 bool Calc::solveLevel()
@@ -102,11 +103,6 @@ void Calc::readFile(QString s)
                             }
                             break;
 
-                        case 'g':
-                            process_goal_line(line);
-
-                            break;
-
                         case 'w':
                             if(line.length()>2){
                                 auto wir=process_wire_line(line);
@@ -172,6 +168,7 @@ void Calc::updateSources()
 /* change the  resistor goal value to the initial value */
 void Calc::updateResistors()
 {
+    qDebug() << " updating resistors";
     for( unsigned int i= 0; i < resistors.size(); i++)
     {
         if(resistors.at(i)->getInitialValue() != 0)
@@ -189,7 +186,8 @@ std::vector<std::shared_ptr<Wire> > Calc::process_wire_line(QString &lijn)
 {
     std::vector<std::shared_ptr<Wire>> wir;
     QStringList list, wireParams;
-    int x, y, angle, length;
+    int x, y, angle, length, node;
+    int xGoal, yGoal, nodeGoal;
     bool isGoal;
     lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
     lijn.replace("w","",Qt::CaseSensitivity::CaseInsensitive); //remove w
@@ -208,9 +206,48 @@ std::vector<std::shared_ptr<Wire> > Calc::process_wire_line(QString &lijn)
             isGoal = false;
         else
             qDebug() << "Wrong entry for variable";
-        int node=wireParams.at(3).toInt();
+        node=wireParams.at(3).toInt();
+
         auto w =std::make_shared<Wire>(x,y,angle,length,node,isGoal);
         wir.push_back(w);
+    }
+
+    if( wireParams.at(6).toInt() != 0)
+    {
+        if(wireParams.at(6).toInt() ==1)
+        {
+            xGoal = x;
+            yGoal = y;
+            nodeGoal = node;
+        }
+        if(wireParams.at(6).toInt() == 2)
+        {
+            switch(angle)
+            {
+            case (1):
+                xGoal = x +length;
+                yGoal = y;
+                break;
+            case (2):
+                xGoal = x;
+                yGoal = y + length;
+                break;
+            case (3):
+                xGoal = x - length;
+                yGoal = y;
+                break;
+            case (4):
+                xGoal = x;
+                yGoal = y - length;
+                break;
+            default:
+                break;
+            }
+            nodeGoal = node;
+
+        }
+        auto g = std::make_shared<GoalVoltage>(xGoal,yGoal,nodeGoal);
+        goals.push_back(g);
     }
     return wir;
 }
@@ -267,7 +304,7 @@ void Calc::process_source_line(QString &lijn)
     int x=list.at(5).toInt();
     int y=list.at(6).toInt();
     int angle=list.at(7).toInt();
-     float v=list.at(3).toFloat();
+    float v=list.at(3).toFloat();
     bool variable;
     if(list.at(8).toInt() == 1)
     {
@@ -290,18 +327,6 @@ void Calc::process_source_line(QString &lijn)
     sources.push_back(s);
 }
 
-void Calc::process_goal_line(QString &lijn)
-{
-    lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
-    lijn.replace("g","",Qt::CaseSensitivity::CaseInsensitive); //remove g
-    QStringList list=lijn.split(" ");
-    int x = list.at(0).toInt();
-    int y = list.at(1).toInt();
-    int node = list.at(2).toInt();
-    auto g = std::make_shared<GoalVoltage>(x,y,node);
-    goals.push_back(g);
-
-}
 
 void Calc::process_click_line(QString &lijn)
 {
@@ -366,6 +391,8 @@ int Calc::getThreeStar() const
 {
     return threeStar;
 }
+
+
 
 
 //Functie om hoek te corrigeren TODO proberen verkleinen

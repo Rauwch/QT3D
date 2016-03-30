@@ -50,7 +50,6 @@ Item {
             anchors.centerIn: parent
         }
         onClicked: {
-            soundEffects.play();
             theColumn.visible= true;
             pageLoader.source = "";
         }

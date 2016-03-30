@@ -26,6 +26,7 @@ public:
     //i dont think this does anything
     void fillLevelArray();
     Q_INVOKABLE void refreshTextFile();
+    Q_INVOKABLE void resetLevels();
 
     Q_INVOKABLE int getAmountOfStars(int level) const;
     Q_INVOKABLE void setAmountOfStars(int numClicks, int twoStar, int threeStar);

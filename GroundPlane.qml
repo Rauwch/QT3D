@@ -24,7 +24,7 @@ Entity {
 
     property Material material: DiffuseMapMaterial {
     id: theMaterial
-    diffuse: "sandTexture.jpg"
+    diffuse: "sandTexture.png"
 
     specular: Qt.rgba( 1, 1, 1, 1.0 )
     shininess: 0

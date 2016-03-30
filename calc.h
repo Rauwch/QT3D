@@ -16,7 +16,7 @@
 
 class Calc: public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     Calc();
@@ -68,7 +68,7 @@ public:
 
     // Current Goals
     Q_INVOKABLE void storeCurrentGoals();
-    Q_INVOKABLE bool getGoalCurrent(int goalNr){return wires.at(goalNr)->getIsGoal();} 
+    Q_INVOKABLE bool getGoalCurrent(int goalNr){return wires.at(goalNr)->getIsGoal();}
     Q_INVOKABLE float getCurrentInGoalWire(){
         if(currentGoals.size() != 0)
             return currentGoals.at(0)->getCurrent();
@@ -105,7 +105,6 @@ public:
     void process_resistor_line(QString &lijn);
     void process_switch_line(QString &lijn);
     void process_source_line(QString &lijn);
-    void process_goal_line(QString &lijn);
     void process_click_line(QString &lijn);
 
     //Check all the goals
@@ -143,7 +142,6 @@ public:
 
     Q_INVOKABLE int getPhysicalScreenWidth();
     Q_INVOKABLE void printScreenInfo();
-
 
 private:
     int twoStar;
