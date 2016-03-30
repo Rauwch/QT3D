@@ -192,6 +192,7 @@ Entity{
             var zOfBend = 0;
             var aOfBend = 0;
 
+
             switch(theBentResistor.orientationAngle){
             case(270):
             case(90):
