@@ -40,13 +40,15 @@ public:
     Q_INVOKABLE int node1AtResistor(int resNr){return resistors.at(resNr)->getNode1();}
     Q_INVOKABLE int node2AtResistor(int resNr){return resistors.at(resNr)->getNode2();}
     Q_INVOKABLE int getStepOfResistor(int resNr){return resistors.at(resNr)->getStep();}
-    Q_INVOKABLE void adjustResistance(int resNr,int step){resistors.at(resNr)->setValue(resistanceAtResistor(resNr)+step);}
+    Q_INVOKABLE float getInitialOfResistor( int resNr){return resistors.at(resNr)->getInitial();}
+    Q_INVOKABLE int getButtonDiffOfResistor(int resNr){return resistors.at(resNr)->getButtonDif();}
+    Q_INVOKABLE void adjustResistance(int resNr,int newRes){resistors.at(resNr)->setValue(newRes);}
 
 
     //Sources
     Q_INVOKABLE int getNumberOfSources(){return sources.size();}
     Q_INVOKABLE float getVoltageAtSource(int sourceNr){return sources.at(sourceNr)->getValue();}
-    Q_INVOKABLE void adjustVoltageAtSource(int sourceNr,int step){sources.at(sourceNr)->setValue(getVoltageAtSource(sourceNr)+step);}
+    Q_INVOKABLE void adjustVoltageAtSource(int sourceNr,float newVoltage){sources.at(sourceNr)->setValue(newVoltage);}
     Q_INVOKABLE float getCurrentofSource(int sourceNr){return sources.at(sourceNr)->getCurrent();}
     Q_INVOKABLE int getAngleOfSource(int soNr){return sources.at(soNr)->getAngle();}
     Q_INVOKABLE int getXCoordOfSource(int soNr){return sources.at(soNr)->getXCoord();}
@@ -54,6 +56,8 @@ public:
     Q_INVOKABLE int nodePAtSource(int sourceNr){return sources.at(sourceNr)->getNodep();}
     Q_INVOKABLE int nodeMAtSource(int sourceNr){return sources.at(sourceNr)->getNodem();}
     Q_INVOKABLE int getStepOfSource(int sourceNr){return sources.at(sourceNr)->getStep();}
+    Q_INVOKABLE int getButtonDiffOfSource(int sourceNr){return sources.at(sourceNr)->getButtonDif();}
+    Q_INVOKABLE float getInitialOfSource( int sourceNr){return sources.at(sourceNr)->getInitial();}
     Q_INVOKABLE bool getSourceIsVariable(int sourceNr){return sources.at(sourceNr)->getVariable();}
 
     //Goals
@@ -121,9 +125,6 @@ public:
     Q_INVOKABLE float getRealSin(float angle){return sin(angle/57.2958);}
     Q_INVOKABLE float getRealCos(float angle){return cos(angle/57.2958);}
 
-
-
-
     Q_INVOKABLE void setCurrentsOfResistorsAndSwitches();
     Q_INVOKABLE bool setCurrentsOfStrayWires();
     void setCurrentsOfSwitchedWires();
@@ -136,6 +137,8 @@ public:
     Q_INVOKABLE int node1AtSwitch(int sw){return switches.at(sw)->getNode1();}
     Q_INVOKABLE int node2AtSwitch(int sw){return switches.at(sw)->getNode2();}
     Q_INVOKABLE void toggleSwitch(int sw){ switches.at(sw)->toggleSwitch();}
+    Q_INVOKABLE void openSwitch(int sw){ switches.at(sw)->openSwitch();}
+    Q_INVOKABLE void closeSwitch(int sw){ switches.at(sw)->closeSwitch();}
 
     Q_INVOKABLE int getTwoStar() const;
     Q_INVOKABLE int getThreeStar() const;

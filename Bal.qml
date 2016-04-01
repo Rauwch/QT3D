@@ -43,6 +43,7 @@ Entity{
             /*make sure you can't change resistor and source at the same time*/
             myGameScreen.showRes = false;
             myGameScreen.showSwitch = false;
+            myGameScreen.setSourceHighlight();
         }
     }
     /* makes it look clickable */

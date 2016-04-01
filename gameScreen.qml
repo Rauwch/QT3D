@@ -74,10 +74,10 @@ Item {
         interval: 500
         repeat: false
         onTriggered: {
-            increaseHeightAction.enabled = true;
-            decreaseHeightAction.enabled = true;
-            increaseResistorAction.enabled = true;
-            decreaseResistorAction.enabled = true;
+            //increaseHeightAction.enabled = true;
+            //decreaseHeightAction.enabled = true;
+            //increaseResistorAction.enabled = true;
+            //decreaseResistorAction.enabled = true;
             changeSwitchAction.enabled =true;
         }
 
@@ -265,188 +265,23 @@ Item {
             }
         }
     }
-
-    Column{
-        id: sourceMenu
+    Rectangle{
+        id: resistorMenu
+        height: resistorMenuCol.height + 70
+        width:  resistorMenuCol.width+20
         anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.rightMargin: 20
+        radius: 4
         anchors.right: parent.right
-        Button{
+        visible: showRes
 
-        }
-        Button{
-
-        }
-        Button{
-
-        }
-        Button{
-
-        }
-        Button{
-
-        }
-    }
-
-    /* increase and decrease the height of a source */
-    Column{
-        id: textBox
-        anchors.bottom: parent.bottom
-        visible: myGameScreen.showBox
-        spacing: 10
-        /* increase height button */
-        Button{
-            id: increaseHeight
-            width: increaseText.width + 20
-            height: Screen.height/15
-            action: Action{id: increaseHeightAction; enabled: true}
-
-
-            Text{
-                id: increaseText
-                anchors.centerIn: parent
-                text: "Verhoog Lift"
-                renderType: Text.NativeRendering
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.family: "Helvetica"
-                font.pointSize: 20
-                color: "black"
-            }
-            style: ButtonStyle {
-                background: Rectangle {
-                    implicitWidth: 100
-                    implicitHeight: 25
-                    border.width: control.activeFocus ? 2 : 1
-                    border.color: "#888"
-                    radius: 4
-                    gradient: Gradient {
-                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
-                    }
-                }
-            }
-            onClicked: increaseSourceButton();
-        }
-
-        Button{
-            id: decreaseHeight
-            width: increaseText.width + 20
-            height: Screen.height/15
-            action: Action{id: decreaseHeightAction; enabled: true}
-            Text{
-                anchors.centerIn: parent
-                id: decreaseText
-                text: "Verlaag Lift"
-                renderType: Text.NativeRendering
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.family: "Helvetica"
-                font.pointSize: 20
-                color: "black"
-            }
-            style: ButtonStyle {
-                background: Rectangle {
-                    implicitWidth: 100
-                    implicitHeight: 25
-                    border.width: control.activeFocus ? 2 : 1
-                    border.color: "#888"
-                    radius: 4
-                    gradient: Gradient {
-                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
-                    }
-                }
-            }
-            onClicked: decreaseSourceButton();
-        }
-    }
-
-    Column{
-        id: resistorBox
-        anchors.bottom: parent.bottom
-        visible: myGameScreen.showRes
-        spacing: 10
-        /* increase the value of the resistor */
-        Button{
-            id: increaseResistor
-            width: increaseResText.width + 20
-            height: Screen.height/15
-            action: Action{id: increaseResistorAction; enabled: true}
-            Text{
-                anchors.centerIn: parent
-                id: increaseResText
-                text: "Vergroot bochten"
-                renderType: Text.NativeRendering
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.family: "Helvetica"
-                font.pointSize: 20
-                color: "black"
-            }
-            style: ButtonStyle {
-                background: Rectangle {
-                    implicitWidth: 100
-                    implicitHeight: 25
-                    border.width: control.activeFocus ? 2 : 1
-                    border.color: "#888"
-                    radius: 4
-                    gradient: Gradient {
-                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
-                    }
-                }
-            }
-            onClicked: increaseResistorButton();
-        }
-
-        Button{
-            id: decreaseResistor
-            width: increaseResText.width+20
-            height: Screen.height/15
-            action: Action{id: decreaseResistorAction; enabled: true}
-            Text{
-                id: decreaseResText
-                anchors.centerIn: parent
-                text: "Verklein bochten"
-                renderType: Text.NativeRendering
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.family: "Helvetica"
-                font.pointSize: 20
-                color: "black"
-            }
-            style: ButtonStyle {
-                background: Rectangle {
-                    implicitWidth: 100
-                    implicitHeight: 25
-                    border.width: control.activeFocus ? 2 : 1
-                    border.color: "#888"
-                    radius: 4
-                    gradient: Gradient {
-                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
-                    }
-                }
-            }
-            onClicked: decreaseResistorButton();
-        }
-    }
-
-
-
-
-    /* toggle switch */
-    Button{
-        id: changeSwitch
-        anchors.bottom: parent.bottom
-        width: changeSwitchText.width + 20
-        height: Screen.height/15
-        visible: myGameScreen.showSwitch
-        action: Action{id: changeSwitchAction; enabled: true}
         Text{
-            id: changeSwitchText
-            anchors.centerIn: parent
-            text: " Open Brug "
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: 20
+            id: schuifafText
+            text: "Schuifaf"
             renderType: Text.NativeRendering
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
@@ -454,20 +289,538 @@ Item {
             font.pointSize: 20
             color: "black"
         }
-        style: ButtonStyle {
-            background: Rectangle {
-                implicitWidth: 100
-                implicitHeight: 25
-                border.width: control.activeFocus ? 2 : 1
-                border.color: "#888"
-                radius: 4
-                gradient: Gradient {
-                    GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                    GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+        Column{
+            id: resistorMenuCol
+            visible: showRes
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 10
+            spacing: 10
+
+            Button{
+                id: resistorAt4
+                width: resistorAt4Text.width + 20
+                height: Screen.height/15
+                onClicked: setResistorMenu(4)
+                Image{
+                    id:resistorAt4Image
+                    anchors.fill: parent
+                    source: "t0096_0.png"
+                    visible: false
+                }
+                Text{
+                    anchors.centerIn: parent
+                    id: resistorAt4Text
+                    text: "Niveau 5"
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                }
+
+
+                style: ButtonStyle {
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 25
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        }
+                    }
+                }
+
+
+            }
+            Button{
+                id: resistorAt3
+                width: resistorAt3Text.width + 20
+                height: Screen.height/15
+                onClicked:setResistorMenu(3)
+                Image{
+                    id:resistorAt3Image
+                    anchors.fill: parent
+                    source: "t0096_0.png"
+                    visible: false
+                }
+                Text{
+                    anchors.centerIn: parent
+                    id: resistorAt3Text
+                    text: "Niveau 4"
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                }
+                style: ButtonStyle {
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 25
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        }
+                    }
+                }
+
+
+            }
+            Button{
+                id: resistorAt2
+                width: resistorAt2Text.width + 20
+                height: Screen.height/15
+                onClicked:setResistorMenu(2)
+                Image{
+                    id:resistorAt2Image
+                    anchors.fill: parent
+                    source: "t0096_0.png"
+                    visible: false
+                }
+                Text{
+                    anchors.centerIn: parent
+                    id: resistorAt2Text
+                    text: "Niveau 3"
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                }
+                style: ButtonStyle {
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 25
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        }
+                    }
+                }
+
+
+            }
+            Button{
+                id: resistorAt1
+                width: resistorAt1Text.width + 20
+                height: Screen.height/15
+                onClicked:setResistorMenu(1)
+                Image{
+                    id:resistorAt1Image
+                    anchors.fill: parent
+                    source: "t0096_0.png"
+                    visible: false
+                }
+                Text{
+                    anchors.centerIn: parent
+                    id: resistorAt1Text
+                    text: "Niveau 2"
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                }
+                style: ButtonStyle {
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 25
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        }
+                    }
+                }
+
+            }
+            Button{
+                id: resistorAt0
+                width: resistorAt0Text.width + 20
+                height: Screen.height/15
+                onClicked: setResistorMenu(0)
+                Image{
+                    id:resistorAt0Image
+                    anchors.fill: parent
+                    source: "t0096_0.png"
+                    visible: false
+                }
+                Text{
+                    anchors.centerIn: parent
+                    id: resistorAt0Text
+                    text: "Niveau 1"
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                }
+                style: ButtonStyle {
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 25
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        }
+                    }
                 }
             }
         }
-        onClicked: toggleSwitch();
+    }
+    Rectangle{
+        id: sourceMenu
+        height: sourceMenuCol.height + 70
+        width: sourceMenuCol.width+20
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.rightMargin: 20
+        radius: 4
+        anchors.right: parent.right
+        visible: showBox
+        Text{
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: 20
+            id: liftText
+            text: "Lift"
+            renderType: Text.NativeRendering
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.family: "Helvetica"
+            font.pointSize: 20
+            color: "black"
+        }
+
+        Column{
+            id: sourceMenuCol
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 10
+            spacing: 10
+
+            Button{
+                id: sourceAt4
+                width: sourceAt4Text.width + 20
+                height: Screen.height/15
+                onClicked: setSourceMenu(4)
+
+                style: ButtonStyle {
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 25
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        }
+                    }
+                }
+                Image{
+                    id:sourceAt4Image
+                    anchors.fill: parent
+                    source: "poleTexture.png"
+                    visible: false
+                }
+                Text{
+                    anchors.centerIn: parent
+                    id: sourceAt4Text
+                    text: "Niveau 5"
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                }
+
+
+
+
+            }
+            Button{
+                id: sourceAt3
+                width: sourceAt3Text.width + 20
+                height: Screen.height/15
+                onClicked:setSourceMenu(3)
+                style: ButtonStyle {
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 25
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        }
+                    }
+                }
+                Image{
+                    id:sourceAt3Image
+                    anchors.fill: parent
+                    source: "poleTexture.png"
+                    visible: false
+                }
+                Text{
+                    anchors.centerIn: parent
+                    id: sourceAt3Text
+                    text: "Niveau 4"
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                }
+
+
+
+            }
+            Button{
+                id: sourceAt2
+                width: sourceAt2Text.width + 20
+                height: Screen.height/15
+                onClicked:setSourceMenu(2)
+                Image{
+                    id:sourceAt2Image
+                    anchors.fill: parent
+                    source: "poleTexture.png"
+                    visible: false
+                }
+                Text{
+                    anchors.centerIn: parent
+                    id: sourceAt2Text
+                    text: "Niveau 3"
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                }
+                style: ButtonStyle {
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 25
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        }
+                    }
+                }
+
+
+            }
+            Button{
+                id: sourceAt1
+                width: sourceAt1Text.width + 20
+                height: Screen.height/15
+                onClicked:setSourceMenu(1)
+                Image{
+                    id:sourceAt1Image
+                    anchors.fill: parent
+                    source: "poleTexture.png"
+                    visible: false
+                }
+                Text{
+                    anchors.centerIn: parent
+                    id: sourceAt1Text
+                    text: "Niveau 2"
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                }
+                style: ButtonStyle {
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 25
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        }
+                    }
+                }
+
+            }
+            Button{
+                id: sourceAt0
+                width: sourceAt0Text.width + 20
+                height: Screen.height/15
+                onClicked: setSourceMenu(0)
+                Image{
+                    id:sourceAt0Image
+                    anchors.fill: parent
+                    source: "poleTexture.png"
+                    visible: false
+                }
+                Text{
+                    anchors.centerIn: parent
+                    id: sourceAt0Text
+                    text: "Niveau 1"
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                }
+                style: ButtonStyle {
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 25
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    /* toggle switch */
+    Rectangle{
+        id: switchMenu
+        height: switchMenuCol.height + 70
+        width:  switchMenuCol.width+20
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.rightMargin: 20
+        radius: 4
+        anchors.right: parent.right
+        visible: showSwitch
+
+        Text{
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: 20
+            id: brugText
+            text: "Brug"
+            renderType: Text.NativeRendering
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.family: "Helvetica"
+            font.pointSize: 20
+            color: "black"
+        }
+        Column{
+            id: switchMenuCol
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            Button{
+                id: openSwitch
+                width: openSwitchText.width + 20
+                height: Screen.height/15
+                visible: myGameScreen.showSwitch
+                action: Action{id: openSwitchAction; enabled: true}
+
+                Image{
+                    id:switchOpenImage
+                    anchors.fill: parent
+                    source: "Switch.jpg"
+                    visible: true
+                }
+                Text{
+                    id: openSwitchText
+                    anchors.centerIn: parent
+                    text: " Open Brug "
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                }
+                style: ButtonStyle {
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 25
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        }
+                    }
+                }
+                onClicked: openSwitchFunc();
+            }
+            Button{
+                id: closeSwitch
+                width: openSwitchText.width + 20
+                height: Screen.height/15
+                visible: myGameScreen.showSwitch
+                action: Action{id: changeSwitchAction; enabled: true}
+                Image{
+                    id:switchCloseImage
+                    anchors.fill: parent
+                    source: "Switch.jpg"
+                    visible: false
+                }
+                Text{
+                    id: closeSwitchText
+                    anchors.centerIn: parent
+                    text: " Sluit Brug "
+                    renderType: Text.NativeRendering
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Helvetica"
+                    font.pointSize: 20
+                    color: "black"
+                }
+                style: ButtonStyle {
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 25
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        }
+                    }
+                }
+                onClicked: closeSwitchFunc();
+            }
+        }
     }
 
 
@@ -692,17 +1045,52 @@ Item {
     }
 
     //this are all the functions
-    function toggleSwitch()
+
+    function openSwitchFunc(){
+        numClicks++;
+        calculator.openSwitch(clickedSwitch);
+        world.generator.rotateOpenSwitch(clickedSwitch)
+        calculator.solveLevel();
+        world.generator.updateGoalPoles();
+        delayTimer.start();
+
+        switchOpenImage.visible = true;
+        switchCloseImage.visible = false;
+        if(calculator.checkGoals())
+        {
+            hideElements()
+            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+            checkLeaderboard()
+            myTimer.start();
+        }
+
+        world.generator.updateLevel();
+    }
+
+    function closeSwitchFunc(){
+        numClicks++;
+        calculator.closeSwitch(clickedSwitch);
+        world.generator.rotateCloseSwitch(clickedSwitch)
+        calculator.solveLevel();
+        world.generator.updateGoalPoles();
+        delayTimer.start();
+        switchOpenImage.visible = false;
+        switchCloseImage.visible = true;
+        if(calculator.checkGoals())
+        {
+            hideElements()
+            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+            checkLeaderboard()
+            myTimer.start();
+        }
+
+        world.generator.updateLevel();
+    }
+
+    function toggleSwitch(state)
     {
         changeSwitchAction.enabled= false;
         numClicks++;
-
-        if(changeSwitchText.text === " Open Brug "){
-            changeSwitchText.text = " Sluit Brug ";
-        }
-        else{
-            changeSwitchText.text = " Open Brug ";
-        }
 
         calculator.toggleSwitch(clickedSwitch);
         world.generator.toRotateSwitch(clickedSwitch);
@@ -808,13 +1196,18 @@ Item {
     function hideElements(){
         retryButton.visible = false;
         returnButton.visible = false;
-        resistorBox.visible = false;
-        textBox.visible = false;
+        //resistorBox.visible = false;
+        //textBox.visible = false;
+        sourceMenu.visible = false;
+        resistorMenu.visible = false;
+        switchMenu.visible = false;
+        switchMenu.visible = false;
         //jelly.visible = false;
         //jellyGoal.visible = false;
         rotateCamera.visible = false;
         counter.visible = false;
-        changeSwitch.visible = false;
+        counterHighScore.visible = false;
+        //changeSwitch.visible = false;
         tutorialScreen.setTextInvis();
 
     }
@@ -1005,6 +1398,166 @@ Item {
         }
         return calculator.getPhysicalScreenWidth();
     }
+
+    function setResistorMenu(clickedResistorArray){
+
+        calculator.adjustResistance(clickedRes, world.generator.getArrayValueOfResistor(clickedRes,clickedResistorArray));
+        calculator.solveLevel();
+        world.generator.changeRes(clickedRes,clickedResistorArray);
+        resistorAt0Image.visible = false;
+        resistorAt1Image.visible = false;
+        resistorAt2Image.visible = false;
+        resistorAt3Image.visible = false;
+        resistorAt4Image.visible = false;
+        resistorAt0Text.color = "black"
+        resistorAt1Text.color = "black"
+        resistorAt2Text.color = "black"
+        resistorAt3Text.color = "black"
+        resistorAt4Text.color = "black"
+
+
+        switch ( clickedResistorArray)
+        {
+        case 0:
+            resistorAt0Image.visible = true;
+            resistorAt0Text.color = "white"
+            break;
+        case 1:
+            resistorAt1Image.visible = true;
+            resistorAt1Text.color = "white"
+            break;
+        case 2:
+            resistorAt2Image.visible = true;
+            resistorAt2Text.color = "white"
+            break;
+        case 3:
+            resistorAt3Image.visible = true;
+            resistorAt3Text.color = "white"
+            break;
+        case 4:
+            resistorAt4Image.visible = true;
+            resistorAt4Text.color = "white"
+            break;
+        }
+
+        // deze functie zou niet meer nodig zijn
+        numClicks++;
+        delayTimer.start();
+        if(calculator.checkGoals()){
+            hideElements();
+            myTimer.start();
+            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+            checkLeaderboard();
+        }
+        world.generator.updateGoalPoles();
+        world.generator.updateLevel();
+
+        calculateSize();
+    }
+
+    function setSourceHighlight(){
+        console.log(" position in array" + world.generator.getPositionInArray(clickedSource));
+        switch(world.generator.getPositionInArray(clickedSource)){
+        case (0):
+            sourceAt0Image.visible = true;
+            resistorAt0Text.color = "white";
+            break;
+        case (1):
+            sourceAt1Image.visible = true;
+            resistorAt1Text.color = "white";
+
+            break;
+        case (2):
+            sourceAt2Image.visible = true;
+            resistorAt2Text.color = "white";
+
+            break;
+        case (3):
+            sourceAt3Image.visible = true;
+            resistorAt3Text.color = "white";
+
+            break;
+        case (4):
+            sourceAt4Image.visible = true;
+            resistorAt4Text.color = "white";
+
+            break;
+        default:
+            break;
+        }
+
+    }
+
+    function setResistorHighlight(){
+        switch(world.generator.getPositionInResArray(clickedRes)){
+        case (0):
+            resistorAt0Image.visible = true;
+            break;
+        case (1):
+            resistorAt1Image.visible = true;
+            break;
+        case (2):
+            resistorAt2Image.visible = true;
+            break;
+        case (3):
+            resistorAt3Image.visible = true;
+            break;
+        case (4):
+            resistorAt4Image.visible = true;
+            break;
+        default:
+            break;
+        }
+
+    }
+
+    function setSourceMenu(clickedSourceArray){
+
+        calculator.adjustVoltageAtSource(clickedSource,world.generator.getArrayValueOfSource(clickedSource,clickedSourceArray));
+        calculator.solveLevel();
+
+        sourceAt0Image.visible = false;
+        sourceAt1Image.visible = false;
+        sourceAt2Image.visible = false;
+        sourceAt3Image.visible = false;
+        sourceAt4Image.visible = false;
+
+        switch ( clickedSourceArray)
+        {
+        case 0:
+            sourceAt0Image.visible = true;
+            break;
+
+        case 1:
+            sourceAt1Image.visible = true;
+            break;
+
+        case 2:
+            sourceAt2Image.visible = true;
+            break;
+        case 3:
+            sourceAt3Image.visible = true;
+            break;
+        case 4:
+            sourceAt4Image.visible = true;
+            break;
+        }
+
+        // deze functie zou niet meer nodig zijn
+        numClicks++;
+        delayTimer.start();
+        if(calculator.checkGoals()){
+            hideElements();
+            myTimer.start();
+            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
+            checkLeaderboard();
+        }
+        world.generator.updateGoalPoles();
+        world.generator.updateLevel();
+
+        calculateSize();
+    }
+
 }
 
 

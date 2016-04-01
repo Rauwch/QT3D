@@ -15,7 +15,8 @@ Entity{
     property bool clickable: false
     //property var clickableBal
     property var eSize: 7
-    property real heightIntensity: 2
+    property real positionInArray: 0
+    property var buttonValues: [0,0,0,0,0]
 
     QQ2.Behavior on s{
         QQ2.NumberAnimation{
@@ -31,9 +32,28 @@ Entity{
         //Variables for spawning objects
         property var balFactory
     }
-
-
-
+    function setButtonValues(initial, step, difference)
+    {
+        var rng;
+       var isPositive = ( difference > 0 );
+       if(isPositive)
+             rng = Math.floor((Math.random() * (5 - difference)) + 1) - 1;
+       else
+             rng = Math.floor((Math.random() * (5+(difference))) + 1)+((-1)*(difference)-1);
+       buttonValues[rng] = initial;
+       positionInArray = rng;
+       for( var i = rng +1; i < 5; i++)
+       {
+           buttonValues[i]= initial + (i - rng) * step;
+       }
+       if( rng != 0)
+       {
+           for(  i = rng - 1 ; i >= 0; i--)
+           {
+               buttonValues[i]= initial - (rng - i) * step;
+           }
+       }
+    }
     QQ2.Component.onCompleted: {
         if(!clickable)
             clickableBal.destroy();

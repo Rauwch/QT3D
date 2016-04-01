@@ -36,7 +36,8 @@ Entity{
     property var xBal
     property var yBal
     property var zBal
-
+    property int positionInArray:0
+    property var buttonValues: [0,0,0,0,0]
     property bool clickable: false
     property var resistorNr
 
@@ -56,6 +57,29 @@ Entity{
         printBends();
         if(clickable)
             createBal();
+    }
+
+    function setButtonValues(initial, step, difference)
+    {
+        var rng;
+       var isPositive = ( difference > 0 );
+       if(isPositive)
+             rng = Math.floor((Math.random() * (5 - difference)) + 1) - 1;
+       else
+             rng = Math.floor((Math.random() * (5+(difference))) + 1)+((-1)*(difference)-1);
+       buttonValues[rng] = initial;
+       positionInArray = rng;
+       for( var i = rng +1; i < 5; i++)
+       {
+           buttonValues[i]= initial + (i - rng) * step;
+       }
+       if( rng !== 0)
+       {
+           for(  i = rng - 1 ; i >= 0; i--)
+           {
+               buttonValues[i]= initial - (rng - i) * step;
+           }
+       }
     }
     function printBends(){
         //        for(var i=0; i<numBends; i++){

@@ -46,6 +46,7 @@ Entity{
             myGameScreen.showSwitch = !myGameScreen.showSwitch;
             myGameScreen.showRes = false;
             myGameScreen.showBox = false;
+
         }
     }
 

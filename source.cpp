@@ -10,7 +10,7 @@ Source::Source(float v, int np, int nm, int x, int y, int angle, int stepSize, b
     this->setXCoord(x);
     this->setYCoord(y);
     this->setAngle(angle);
-
+    this->setButtonDif(0);
 }
 
 
@@ -54,6 +54,16 @@ bool Source::getVariable() const
 void Source::setVariable(bool value)
 {
     variable = value;
+}
+
+int Source::getButtonDif() const
+{
+    return buttonDif;
+}
+
+void Source::setButtonDif(int value)
+{
+    buttonDif = value;
 }
 
 

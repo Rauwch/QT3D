@@ -12,6 +12,9 @@ public:
     bool getUp() const;
     void setUp(bool value);
 
+    void openSwitch();
+    void closeSwitch();
+
 private:
     bool up;
 };

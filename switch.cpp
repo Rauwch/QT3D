@@ -20,6 +20,8 @@ void Switch::toggleSwitch()
 
 }
 
+
+
 bool Switch::getUp() const
 {
     return up;
@@ -28,4 +30,17 @@ bool Switch::getUp() const
 void Switch::setUp(bool value)
 {
     up = value;
+}
+
+void Switch::openSwitch()
+{
+    value = std::numeric_limits<float>::infinity();
+    up=true;
+
+}
+
+void Switch::closeSwitch()
+{
+    value =0.1;
+    up=false;
 }

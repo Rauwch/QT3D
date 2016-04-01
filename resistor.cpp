@@ -8,6 +8,7 @@ Resistor::Resistor(float v, int n1, int n2, int x, int y, int angle, bool var, i
     this->setXCoord(x);
     this->setYCoord(y);
     this->setAngle(angle);
+    this->setButtonDif(0);
 
 }
 
@@ -59,6 +60,16 @@ int Resistor::getStep() const
 void Resistor::setStep(int value)
 {
     step = value;
+}
+
+int Resistor::getButtonDif() const
+{
+    return buttonDif;
+}
+
+void Resistor::setButtonDif(int value)
+{
+    buttonDif = value;
 }
 
 

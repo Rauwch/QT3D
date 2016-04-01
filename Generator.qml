@@ -33,9 +33,7 @@ Entity{
     }
 
 
-    QQ2.Component.onCompleted: {
 
-    }
     function completed() {
         console.log("generator completed");
         console.log("this is the current level: " + myLevels.getCurrentLevel() );
@@ -92,6 +90,7 @@ Entity{
                                                       "clickable": calculator.getSourceIsVariable(i),
                                                       "eSize": calculator.getCurrentofWire(i)});
             source.parent=root.parent;
+            source.setButtonValues(calculator.getInitialOfSource(i), calculator.getStepOfSource(i), calculator.getButtonDiffOfSource(i));
             root.sources[i]=source;
         }
 
@@ -119,6 +118,7 @@ Entity{
                                                           "orientationAngle":90*(calculator.getAngleOfResistor(i)-1) });
 
             resistor.parent=root.parent;
+            resistor.setButtonValues(calculator.getInitialOfResistor(i),calculator.getStepOfResistor(i),calculator.getButtonDiffOfResistor(i));
             root.resistors[i]=resistor;
             root.resistors[i].makeBends();
         }
@@ -222,6 +222,11 @@ Entity{
             }
         }
     }
+    function changeRes(resNr, pos)
+    {
+        resistors[resNr].bendIntensity = pos;
+        resistors[resNr].angleOfBends = bendValues[resistors[resNr].bendIntensity]
+    }
 
     function increaseRes(resNr){
         resistors[resNr].bendIntensity = resistors[resNr].bendIntensity + 1;
@@ -318,12 +323,45 @@ Entity{
     }
 
     /* to rotate the switch */
+
+    function rotateOpenSwitch(switchNr)
+    {
+        if(!switches[switchNr].switchIsOpen)
+        switches[switchNr].openRotate();
+    }
+
+    function rotateCloseSwitch(switchNr)
+    {
+        if(switches[switchNr].switchIsOpen)
+        switches[switchNr].closeRotate();
+    }
+
     function  toRotateSwitch(switchNr)
     {
         if(switches[switchNr].switchIsOpen)
             switches[switchNr].closeRotate();
         else
             switches[switchNr].openRotate();
+    }
+
+    function getArrayValueOfSource(sourceNr,pos)
+    {
+        return sources[sourceNr].buttonValues[pos];
+    }
+
+    function getArrayValueOfResistor(resNr,pos)
+    {
+        return resistors[resNr].buttonValues[pos];
+    }
+
+    function getPositionInArray(sourceNr)
+    {
+        return sources[sourceNr].positionInArray;
+    }
+
+    function getPositionInResArray(resNr)
+    {
+        return resistors[resNr].positionInArray;
     }
 }
 

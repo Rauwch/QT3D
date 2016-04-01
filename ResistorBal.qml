@@ -43,6 +43,7 @@ Entity{
             myGameScreen.clickedRes = resistorNr;
             myGameScreen.showBox = false;
             myGameScreen.showSwitch = false;
+            myGameScreen.setResistorHighlight();
         }
     }
     QQ2.SequentialAnimation{

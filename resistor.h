@@ -23,11 +23,14 @@ public:
     int getStep() const;
     void setStep(int value);
 
+    int getButtonDif() const;
+    void setButtonDif(int value);
+
 private:
     int node1,node2;
     bool variable;
     int initial;
-    int step;
+    int step, buttonDif;
 
 };
 

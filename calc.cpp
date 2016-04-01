@@ -157,26 +157,41 @@ void Calc::readFile(QString s)
 /* change the  source goal value to the initial value */
 void Calc::updateSources()
 {
+    float v, initial, step, difference;
+
     for(unsigned int i= 0; i < sources.size(); i++)
     {
         if(sources.at(i)->getInitialValue() != 0)
         {
-            sources.at(i)->setValue(sources.at(i)->getInitialValue());
+            v = sources.at(i)->getValue();
+            initial = sources.at(i)->getInitial();
+            step = sources.at(i)->getStep();
+            if(step != 0)
+                difference = (v - initial)/ step;
+            sources.at(i)->setButtonDif(difference);
+            qDebug()<< "button difference" <<  sources.at(i)->getButtonDif();
+            sources.at(i)->setValue(initial);
         }
     }
 }
 /* change the  resistor goal value to the initial value */
 void Calc::updateResistors()
 {
-    qDebug() << " updating resistors";
+
+    float v, initial, step, difference;
     for( unsigned int i= 0; i < resistors.size(); i++)
     {
         if(resistors.at(i)->getInitialValue() != 0)
         {
-            resistors.at(i)->setValue(resistors.at(i)->getInitialValue());
+            v = resistors.at(i)->getValue();
+            initial = resistors.at(i)->getInitial();
+            step = resistors.at(i)->getStep();
+            if(step != 0)
+                difference = (v - initial)/ step;
+            resistors.at(i)->setButtonDif(difference);
+            resistors.at(i)->setValue(initial);
         }
     }
-
 }
 
 
@@ -323,7 +338,7 @@ void Calc::process_source_line(QString &lijn)
     int step = list.at(10).toInt();
     int nodep=list.at(1).toInt();
     int nodem=list.at(2).toInt();
-    auto s =std::make_shared<Source>(v,nodep,nodem,x,y,angle,step, variable,initial);
+    auto s =std::make_shared<Source>(v,nodep,nodem,x,y,angle,step,variable,initial);
     sources.push_back(s);
 }
 
@@ -337,6 +352,8 @@ void Calc::process_click_line(QString &lijn)
     twoStar = list.at(1).toInt();
     threeStar = list.at(0).toInt();
 }
+
+
 bool Calc::checkGoals()
 {
     bool allGoals = true;
