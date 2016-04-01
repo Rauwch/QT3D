@@ -25,6 +25,14 @@ Entity{
         }
     }
 
+
+    QQ2.Behavior on y{
+        QQ2.NumberAnimation{
+            duration: 500
+            easing.type: "InOutSine"
+        }
+    }
+
     QQ2.QtObject{
 
         id:o

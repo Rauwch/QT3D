@@ -36,14 +36,19 @@ Entity{
     property ObjectPicker objectPicker: ObjectPicker {
 
         onClicked: {
+            myGameScreen.clickedSource = sourceNr;
             myGameScreen.updateTutorial();
             /*make text boxes (dis)appear on clicking the ball*/
             myGameScreen.showBox = !myGameScreen.showBox;
-            myGameScreen.clickedSource = sourceNr;
+            if(!myGameScreen.showBox)
+                myGameScreen.closeSourceMenu();
+            else
+                myGameScreen.setSourceHighlight();
+
             /*make sure you can't change resistor and source at the same time*/
             myGameScreen.showRes = false;
             myGameScreen.showSwitch = false;
-            myGameScreen.setSourceHighlight();
+
         }
     }
     /* makes it look clickable */

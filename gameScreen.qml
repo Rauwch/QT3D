@@ -741,8 +741,10 @@ Item {
         }
         Column{
             id: switchMenuCol
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom : parent.bottom
+            anchors.bottomMargin: 10
+            spacing: 10
             Button{
                 id: openSwitch
                 width: openSwitchText.width + 20
@@ -754,7 +756,7 @@ Item {
                     id:switchOpenImage
                     anchors.fill: parent
                     source: "Switch.jpg"
-                    visible: true
+                    visible: false
                 }
                 Text{
                     id: openSwitchText
@@ -792,7 +794,7 @@ Item {
                     id:switchCloseImage
                     anchors.fill: parent
                     source: "Switch.jpg"
-                    visible: false
+                    visible: true
                 }
                 Text{
                     id: closeSwitchText
@@ -1067,7 +1069,22 @@ Item {
         world.generator.updateLevel();
     }
 
+    function setSwitchHighlight(){
+        if(world.generator.getSwitchState(clickedSwitch))
+        {
+            switchOpenImage.visible = true;
+        }
+        else
+            switchCloseImage.visible = true;
+    }
+
+    function closeSwitchMenu(){
+        switchOpenImage.visible = false;
+        switchCloseImage.visible = false;
+    }
+
     function closeSwitchFunc(){
+
         numClicks++;
         calculator.closeSwitch(clickedSwitch);
         world.generator.rotateCloseSwitch(clickedSwitch)
@@ -1255,120 +1272,6 @@ Item {
         tutorialScreen.checkBallclicked();
     }
 
-    function increaseSourceButton()
-    {
-        increaseHeightAction.enabled = false;
-        decreaseHeightAction.enabled = false;
-
-        calculator.adjustVoltageAtSource(clickedSource,calculator.getStepOfSource(clickedSource));
-        calculator.solveLevel();
-        // deze functie zou niet meer nodig zijn
-        world.generator.increaseVolt(clickedSource);
-        numClicks++;
-        delayTimer.start();
-        if(calculator.checkGoals()){
-            hideElements();
-            myTimer.start();
-            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-            checkLeaderboard();
-        }
-        world.generator.updateGoalPoles();
-        world.generator.updateLevel();
-        if(world.generator.sources[clickedSource].heightIntensity >= 4){
-            increaseHeight.visible = false;
-        }
-        if(world.generator.sources[clickedSource].heightIntensity >= 1){
-            decreaseHeight.visible = true;
-            increaseHeight.parent.anchors.bottomMargin = 0;
-        }
-        calculateSize();
-
-    }
-
-    function decreaseSourceButton(){
-        decreaseHeightAction.enabled = false;
-        increaseHeightAction.enabled = false;
-        calculator.adjustVoltageAtSource(clickedSource,-calculator.getStepOfSource(clickedSource));
-        calculator.solveLevel();
-        world.generator.decreaseVolt(clickedSource);
-        numClicks++;
-        delayTimer.start();
-        if(calculator.checkGoals())
-        {
-            hideElements();
-            myTimer.start();
-            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-            checkLeaderboard();
-        }
-        world.generator.updateGoalPoles();
-        world.generator.updateLevel();
-        if(world.generator.sources[0].heightIntensity <= 0){
-            increaseHeight.parent.anchors.bottomMargin = Screen.height/15;
-            decreaseHeight.visible = false;
-
-        }
-        if(world.generator.sources[0].heightIntensity <= 3){
-            increaseHeight.visible = true;
-        }
-        calculateSize();
-
-    }
-
-    function increaseResistorButton(){
-        increaseResistorAction.enabled = false;
-        decreaseResistorAction.enabled = false;
-        calculator.adjustResistance(clickedRes, calculator.getStepOfResistor(clickedRes));
-        world.generator.increaseRes(clickedRes);
-        calculator.solveLevel();
-        calculateSize();
-        numClicks++;
-        delayTimer.start();
-        if(calculator.checkGoals())
-        {
-            hideElements()
-            myTimer.start();
-            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-            checkLeaderboard()
-        }
-        world.generator.updateLevel();
-        if(world.generator.resistors[0].bendIntensity >= 4){
-            increaseResistor.visible = false;
-        }
-        if(world.generator.resistors[0].bendIntensity >= 1){
-            decreaseResistor.visible = true;
-            increaseResistor.parent.anchors.bottomMargin = 0;
-        }
-
-    }
-
-    function decreaseResistorButton(){
-        decreaseResistorAction.enabled = false;
-        increaseResistorAction.enabled = false;
-        decreaseHeightAction.enabled = false;
-        calculator.adjustResistance(clickedRes, -calculator.getStepOfResistor(clickedRes));
-        numClicks++;
-        world.generator.decreaseRes(clickedRes);
-        calculator.solveLevel();
-        calculateSize();
-        delayTimer.start();
-        if(calculator.checkGoals())
-        {
-            hideElements()
-            myTimer.start();
-            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-            checkLeaderboard()
-        }
-        world.generator.updateLevel();
-        if(world.generator.resistors[0].bendIntensity <= 0){
-            increaseResistor.parent.anchors.bottomMargin = Screen.height/15;
-            decreaseResistor.visible = false;
-        }
-        if(world.generator.resistors[0].bendIntensity <= 3){
-            increaseResistor.visible = true;
-        }
-
-    }
-
     function setText(tutorialLevel){
         switch(tutorialLevel){
         case(1):
@@ -1400,7 +1303,7 @@ Item {
     }
 
     function setResistorMenu(clickedResistorArray){
-
+        console.log(" change resistor " + clickedRes + " place in array " + clickedResistorArray);
         calculator.adjustResistance(clickedRes, world.generator.getArrayValueOfResistor(clickedRes,clickedResistorArray));
         calculator.solveLevel();
         world.generator.changeRes(clickedRes,clickedResistorArray);
@@ -1415,7 +1318,7 @@ Item {
         resistorAt3Text.color = "black"
         resistorAt4Text.color = "black"
 
-
+        world.generator.setPositionInResArray(clickedRes,clickedResistorArray);
         switch ( clickedResistorArray)
         {
         case 0:
@@ -1455,30 +1358,30 @@ Item {
         calculateSize();
     }
 
-    function setSourceHighlight(){
-        console.log(" position in array" + world.generator.getPositionInArray(clickedSource));
-        switch(world.generator.getPositionInArray(clickedSource)){
+
+    function setResistorHighlight(){
+        console.log(" change resistor " + clickedRes);
+        switch(world.generator.getPositionInResArray(clickedRes)){
         case (0):
-            sourceAt0Image.visible = true;
+            resistorAt0Image.visible = true;
             resistorAt0Text.color = "white";
             break;
         case (1):
-            sourceAt1Image.visible = true;
+            resistorAt1Image.visible = true;
             resistorAt1Text.color = "white";
-
             break;
         case (2):
-            sourceAt2Image.visible = true;
+            resistorAt2Image.visible = true;
             resistorAt2Text.color = "white";
 
             break;
         case (3):
-            sourceAt3Image.visible = true;
+            resistorAt3Image.visible = true;
             resistorAt3Text.color = "white";
 
             break;
         case (4):
-            sourceAt4Image.visible = true;
+            resistorAt4Image.visible = true;
             resistorAt4Text.color = "white";
 
             break;
@@ -1487,41 +1390,67 @@ Item {
         }
 
     }
-
-    function setResistorHighlight(){
-        switch(world.generator.getPositionInResArray(clickedRes)){
-        case (0):
-            resistorAt0Image.visible = true;
-            break;
-        case (1):
-            resistorAt1Image.visible = true;
-            break;
-        case (2):
-            resistorAt2Image.visible = true;
-            break;
-        case (3):
-            resistorAt3Image.visible = true;
-            break;
-        case (4):
-            resistorAt4Image.visible = true;
-            break;
-        default:
-            break;
-        }
-
-    }
-
-    function setSourceMenu(clickedSourceArray){
-
-        calculator.adjustVoltageAtSource(clickedSource,world.generator.getArrayValueOfSource(clickedSource,clickedSourceArray));
-        calculator.solveLevel();
-
+    function closeSourceMenu()
+    {
+        console.log(" hide source Highligtht " + clickedSource);
         sourceAt0Image.visible = false;
         sourceAt1Image.visible = false;
         sourceAt2Image.visible = false;
         sourceAt3Image.visible = false;
         sourceAt4Image.visible = false;
+    }
 
+    function closeResistorMenu()
+    {
+        console.log(" hide source Highligtht " + clickedSource);
+        resistorAt0Image.visible = false;
+        resistorAt1Image.visible = false;
+        resistorAt2Image.visible = false;
+        resistorAt3Image.visible = false;
+        resistorAt4Image.visible = false;
+        resistorAt0Text.color = "black"
+        resistorAt1Text.color = "black"
+        resistorAt2Text.color = "black"
+        resistorAt3Text.color = "black"
+        resistorAt4Text.color = "black"
+
+    }
+    function setSourceHighlight()
+    {
+        console.log(" source Highligtht " + clickedSource);
+        switch(world.generator.getPositionInArray(clickedSource)){
+        case (0):
+            sourceAt0Image.visible = true;
+            break;
+        case (1):
+            sourceAt1Image.visible = true;
+            break;
+        case (2):
+            sourceAt2Image.visible = true;
+            break;
+        case (3):
+            sourceAt3Image.visible = true;
+
+            break;
+        case (4):
+            sourceAt4Image.visible = true;
+            break;
+        default:
+            break;
+        }
+    }
+
+
+    function setSourceMenu(clickedSourceArray){
+
+        calculator.adjustVoltageAtSource(clickedSource,world.generator.getArrayValueOfSource(clickedSource,clickedSourceArray));
+        calculator.solveLevel();
+        sourceAt0Image.visible = false;
+        sourceAt1Image.visible = false;
+        sourceAt2Image.visible = false;
+        sourceAt3Image.visible = false;
+        sourceAt4Image.visible = false;
+        world.generator.setPositionInArray(clickedSource,clickedSourceArray);
         switch ( clickedSourceArray)
         {
         case 0:

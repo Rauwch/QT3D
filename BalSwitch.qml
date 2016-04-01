@@ -15,6 +15,7 @@ Entity{
     property real breath
     //property bool isChanging: false
     components: [mesh,bolTrans,objectPicker,material]
+
     SphereMesh
     {
         id:mesh
@@ -44,9 +45,12 @@ Entity{
         onClicked: {
             myGameScreen.clickedSwitch = switchNr;
             myGameScreen.showSwitch = !myGameScreen.showSwitch;
+            if(!myGameScreen.showSwitch)
+                myGameScreen.closeSwitchMenu();
+            else
+                myGameScreen.setSwitchHighlight();
             myGameScreen.showRes = false;
             myGameScreen.showBox = false;
-
         }
     }
 

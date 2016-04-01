@@ -118,7 +118,7 @@ Entity{
 
     /* solving the positioning of the parts of the resistor using trigonometry */
     function updateBends(){
-        console.log("in updatebends");
+
         var newSmallL = localCalc.calcLength(theBentResistor.l/numBends,angleOfBends);
         var totalHeight = (localCalc.calcSin(theBentResistor.l,theBentResistor.a-90));
         var sineOA = (localCalc.getRealSin(theBentResistor.orientationAngle));
@@ -126,7 +126,6 @@ Entity{
         var smallHeight = localCalc.calcSin(newSmallL,theBentResistor.a+angleOfBends-90);
         var smallDistance = (localCalc.calcCos(newSmallL,theBentResistor.a+angleOfBends-90));
         var cosOA = (localCalc.getRealCos(theBentResistor.orientationAngle));
-
         for(var i=0; i<numBends; i++){
             switch(theBentResistor.orientationAngle){
             case(270):
@@ -284,7 +283,7 @@ Entity{
     }
     function createBal() {
         o.balFactory = Qt.createComponent("ResistorBal.qml");
-        theBentResistor.clickableBal = o.balFactory.createObject(theBentResistor,{"xVal": xBal,"yVal":  yBal, "zVal": zBal});
+        theBentResistor.clickableBal = o.balFactory.createObject(theBentResistor,{"xVal": xBal,"yVal":  yBal, "zVal": zBal,"resistorNr": resistorNr});
 
         if (o.balFactory === null) {
             // Error Handling

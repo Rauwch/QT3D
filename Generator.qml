@@ -228,22 +228,6 @@ Entity{
         resistors[resNr].angleOfBends = bendValues[resistors[resNr].bendIntensity]
     }
 
-    function increaseRes(resNr){
-        resistors[resNr].bendIntensity = resistors[resNr].bendIntensity + 1;
-        resistors[resNr].angleOfBends = bendValues[resistors[resNr].bendIntensity];
-    }
-    function decreaseRes(resNr){
-        resistors[resNr].bendIntensity = resistors[resNr].bendIntensity - 1;
-        resistors[resNr].angleOfBends = bendValues[resistors[resNr].bendIntensity];
-    }
-    function increaseVolt(sourceNr){
-        sources[sourceNr].heightIntensity = sources[sourceNr].heightIntensity + 1;
-    }
-    function decreaseVolt(sourceNr){
-        sources[sourceNr].heightIntensity = sources[sourceNr].heightIntensity - 1;
-    }
-
-
     /* update the 3D objects in the world */
     function updateLevel(){
         var minVolt, maxVolt, angle, length;
@@ -330,6 +314,12 @@ Entity{
         switches[switchNr].openRotate();
     }
 
+    function getSwitchState(switchNr)
+    {
+        console.log("grote van switches " + switches.length + " switchNr " + switchNr);
+        return switches[switchNr].switchIsOpen;
+    }
+
     function rotateCloseSwitch(switchNr)
     {
         if(switches[switchNr].switchIsOpen)
@@ -359,9 +349,18 @@ Entity{
         return sources[sourceNr].positionInArray;
     }
 
+    function setPositionInArray(sourceNr,pos){
+        sources[sourceNr].positionInArray = pos;
+    }
+
     function getPositionInResArray(resNr)
     {
         return resistors[resNr].positionInArray;
+    }
+
+    function setPositionInResArray(resNr, pos)
+    {
+        resistors[resNr].positionInArray = pos;
     }
 }
 

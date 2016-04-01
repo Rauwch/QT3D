@@ -27,6 +27,7 @@ Entity{
     property real rotationAngle: 0
     property int length: 5
 
+
     QQ2.Behavior on xCenter{
         QQ2.NumberAnimation{
             alwaysRunToEnd: true
@@ -62,14 +63,23 @@ Entity{
 
     }
     BalSwitch{
+        QQ2.Component.onCompleted: {
+            bal1.switchNr = theSwitch.switchNr;
+            console.log("set  bal switchNr " + bal2.switchNr)
+        }
         id:bal1
         xVal: theSwitch.x
         yVal: theSwitch.yMax
         zVal: theSwitch.z
-        switchNr: switchNr
+
 
     }
     BalSwitch{
+        QQ2.Component.onCompleted: {
+            bal2.switchNr = theSwitch.switchNr;
+            console.log("set  bal switchNr " + bal2.switchNr)
+
+        }
         id:bal2
         xVal: {
 
@@ -99,7 +109,6 @@ Entity{
                 z
             }
         }
-        switchNr: switchNr
     }
     Entity{
         components: [toFinal, finalTrans]

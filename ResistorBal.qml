@@ -38,12 +38,16 @@ Entity{
     property ObjectPicker objectPicker: ObjectPicker {
         onClicked: {
             //console.log("clicked on a THERESISTOR");
+            myGameScreen.clickedRes = resistorNr;
             myGameScreen.updateTutorial();
             myGameScreen.showRes = !myGameScreen.showRes;
-            myGameScreen.clickedRes = resistorNr;
+            if(!myGameScreen.showRes)
+                myGameScreen.closeResistorMenu();
+            else
+                myGameScreen.setResistorHighlight();
             myGameScreen.showBox = false;
             myGameScreen.showSwitch = false;
-            myGameScreen.setResistorHighlight();
+
         }
     }
     QQ2.SequentialAnimation{
