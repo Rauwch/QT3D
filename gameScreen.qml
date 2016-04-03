@@ -849,7 +849,7 @@ Item {
 
         Timer {
             id:myTimer
-            interval: 1500; running: false; repeat: false
+            interval: 3000; running: false; repeat: false
             onTriggered: {
                 showPopup = true;
                 alpha.visible= true;

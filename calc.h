@@ -93,7 +93,7 @@ public:
     Q_INVOKABLE int getLengthOfWire(int wiNr){return wires.at(wiNr)->getLength();}
 
     //Read in a new file
-    Q_INVOKABLE void readFile(QString s);
+    Q_INVOKABLE bool readFile(QString s);
 
     //update
     Q_INVOKABLE void updateSources();
@@ -105,11 +105,11 @@ public:
     Q_INVOKABLE void setCurrentsOfWires();
 
     //Methodes for reading files
-    std::vector<std::shared_ptr<Wire> > process_wire_line(QString& lijn);//TODO remove return type and push_back wires in global wires var
-    void process_resistor_line(QString &lijn);
-    void process_switch_line(QString &lijn);
-    void process_source_line(QString &lijn);
-    void process_click_line(QString &lijn);
+    bool process_wire_line(QString& lijn);//TODO remove return type and push_back wires in global wires var
+    bool process_resistor_line(QString &lijn);
+    bool process_switch_line(QString &lijn);
+    bool process_source_line(QString &lijn);
+    bool process_click_line(QString &lijn);
 
     //Check all the goals
     Q_INVOKABLE bool checkGoals();

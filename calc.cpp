@@ -69,90 +69,117 @@ void Calc::storeCurrentGoals()
         }
     }
 }
-
-
-void Calc::readFile(QString s)
+// read file new
+bool Calc::readFile(QString s)
 {
-    fileName = s;
+
+    wires.clear();
+    sources.clear();
+    resistors.clear();
+    switches.clear();
+
+    //TODO Checken of een file volledig juist is
+    //DONE
+
     QFile * file = new QFile(s);
-    QString line;
     if (file->open(QIODevice::ReadOnly| QIODevice::Text))
     {
         QTextStream in(file);
         while (!in.atEnd())
         {
-            line = in.readLine();
+            QString line = in.readLine();
             if (!line.isEmpty()&&!line.isNull()){
 
-                switch (line.at(0).toLower().toLatin1()) //to check first character
+                //Determine what to do, depending on the first character
+                switch (line.at(0).toLower().toLatin1())
                 {
                 case '*':
-                    if(line.length()>=2 ){
 
-                        switch(line.at(1).toLower().toLatin1()){
+                    switch(line.at(1).toLower().toLatin1()){
 
-                        case's':
-                            if(line.at(2).toLower().toLatin1()=='w' && line.length()>4)
-                                process_switch_line(line);
-                            else{
-                                for (int i=2;i<line.length();i++){
-                                    if(line.at(i).toLower().toLatin1()=='j'){ //TODO check if index is too big necessary?
-                                        qDebug()<<"start of file, found correct sj start";
-                                    }
+                    case's':
+                        if(line.at(2).toLower().toLatin1()=='w' && line.length()>4){
+                            if(!process_switch_line(line))
+                                return false;
+                        }
+                        else{
+                            for (int i=2;i<line.length();i++){
+                                if(line.at(i).toLower().toLatin1()=='j'){
+                                    qDebug()<<"start of file, found correct sj start";
                                 }
                             }
-                            break;
-
-                        case 'w':
-                            if(line.length()>2){
-                                auto wir=process_wire_line(line);
-                                wires.insert(std::end(wires), std::begin(wir), std::end(wir));
-                            }
-                            break;
-
-                        case 'c':
-                            process_click_line(line);
-                            break;
-                        case '/':
-
-                            break;
-
-                        default:
-                            break;
                         }
+                        break;
+
+                    case 'g':
+                        //Not used anymore, compability with old files
+                        break;
+
+                    case 'w':
+                        //Read in Wire
+                        if(line.length()>2){
+                            if(!process_wire_line(line))
+                                return false;
+                        }
+                        break;
+                    case 'c':
+                        //Read in Click-goals
+                        if(!process_click_line(line))
+                            return false;
+                        break;
+                    case '/':
+                        //ignore, for file readability
+                        break;
+                    case'*':
+                        //ignore, for comments
+                        break;
+
+
+                    default:
+                        qDebug()<<"something went wrong" <<"\n";
+                        return false;
+                        break;
                     }
+
                     break;
 
 
                 case '\n':
-
+                    //just continue
                     break;
 
                 case ' ':
-
+                    //just continue
                     break;
 
                 case 'r':
-                    /* process for resistor*/
-                    process_resistor_line(line);
+                    //Read in resistor
+                    if(!process_resistor_line(line))
+                        return false;
                     break;
 
                 case 'v':
-                    /* process for source */
-                    process_source_line(line);
+                    //Read in source
+                    if(!process_source_line(line))
+                        return false;
                     break;
 
                 case '.':
+                    //end of file
                     break;
 
                 default :
                     qDebug()<<"something went wrong" <<"\n";
+                    return false;
                     break;
                 }
             }
         }
+        file->close();
+        return true;
     }
-    file->close();
+
+    return false;
 }
 /* change the  source goal value to the initial value */
 void Calc::updateSources()
@@ -197,10 +224,9 @@ void Calc::updateResistors()
 
 //Read lines of when a component is declared
 
-std::vector<std::shared_ptr<Wire> > Calc::process_wire_line(QString &lijn)
+bool Calc::process_wire_line(QString &lijn)
 {
-    std::vector<std::shared_ptr<Wire>> wir;
-    QStringList list, wireParams;
+    QStringList list;
     int x, y, angle, length, node;
     int xGoal, yGoal, nodeGoal;
     bool isGoal;
@@ -208,151 +234,195 @@ std::vector<std::shared_ptr<Wire> > Calc::process_wire_line(QString &lijn)
     lijn.replace("w","",Qt::CaseSensitivity::CaseInsensitive); //remove w
 
     list=lijn.split(",");
-    for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
-        QString current = *it;
-        wireParams=current.split(" ",QString::SkipEmptyParts);
-        x=wireParams.at(1).toInt();
-        y=wireParams.at(2).toInt();
-        angle=wireParams.at(0).toInt();
-        length=wireParams.at(4).toInt();
-        if(wireParams.at(5).toInt() == 1)
-            isGoal = true;
-        else if(wireParams.at(5).toInt() == 0)
-            isGoal = false;
-        else
-            qDebug() << "Wrong entry for variable";
-        node=wireParams.at(3).toInt();
+    for (auto& current: list) {
+        QStringList wireParams=current.split(" ",QString::SkipEmptyParts);
 
-        auto w =std::make_shared<Wire>(x,y,angle,length,node,isGoal);
-        wir.push_back(w);
-    }
+        if(wireParams.size() == 7){   //Check for right amount of parameters
 
-    if( wireParams.at(6).toInt() != 0)
-    {
-        if(wireParams.at(6).toInt() ==1)
-        {
-            xGoal = x;
-            yGoal = y;
-            nodeGoal = node;
-        }
-        if(wireParams.at(6).toInt() == 2)
-        {
-            switch(angle)
+            x=wireParams.at(1).toInt();
+            y=wireParams.at(2).toInt();
+            angle=wireParams.at(0).toInt();
+            length=wireParams.at(4).toInt();
+
+            if(wireParams.at(5).toInt() == 1)
+                isGoal = true;
+            else if(wireParams.at(5).toInt() == 0)
+                isGoal = false;
+            else
+                qDebug() << "Wrong entry for variable";
+            node=wireParams.at(3).toInt();
+            auto w =std::make_shared<Wire>(x,y,angle,length,node,isGoal);
+            wires.push_back(w);
+
+            if( wireParams.at(6).toInt() != 0)
             {
-            case (1):
-                xGoal = x +length;
-                yGoal = y;
-                break;
-            case (2):
-                xGoal = x;
-                yGoal = y + length;
-                break;
-            case (3):
-                xGoal = x - length;
-                yGoal = y;
-                break;
-            case (4):
-                xGoal = x;
-                yGoal = y - length;
-                break;
-            default:
-                break;
-            }
-            nodeGoal = node;
+                if(wireParams.at(6).toInt() ==1)
+                {
+                    xGoal = x;
+                    yGoal = y;
+                    nodeGoal = node;
+                }
+                else if(wireParams.at(6).toInt() == 2)
+                {
+                    switch(angle)
+                    {
+                    case (1):
+                        xGoal = x +length;
+                        yGoal = y;
+                        break;
+                    case (2):
+                        xGoal = x;
+                        yGoal = y + length;
+                        break;
+                    case (3):
+                        xGoal = x - length;
+                        yGoal = y;
+                        break;
+                    case (4):
+                        xGoal = x;
+                        yGoal = y - length;
+                        break;
+                    default:
+                        break;
+                    }
+                    nodeGoal = node;
 
+                }
+                auto g = std::make_shared<GoalVoltage>(xGoal,yGoal,nodeGoal);
+                goals.push_back(g);
+            }
         }
-        auto g = std::make_shared<GoalVoltage>(xGoal,yGoal,nodeGoal);
-        goals.push_back(g);
+        else{
+            qDebug()<<"Bad wire";
+            return false;
+        }
     }
-    return wir;
+    return true;
 }
 
-void Calc::process_resistor_line(QString &lijn)
-{ 
+bool Calc::process_resistor_line(QString &lijn)
+{
+
     lijn.replace("r","",Qt::CaseSensitivity::CaseInsensitive); //remove r
     QStringList list=lijn.split(" ",QString::SkipEmptyParts);
 
-    int x=list.at(5).toInt();
-    int y=list.at(6).toInt();
-    int angle=list.at(7).toInt();
-    bool variable;
-    if(list.at(8).toInt() == 1)
-    {
-        variable = true;
-    }
-    else if(list.at(8).toInt() == 0)
-    {
-        variable = false;
+    if(list.size()==12){ //Check for right amount of parameters
+
+
+        int x=list.at(5).toInt();
+        int y=list.at(6).toInt();
+        int angle=list.at(7).toInt();
+        bool variable;
+        if(list.at(8).toInt() == 1)
+        {
+            variable = true;
+        }
+        else if(list.at(8).toInt() == 0)
+        {
+            variable = false;
+        }
+        else{
+            qDebug() << "Wrong entry for variable";
+        }
+        int initial = list.at(9).toInt();
+        int step = list.at(10).toInt();
+        int node1=list.at(1).toInt();
+        int node2=list.at(2).toInt();
+        float v=list.at(3).toFloat();
+        auto r =std::make_shared<Resistor>(v,node1,node2,x,y,angle,variable,initial,step);
+
+        resistors.push_back(r);
+        return true;
+        qDebug() << resistors.size();
     }
     else{
-        qDebug() << "Wrong entry for variable";
+
+        return false;
     }
-    int initial = list.at(9).toInt();
-    int step = list.at(10).toInt();
-    int node1=list.at(1).toInt();
-    int node2=list.at(2).toInt();
-    float v=list.at(3).toFloat();
-    auto r =std::make_shared<Resistor>(v,node1,node2,x,y,angle,variable,initial,step);
-    resistors.push_back(r);
 }
 
-void Calc::process_switch_line(QString &lijn)
+bool Calc::process_switch_line(QString &lijn)
 {
     lijn.replace("*sw","",Qt::CaseSensitivity::CaseInsensitive); //remove *sw
     QStringList list=lijn.split(" ",QString::SkipEmptyParts);
-    int x=list.at(1).toInt();
-    int y=list.at(2).toInt();
-    int angle=list.at(0).toInt();
-    int node1=list.at(3).toInt();
-    int node2=list.at(4).toInt();
-    auto sw =std::make_shared<Switch>(node1,node2,x,y,angle);
-    switches.push_back(sw);
+
+    if(list.size()==5){ //Check for right amount of parameters
+
+        int angle=list.at(0).toInt();
+        int x=list.at(1).toInt();
+        int y=list.at(2).toInt();
+        int node1=list.at(3).toInt();
+        int node2=list.at(4).toInt();
+
+        auto sw =std::make_shared<Switch>(node1,node2,x,y,angle);
+        switches.push_back(sw);
+        return true;
+    }
+    else{
+        qDebug()<<"Bad switch";
+        return false;
+    }
 }
-
-
-
-void Calc::process_source_line(QString &lijn)
-{ 
+bool Calc::process_source_line(QString &lijn)
+{
+    qDebug()<< "process source file";
     int initial;
     lijn.replace("v","",Qt::CaseSensitivity::CaseInsensitive); //remove v
     QStringList list=lijn.split(" ",QString::SkipEmptyParts);
-    int x=list.at(5).toInt();
-    int y=list.at(6).toInt();
-    int angle=list.at(7).toInt();
-    float v=list.at(3).toFloat();
-    bool variable;
-    if(list.at(8).toInt() == 1)
-    {
-        variable = true;
-        initial = list.at(9).toInt();
-    }
-    else if(list.at(8).toInt() == 0)
-    {
-        variable = false;
-        initial = v;
+
+    if(list.size()==12){
+
+        int x=list.at(5).toInt();
+        int y=list.at(6).toInt();
+        int angle=list.at(7).toInt();
+        float v=list.at(3).toFloat();
+        bool variable;
+        if(list.at(8).toInt() == 1)
+        {
+            variable = true;
+            initial = list.at(9).toInt();
+        }
+        else if(list.at(8).toInt() == 0)
+        {
+            variable = false;
+            initial = v;
+        }
+        else{
+            qDebug() << "Wrong entry for variable";
+        }
+
+        int step = list.at(10).toInt();
+        int nodep=list.at(1).toInt();
+        int nodem=list.at(2).toInt();
+        auto s =std::make_shared<Source>(v,nodep,nodem,x,y,angle,step,variable,initial);
+        sources.push_back(s);
     }
     else{
-        qDebug() << "Wrong entry for variable";
+        qDebug()<<"Bad source";
+        return false;
     }
-
-    int step = list.at(10).toInt();
-    int nodep=list.at(1).toInt();
-    int nodem=list.at(2).toInt();
-    auto s =std::make_shared<Source>(v,nodep,nodem,x,y,angle,step,variable,initial);
-    sources.push_back(s);
 }
 
 
-void Calc::process_click_line(QString &lijn)
+
+bool Calc::process_click_line(QString &lijn)
 {
+
     lijn.replace("*","",Qt::CaseSensitivity::CaseInsensitive); //remove *
     lijn.replace("c","",Qt::CaseSensitivity::CaseInsensitive); //remove c
     QStringList list=lijn.split(" ");
 
-    twoStar = list.at(1).toInt();
-    threeStar = list.at(0).toInt();
-}
+    if(list.size()==2){ //Check for right amount of parameters
 
+        twoStar = list.at(0).toInt();
+        threeStar = list.at(1).toInt();
+        return true;
+    }
+    else{
+        qDebug()<<"Bad clickGoal";
+        return false;
+    }
+}
 
 bool Calc::checkGoals()
 {
@@ -469,7 +539,6 @@ Correct1:
                     r->setXCoord(r->getXCoord() + 1);
 
                 }
-
             }
             break;
 
@@ -971,17 +1040,23 @@ bool Calc::setCurrentsOfStrayWires(){
                     toRemove.push_back(w);
 
             }
+
         }
         //Remove toRemove from staywires
         for(auto& r:toRemove){
             strayWires.erase( std::remove( strayWires.begin(), strayWires.end(), r), strayWires.end() );
         }
+
         //If loop is stuck, return false (worst case scenario)
         if(timeout>50)
             return false;
     }
 
     return true;
+
+
+
+
 }
 
 

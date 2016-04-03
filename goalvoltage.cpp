@@ -6,6 +6,7 @@ GoalVoltage::GoalVoltage(int x, int y, int node)
     this->setY(y);
     this->setNode(node);
     this->setVoltage(0);
+    this->setMatch(false);
 
 }
 
