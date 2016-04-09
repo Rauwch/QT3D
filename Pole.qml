@@ -44,6 +44,9 @@ Entity{
         }
 
         property Material material: DiffuseMapMaterial {
+            // #crash#
+            //Failed to load image :  ":/postTexture.png"
+            //Texture data is null, texture data failed to load
             id: theMaterial
             diffuse: "postTexture.png"
             ambient: Qt.rgba( 1, 1, 1, 1.0 )

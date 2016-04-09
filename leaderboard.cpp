@@ -46,6 +46,9 @@ void Leaderboard::readLeaderboard(int level)
 void Leaderboard::addEntry(QString name, int stars, int clicks)
 {
     int checkClicks = 0;
+    name = name.simplified();
+    name.replace( " ", "" );
+
     unsigned int i = 0;
     vector <QString> rowVector(3);
     while(clicks >= checkClicks)

@@ -35,6 +35,8 @@ Item {
     anchors.fill: parent
 
     Component.onCompleted: {
+
+        // #crash# out of memory after
         console.log("GameScreen is complteded");
         setPopupWindowForTutorial(myLevels.getCurrentLevel());
 
@@ -56,6 +58,9 @@ Item {
 
 
     property Timer tutTimer: Timer{
+        Component.onCompleted: {
+            console.log("tutTimer is completed");
+        }
         interval: 2000
         running: false
         repeat: false
@@ -70,6 +75,9 @@ Item {
     }
 
     Timer{
+        Component.onCompleted: {
+            console.log("delayTimer is completed");
+        }
         id:delayTimer
         interval: 500
         repeat: false
@@ -85,6 +93,9 @@ Item {
 
     /* put the 3D world in the GameScreen */
     Scene3D{
+        Component.onCompleted: {
+            console.log("ourScene3D is completed");
+        }
         id: ourScene3D
         anchors.fill: parent
         focus: true
@@ -99,6 +110,9 @@ Item {
 
     /* makes the background blackish when you finish a level */
     Button{
+        Component.onCompleted: {
+            console.log("alpha is completed");
+        }
         id:alpha
         anchors.fill: parent
         visible: false;
@@ -111,6 +125,10 @@ Item {
     }
 
     Row{
+
+        Component.onCompleted: {
+            console.log("return row is completed");
+        }
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 10
@@ -183,6 +201,9 @@ Item {
         }
     }
     TextField{
+        Component.onCompleted: {
+            console.log("counter is completed");
+        }
         id: counter
         anchors.horizontalCenter: myGameScreen.horizontalCenter
         anchors.bottom: myGameScreen.bottom
@@ -195,6 +216,7 @@ Item {
         id: counterHighScore
         Component.onCompleted:
         {
+                        console.log("counterHigh is completed");
             if(myGameScreen.highScore == 0)
                 text = "Highscore: /"
         }
@@ -208,24 +230,36 @@ Item {
     }
 
     Tutorial{
+        Component.onCompleted: {
+            console.log("Tutorial is completed");
+        }
         id: tutorialScreen
         anchors.left: parent.left
         anchors.bottom: parent.bottom
     }
 
     Image{
+        Component.onCompleted: {
+            console.log("jellyGoal is completed");
+        }
         id:jellyGoal
         source: "jellyGoal.png"
 
     }
 
     Image{
+        Component.onCompleted: {
+            console.log("jelly is completed");
+        }
         id:jelly
         source: "jelly.png"
 
     }
 
     Button{
+        Component.onCompleted: {
+            console.log("rotate camera is completed");
+        }
         id:rotateCamera
 
         anchors.bottom: parent.bottom
@@ -266,6 +300,9 @@ Item {
         }
     }
     Rectangle{
+        Component.onCompleted: {
+            console.log("resistorMenu is completed");
+        }
         id: resistorMenu
         height: resistorMenuCol.height + 70
         width:  resistorMenuCol.width+20
@@ -716,6 +753,9 @@ Item {
 
     /* toggle switch */
     Rectangle{
+        Component.onCompleted: {
+            console.log("switchMenu is completed");
+        }
         id: switchMenu
         height: switchMenuCol.height + 70
         width:  switchMenuCol.width+20
@@ -827,6 +867,10 @@ Item {
 
 
     Rectangle{
+
+        Component.onCompleted: {
+            console.log("Popup window is completed");
+        }
         id: popupWindow
         anchors.horizontalCenter: parent.horizontalCenter
         height: Screen.height
@@ -1002,7 +1046,6 @@ Item {
 
                 TextField{
                     id:myTextField
-
                     width: popupWindow.width/2
                     height: Screen.height/12
                     placeholderText : "Geef hier je naam in"
@@ -1025,11 +1068,15 @@ Item {
                     width:Screen.height/12
                     height:Screen.height/12
                     onClicked: {
-                        leaderLoader.item.myLevelboard.addEntry(myTextField.displayText, getStars(), numClicks );
-                        leaderLoader.item.myLevelboard.writeLeaderBoard(myLevels.getCurrentLevel());
-                        leaderLoader.source="";
-                        leaderLoader.source="Leaderboard.qml";
-                        showLeaderboardEntry = false;
+                        if(myTextField.length!=0){
+
+                            leaderLoader.item.myLevelboard.addEntry(myTextField.displayText, getStars(), numClicks );
+                            leaderLoader.item.myLevelboard.writeLeaderBoard(myLevels.getCurrentLevel());
+                            leaderLoader.source="";
+                            leaderLoader.source="Leaderboard.qml";
+                            showLeaderboardEntry = false;
+                        }
+
                     }
                     Image{
                         anchors.centerIn: parent
@@ -1043,6 +1090,9 @@ Item {
     }
 
     LoadingScreen{
+        Component.onCompleted: {
+            console.log("Loadingscreen is completed");
+        }
         id: loading
     }
 

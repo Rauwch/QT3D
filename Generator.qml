@@ -215,6 +215,7 @@ Entity{
     function updateGoalPoles(){
         for( var i = 0; i< goals.length; i++){
             if( calculator.getMatch(i)){
+                // #crash# out of memory
                 console.log("groen maken enzo");
                 goals[i].setGreen();
             }
