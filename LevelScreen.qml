@@ -57,9 +57,14 @@ Item {
                         lockImage.visible = false;
 
                     }
+                    if(index == 0 || index == 3 || index == 6 || index == 12 || index == 14 )
+                    {
+                        levelText.text= "Oefening " + (Math.ceil(index/3) + 1);
+                    }
+
                     if(index <= 3){
                         //levelText.text= "Tutorial " + (index+1);
-                        levelText.text= "Oefening " + (index+1);
+
                     }
                 }
 
@@ -77,7 +82,8 @@ Item {
                 Text{
                     id: levelText
                     anchors.centerIn: parent
-                    text: "Level "+ (index-3)
+                    text: "Level "+ getLevel(index
+                                             )
                     //font.pixelSize: 30
                     renderType: Text.NativeRendering
                     verticalAlignment: Text.AlignVCenter
@@ -159,6 +165,20 @@ Item {
 
         }
 
+    }
+
+    function getLevel(index)
+    {
+        if(index < 3)
+            return index;
+        else if(index < 6)
+            return index - 1;
+        else if(index < 12)
+            return index - 2
+        else if (index < 14)
+            return index - 3;
+
+        return index - 4;
     }
 
 }

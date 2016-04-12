@@ -20,7 +20,8 @@ public:
     bool getMatch() const;
     void setMatch(bool value);
 
-
+    int getNode1() const;
+    int getNode2() const;
 
     float getGoalValue() const;
     void setGoalValue(float value);

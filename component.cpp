@@ -103,3 +103,8 @@ void Component::setValue(float value)
 {
     this->value=value;
 }
+
+int Component::getLength()
+{
+    return 1;
+}

@@ -61,11 +61,13 @@ Entity{
     }
 
     function setGreen(){
+        console.log(" in goal pole set green");
         theMaterial.diffuse = "goalPoleGo.png";
         cubeTop.setGreen();
         cubeBottom.setGreen();
     }
     function setRed(){
+                console.log(" in goal pole set red");
         theMaterial.diffuse = "goalPole.png";
         cubeTop.setRed();
         cubeBottom.setRed();

@@ -234,6 +234,7 @@ Entity{
     function updateLevel(){
         var minVolt, maxVolt, angle, length;
         var Icurrent, Igoal;
+
         /*update sources */
         for( var i= 0; i <sources.length; i++)
         {

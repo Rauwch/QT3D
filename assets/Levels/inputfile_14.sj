@@ -1,20 +1,21 @@
 *sj
 *c5 10
 *w
-*w2 1 3 0 2 0 0,w1 1 5 0 4 1 0
-*w4 5 5 0 2 0 0,w4 5 3 1 2 0 2
-*w3 5 1 1 2 0 0,w3 2 1 2 1 0 0,w2 1 1 2 1 0 0
-*
-*
+*w2 1 3 0 2 0 0 0
+*w1 1 5 0 3 0 0 0
+*w4 7 5 0 2 0 0 0
+*w4 7 3 1 2 0 2 0
+*w3 7 1 1 3 0 0 0
+*w2 1 1 1 1 0 0 0
+*w2 4 1 1 1 0 0 0
+*w3 4 1 1 3 0 0 0
+*w2 4 3 0 2 0 0 0
+*w1 4 5 0 3 0 0 1
 */w
-*sw2 1 2 0 2
 */sj
-
-
-V1 1 0 20v *sj 5 3 4 1 16 2 */sj
-R1 1 2 100 *sj 3 1 3 1 100 1000 *sj
-
-
+R1 0 1 140 *sj 1 2 2 0 0 0 */sj
+R2 1 0 100 *sj 4 2 2 1 80 20 */sj
+V1 1 0 17v *sj 7 3 4 1 20 1 */sj
 .end
 
 ** Uitleg:
@@ -24,5 +25,4 @@ R1 1 2 100 *sj 3 1 3 1 100 1000 *sj
 *** Achter elke Component een spicecomment in de voor van *sj Xcoord Ycoord Hoek Aanpasbaar Beginwaarde stapgrote */sj
 
 *** File altijd op .sj laten eindigen
-
 

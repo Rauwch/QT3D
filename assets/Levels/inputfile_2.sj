@@ -1,17 +1,18 @@
 *sj
 *c5 10
 *w
-*w2 1 3 0 2 0 0
-*w1 1 5 0 4 0 0
-*w4 5 5 0 2 0 0
-*w4 5 3 1 2 0 0 
-*w3 5 1 1 4 1 0
-*w2 1 1 1 1 0 0
+*w1 1 1 0 2 0 0 0 
+*w1 3 1 1 2 0 2 0
+*w2 5 1 1 4 0 0 0
+*w3 5 5 1 1 0 0 0
+*w3 3 5 0 2 0 0 0 
+*w4 1 5 0 4 0 0 0 
 */w
 */sj
-R1 0 1 50 *sj 1 2 2 0 0 0 */sj
-V1 1 0 24v *sj 5 3 4 1 12 6 */sj
+r1 0 1 100 *sj 4 5 3 0 0 0 */sj
+v1 1 0 14v *sj 3 1 1 1 20 3 */sj
 .end
+
 
 ** Uitleg:
 *** Alle draden staan tussen w en /w (in spicecomment) gesplitst door een comma

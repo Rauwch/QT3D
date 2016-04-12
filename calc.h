@@ -101,7 +101,7 @@ public:
 
     //Methode voor juiste richtingen
     void correctAngles();
-    void setCurrentsOfResistors();
+
     Q_INVOKABLE void setCurrentsOfWires();
 
     //Methodes for reading files

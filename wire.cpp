@@ -12,7 +12,15 @@ Wire::Wire(int x, int y, int angle, int length, int node, bool goal, float curre
 }
 
 
+int Wire::getNode1() const
+{
+    return getNode();
+}
 
+int Wire::getNode2() const
+{
+    return getNode();
+}
 int Wire::getLength() const
 {
     return length;

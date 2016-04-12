@@ -7,7 +7,7 @@
 #include <QStandardPaths>
 #include <QScreen>
 #include <QGuiApplication>
-//#include <limits>
+#include <limits>
 
 using namespace Eigen;
 Calc::Calc()
@@ -50,10 +50,12 @@ bool Calc::solveLevel()
         w->setCurrent(std::numeric_limits<float>::infinity());
     }
     setCurrentsOfWires();
+
     if(!(setCurrentsOfStrayWires()))
+    {
+        qDebug()<< "in stray wire if";
         return false;
-
-
+    }
     return true;
 
 }
@@ -237,16 +239,16 @@ bool Calc::process_wire_line(QString &lijn)
     for (auto& current: list) {
         QStringList wireParams=current.split(" ",QString::SkipEmptyParts);
 
-        if(wireParams.size() == 7){   //Check for right amount of parameters
+        if(wireParams.size() == 8){   //Check for right amount of parameters
 
             x=wireParams.at(1).toInt();
             y=wireParams.at(2).toInt();
             angle=wireParams.at(0).toInt();
             length=wireParams.at(4).toInt();
 
-            if(wireParams.at(5).toInt() == 1)
+            if(wireParams.at(7).toInt() == 1)
                 isGoal = true;
-            else if(wireParams.at(5).toInt() == 0)
+            else if(wireParams.at(7).toInt() == 0)
                 isGoal = false;
             else
                 qDebug() << "Wrong entry for variable";
@@ -396,15 +398,13 @@ bool Calc::process_source_line(QString &lijn)
         int nodem=list.at(2).toInt();
         auto s =std::make_shared<Source>(v,nodep,nodem,x,y,angle,step,variable,initial);
         sources.push_back(s);
+        return true;
     }
     else{
         qDebug()<<"Bad source";
         return false;
     }
 }
-
-
-
 bool Calc::process_click_line(QString &lijn)
 {
 
@@ -485,45 +485,59 @@ int Calc::getThreeStar() const
 //Functie om hoek te corrigeren TODO proberen verkleinen
 void Calc::correctAngles()
 {
-    for(auto r:resistors){
+    //Joined vector with resistors and switches
+    std::vector<std::shared_ptr<Component>> swAndR;
+    swAndR.insert( swAndR.end(), resistors.begin(), resistors.end());
+    swAndR.insert( swAndR.end(), switches.begin(), switches.end());
+
+    //Vector for checking voltage with
+    std::vector<std::shared_ptr<Component>> toCheck;
+    toCheck.insert( toCheck.end(), wires.begin(), wires.end());
+    toCheck.insert(toCheck.end(),swAndR.begin(),swAndR.end());
+
+    //If the lowest voltage isn't at the starting side of the component, turn it around
+    for(auto& r:swAndR){
         QPoint p(r->getXCoord(),r->getYCoord());
         int angle = r->getAngle();
-        int node = -1;
+        int checkNode1 = -1;
+        int checkNode2 = -1;
 
-        switch (angle) {
 
-        case 1:
-
-            for(auto w:wires){
+        for(auto& w: toCheck){
+            if(w!=r){
                 int xp = w->getXCoord();
                 int yp = w->getYCoord();
                 int l = w->getLength();
                 switch (w->getAngle()) {
                 case 1:
-                    if(p == QPoint(xp+l,yp)){
-                        node = w->getNode();
-                        goto Correct1;
+                    if(p==QPoint(xp,yp) || p == QPoint(xp+l,yp)){
+                        checkNode1 = w->getNode1();
+                        checkNode2 = w->getNode2();
+                        goto Correct;
                     }
 
                     break;
                 case 2:
                     if(p==QPoint(xp,yp) || p == QPoint(xp,yp+l)){
-                        node = w->getNode();
-                        goto Correct1;
+                        checkNode1 = w->getNode1();
+                        checkNode2 = w->getNode2();
+                        goto Correct;
                     }
 
                     break;
                 case 3:
-                    if(p == QPoint(xp,yp)){
-                        node = w->getNode();
-                        goto Correct1;
+                    if(p==QPoint(xp,yp) || p == QPoint(xp-l,yp)){
+                        checkNode1 = w->getNode1();
+                        checkNode2 = w->getNode2();
+                        goto Correct;
                     }
 
                     break;
                 case 4:
                     if(p==QPoint(xp,yp) || p == QPoint(xp,yp-l)){
-                        node = w->getNode();
-                        goto Correct1;
+                        checkNode1 = w->getNode1();
+                        checkNode2 = w->getNode2();
+                        goto Correct;
                     }
 
                     break;
@@ -531,178 +545,38 @@ void Calc::correctAngles()
                     break;
                 }
             }
-Correct1:
-            if(node != -1)
-            {
-                if(voltageAtNode(node) == std::max(voltageAtNode(r->getNode1()), voltageAtNode(r->getNode2()))){
+        }
+Correct:
+        if(checkNode1 != -1)
+        {
+            if(voltageAtNode(checkNode1) == std::max(voltageAtNode(r->getNode1()), voltageAtNode(r->getNode2())) || voltageAtNode(checkNode2) == std::max(voltageAtNode(r->getNode1()), voltageAtNode(r->getNode2())) ){
+                switch (angle) {
+                case 1:
                     r->setAngle(3);
                     r->setXCoord(r->getXCoord() + 1);
-
-                }
-            }
-            break;
-
-
-        case 2:
-
-            for(auto w:wires){
-                int xp = w->getXCoord();
-                int yp = w->getYCoord();
-                int l = w->getLength();
-                switch (w->getAngle()) {
-                case 1:
-                    if(p==QPoint(xp,yp) || p == QPoint(xp+l,yp)){
-                        node = w->getNode();
-                        goto Correct2;
-                    }
-
                     break;
                 case 2:
-                    if(p == QPoint(xp,yp+l)){
-                        node = w->getNode();
-                        goto Correct2;
-                    }
-
-                    break;
-                case 3:
-                    if(p==QPoint(xp,yp) || p == QPoint(xp-l,yp)){
-                        node = w->getNode();
-                        goto Correct2;
-                    }
-
-                    break;
-                case 4:
-                    if(p == QPoint(xp,yp)){
-                        node = w->getNode();
-                        goto Correct2;
-                    }
-
-                    break;
-                default:
-                    break;
-                }
-            }
-Correct2:
-            if(node != -1)
-            {
-                if(voltageAtNode(node) == std::max(voltageAtNode(r->getNode1()), voltageAtNode(r->getNode2()))){
                     r->setAngle(4);
                     r->setYCoord(r->getYCoord() + 1);
-
-                }
-
-            }
-            break;
-        case 3:
-            for(auto w:wires){
-                int xp = w->getXCoord();
-                int yp = w->getYCoord();
-                int l = w->getLength();
-                switch (w->getAngle()) {
-                case 1:
-                    if(p == QPoint(xp,yp)){
-                        node = w->getNode();
-                        goto Correct3;
-                    }
-
-                    break;
-                case 2:
-                    if(p==QPoint(xp,yp) || p == QPoint(xp,yp+l)){
-                        node = w->getNode();
-                        goto Correct3;
-                    }
-
                     break;
                 case 3:
-                    if(p == QPoint(xp-l,yp)){
-                        node = w->getNode();
-                        goto Correct3;
-                    }
-
-                    break;
-                case 4:
-                    if(p==QPoint(xp,yp) || p == QPoint(xp,yp-l)){
-                        node = w->getNode();
-                        goto Correct3;
-                    }
-
-                    break;
-                default:
-                    break;
-                }
-            }
-Correct3:
-            if(node != -1)
-            {
-                if(voltageAtNode(node) == std::max(voltageAtNode(r->getNode1()), voltageAtNode(r->getNode2()))){
                     r->setAngle(1);
                     r->setXCoord(r->getXCoord() - 1);
-
-                }
-
-            }
-            break;
-        case 4:
-            for(auto w:wires){
-                int xp = w->getXCoord();
-                int yp = w->getYCoord();
-                int l = w->getLength();
-                switch (w->getAngle()) {
-                case 1:
-                    if(p==QPoint(xp,yp) || p == QPoint(xp+l,yp)){
-                        node = w->getNode();
-                        goto Correct4;
-                    }
-
                     break;
-                case 2:
-                    if(p == QPoint(xp,yp)){
-                        node = w->getNode();
-                        goto Correct4;
-                    }
-
-                    break;
-                case 3:
-                    if(p==QPoint(xp,yp) || p == QPoint(xp-l,yp)){
-                        node = w->getNode();
-                        goto Correct4;
-                    }
-
-                    break;
-                case 4:
-                    if(p == QPoint(xp,yp-l)){
-                        node = w->getNode();
-                        goto Correct4;
-                    }
-
-                    break;
-                default:
-                    break;
-                }
-            }
-Correct4:
-            if(node != -1)
-            {
-                if(voltageAtNode(node) == std::max(voltageAtNode(r->getNode1()), voltageAtNode(r->getNode2()))){
+                case 4 :
                     r->setAngle(2);
                     r->setYCoord(r->getYCoord() - 1);
+                    break;
 
                 }
-
             }
-            break;
-        default:
-            break;
+
         }
+
     }
 }
 
-void Calc::setCurrentsOfResistors()
-{
-    for(auto r : resistors){
-        r->setCurrent(std::abs(voltageAtNode(r->getNode1())-voltageAtNode(r->getNode2()))/r->getValue());
-    }
-}
+
 
 void Calc::setCurrentsOfResistorsAndSwitches()
 {
@@ -717,7 +591,6 @@ void Calc::setCurrentsOfResistorsAndSwitches()
     }
 
 }
-
 void Calc::setCurrentsOfWires()
 {
     //Joined vector with resistors,switches and sources
@@ -966,82 +839,111 @@ bool Calc::setCurrentsOfStrayWires(){
         }
     }
 
+    std::vector<std::shared_ptr<Component>> toCheck;
+    toCheck.insert(toCheck.end(), wires.begin(),wires.end());
+    toCheck.insert(toCheck.end(), resistors.begin(), resistors.end());
+    toCheck.insert(toCheck.end(), switches.begin(), switches.end());
+
+
+
 
     //As long as there are stray wires, stay in loop
     while(!(strayWires.empty())){
         timeout++;
-
         for(auto& w:strayWires){
-            if(std::isinf(w->getCurrent())){
-                QPoint pos(w->getXCoord(),w->getYCoord());
 
+            QPoint pos(w->getXCoord(),w->getYCoord());
+            int corr = -1;
+            if(timeout%2 ==0){
+                corr = 1;
+                switch(w->getAngle()){
+                case 1:
+                    pos.setX(pos.x()+1);
+                    break;
+                case 2:
+                    pos.setY(pos.y()+1);
+                    break;
+                case 3:
+                    pos.setX(pos.x()+1);
 
+                    break;
+                case 4:
+                    pos.setY(pos.y()-1);
+                    break;
+                default:
+                    break;
 
-                float curr = 0;
+                }
+            }
+            float curr = 0;
+            //Sum up the currents of al neighbouring wires
+            for (auto wire:toCheck){
+                if(wire!=w){
+                    int xp = wire->getXCoord();
+                    int yp = wire->getYCoord();
+                    int l = wire->getLength();
 
-                //Sum up the currents of al neighbouring wires
-                for (auto wire:wires){
-                    if(wire!=w){
-                        int xp = wire->getXCoord();
-                        int yp = wire->getYCoord();
-                        int l = wire->getLength();
-                        switch (wire->getAngle()) {
+                    float current = wire->getCurrent();
+                    if(std::dynamic_pointer_cast<Resistor>(wire)){
+                        current=current*-1;
+                    }
+                    switch (wire->getAngle()) {
 
-                        case 1:
-                            if(pos==QPoint(xp,yp) ){
-                                curr += wire->getCurrent();
-                            }
-                            else if(pos == QPoint(xp+l,yp)){
-                                curr -= wire->getCurrent();
-                            }
+                    case 1:
+                        if(pos==QPoint(xp,yp) ){
+                            curr += current;
+                        }
+                        else if(pos == QPoint(xp+l,yp)){
+                            curr -= current;
+                        }
 
-                            break;
-                        case 2:
-                            if(pos==QPoint(xp,yp)){
-                                curr += wire->getCurrent();
-                            }
-                            else if (pos== QPoint(xp,yp+l)){
-                                curr -= wire->getCurrent();
-                            }
+                        break;
+                    case 2:
+                        if(pos==QPoint(xp,yp)){
+                            curr += current;
+                        }
+                        else if (pos== QPoint(xp,yp+l)){
+                            curr -= current;
+                        }
 
-                            break;
-                        case 3:
-                            if(pos==QPoint(xp,yp)){
-                                curr += wire->getCurrent();
-                            }
-                            else if ( pos== QPoint(xp-l,yp)){
-                                curr -= wire->getCurrent();
-                            }
-
-
-                            break;
-                        case 4:
-                            if(pos==QPoint(xp,yp)){
-                                curr += wire->getCurrent();
-                            }
-                            else if ( pos== QPoint(xp,yp-l)){
-                                curr -= wire->getCurrent();
-                            }
-
-                            break;
-                        default:
-                            break;
+                        break;
+                    case 3:
+                        if(pos==QPoint(xp,yp)){
+                            curr += current;
+                        }
+                        else if ( pos== QPoint(xp-l,yp)){
+                            curr -= current;
                         }
 
 
+                        break;
+                    case 4:
+                        if(pos==QPoint(xp,yp)){
+                            curr += current;
+                        }
+                        else if ( pos== QPoint(xp,yp-l)){
+                            curr -= current;
+                        }
+
+                        break;
+                    default:
+                        break;
                     }
+
 
                 }
 
-                w->setCurrent(-curr);
-
-                //If current is real, push to toRemove
-                if(!(std::isinf(w->getCurrent())))
-                    toRemove.push_back(w);
-
             }
 
+            w->setCurrent(corr*curr);
+
+            //If current is real, push to toRemove
+            if(!(std::isinf(w->getCurrent())))
+                toRemove.push_back(w);
+
         }
+
+
         //Remove toRemove from staywires
         for(auto& r:toRemove){
             strayWires.erase( std::remove( strayWires.begin(), strayWires.end(), r), strayWires.end() );
@@ -1058,6 +960,8 @@ bool Calc::setCurrentsOfStrayWires(){
 
 
 }
+
+
 
 
 std::vector<float> Calc::computeNetwork(int  nrOfNodes)

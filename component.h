@@ -35,6 +35,8 @@ public:
     int getStep() const;
     void setStep(int value);
 
+     virtual int getLength();
+
 protected:
     float value,current,initialValue;
     int angle,xCoord,yCoord, step ;

@@ -38,9 +38,10 @@ Item {
 
         // #crash# out of memory after
         console.log("GameScreen is complteded");
+        console.log("current level" + myLevels.getCurrentLevel()) ;
         setPopupWindowForTutorial(myLevels.getCurrentLevel());
-
-        if(myLevels.getCurrentLevel() <= 4){
+        if(myLevels.getCurrentLevel() === 1 || myLevels.getCurrentLevel() === 4 || myLevels.getCurrentLevel()  === 7 || myLevels.getCurrentLevel() === 13 || myLevels.getCurrentLevel() === 15){
+            console.log("tutorial");
             tutorialScreen.numberOfLevel = myLevels.getCurrentLevel();
             tutTimer.start();
             rotateCamera.visible = false;
@@ -1353,7 +1354,7 @@ Item {
     }
 
     function setResistorMenu(clickedResistorArray){
-        console.log(" change resistor " + clickedRes + " place in array " + clickedResistorArray);
+        //console.log(" change resistor " + clickedRes + " place in array " + clickedResistorArray);
         calculator.adjustResistance(clickedRes, world.generator.getArrayValueOfResistor(clickedRes,clickedResistorArray));
         calculator.solveLevel();
         world.generator.changeRes(clickedRes,clickedResistorArray);
@@ -1410,7 +1411,7 @@ Item {
 
 
     function setResistorHighlight(){
-        console.log(" change resistor " + clickedRes);
+        //console.log(" change resistor " + clickedRes);
         switch(world.generator.getPositionInResArray(clickedRes)){
         case (0):
             resistorAt0Image.visible = true;
@@ -1442,7 +1443,7 @@ Item {
     }
     function closeSourceMenu()
     {
-        console.log(" hide source Highligtht " + clickedSource);
+        //console.log(" hide source Highligtht " + clickedSource);
         sourceAt0Image.visible = false;
         sourceAt1Image.visible = false;
         sourceAt2Image.visible = false;
@@ -1452,7 +1453,7 @@ Item {
 
     function closeResistorMenu()
     {
-        console.log(" hide source Highligtht " + clickedSource);
+        //console.log(" hide source Highligtht " + clickedSource);
         resistorAt0Image.visible = false;
         resistorAt1Image.visible = false;
         resistorAt2Image.visible = false;
@@ -1467,7 +1468,7 @@ Item {
     }
     function setSourceHighlight()
     {
-        console.log(" source Highligtht " + clickedSource);
+        //console.log(" source Highligtht " + clickedSource);
         switch(world.generator.getPositionInArray(clickedSource)){
         case (0):
             sourceAt0Image.visible = true;

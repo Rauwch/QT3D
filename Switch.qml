@@ -231,7 +231,7 @@ Entity{
             theSwitch.xCenter = theSwitch.xCenter + length/2
             break;
         case(270):
-            heSwitch.zCenter = theSwitch.zCenter - length/2
+            theSwitch.zCenter = theSwitch.zCenter - length/2
             break;
         default:
             break;
@@ -255,7 +255,7 @@ Entity{
             theSwitch.xCenter = theSwitch.xCenter - length/2
             break;
         case(270):
-            heSwitch.zCenter = theSwitch.zCenter + length/2
+            theSwitch.zCenter = theSwitch.zCenter + length/2
             break;
         default:
             break;

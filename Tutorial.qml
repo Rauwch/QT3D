@@ -110,17 +110,17 @@ Rectangle{
             //instructionText.text = "Welcome to the first tutorial!";
             instructionText.text = "Welkom bij de 1ste oefening!";
             break;
-        case(2):
+        case(4):
             instructionWindow.anchors.centerIn = screenWindow;
             //instructionText.text = "Welcome to the second tutorial!";
             instructionText.text = "Welkom bij de 2de oefening!";
             break;
-        case(3):
+        case(7):
             instructionWindow.anchors.centerIn = screenWindow;
             //instructionText.text = "Welcome to the third tutorial!";
             instructionText.text = "Welkom bij de 3de oefening!";
             break;
-        case(4):
+        case(13):
             instructionWindow.anchors.centerIn = screenWindow;
             //instructionText.text = "Welcome to the fourth tutorial!";
             instructionText.text = "Welkom bij de 4de oefening!";
@@ -133,15 +133,15 @@ Rectangle{
             numStages = 2;
             updateInstructionsLvlOne();
             break;
-        case(2):
+        case(4):
             numStages = 3;
             updateInstructionsLvlTwo();
             break;
-        case(3):
+        case(7):
             numStages = 3;
             updateInstructionsLvlThree();
             break;
-        case(4):
+        case(13):
             numStages = 3;
             updateInstructionsLvlFour();
             break;
@@ -180,9 +180,9 @@ Rectangle{
             instructionWindow.anchors.verticalCenter = screenWindow.verticalCenter;
             instructionWindow.anchors.left = screenWindow.left;
             instructionWindow.anchors.leftMargin = Screen.width/20;
-            instructionText.text = "<strong><u>STAP 2/3</u></strong><br></br>De <b>grijze paal</b> is de <b>kwallenlift</b>.<br></br><i>Klik op de bol</i> om de hoogte te veranderen";
+            instructionText.text = "<strong><u>STAP 2/3</u></strong><br></br>De <b>grijze paal</b> is de <b>kwallenlift</b>.<br></br><i>Klik op de bol</i> om het lift menu te openen";
             if(screenType == 1){
-                instructionText.text = "<strong><u>STAP 2/3</u></strong><br></br>De <b>grijze paal</b> is de <b>kwallenlift</b>.<br></br><i>Klik op de bol</i> om de <br></br>hoogte te veranderen";
+                instructionText.text = "<strong><u>STAP 2/3</u></strong><br></br>De <b>grijze paal</b> is de <b>kwallenlift</b>.<br></br><i>Klik op de bol</i> om het <br></br>lift menu te openen";
             }
             buttonNext.visible = false;
             instructionWindow.height = instructionText.paintedHeight + 50;

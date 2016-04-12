@@ -1,21 +1,18 @@
 *sj
 *c5 10
 *w
-*w2 1 3 1 2 0,w1 1 5 1 1 0
-*w4 5 5 0 2 0,w4 5 3 1 2 0
-*w3 5 1 1 4 1,w2 1 1 1 2 0 
-*w1 2 5 1 1 0,w1 4 5 0 1 0
-*
-*
+*w2 1 1 0 2 0 0 0
+*w2 1 3 1 2 0 0 1
+*w1 1 5 1 1 0 0 0
+*w1 3 5 2 2 0 0 0
+*w4 5 5 2 2 0 0 0
+*w4 5 2 0 1 0 0 0 
+*w3 5 1 0 4 0 0 0
 */w
 */sj
-
-
-R1 0 1 100 *sj 3 5 1 1 160 30 */sj
-V1 1 0 20v *sj 5 3 4 0 0 0 */sj
-
-
-
+R1 0 2 100 *sj 5 3 4 1 120 20 */sj
+R2 2 1 100 *sj 2 5 1 1 60 20 */sj
+V1 1 0 20v *sj 1 3 2 0 0 0 */sj
 .end
 
 ** Uitleg:
@@ -23,6 +20,6 @@ V1 1 0 20v *sj 5 3 4 0 0 0 */sj
 *** Syntax: WHoek Xcoord YCoord Node Lenght (Voor hoek: 1, wijst naar rechts, 2 naarboven, 3 naar links en 4 naar onder)
 *** Voor weerstanden en bronnen: Gewoon zoals in spice.
 *** Achter elke Component een spicecomment in de voor van *sj Xcoord Ycoord Hoek Aanpasbaar Beginwaarde stapgrote */sj
-
+*** twee aanpasbare bronnen die moeten opgeteld worden tot een doel
 *** File altijd op .sj laten eindigen
 
