@@ -45,6 +45,7 @@ Entity{
         onClicked: {
             myGameScreen.clickedSwitch = switchNr;
             myGameScreen.showSwitch = !myGameScreen.showSwitch;
+            myGameScreen.updateTutorial();
             if(!myGameScreen.showSwitch)
                 myGameScreen.closeSwitchMenu();
             else

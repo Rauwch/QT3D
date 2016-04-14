@@ -128,7 +128,7 @@ Rectangle{
 
         case(15):
             instructionWindow.anchors.centerIn = screenWindow;
-            //instructionText.text = "Welcome to the fourth tutorial!";
+            //instructionText.text = "Welcome to the fifth tutorial!";
             instructionText.text = "Welkom bij de 5de oefening!";
             break;
         }
@@ -152,7 +152,7 @@ Rectangle{
             updateInstructionsLvlFour();
             break;
         case(15):
-            numStages = 3;
+            numStages = 1;
             updateInstructionsLvlFive();
             break;
         }
@@ -354,7 +354,7 @@ Rectangle{
                 instructionWindow.anchors.horizontalCenterOffset = Screen.width/8;
                 instructionWindow.anchors.topMargin = Screen.height/10;
             }
-            instructionText.text = "<strong><u>STAP 1/4</u></strong><br></br>Dit is <b>een brug</b> die <b>open</b> en <b>toe</b> kan<br></br> Klik op een van de de ballen om<br></br> de <b>brug menu</b> te openen.";
+            instructionText.text = "<strong><u>STAP 1/2</u></strong><br></br>Dit is <b>een brug</b> die <b>open</b> en <b>toe</b> kan<br></br> Klik op een van de de ballen om<br></br> de <b>brug menu</b> te openen.";
             buttonNext.visible = false;
             instructionWindow.height = instructionText.paintedHeight + 50;
             break;
@@ -372,7 +372,18 @@ Rectangle{
     }
     function checkBallclicked(){
         if(ballExplained==false){
-            if(myGameScreen.clickedSource != null){
+            if(myGameScreen.showSwitch == true){
+                buttonNext.visible = false;
+                instructionWindow.height = 132*(screenType+1);;
+                ballExplained = true;
+                unAnchors();
+                instructionWindow.anchors.bottom = screenWindow.bottom;
+                instructionWindow.anchors.bottomMargin = Screen.width/20;
+                instructionWindow.anchors.right = screenWindow.right;
+                instructionWindow.anchors.rightMargin = Screen.width/4;
+                instructionText.text = "<strong><u>STAP 2/2</u></strong><br></br>Heel goed! <br></br><i>Klik op de knoppen</i> om<br></br>de brug te veranderen.";
+            }
+            if((myGameScreen.clickedSource != null)){
                 switch(numberOfLevel){
                 case(1):
                     buttonNext.visible = false;
@@ -398,7 +409,7 @@ Rectangle{
                     break;
                 case(7):
                     buttonNext.visible = false;
-                    instructionWindow.height = 132*(screenType+1);;
+                    instructionWindow.height = 132*(screenType+1);
                     ballExplained = true;
                     unAnchors();
                     instructionWindow.anchors.bottom = screenWindow.bottom;
@@ -407,9 +418,9 @@ Rectangle{
                     instructionWindow.anchors.rightMargin = Screen.width/8;
                     instructionText.text = "<strong><u>STAP 4/4</u></strong><br></br>Heel goed! <br></br><i>Klik op de knoppen</i> om<br></br>de bochten te veranderen.";
                     break;
-                case(14):
+                case(13):
                     buttonNext.visible = false;
-                    instructionWindow.height = 132*(screenType+1);;
+                    instructionWindow.height = 132*(screenType+1);
                     ballExplained = true;
                     unAnchors();
                     instructionWindow.anchors.bottom = screenWindow.bottom;
@@ -420,8 +431,19 @@ Rectangle{
                     if(screenType == 1){
                         instructionText.text = "<strong><u>STAP 4/4</u></strong><br></br>Heel goed! <br></br>Probeer nu de kwallen<br></br>op de rode lijn<br></br>de juiste grootte te geven.";
                     }
-
                     break;
+//                case(15):
+//                    buttonNext.visible = false;
+//                    instructionWindow.height = 132*(screenType+1);;
+//                    ballExplained = true;
+//                    unAnchors();
+//                    instructionWindow.anchors.bottom = screenWindow.bottom;
+//                    instructionWindow.anchors.bottomMargin = Screen.width/20;
+//                    instructionWindow.anchors.right = screenWindow.right;
+//                    instructionWindow.anchors.rightMargin = Screen.width/8;
+//                    instructionText.text = "<strong><u>STAP 2/2</u></strong><br></br>Heel goed! <br></br><i>Klik op de knoppen</i> om<br></br>de brug te veranderen.";
+//                    break;
+                    //add new case
                 }
 
 
