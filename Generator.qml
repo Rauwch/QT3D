@@ -106,6 +106,11 @@ Entity{
 
             //Lengte van de weerstand
             length = Math.abs(((maxVolt-minVolt))/Math.cos(angle));
+            var fixedOA = 90*(calculator.getAngleOfResistor(i)-1);
+            console.log("angle of Res " + calculator.getAngleOfResistor(i));
+
+            if(((calculator.getAngleOfResistor(i))) === 4){
+            }
 
             resistor = o.resistorFactory.createObject(null,{"a":(angle*180/Math.PI),
                                                           "resistorNr": i,
@@ -115,7 +120,7 @@ Entity{
                                                           "z":-calculator.getYCoordOfResistor(i)*root.sf,
                                                           "y":minVolt,
                                                           "clickable": calculator.getResistorIsVariable(i),
-                                                          "orientationAngle":90*(calculator.getAngleOfResistor(i)-1) });
+                                                          "orientationAngle":fixedOA });
 
             resistor.parent=root.parent;
             resistor.setButtonValues(calculator.getInitialOfResistor(i),calculator.getStepOfResistor(i),calculator.getButtonDiffOfResistor(i));
@@ -314,7 +319,7 @@ Entity{
     function rotateOpenSwitch(switchNr)
     {
         if(!switches[switchNr].switchIsOpen)
-        switches[switchNr].openRotate();
+            switches[switchNr].openRotate();
     }
 
     function getSwitchState(switchNr)
@@ -326,7 +331,7 @@ Entity{
     function rotateCloseSwitch(switchNr)
     {
         if(switches[switchNr].switchIsOpen)
-        switches[switchNr].closeRotate();
+            switches[switchNr].closeRotate();
     }
 
     function  toRotateSwitch(switchNr)

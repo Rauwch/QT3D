@@ -37,6 +37,7 @@ public:
     Q_INVOKABLE int getAngleOfResistor(int resNr){return resistors.at(resNr)->getAngle();}
     Q_INVOKABLE int getXCoordOfResistor(int resNr){return resistors.at(resNr)->getXCoord();}
     Q_INVOKABLE int getYCoordOfResistor(int resNr){return resistors.at(resNr)->getYCoord();}
+    Q_INVOKABLE void setYCoordOfResistor(int resNr, int newValue){resistors.at(resNr)->setYCoord(newValue);}
     Q_INVOKABLE int node1AtResistor(int resNr){return resistors.at(resNr)->getNode1();}
     Q_INVOKABLE int node2AtResistor(int resNr){return resistors.at(resNr)->getNode2();}
     Q_INVOKABLE int getStepOfResistor(int resNr){return resistors.at(resNr)->getStep();}
