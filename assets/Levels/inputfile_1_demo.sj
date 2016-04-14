@@ -2,13 +2,11 @@
 *gx y goal
 *c2star 3star
 *w
-*w(hoek x y node length isGoal)
-*w(hoek x y node length isGoal)
-*w(hoek x y node length isGoal)
-*w(hoek x y node length isGoal)
-*w(hoek x y node length isGoal)
-*w(hoek x y node length isGoal)
-*w(hoek x y node length isGoal)
+*w(hoek x y node length ground volageGoal currentGoal)
+*w(hoek x y node length ground volageGoal currentGoal)
+*w(hoek x y node length ground volageGoal currentGoal)
+*w(hoek x y node length ground volageGoal currentGoal)
+*w(hoek x y node length ground volageGoal currentGoal)
 *
 *
 */w

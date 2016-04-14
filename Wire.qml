@@ -29,6 +29,8 @@ Entity{
 
 
     function toColor(){
+
+        console.log("Coloring goal wire");
         if(isGoal){
             if(!match)
                  return "goalPole.png";

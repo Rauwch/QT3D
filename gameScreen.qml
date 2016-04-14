@@ -208,16 +208,17 @@ Item {
         id: counter
         anchors.horizontalCenter: myGameScreen.horizontalCenter
         anchors.bottom: myGameScreen.bottom
-
+        visible: false
         text: "aantal kliks: " + myGameScreen.numClicks
         readOnly: true
         font.pixelSize: 30
     }
     TextField{
         id: counterHighScore
+        visible: false
         Component.onCompleted:
         {
-                        console.log("counterHigh is completed");
+            console.log("counterHigh is completed");
             if(myGameScreen.highScore == 0)
                 text = "Highscore: /"
         }

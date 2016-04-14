@@ -34,7 +34,7 @@ Entity{
 
         property Material material: DiffuseMapMaterial {
             id: theMaterial
-            diffuse: "goalPole.png"
+            diffuse: "t0017_0.png"
             ambient: Qt.rgba( 1, 1, 1, 1.0 )
             specular: Qt.rgba( 1, 1, 1, 1.0 )
             shininess: 0
@@ -62,13 +62,15 @@ Entity{
 
     function setGreen(){
         console.log(" in goal pole set green");
-        theMaterial.diffuse = "goalPoleGo.png";
+        theMaterial.diffuse = "t0044_0.png";
+        //theMaterial.diffuse = "goalPole.png";
         cubeTop.setGreen();
         cubeBottom.setGreen();
     }
     function setRed(){
-                console.log(" in goal pole set red");
-        theMaterial.diffuse = "goalPole.png";
+        console.log(" in goal pole set red");
+        theMaterial.diffuse = "t0017_0.png";
+        //theMaterial.diffuse = "goalPoleGo.png";
         cubeTop.setRed();
         cubeBottom.setRed();
     }

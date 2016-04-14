@@ -219,16 +219,16 @@ Entity{
 
     /* if the voltage in a node is the same as the goal voltage, the GoalPole will color green */
     function updateGoalPoles(){
-        for( var i = 0; i< goals.length; i++){
-            if( calculator.getMatch(i)){
-                // #crash# out of memory
-                console.log("groen maken enzo");
-                goals[i].setGreen();
-            }
-            else{
-                goals[i].setRed();
-            }
-        }
+//        for( var i = 0; i< goals.length; i++){
+//            if( calculator.getMatch(i)){
+//                // #crash# out of memory
+//                console.log("groen maken enzo");
+//                goals[i].setGreen();
+//            }
+//            else{
+//                goals[i].setRed();
+//            }
+//        }
     }
     function changeRes(resNr, pos)
     {
@@ -278,8 +278,9 @@ Entity{
             wires[i].y = calculator.voltageAtNode(calculator.getNodeOfWire(i));
             if(wires[i].isGoal)
             {
-                Icurrent = calculator.getCurrentInGoalWire();
-                Igoal = calculator.getGoalinGoalWire();
+
+                Icurrent = Math.round(calculator.getCurrentInGoalWire()*1000)/1000;
+                Igoal = Math.round(calculator.getGoalinGoalWire()*1000)/1000;
                 if(Icurrent === Igoal)
                 {
                     wires[i].match = true;
@@ -313,6 +314,17 @@ Entity{
             else
                 switches[i].yCenter = switches[i].yMax
         }
+        for( var i = 0; i< goals.length; i++){
+            if( calculator.getMatch(i)){
+                // #crash# out of memory
+                console.log("groen maken enzo");
+                goals[i].setGreen();
+            }
+            else{
+                goals[i].setRed();
+            }
+        }
+
     }
 
     /* to rotate the switch */
