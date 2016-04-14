@@ -110,6 +110,7 @@ Entity{
             console.log("angle of Res " + calculator.getAngleOfResistor(i));
 
             if(((calculator.getAngleOfResistor(i))) === 4){
+                //fixedOA = 90;
             }
 
             resistor = o.resistorFactory.createObject(null,{"a":(angle*180/Math.PI),
