@@ -442,26 +442,28 @@ bool Calc::checkGoals()
         if(round(goalVoltage*1000)/1000 != round(currentVoltage*1000)/1000)
         {
             allGoals = false;
-            //qDebug() << "FALSE goalV " << goalVoltage << "currentV " << currentVoltage;
+            qDebug() << "FALSE goalV " << goalVoltage << "currentV " << currentVoltage;
             goals.at(i)->setMatch(false);
         }
         else
         {
-            //qDebug() << "TRUE goalV " << goalVoltage << "currentV " << currentVoltage;
+            qDebug() << "TRUE goalV " << goalVoltage << "currentV " << currentVoltage;
             goals.at(i)->setMatch(true);
         }
     }
 
     for(unsigned int i = 0; i <currentGoals.size();i++)
     {
-        //qDebug() << "currentCurrent is: " <<(float) currentGoals.at(i)->getCurrent() << "  goalCurrent is:  " << (float) currentGoals.at(i)->getGoalValue() ;
-        if(currentGoals.at(i)->getCurrent()!= currentGoals.at(i)->getGoalValue())
+        qDebug() << "currentCurrent is: " << QString::number(round(currentGoals.at(i)->getCurrent()*1000)/1000,'f', 6)  << "  goalCurrent is:  " << QString::number(round(currentGoals.at(i)->getGoalValue()*1000)/1000,'f', 6)  ;
+        if((float) currentGoals.at(i)->getCurrent()!= (float) currentGoals.at(i)->getGoalValue())
         {
+            qDebug()<< " no match";
             allGoals = false;
             currentGoals.at(i)->setMatch(false);
         }
         else
         {
+            qDebug()<< " a match";
             currentGoals.at(i)->setMatch(true);
         }
     }
