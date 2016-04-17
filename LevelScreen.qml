@@ -59,11 +59,24 @@ Item {
                     }
                     if(index == 0 || index == 3 || index == 6 || index == 12 || index == 14 )
                     {
-                        levelText.text= "Oefening " + (Math.ceil(index/3) + 1);
-                    }
+                        switch(index){
+                        case 0:
+                            levelText.text= "Oefening " + 1;
+                            break;
+                        case 3:
+                            levelText.text= "Oefening " + 2;
+                            break;
+                        case 6:
+                            levelText.text= "Oefening " + 3;
+                            break;
+                        case 12:
+                            levelText.text= "Oefening " + 4;
+                            break;
+                        case 14:
+                            levelText.text= "Oefening " + 5;
+                            break;
 
-                    if(index <= 3){
-                        //levelText.text= "Tutorial " + (index+1);
+                        }
 
                     }
                 }

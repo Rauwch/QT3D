@@ -35,5 +35,12 @@
         <file>sand.jpg</file>
         <file>sandTexture.png</file>
         <file>t0096_0.png</file>
+        <file>pointer.png</file>
+        <file>pointer-left.png</file>
+        <file>angle0.png</file>
+        <file>angle20.png</file>
+        <file>angle50.png</file>
+        <file>angle80.png</file>
+        <file>angle110.png</file>
     </qresource>
 </RCC>

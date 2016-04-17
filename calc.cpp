@@ -414,8 +414,8 @@ bool Calc::process_click_line(QString &lijn)
 
     if(list.size()==2){ //Check for right amount of parameters
 
-        twoStar = list.at(0).toInt();
-        threeStar = list.at(1).toInt();
+        twoStar = list.at(1).toInt();
+        threeStar = list.at(0).toInt();
         return true;
     }
     else{

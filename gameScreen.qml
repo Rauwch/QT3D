@@ -25,7 +25,8 @@ Item {
     property int jellyPixelWidth
     property int jellySize: 0
 
-    property int clickedSource
+    property int clickedSource: -1
+    property int prevClickedSource: -1
     property int clickedRes
     property int clickedSwitch
     property int numClicks: 0
@@ -208,14 +209,14 @@ Item {
         id: counter
         anchors.horizontalCenter: myGameScreen.horizontalCenter
         anchors.bottom: myGameScreen.bottom
-        visible: false
+        //visible: false
         text: "aantal kliks: " + myGameScreen.numClicks
         readOnly: true
         font.pixelSize: 30
     }
     TextField{
         id: counterHighScore
-        visible: false
+        //visible: false
         Component.onCompleted:
         {
             console.log("counterHigh is completed");
@@ -338,8 +339,8 @@ Item {
 
             Button{
                 id: resistorAt4
-                width: resistorAt4Text.width + 20
-                height: Screen.height/15
+                width: height + 80
+                height: resistorAngle4.height + 20
                 onClicked: setResistorMenu(4)
                 Image{
                     id:resistorAt4Image
@@ -347,17 +348,26 @@ Item {
                     source: "t0096_0.png"
                     visible: false
                 }
-                Text{
+
+                Image{
+                    id: resistorAngle4
+                    source: "angle20.png"
                     anchors.centerIn: parent
-                    id: resistorAt4Text
-                    text: "Niveau 5"
-                    renderType: Text.NativeRendering
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.family: "Helvetica"
-                    font.pointSize: 20
-                    color: "black"
+                    height: Screen.height/13
+                    width: height
                 }
+
+//                Text{
+//                    anchors.centerIn: parent
+//                    id: resistorAt4Text
+//                    text: "Niveau 5"
+//                    renderType: Text.NativeRendering
+//                    verticalAlignment: Text.AlignVCenter
+//                    horizontalAlignment: Text.AlignHCenter
+//                    font.family: "Helvetica"
+//                    font.pointSize: 20
+//                    color: "black"
+//                }
 
 
                 style: ButtonStyle {
@@ -378,8 +388,8 @@ Item {
             }
             Button{
                 id: resistorAt3
-                width: resistorAt3Text.width + 20
-                height: Screen.height/15
+                width: height + 80
+                height: resistorAngle3.height + 20
                 onClicked:setResistorMenu(3)
                 Image{
                     id:resistorAt3Image
@@ -387,17 +397,24 @@ Item {
                     source: "t0096_0.png"
                     visible: false
                 }
-                Text{
+                Image{
+                    id: resistorAngle3
+                    source: "angle50.png"
                     anchors.centerIn: parent
-                    id: resistorAt3Text
-                    text: "Niveau 4"
-                    renderType: Text.NativeRendering
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.family: "Helvetica"
-                    font.pointSize: 20
-                    color: "black"
+                    height: Screen.height/12
+                    width: height
                 }
+//                Text{
+//                    anchors.centerIn: parent
+//                    id: resistorAt3Text
+//                    text: "Niveau 4"
+//                    renderType: Text.NativeRendering
+//                    verticalAlignment: Text.AlignVCenter
+//                    horizontalAlignment: Text.AlignHCenter
+//                    font.family: "Helvetica"
+//                    font.pointSize: 20
+//                    color: "black"
+//                }
                 style: ButtonStyle {
                     background: Rectangle {
                         implicitWidth: 100
@@ -416,8 +433,8 @@ Item {
             }
             Button{
                 id: resistorAt2
-                width: resistorAt2Text.width + 20
-                height: Screen.height/15
+                width: height + 80
+                height: resistorAngle2.height + 20
                 onClicked:setResistorMenu(2)
                 Image{
                     id:resistorAt2Image
@@ -425,17 +442,24 @@ Item {
                     source: "t0096_0.png"
                     visible: false
                 }
-                Text{
+                Image{
+                    id: resistorAngle2
+                    source: "angle80.png"
                     anchors.centerIn: parent
-                    id: resistorAt2Text
-                    text: "Niveau 3"
-                    renderType: Text.NativeRendering
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.family: "Helvetica"
-                    font.pointSize: 20
-                    color: "black"
+                    height: Screen.height/12
+                    width: height
                 }
+//                Text{
+//                    anchors.centerIn: parent
+//                    id: resistorAt2Text
+//                    text: "Niveau 3"
+//                    renderType: Text.NativeRendering
+//                    verticalAlignment: Text.AlignVCenter
+//                    horizontalAlignment: Text.AlignHCenter
+//                    font.family: "Helvetica"
+//                    font.pointSize: 20
+//                    color: "black"
+//                }
                 style: ButtonStyle {
                     background: Rectangle {
                         implicitWidth: 100
@@ -454,8 +478,8 @@ Item {
             }
             Button{
                 id: resistorAt1
-                width: resistorAt1Text.width + 20
-                height: Screen.height/15
+                width: height + 80
+                height: resistorAngle1.height + 20
                 onClicked:setResistorMenu(1)
                 Image{
                     id:resistorAt1Image
@@ -463,17 +487,24 @@ Item {
                     source: "t0096_0.png"
                     visible: false
                 }
-                Text{
+                Image{
+                    id: resistorAngle1
+                    source: "angle110.png"
                     anchors.centerIn: parent
-                    id: resistorAt1Text
-                    text: "Niveau 2"
-                    renderType: Text.NativeRendering
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.family: "Helvetica"
-                    font.pointSize: 20
-                    color: "black"
+                    height: Screen.height/12
+                    width: height
                 }
+//                Text{
+//                    anchors.centerIn: parent
+//                    id: resistorAt1Text
+//                    text: "Niveau 2"
+//                    renderType: Text.NativeRendering
+//                    verticalAlignment: Text.AlignVCenter
+//                    horizontalAlignment: Text.AlignHCenter
+//                    font.family: "Helvetica"
+//                    font.pointSize: 20
+//                    color: "black"
+//                }
                 style: ButtonStyle {
                     background: Rectangle {
                         implicitWidth: 100
@@ -491,8 +522,8 @@ Item {
             }
             Button{
                 id: resistorAt0
-                width: resistorAt0Text.width + 20
-                height: Screen.height/15
+                width: height + 80
+                height: resistorAngle0.height + 20
                 onClicked: setResistorMenu(0)
                 Image{
                     id:resistorAt0Image
@@ -500,17 +531,24 @@ Item {
                     source: "t0096_0.png"
                     visible: false
                 }
-                Text{
+                Image{
+                    id: resistorAngle0
+                    source: "angle0.png"
                     anchors.centerIn: parent
-                    id: resistorAt0Text
-                    text: "Niveau 1"
-                    renderType: Text.NativeRendering
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.family: "Helvetica"
-                    font.pointSize: 20
-                    color: "black"
+                    height: Screen.height/12
+                    width: height
                 }
+//                Text{
+//                    anchors.centerIn: parent
+//                    id: resistorAt0Text
+//                    text: "Niveau 1"
+//                    renderType: Text.NativeRendering
+//                    verticalAlignment: Text.AlignVCenter
+//                    horizontalAlignment: Text.AlignHCenter
+//                    font.family: "Helvetica"
+//                    font.pointSize: 20
+//                    color: "black"
+//                }
                 style: ButtonStyle {
                     background: Rectangle {
                         implicitWidth: 100
@@ -542,7 +580,7 @@ Item {
             anchors.top: parent.top
             anchors.topMargin: 20
             id: liftText
-            text: "Lift"
+            text: "Lift " + (clickedSource+1)
             renderType: Text.NativeRendering
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
@@ -1100,6 +1138,7 @@ Item {
 
     //this are all the functions
 
+
     function openSwitchFunc(){
         numClicks++;
         calculator.openSwitch(clickedSwitch);
@@ -1168,9 +1207,9 @@ Item {
         delayTimer.start();
         if(calculator.checkGoals())
         {
-            hideElements()
+            hideElements();
             myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-            checkLeaderboard()
+            checkLeaderboard();
             myTimer.start();
         }
 
@@ -1330,17 +1369,21 @@ Item {
             //congratsText.text = "Completed the first tutorial!";
             congratsText.text = "1ste oefening voltooid!";
             break;
-        case(2):
+        case(4):
             //congratsText.text = "Completed the second tutorial!";
             congratsText.text = "2de oefening voltooid!";
             break;
-        case(3):
+        case(7):
             //congratsText.text = "Completed the third tutorial!";
             congratsText.text = "3de oefening voltooid!";
             break;
-        case(4):
+        case(13):
             //congratsText.text = "Completed the fourth tutorial!";
             congratsText.text = "4de oefening voltooid!";
+            break;
+        case(15):
+            //congratsText.text = "Completed the fourth tutorial!";
+            congratsText.text = "5de oefening voltooid!";
             break;
         default:
             congratsText.text = "Level Cleared!";
@@ -1364,34 +1407,34 @@ Item {
         resistorAt2Image.visible = false;
         resistorAt3Image.visible = false;
         resistorAt4Image.visible = false;
-        resistorAt0Text.color = "black"
-        resistorAt1Text.color = "black"
-        resistorAt2Text.color = "black"
-        resistorAt3Text.color = "black"
-        resistorAt4Text.color = "black"
+        //resistorAt0Text.color = "black"
+        //resistorAt1Text.color = "black"
+        //resistorAt2Text.color = "black"
+        //resistorAt3Text.color = "black"
+        //resistorAt4Text.color = "black"
 
         world.generator.setPositionInResArray(clickedRes,clickedResistorArray);
         switch ( clickedResistorArray)
         {
         case 0:
             resistorAt0Image.visible = true;
-            resistorAt0Text.color = "white"
+            //resistorAt0Text.color = "white"
             break;
         case 1:
             resistorAt1Image.visible = true;
-            resistorAt1Text.color = "white"
+            //resistorAt1Text.color = "white"
             break;
         case 2:
             resistorAt2Image.visible = true;
-            resistorAt2Text.color = "white"
+            //resistorAt2Text.color = "white"
             break;
         case 3:
             resistorAt3Image.visible = true;
-            resistorAt3Text.color = "white"
+            //resistorAt3Text.color = "white"
             break;
         case 4:
             resistorAt4Image.visible = true;
-            resistorAt4Text.color = "white"
+            //resistorAt4Text.color = "white"
             break;
         }
 
@@ -1416,25 +1459,25 @@ Item {
         switch(world.generator.getPositionInResArray(clickedRes)){
         case (0):
             resistorAt0Image.visible = true;
-            resistorAt0Text.color = "white";
+            //resistorAt0Text.color = "white";
             break;
         case (1):
             resistorAt1Image.visible = true;
-            resistorAt1Text.color = "white";
+            //resistorAt1Text.color = "white";
             break;
         case (2):
             resistorAt2Image.visible = true;
-            resistorAt2Text.color = "white";
+            //resistorAt2Text.color = "white";
 
             break;
         case (3):
             resistorAt3Image.visible = true;
-            resistorAt3Text.color = "white";
+            //resistorAt3Text.color = "white";
 
             break;
         case (4):
             resistorAt4Image.visible = true;
-            resistorAt4Text.color = "white";
+            //resistorAt4Text.color = "white";
 
             break;
         default:
@@ -1460,11 +1503,11 @@ Item {
         resistorAt2Image.visible = false;
         resistorAt3Image.visible = false;
         resistorAt4Image.visible = false;
-        resistorAt0Text.color = "black"
-        resistorAt1Text.color = "black"
-        resistorAt2Text.color = "black"
-        resistorAt3Text.color = "black"
-        resistorAt4Text.color = "black"
+        //resistorAt0Text.color = "black"
+        //resistorAt1Text.color = "black"
+        //resistorAt2Text.color = "black"
+        //resistorAt3Text.color = "black"
+        //resistorAt4Text.color = "black"
 
     }
     function setSourceHighlight()

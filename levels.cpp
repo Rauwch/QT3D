@@ -182,6 +182,7 @@ int Levels::getAmountOfStars(int level) const
 void Levels::setAmountOfStars(int numClicks, int twoStar, int threeStar)
 {
     /*levels go form 1-... and the level array goes from 0-... */
+
     int currentIndex = currentLevel - 1;
     if(numClicks <= threeStar){
         levelArray[currentIndex][1] = 3;

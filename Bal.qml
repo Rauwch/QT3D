@@ -36,10 +36,14 @@ Entity{
     property ObjectPicker objectPicker: ObjectPicker {
 
         onClicked: {
+            myGameScreen.closeSourceMenu();
+            myGameScreen.prevClickedSource = myGameScreen.clickedSource;
             myGameScreen.clickedSource = sourceNr;
             myGameScreen.updateTutorial();
             /*make text boxes (dis)appear on clicking the ball*/
-            myGameScreen.showBox = !myGameScreen.showBox;
+            console.log("clicked source: " + myGameScreen.clickedSource + "prev clicked source: " + myGameScreen.prevClickedSource )
+            if(myGameScreen.prevClickedSource === myGameScreen.clickedSource  || myGameScreen.prevClickedSource === -1 )
+                myGameScreen.showBox = !myGameScreen.showBox;
             if(!myGameScreen.showBox)
                 myGameScreen.closeSourceMenu();
             else

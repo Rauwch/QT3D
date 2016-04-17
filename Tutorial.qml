@@ -8,6 +8,7 @@ Rectangle{
     property int numStages: 2
     property int offset: buttonNext.height
     property bool ballExplained: false
+    property bool showPointer: false;
     property int numberOfLevel: 1
     property int textFontSize: 10
     property int buttonFontSize:10
@@ -19,6 +20,7 @@ Rectangle{
     height: Screen.height
     visible: false
 
+
     Rectangle{
         id:instructionWindow
         color: "#FFFFFF"
@@ -29,14 +31,34 @@ Rectangle{
         border.color: "black"
         radius: 10
         visible: {stage <= numStages}
-        gradient: Gradient {
-            GradientStop { position: 0 ; color: "#D3D3D3" }
-            GradientStop { position: 1 ; color: "#FFFFFF" }
-        }
+//        gradient: Gradient {
+//            GradientStop { position: 0 ; color: "#D3D3D3" }
+//            GradientStop { position: 1 ; color: "#FFFFFF" }
+//        }
 
         Component.onCompleted: {
 
             setInstructionText();
+        }
+
+        Image{
+
+//            width: pointer.paintedWidth * 0.7
+//            height: pointer.paintedHeight * 0.7
+
+            id: pointer
+            source: "pointer-left.png"
+            visible: showPointer
+            anchors.left: parent.right
+            anchors.leftMargin: -5
+            anchors.verticalCenter: parent.verticalCenter
+            //rotation: -90
+            Component.onCompleted: {
+                pointer.width = pointer.paintedWidth * 0.7
+                pointer.height = pointer.paintedHeight * 0.6
+                //pointer.x = -5;
+
+            }
         }
         Text{
             id:instructionText
@@ -83,6 +105,8 @@ Rectangle{
         }
 
     }
+
+
     function setInstructionText(){
         var physScreenSize = myGameScreen.getPhysicalScreenWidth();
         //console.log("screensize: " + physScreenSize);
@@ -190,6 +214,7 @@ Rectangle{
             instructionWindow.anchors.verticalCenter = screenWindow.verticalCenter;
             instructionWindow.anchors.left = screenWindow.left;
             instructionWindow.anchors.leftMargin = Screen.width/20;
+            pointer.visible = true;
             instructionText.text = "<strong><u>STAP 2/3</u></strong><br></br>De <b>grijze paal</b> is de <b>kwallenlift</b>.<br></br><i>Klik op de bol</i> om het lift menu te openen";
             if(screenType == 1){
                 instructionText.text = "<strong><u>STAP 2/3</u></strong><br></br>De <b>grijze paal</b> is de <b>kwallenlift</b>.<br></br><i>Klik op de bol</i> om het <br></br>lift menu te openen";
@@ -217,18 +242,20 @@ Rectangle{
             unAnchors();
             instructionWindow.anchors.horizontalCenter = screenWindow.horizontalCenter;
             instructionWindow.anchors.top = screenWindow.top;
-            instructionWindow.anchors.topMargin = Screen.height/5
+            instructionWindow.anchors.topMargin = Screen.height/15
             if(screenType==1){
                 instructionWindow.anchors.topMargin = Screen.height/15
 
             }
-            instructionText.text = "<strong><u>STAP 1/4</u></strong><br></br>De dikke <b>rode lijn</b> toont aan welke kwallen jouw hulp nodig hebben.";
+            pointer.visible = true;
+            instructionText.text = "<strong><u>STAP 1/4</u></strong><br></br>De dikke <b>rode lijn</b> toont aan welke kwallen jouw hulp nodig hebben.<br></br> Hun <b>grootte</b> wordt voorgesteld door de <b>rechter roze kwal</b>";
             break;
         case(1):
             stage++;
             instructionWindow.anchors.topMargin = Screen.height/20
-            instructionWindow.anchors.horizontalCenterOffset = Screen.width/10
-            instructionText.text = "<strong><u>STAP 2/4</u></strong><br></br>Deze kwallen moeten even groot worden als de <b>grijze kwal</b>.";
+            instructionWindow.anchors.horizontalCenterOffset = Screen.width/8
+            pointer.visible = true;
+            instructionText.text = "<strong><u>STAP 2/4</u></strong><br></br>Deze kwallen moeten even groot <br></br> worden als de <b>grijze kwal</b>.";
             break;
         case(2):
             stage++;
@@ -265,6 +292,7 @@ Rectangle{
             instructionWindow.anchors.top = screenWindow.top;
             instructionWindow.anchors.topMargin = Screen.height/20;
             instructionWindow.anchors.horizontalCenterOffset = Screen.width/8;
+            pointer.visible = true;
             instructionText.text = "<strong><u>STAP 1/4</u></strong><br></br>Deze <b>grijze kwal</b> toont dus de <b>gewenste grootte</b>.";
             break;
         case(1):
@@ -275,12 +303,17 @@ Rectangle{
             if(screenType !== 1){
                 instructionWindow.anchors.rightMargin = Screen.width/10;
             }
+            pointer.anchors.left = undefined;
+            pointer.anchors.right = instructionWindow.left;
+            pointer.anchors.rightMargin = -5;
+            pointer.rotation = 180
             instructionText.text = "<strong><u>STAP 2/4</u></strong><br></br>Kwallen gaan door de<br></br>paarse buizen naar beneden.<br></br>Hoe <b>scherper de bochten</b>, <br>hoe <b>kleiner de kwallen</b> moeten <br></br>zijn om erdoor te kunnen.";
             break;
         case(2):
             stage++;
             instructionText.text = "<strong><u>STAP 3/4</u></strong><br></br><i>Klik op de bal</i> om de scherpte<br></br>van de bochten aan te passen.";
             buttonNext.visible = false;
+            pointer.visible = false;
             instructionWindow.height = instructionText.paintedHeight + 30;
             break;
         case(numStages):
@@ -324,7 +357,7 @@ Rectangle{
             break;
         case(2):
             stage++;
-            instructionText.text = "<strong><u>STAP 3/4</u></strong><br></br>Pas nu <br></br>de scherpte van de bochten aanpast.";
+            instructionText.text = "<strong><u>STAP 3/4</u></strong><br></br>Pas nu de scherpte<br></br> van de bochten aan.";
             buttonNext.visible = false;
             instructionWindow.height = instructionText.paintedHeight + 30;
             break;
@@ -372,6 +405,7 @@ Rectangle{
     }
     function checkBallclicked(){
         if(ballExplained==false){
+            pointer.visible = false;
             if(myGameScreen.showSwitch == true){
                 buttonNext.visible = false;
                 instructionWindow.height = 132*(screenType+1);;
@@ -414,8 +448,8 @@ Rectangle{
                     unAnchors();
                     instructionWindow.anchors.bottom = screenWindow.bottom;
                     instructionWindow.anchors.bottomMargin = Screen.width/20;
-                    instructionWindow.anchors.right = screenWindow.left;
-                    instructionWindow.anchors.rightMargin = Screen.width/8;
+                    instructionWindow.anchors.right = screenWindow.right;
+                    instructionWindow.anchors.rightMargin = Screen.width/6;
                     instructionText.text = "<strong><u>STAP 4/4</u></strong><br></br>Heel goed! <br></br><i>Klik op de knoppen</i> om<br></br>de bochten te veranderen.";
                     break;
                 case(13):
@@ -426,8 +460,8 @@ Rectangle{
                     instructionWindow.anchors.bottom = screenWindow.bottom;
                     instructionWindow.anchors.bottomMargin = Screen.width/20;
                     instructionWindow.anchors.right = screenWindow.right;
-                    instructionWindow.anchors.rightMargin = Screen.width/8;
-                    instructionText.text = "<strong><u>STAP 4/4</u></strong><br></br>Heel goed! <br></br>Probeer nu de kwallen op de <br></br>rode lijn de juiste grootte te geven.";
+                    instructionWindow.anchors.rightMargin = Screen.width/6;
+                    instructionText.text = "<strong><u>STAP 4/4</u></strong><br></br>Heel goed! <br></br>Probeer nu de kwallen <br></br>op de rode lijn de juiste<br></br> grootte te geven.";
                     if(screenType == 1){
                         instructionText.text = "<strong><u>STAP 4/4</u></strong><br></br>Heel goed! <br></br>Probeer nu de kwallen<br></br>op de rode lijn<br></br>de juiste grootte te geven.";
                     }

@@ -97,9 +97,9 @@ Entity {
         id:background
         cameraPosition: mainCamera.position
     }
-//    GroundPlane{
-//        id: myGroundPlane
-//    }
+    GroundPlane{
+        id: myGroundPlane
+    }
 
     function destroyCamera(){
 //        background.destroy();
