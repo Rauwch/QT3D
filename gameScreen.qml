@@ -307,7 +307,7 @@ Item {
             console.log("resistorMenu is completed");
         }
         id: resistorMenu
-        height: resistorMenuCol.height + 70
+        height: resistorMenuCol.height + 50
         width:  resistorMenuCol.width+20
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
@@ -319,14 +319,14 @@ Item {
         Text{
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            anchors.topMargin: 20
+            anchors.topMargin: 10
             id: schuifafText
             text: "Schuifaf"
             renderType: Text.NativeRendering
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             font.family: "Helvetica"
-            font.pointSize: 20
+            font.pointSize: 16
             color: "black"
         }
         Column{
@@ -353,7 +353,7 @@ Item {
                     id: resistorAngle4
                     source: "angle20.png"
                     anchors.centerIn: parent
-                    height: Screen.height/13
+                    height: Screen.height/14
                     width: height
                 }
 
@@ -401,7 +401,7 @@ Item {
                     id: resistorAngle3
                     source: "angle50.png"
                     anchors.centerIn: parent
-                    height: Screen.height/12
+                    height: Screen.height/14
                     width: height
                 }
 //                Text{
@@ -446,7 +446,7 @@ Item {
                     id: resistorAngle2
                     source: "angle80.png"
                     anchors.centerIn: parent
-                    height: Screen.height/12
+                    height: Screen.height/14
                     width: height
                 }
 //                Text{
@@ -491,7 +491,7 @@ Item {
                     id: resistorAngle1
                     source: "angle110.png"
                     anchors.centerIn: parent
-                    height: Screen.height/12
+                    height: Screen.height/14
                     width: height
                 }
 //                Text{
@@ -535,7 +535,7 @@ Item {
                     id: resistorAngle0
                     source: "angle0.png"
                     anchors.centerIn: parent
-                    height: Screen.height/12
+                    height: Screen.height/14
                     width: height
                 }
 //                Text{
