@@ -25,6 +25,7 @@ Entity{
         translation: Qt.vector3d(xVal,yVal,zVal)
 
     }
+    /* DiffuseMapMaterial is used for the texture */
     property Material material: DiffuseMapMaterial {
         id: theMaterial
         diffuse: "poleTexture.png"
@@ -32,7 +33,6 @@ Entity{
         specular: Qt.rgba( 1, 1, 1, 1.0 )
         shininess: 0
     }
-
     property ObjectPicker objectPicker: ObjectPicker {
 
         onClicked: {
@@ -40,8 +40,6 @@ Entity{
             myGameScreen.prevClickedSource = myGameScreen.clickedSource;
             myGameScreen.clickedSource = sourceNr;
             myGameScreen.updateTutorial();
-            /*make text boxes (dis)appear on clicking the ball*/
-            console.log("clicked source: " + myGameScreen.clickedSource + "prev clicked source: " + myGameScreen.prevClickedSource )
             if(myGameScreen.prevClickedSource === myGameScreen.clickedSource  || myGameScreen.prevClickedSource === -1 )
                 myGameScreen.showBox = !myGameScreen.showBox;
             if(!myGameScreen.showBox)

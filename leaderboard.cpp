@@ -5,7 +5,8 @@ Leaderboard::Leaderboard(QObject *parent) : QObject(parent)
     this->setLowestEntry(0);
     this->setHighScore(0);
 }
-
+/* method that reads the text file
+ * and stores it in an array */
 void Leaderboard::readLeaderboard(int level)
 {
     QFile * file = new QFile(QDir::currentPath() + "/leaderboard"+QString::number(level)+ ".txt");
@@ -42,13 +43,12 @@ void Leaderboard::readLeaderboard(int level)
     amountOfEntries = row;
     file->close();
 }
-
+/* method to add level to the array */
 void Leaderboard::addEntry(QString name, int stars, int clicks)
 {
     int checkClicks = 0;
     name = name.simplified();
-    name.replace( " ", "" );
-
+    name.replace( " ", "_" );
     unsigned int i = 0;
     vector <QString> rowVector(3);
     while(clicks >= checkClicks)
@@ -77,7 +77,7 @@ void Leaderboard::addEntry(QString name, int stars, int clicks)
         amountOfEntries--;
     }
 }
-
+/* method to update the textfile */
 void Leaderboard::writeLeaderBoard(int level)
 {
     QString path = QDir::currentPath() + "/leaderboard"+ QString::number(level)  +".txt";
@@ -99,7 +99,7 @@ void Leaderboard::writeLeaderBoard(int level)
     }
     file->close();
 }
-
+/* getters and setter */
 QString Leaderboard::giveName(int index)
 {
     QString name = 0;

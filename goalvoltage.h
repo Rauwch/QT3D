@@ -1,7 +1,7 @@
 #ifndef GOALVOLTAGE_H
 #define GOALVOLTAGE_H
 
-
+/* Object to store a voltage goal */
 class GoalVoltage
 {
 public:

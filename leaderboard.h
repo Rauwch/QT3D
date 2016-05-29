@@ -10,6 +10,7 @@
 #include <vector>
 
 using namespace std;
+/*Object that stores and updates the leaderboards */
 class Leaderboard : public QObject
 {
 Q_OBJECT

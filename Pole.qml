@@ -7,10 +7,7 @@ import QtQuick 2.2 as QQ2
 Entity{
     id:pole
 
-    //property real s: 1 //Grote van bron, bepaald door spanning
-
-
-    //Positie variablen
+    /*Positie variablen*/
     property real x: 0
     property real y: 0
     property real z: 0

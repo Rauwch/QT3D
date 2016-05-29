@@ -44,15 +44,6 @@ Entity{
             to: lnew
             duration: 500
         }
-//        QQ2.PropertyAnimation{
-//            id: part2
-//            target: node
-//            easing.type: "InOutSine"
-//            property: "a"
-//            from: aprev
-//            to: anew
-//            duration: 1000
-//        }
         QQ2.PropertyAnimation{
             id: part3
             target: node
@@ -88,7 +79,8 @@ Entity{
         }
     }
 
-    function activateAnimation(){
+    function activateAnimation()
+    {
         bentAnimation.running = true;
     }
 
@@ -115,7 +107,6 @@ Entity{
 
                 id:trans
                 translation: Qt.vector3d(0, -0.5, 0)
-
             }
 
             property Material material: DiffuseMapMaterial {
@@ -128,7 +119,6 @@ Entity{
 
         }
 
-
         Transform{
             id:retrans
             matrix: {
@@ -140,37 +130,12 @@ Entity{
             scale3D: Qt.vector3d(0.005*s,l,0.005*s)
         }
     }
-    //    Entity{
-    //        id:tilted1
-    //        components: [finmesh,fintrans]
-    //    }
-    //    Entity{
-    //        id:tilted2
-    //        components: [finmesh,fintrans2]
-    //    }
 
     Transform{
         id:fintrans
         rotation: fromAxisAndAngle(Qt.vector3d(0,1,0),orientationAngle)
         translation: (Qt.vector3d(x, y, z))
     }
-    //    Transform{
-    //        id:fintrans
-    //        rotation: fromAxisAndAngle(Qt.vector3d(0,1,0),orientationAngle-45)
-    //        translation: (Qt.vector3d(x, y, z))
-    //    }
-
-
-    //    property ObjectPicker objectPicker: ObjectPicker {
-    //        hoverEnabled: true;
-    //        onEntered: console.log("hover")
-    //        onExited: console.log("exit hover")
-    //        onClicked: {
-    //            console.log("clicked on a resistor");
-    //            myGameScreen.showBox = !myGameScreen.showBox;
-    //        }
-    //    }
-
 }
 
 

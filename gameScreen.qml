@@ -13,6 +13,8 @@ import Calc 1.0
 
 Item {
     id: myGameScreen
+
+    /* all booleans to control the visibility of objects */
     property bool showBox
     property bool showRes
     property bool showSwitch
@@ -21,14 +23,19 @@ Item {
     property bool showLeaderboardEntry: true
     property bool checkBoard: false
     property bool playingAnimation: false
+
+    /* variables to change the size of the right jelliefish */
     property int jellyPixelHeight
     property int jellyPixelWidth
     property int jellySize: 0
 
+    /* variables to see which object got clicked */
     property int clickedSource: -1
     property int prevClickedSource: -1
     property int clickedRes
     property int clickedSwitch
+
+    /* variables for the progress and highscore */
     property int numClicks: 0
     property int highScore: 0
 
@@ -37,12 +44,11 @@ Item {
 
     Component.onCompleted: {
 
-        // #crash# out of memory after
         console.log("GameScreen is complteded");
-        console.log("current level" + myLevels.getCurrentLevel()) ;
+
         setPopupWindowForTutorial(myLevels.getCurrentLevel());
         if(myLevels.getCurrentLevel() === 1 || myLevels.getCurrentLevel() === 4 || myLevels.getCurrentLevel()  === 7 || myLevels.getCurrentLevel() === 13 || myLevels.getCurrentLevel() === 15){
-            console.log("tutorial");
+            console.log("This is a tutorial");
             tutorialScreen.numberOfLevel = myLevels.getCurrentLevel();
             tutTimer.start();
             rotateCamera.visible = false;
@@ -51,14 +57,12 @@ Item {
         {
             rotateCamera.visible = true;
         }
-
-
     }
     Component.onDestruction: {
         console.log("gamescreen destroyed");
     }
 
-
+    /* timer to delay showing the tutorial screen */
     property Timer tutTimer: Timer{
         Component.onCompleted: {
             console.log("tutTimer is completed");
@@ -68,7 +72,7 @@ Item {
         repeat: false
         onTriggered: tutorialScreen.visible = true
     }
-
+    /* instance of the calculator */
     property Calculator calculator: Calculator{
         Component.onCompleted: {
             console.log("calculator is completed");
@@ -84,10 +88,6 @@ Item {
         interval: 500
         repeat: false
         onTriggered: {
-            //increaseHeightAction.enabled = true;
-            //decreaseHeightAction.enabled = true;
-            //increaseResistorAction.enabled = true;
-            //decreaseResistorAction.enabled = true;
             changeSwitchAction.enabled =true;
         }
 
@@ -125,9 +125,8 @@ Item {
             }
         }
     }
-
+    /* row for the return and retry button */
     Row{
-
         Component.onCompleted: {
             console.log("return row is completed");
         }
@@ -159,11 +158,8 @@ Item {
                 anchors.centerIn: parent
             }
             onClicked: {
-                //need this destroy first to not crash program
-                //world.destroyCamera();
                 pageLoader.source = "";
                 pageLoader.source = "LevelScreen.qml";
-                console.log("world is destroyed");
             }
 
         }
@@ -173,8 +169,6 @@ Item {
             height: width
             style: ButtonStyle {
                 background: Rectangle {
-                    //implicitWidth: 100
-                    //implicitHeight: 25
                     border.width: 2
                     border.color: "black"
                     radius: width*0.5
@@ -192,9 +186,6 @@ Item {
                 anchors.centerIn: parent
             }
             onClicked: {
-                //need this destroy first to not crash program
-                //world.destroyCamera();
-                console.log("world is destroyed");
                 pageLoader.source = "";
                 pageLoader.source = "GameScreen.qml";
 
@@ -202,6 +193,7 @@ Item {
 
         }
     }
+    /* textfield to show the amount of clicks */
     TextField{
         Component.onCompleted: {
             console.log("counter is completed");
@@ -214,6 +206,7 @@ Item {
         readOnly: true
         font.pixelSize: 30
     }
+    /* textfield to show the highscore */
     TextField{
         id: counterHighScore
         //visible: false
@@ -240,7 +233,7 @@ Item {
         anchors.left: parent.left
         anchors.bottom: parent.bottom
     }
-
+    /* pink jellyfish in the right corner */
     Image{
         Component.onCompleted: {
             console.log("jellyGoal is completed");
@@ -249,7 +242,7 @@ Item {
         source: "jellyGoal.png"
 
     }
-
+    /* grey jellyfish in the right corner */
     Image{
         Component.onCompleted: {
             console.log("jelly is completed");
@@ -258,7 +251,7 @@ Item {
         source: "jelly.png"
 
     }
-
+    /* button to rotate the camera */
     Button{
         Component.onCompleted: {
             console.log("rotate camera is completed");
@@ -302,6 +295,7 @@ Item {
             }
         }
     }
+    /* the resistor menu */
     Rectangle{
         Component.onCompleted: {
             console.log("resistorMenu is completed");
@@ -357,19 +351,6 @@ Item {
                     width: height
                 }
 
-//                Text{
-//                    anchors.centerIn: parent
-//                    id: resistorAt4Text
-//                    text: "Niveau 5"
-//                    renderType: Text.NativeRendering
-//                    verticalAlignment: Text.AlignVCenter
-//                    horizontalAlignment: Text.AlignHCenter
-//                    font.family: "Helvetica"
-//                    font.pointSize: 20
-//                    color: "black"
-//                }
-
-
                 style: ButtonStyle {
                     background: Rectangle {
                         implicitWidth: 100
@@ -383,8 +364,6 @@ Item {
                         }
                     }
                 }
-
-
             }
             Button{
                 id: resistorAt3
@@ -404,17 +383,6 @@ Item {
                     height: Screen.height/14
                     width: height
                 }
-//                Text{
-//                    anchors.centerIn: parent
-//                    id: resistorAt3Text
-//                    text: "Niveau 4"
-//                    renderType: Text.NativeRendering
-//                    verticalAlignment: Text.AlignVCenter
-//                    horizontalAlignment: Text.AlignHCenter
-//                    font.family: "Helvetica"
-//                    font.pointSize: 20
-//                    color: "black"
-//                }
                 style: ButtonStyle {
                     background: Rectangle {
                         implicitWidth: 100
@@ -428,8 +396,6 @@ Item {
                         }
                     }
                 }
-
-
             }
             Button{
                 id: resistorAt2
@@ -449,17 +415,7 @@ Item {
                     height: Screen.height/14
                     width: height
                 }
-//                Text{
-//                    anchors.centerIn: parent
-//                    id: resistorAt2Text
-//                    text: "Niveau 3"
-//                    renderType: Text.NativeRendering
-//                    verticalAlignment: Text.AlignVCenter
-//                    horizontalAlignment: Text.AlignHCenter
-//                    font.family: "Helvetica"
-//                    font.pointSize: 20
-//                    color: "black"
-//                }
+
                 style: ButtonStyle {
                     background: Rectangle {
                         implicitWidth: 100
@@ -494,17 +450,6 @@ Item {
                     height: Screen.height/14
                     width: height
                 }
-//                Text{
-//                    anchors.centerIn: parent
-//                    id: resistorAt1Text
-//                    text: "Niveau 2"
-//                    renderType: Text.NativeRendering
-//                    verticalAlignment: Text.AlignVCenter
-//                    horizontalAlignment: Text.AlignHCenter
-//                    font.family: "Helvetica"
-//                    font.pointSize: 20
-//                    color: "black"
-//                }
                 style: ButtonStyle {
                     background: Rectangle {
                         implicitWidth: 100
@@ -518,7 +463,6 @@ Item {
                         }
                     }
                 }
-
             }
             Button{
                 id: resistorAt0
@@ -538,17 +482,6 @@ Item {
                     height: Screen.height/14
                     width: height
                 }
-//                Text{
-//                    anchors.centerIn: parent
-//                    id: resistorAt0Text
-//                    text: "Niveau 1"
-//                    renderType: Text.NativeRendering
-//                    verticalAlignment: Text.AlignVCenter
-//                    horizontalAlignment: Text.AlignHCenter
-//                    font.family: "Helvetica"
-//                    font.pointSize: 20
-//                    color: "black"
-//                }
                 style: ButtonStyle {
                     background: Rectangle {
                         implicitWidth: 100
@@ -632,10 +565,6 @@ Item {
                     font.pointSize: 20
                     color: "black"
                 }
-
-
-
-
             }
             Button{
                 id: sourceAt3
@@ -791,7 +720,7 @@ Item {
     }
 
 
-    /* toggle switch */
+    /* Switch menu */
     Rectangle{
         Component.onCompleted: {
             console.log("switchMenu is completed");
@@ -905,7 +834,7 @@ Item {
         }
     }
 
-
+    /* winddow that pops up after finishing a level */
     Rectangle{
 
         Component.onCompleted: {
@@ -1020,8 +949,6 @@ Item {
                 }
 
                 onClicked: {
-
-                    //world.destroyCamera();
                     pageLoader.source = "LevelScreen.qml";
                     console.log("world is destroyed");
                 }
@@ -1138,15 +1065,12 @@ Item {
 
     //this are all the functions
 
-
     function openSwitchFunc(){
         numClicks++;
         calculator.openSwitch(clickedSwitch);
         world.generator.rotateOpenSwitch(clickedSwitch)
         calculator.solveLevel();
-        world.generator.updateGoalPoles();
-        delayTimer.start();
-
+        //delayTimer.start();
         switchOpenImage.visible = true;
         switchCloseImage.visible = false;
         if(calculator.checkGoals())
@@ -1156,8 +1080,9 @@ Item {
             checkLeaderboard()
             myTimer.start();
         }
-
+        world.generator.updateGoalPoles();
         world.generator.updateLevel();
+        calculateSize();
     }
 
     function setSwitchHighlight(){
@@ -1169,18 +1094,19 @@ Item {
             switchCloseImage.visible = true;
     }
 
-    function closeSwitchMenu(){
+    function closeSwitchMenu()
+    {
         switchOpenImage.visible = false;
         switchCloseImage.visible = false;
     }
 
-    function closeSwitchFunc(){
-
+    function closeSwitchFunc()
+    {
         numClicks++;
         calculator.closeSwitch(clickedSwitch);
         world.generator.rotateCloseSwitch(clickedSwitch)
         calculator.solveLevel();
-        world.generator.updateGoalPoles();
+
         delayTimer.start();
         switchOpenImage.visible = false;
         switchCloseImage.visible = true;
@@ -1191,30 +1117,11 @@ Item {
             checkLeaderboard()
             myTimer.start();
         }
-
-        world.generator.updateLevel();
-    }
-
-    function toggleSwitch(state)
-    {
-        changeSwitchAction.enabled= false;
-        numClicks++;
-
-        calculator.toggleSwitch(clickedSwitch);
-        world.generator.toRotateSwitch(clickedSwitch);
-        calculator.solveLevel();
         world.generator.updateGoalPoles();
-        delayTimer.start();
-        if(calculator.checkGoals())
-        {
-            hideElements();
-            myLevels.setAmountOfStars(numClicks,calculator.getTwoStar(), calculator.getThreeStar());
-            checkLeaderboard();
-            myTimer.start();
-        }
-
         world.generator.updateLevel();
+        calculateSize();
     }
+
     /* Represents the goal current and the present current by the size of the jellyfishes */
     function calculateSize(){
         var Icurrent = calculator.getCurrentInGoalWire();
@@ -1304,20 +1211,14 @@ Item {
     function hideElements(){
         retryButton.visible = false;
         returnButton.visible = false;
-        //resistorBox.visible = false;
-        //textBox.visible = false;
         sourceMenu.visible = false;
         resistorMenu.visible = false;
         switchMenu.visible = false;
         switchMenu.visible = false;
-        //jelly.visible = false;
-        //jellyGoal.visible = false;
         rotateCamera.visible = false;
         counter.visible = false;
         counterHighScore.visible = false;
-        //changeSwitch.visible = false;
         tutorialScreen.setTextInvis();
-
     }
 
     function showElements(){
@@ -1325,12 +1226,7 @@ Item {
         returnButton.visible = true;
         counter.visible = true;
         counterHighScore.visible = true;
-
-        //        jelly.visible = true;
-        //        jellyGoal.visible = true;
-        //rotateCamera.visible = true;
         counter.visible = true;
-        //changeSwitch.visible = true;
 
     }
     /* function returns if the textfield to enter a new entry in the leaderLoader, should be shown */
@@ -1386,7 +1282,7 @@ Item {
             congratsText.text = "5de oefening voltooid!";
             break;
         default:
-            congratsText.text = "Level Cleared!";
+            congratsText.text = "Level voltooid!";
             break;
         }
     }
@@ -1398,47 +1294,35 @@ Item {
     }
 
     function setResistorMenu(clickedResistorArray){
-        //console.log(" change resistor " + clickedRes + " place in array " + clickedResistorArray);
         calculator.adjustResistance(clickedRes, world.generator.getArrayValueOfResistor(clickedRes,clickedResistorArray));
         calculator.solveLevel();
+
         world.generator.changeRes(clickedRes,clickedResistorArray);
         resistorAt0Image.visible = false;
         resistorAt1Image.visible = false;
         resistorAt2Image.visible = false;
         resistorAt3Image.visible = false;
         resistorAt4Image.visible = false;
-        //resistorAt0Text.color = "black"
-        //resistorAt1Text.color = "black"
-        //resistorAt2Text.color = "black"
-        //resistorAt3Text.color = "black"
-        //resistorAt4Text.color = "black"
 
         world.generator.setPositionInResArray(clickedRes,clickedResistorArray);
         switch ( clickedResistorArray)
         {
         case 0:
             resistorAt0Image.visible = true;
-            //resistorAt0Text.color = "white"
             break;
         case 1:
             resistorAt1Image.visible = true;
-            //resistorAt1Text.color = "white"
             break;
         case 2:
             resistorAt2Image.visible = true;
-            //resistorAt2Text.color = "white"
             break;
         case 3:
             resistorAt3Image.visible = true;
-            //resistorAt3Text.color = "white"
             break;
         case 4:
             resistorAt4Image.visible = true;
-            //resistorAt4Text.color = "white"
             break;
         }
-
-        // deze functie zou niet meer nodig zijn
         numClicks++;
         delayTimer.start();
         if(calculator.checkGoals()){
@@ -1455,30 +1339,21 @@ Item {
 
 
     function setResistorHighlight(){
-        //console.log(" change resistor " + clickedRes);
         switch(world.generator.getPositionInResArray(clickedRes)){
         case (0):
             resistorAt0Image.visible = true;
-            //resistorAt0Text.color = "white";
             break;
         case (1):
             resistorAt1Image.visible = true;
-            //resistorAt1Text.color = "white";
             break;
         case (2):
             resistorAt2Image.visible = true;
-            //resistorAt2Text.color = "white";
-
             break;
         case (3):
             resistorAt3Image.visible = true;
-            //resistorAt3Text.color = "white";
-
             break;
         case (4):
             resistorAt4Image.visible = true;
-            //resistorAt4Text.color = "white";
-
             break;
         default:
             break;
@@ -1487,7 +1362,6 @@ Item {
     }
     function closeSourceMenu()
     {
-        //console.log(" hide source Highligtht " + clickedSource);
         sourceAt0Image.visible = false;
         sourceAt1Image.visible = false;
         sourceAt2Image.visible = false;
@@ -1497,22 +1371,15 @@ Item {
 
     function closeResistorMenu()
     {
-        //console.log(" hide source Highligtht " + clickedSource);
         resistorAt0Image.visible = false;
         resistorAt1Image.visible = false;
         resistorAt2Image.visible = false;
         resistorAt3Image.visible = false;
         resistorAt4Image.visible = false;
-        //resistorAt0Text.color = "black"
-        //resistorAt1Text.color = "black"
-        //resistorAt2Text.color = "black"
-        //resistorAt3Text.color = "black"
-        //resistorAt4Text.color = "black"
 
     }
     function setSourceHighlight()
     {
-        //console.log(" source Highligtht " + clickedSource);
         switch(world.generator.getPositionInArray(clickedSource)){
         case (0):
             sourceAt0Image.visible = true;
@@ -1566,8 +1433,6 @@ Item {
             sourceAt4Image.visible = true;
             break;
         }
-
-        // deze functie zou niet meer nodig zijn
         numClicks++;
         delayTimer.start();
         if(calculator.checkGoals()){
@@ -1578,7 +1443,6 @@ Item {
         }
         world.generator.updateGoalPoles();
         world.generator.updateLevel();
-
         calculateSize();
     }
 

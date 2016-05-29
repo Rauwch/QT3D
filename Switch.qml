@@ -65,7 +65,6 @@ Entity{
     BalSwitch{
         QQ2.Component.onCompleted: {
             bal1.switchNr = theSwitch.switchNr;
-            console.log("set  bal switchNr " + bal2.switchNr)
         }
         id:bal1
         xVal: theSwitch.x
@@ -77,8 +76,6 @@ Entity{
     BalSwitch{
         QQ2.Component.onCompleted: {
             bal2.switchNr = theSwitch.switchNr;
-            console.log("set  bal switchNr " + bal2.switchNr)
-
         }
         id:bal2
         xVal: {

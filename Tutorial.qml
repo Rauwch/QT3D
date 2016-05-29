@@ -42,22 +42,15 @@ Rectangle{
         }
 
         Image{
-
-//            width: pointer.paintedWidth * 0.7
-//            height: pointer.paintedHeight * 0.7
-
             id: pointer
             source: "pointer-left.png"
             visible: showPointer
             anchors.left: parent.right
             anchors.leftMargin: -5
             anchors.verticalCenter: parent.verticalCenter
-            //rotation: -90
             Component.onCompleted: {
-                pointer.width = pointer.paintedWidth * 0.7
-                pointer.height = pointer.paintedHeight * 0.6
-                //pointer.x = -5;
-
+                pointer.width = pointer.paintedWidth * 0.7;
+                pointer.height = pointer.paintedHeight * 0.6;
             }
         }
         Text{
@@ -70,7 +63,6 @@ Rectangle{
             font.pointSize: textFontSize
         }
         Button{
-
             id:buttonNext
             visible: {stage <= numStages}
             anchors.horizontalCenter: parent.horizontalCenter
@@ -83,7 +75,6 @@ Rectangle{
                 anchors.centerIn: parent
                 text:"Volgende"
                 verticalAlignment: Text.AlignVCenter
-                //anchors.verticalCenter: buttonNext.verticalCenter
                 font.family: "Helvetica"
                 font.pointSize: buttonFontSize
             }
@@ -103,13 +94,10 @@ Rectangle{
                 updateInstructions();
             }
         }
-
     }
-
 
     function setInstructionText(){
         var physScreenSize = myGameScreen.getPhysicalScreenWidth();
-        //console.log("screensize: " + physScreenSize);
         if(physScreenSize >= 300){
             textFontSize = 12;
             buttonFontSize = 15;
@@ -126,7 +114,6 @@ Rectangle{
             screenType = 1;
 
         }
-        //console.log("fontsize " + instructionText.font.pointSize);
 
         switch(numberOfLevel){
         case(1):
@@ -466,21 +453,7 @@ Rectangle{
                         instructionText.text = "<strong><u>STAP 4/4</u></strong><br></br>Heel goed! <br></br>Probeer nu de kwallen<br></br>op de rode lijn<br></br>de juiste grootte te geven.";
                     }
                     break;
-//                case(15):
-//                    buttonNext.visible = false;
-//                    instructionWindow.height = 132*(screenType+1);;
-//                    ballExplained = true;
-//                    unAnchors();
-//                    instructionWindow.anchors.bottom = screenWindow.bottom;
-//                    instructionWindow.anchors.bottomMargin = Screen.width/20;
-//                    instructionWindow.anchors.right = screenWindow.right;
-//                    instructionWindow.anchors.rightMargin = Screen.width/8;
-//                    instructionText.text = "<strong><u>STAP 2/2</u></strong><br></br>Heel goed! <br></br><i>Klik op de knoppen</i> om<br></br>de brug te veranderen.";
-//                    break;
-                    //add new case
                 }
-
-
             }
         }
     }

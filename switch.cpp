@@ -17,10 +17,7 @@ void Switch::toggleSwitch()
         value = std::numeric_limits<float>::infinity();
         up=true;
     }
-
 }
-
-
 
 bool Switch::getUp() const
 {

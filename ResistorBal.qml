@@ -37,7 +37,6 @@ Entity{
     }
     property ObjectPicker objectPicker: ObjectPicker {
         onClicked: {
-            //console.log("clicked on a THERESISTOR");
             myGameScreen.clickedRes = resistorNr;
             myGameScreen.updateTutorial();
             myGameScreen.showRes = !myGameScreen.showRes;
@@ -50,9 +49,8 @@ Entity{
 
         }
     }
-    QQ2.SequentialAnimation{
-
-
+    QQ2.SequentialAnimation
+    {
         running: true
         loops: QQ2.Animation.Infinite
         QQ2.NumberAnimation {

@@ -15,7 +15,6 @@
         <file>Resistor.qml</file>
         <file>Generator.qml</file>
         <file>Elektron.qml</file>
-        <file>TestWorld.qml</file>
         <file>Pole.qml</file>
         <file>GoalPole.qml</file>
         <file>Cube.qml</file>

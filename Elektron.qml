@@ -59,6 +59,7 @@ Entity{
         translation: (Qt.vector3d(x, y, z))
         scale: s*2
     }
+    /* animates the movement of the electrons */
     QQ2.SequentialAnimation{
         running: true
         loops: QQ2.Animation.Infinite

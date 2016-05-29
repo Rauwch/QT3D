@@ -107,8 +107,6 @@ Entity{
             //Lengte van de weerstand
             length = Math.abs(((maxVolt-minVolt))/Math.cos(angle));
             var fixedOA = 90*(calculator.getAngleOfResistor(i)-1);
-            console.log("angle of Res " + calculator.getAngleOfResistor(i));
-
             if(((calculator.getAngleOfResistor(i))) === 4){
                 //fixedOA = 90;
             }
@@ -124,9 +122,15 @@ Entity{
                                                           "orientationAngle":fixedOA });
 
             resistor.parent=root.parent;
-            resistor.setButtonValues(calculator.getInitialOfResistor(i),calculator.getStepOfResistor(i),calculator.getButtonDiffOfResistor(i));
+            if(resistor.clickable)
+                resistor.setButtonValues(calculator.getInitialOfResistor(i),calculator.getStepOfResistor(i),calculator.getButtonDiffOfResistor(i));
+            else
+                resistor.positionInArray = 2;
+            resistor.angleOfBends = bendValues[resistor.positionInArray];
             root.resistors[i]=resistor;
             root.resistors[i].makeBends();
+            // zet de juiste hoek
+
         }
 
 
@@ -219,16 +223,16 @@ Entity{
 
     /* if the voltage in a node is the same as the goal voltage, the GoalPole will color green */
     function updateGoalPoles(){
-//        for( var i = 0; i< goals.length; i++){
-//            if( calculator.getMatch(i)){
-//                // #crash# out of memory
-//                console.log("groen maken enzo");
-//                goals[i].setGreen();
-//            }
-//            else{
-//                goals[i].setRed();
-//            }
-//        }
+        for( var i = 0; i< goals.length; i++){
+            if( calculator.getMatch(i)){
+                // #crash# out of memory
+                console.log("groen maken enzo");
+                goals[i].setGreen();
+            }
+            else{
+                goals[i].setRed();
+            }
+        }
     }
     function changeRes(resNr, pos)
     {
@@ -290,7 +294,7 @@ Entity{
             wires[i].eSize = calculator.getCurrentofWire(i)*1000;
             for(var j = 0; j < wires[i].electrons.length; j++)
             {
-                wires[i].electrons[j].s = calculator.getCurrentofWire(i);
+                wires[i].electrons[j].s = Math.abs(calculator.getCurrentofWire(i));
             }
         }
 
@@ -301,7 +305,6 @@ Entity{
         }
 
         /* update switches */
-
         for( i = 0; i < switches.length; i++)
         {
             maxVolt = Math.max(calculator.voltageAtNode(calculator.node1AtSwitch(i)),calculator.voltageAtNode(calculator.node2AtSwitch(i)));
@@ -328,7 +331,6 @@ Entity{
     }
 
     /* to rotate the switch */
-
     function rotateOpenSwitch(switchNr)
     {
         if(!switches[switchNr].switchIsOpen)
@@ -383,6 +385,9 @@ Entity{
     {
         resistors[resNr].positionInArray = pos;
     }
+
+
+
 }
 
 

@@ -75,23 +75,16 @@ Item {
                         case 14:
                             levelText.text= "Oefening " + 5;
                             break;
-
                         }
-
                     }
                 }
-
                 border.width: 2
-
                 border.color: "#063e79"
                 gradient: Gradient {
                     GradientStop { position: 0 ; color: "#2589f4" }
                     GradientStop { position: 1 ; color: "#0b6fda" }
                 }
                 radius: 10
-
-
-                //border.width: 3
                 Text{
                     id: levelText
                     anchors.centerIn: parent
@@ -120,9 +113,7 @@ Item {
                     anchors.fill: parent
 
                     onClicked: {
-                        //game.visible = true;
                         myLevels.setCurrentLevel(index + 1);
-
                         pageLoader.source = "GameScreen.qml";
                     }
                 }

@@ -1,15 +1,12 @@
 #include "levels.h"
 
-
-
-
 Levels::Levels(QObject *parent) : QObject(parent)
 {
     getLevelAmount();
-
-
 }
-
+/* method that checks if the save file already exists,
+ * if not it will create it else it will read it out
+ * and fill the array */
 void Levels::getLevelAmount()
 {
     QString path = QDir::currentPath() + "/levels.txt";
@@ -75,7 +72,7 @@ void Levels::getLevelAmount()
     file->close();
     newFile->close();
 }
-
+/* print array used for debugging */
 void Levels::printArray()
 {
     for(int i = 0; i <amountOfLevels; i++)
@@ -86,7 +83,8 @@ void Levels::printArray()
         }
     }
 }
-
+/* method that is caleld after completing a level to
+ * store the progress in the array and the text file */
 void Levels::refreshTextFile()
 {
     QString path = QDir::currentPath() + "/levels.txt";
@@ -109,7 +107,7 @@ void Levels::refreshTextFile()
         output << endl;
     }
 }
-
+/* method to reset the progress */
 void Levels::resetLevels()
 {
     QString path = QDir::currentPath() + "/levels.txt";
@@ -120,7 +118,7 @@ void Levels::resetLevels()
     QStringList list;
     levelArray.clear();
     /* boolean gets set if the newFile already exists*/
-    bool fileExists = newFile->exists();
+    //bool fileExists = newFile->exists();
     vector <int> rowVector(2);
     int row = 0;
     if(!file->open(QIODevice::ReadOnly| QIODevice::Text))

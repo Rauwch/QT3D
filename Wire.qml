@@ -28,12 +28,11 @@ Entity{
     components: [finmesh,fintrans]
 
 
-    function toColor(){
-
-        console.log("Coloring goal wire");
+    function toColor()
+    {
         if(isGoal){
             if(!match)
-                 return "goalPole.png";
+                return "goalPole.png";
             else
                 return "goalPoleGo.png"
         }
@@ -64,12 +63,12 @@ Entity{
         Entity{
             //basismodel draad
             id:wismesh
-//            QQ2.Component.onCompleted: {
-//                if(isGoal)
-//                    components: [mesh, trans,matGoal]
-//                else
-//                    components: [mesh, trans,mat]
-//            }
+            //            QQ2.Component.onCompleted: {
+            //                if(isGoal)
+            //                    components: [mesh, trans,matGoal]
+            //                else
+            //                    components: [mesh, trans,mat]
+            //            }
             components: [mesh, trans,theMaterial]
 
             CylinderMesh {

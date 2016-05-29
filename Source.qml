@@ -7,60 +7,56 @@ import QtQuick 2.2 as QQ2
 Entity{
     id:source
     property var sourceNr
-    property real s: 1 //Grote van bron, bepaald door spanning
-    //Positie variablen
+    /* size of the source */
+    property real s: 1
+
+    /*postion variables */
     property real x: 0
     property real y: 0
     property real z: 0
+
     property bool clickable: false
-    //property var clickableBal
     property var eSize: 7
     property real positionInArray: 0
     property var buttonValues: [0,0,0,0,0]
 
-    QQ2.Behavior on s{
+    QQ2.Behavior on s
+    {
+        QQ2.NumberAnimation{
+            duration: 500
+            easing.type: "InOutSine"
+        }
+    }
+    QQ2.Behavior on y
+    {
         QQ2.NumberAnimation{
             duration: 500
             easing.type: "InOutSine"
         }
     }
 
-
-    QQ2.Behavior on y{
-        QQ2.NumberAnimation{
-            duration: 500
-            easing.type: "InOutSine"
-        }
-    }
-
-    QQ2.QtObject{
-
-        id:o
-
-        //Variables for spawning objects
-        property var balFactory
-    }
+    /*sets which button will be highlighted */
     function setButtonValues(initial, step, difference)
     {
         var rng;
-       var isPositive = ( difference > 0 );
-       if(isPositive)
-             rng = Math.floor((Math.random() * (5 - difference)) + 1) - 1;
-       else
-             rng = Math.floor((Math.random() * (5+(difference))) + 1)+((-1)*(difference)-1);
-       buttonValues[rng] = initial;
-       positionInArray = rng;
-       for( var i = rng +1; i < 5; i++)
-       {
-           buttonValues[i]= initial + (i - rng) * step;
-       }
-       if( rng != 0)
-       {
-           for(  i = rng - 1 ; i >= 0; i--)
-           {
-               buttonValues[i]= initial - (rng - i) * step;
-           }
-       }
+        var isPositive = ( difference > 0 );
+        if(isPositive)
+            rng = Math.floor((Math.random() * (5 - difference)) + 1) - 1;
+        else
+            rng = Math.floor((Math.random() * (5+(difference))) + 1)+((-1)*(difference)-1);
+        buttonValues[rng] = initial;
+        positionInArray = rng;
+        for( var i = rng +1; i < 5; i++)
+        {
+            buttonValues[i]= initial + (i - rng) * step;
+        }
+        if( rng !== 0)
+        {
+            for(  i = rng - 1 ; i >= 0; i--)
+            {
+                buttonValues[i]= initial - (rng - i) * step;
+            }
+        }
     }
     QQ2.Component.onCompleted: {
         if(!clickable)
@@ -83,13 +79,6 @@ Entity{
             id:somesh
             components: [cmesh,trans,material]
 
-            CuboidMesh {
-                id:mesh
-                yzMeshResolution: Qt.size(2, 2)
-                xzMeshResolution: Qt.size(2, 2)
-                xyMeshResolution: Qt.size(2, 2)
-            }
-
             CylinderMesh{
                 id: cmesh
                 radius: 1
@@ -102,7 +91,6 @@ Entity{
             }
 
             property Material material: DiffuseMapMaterial {
-                id: theMaterial
                 diffuse: "poleTexture.png"
                 ambient: Qt.rgba( 1, 1, 1, 1.0 )
                 specular: Qt.rgba( 1, 1, 1, 1.0 )
